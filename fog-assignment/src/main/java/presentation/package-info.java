@@ -1,6 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    This package will be used to store:
+        -   all the classes that have to do with the business logic 
+        -   Servlets that handle the communication with presentation layer
+        -   facades that handle communication with the db
+*/
 package presentation;
