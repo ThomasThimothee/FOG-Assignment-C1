@@ -4,3 +4,5 @@
  * and open the template in the editor.
  */
 package data;
+
+//This package is mainly used for datamapping and facades
