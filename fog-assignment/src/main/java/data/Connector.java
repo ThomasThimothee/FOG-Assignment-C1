@@ -1,10 +1,7 @@
 package data;
 
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Connector {
@@ -20,13 +17,11 @@ public class Connector {
         try {
             Class.forName(DRIVER);
             con = DriverManager.getConnection(URL, ID, PW);  // The connection will be released upon program 
-
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("\n*** Remember to insert your  ID and PW in the DBConnector class! ***\n");
             System.out.println("error in DBConnector.getConnection()");
             System.out.println(e);
         }
-
         return con;
     }
 
