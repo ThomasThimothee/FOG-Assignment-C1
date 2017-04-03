@@ -1,0 +1,39 @@
+@startuml
+|Customer|
+start
+:Select custom carport page;
+:Select custom carport types;
+:Insert dimensions;
+:pre order;
+|IT System|
+while (check correct pre-order?) is (not correct)
+    |Customer|
+    :modify pre-order;
+endwhile (correct)
+|IT System|
+fork
+    :Assign sales rep;
+fork again
+    :Send confirmation sms/email;
+end fork
+|SalesRep|
+:Review pre-order;
+:Contact Customer;
+:validate pre-order;
+|Customer|
+:file authorization;
+|Kommune|
+if (validates building?) then (no)
+    |Customer|
+    :Restart process from scratch;
+    detach
+else (yes)
+    |Customer|
+    :Finalize order;
+    |IT System|
+    :redirect;
+    |Sales Rep|
+    :call Customer and finalize details;
+endif
+stop
+@enduml
