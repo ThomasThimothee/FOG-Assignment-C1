@@ -23,7 +23,7 @@ end fork
 |Customer|
 :file authorization;
 |Kommune|
-if (validates building?) then (no)
+if (validate building?) then (no)
     |Customer|
     :Restart process from scratch;
     detach
@@ -31,8 +31,8 @@ else (yes)
     |Customer|
     :Finalize order;
     |IT System|
-    :redirect;
-    |Sales Rep|
+    :notify salesRep;
+    |SalesRep|
     :call Customer and finalize details;
 endif
 stop
