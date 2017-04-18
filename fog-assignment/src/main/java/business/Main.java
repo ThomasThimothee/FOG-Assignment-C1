@@ -9,6 +9,11 @@ package business;
  *
  * @author mathiasjepsen
  */
-public class isuf {
+public class Main {
+    
+    public static void main(String[] args) {
+        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 480, 180, 300, 150, 100);
+        System.out.println(flat.createPartList());
+    }
     
 }

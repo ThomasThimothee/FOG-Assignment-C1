@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import java.util.List;
@@ -12,31 +7,31 @@ import java.util.List;
  * @author thomasthimothee
  */
 public class Carport {
-    private String type;
-    private String roofType;
-    private double carportLength;
-    private double shedLength;
-    private double carportWidth;
-    private double shedWidth;
-    private double carportHeight;
-    private double roofHeight;
-    private double nonShedLength;
-    private String partList;
+    protected String type;
+    protected String roofType;
+    protected double carportLength;
+    protected double shedLength;
+    protected double totalLength;
+    protected double carportWidth;
+    protected double shedWidth;
+    protected double carportHeight;
+    protected double roofHeight;
+    protected double nonShedLength;
+    protected List<String> partList;
 
-    public Carport(String type, String roofType, double carportLength, double shedLength, double carportWidth, double shedWidth, double carportHeight, double roofHeight) {
+    public Carport(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
         this.type = type;
         this.roofType = roofType;
         this.carportLength = carportLength;
         this.shedLength = shedLength;
+        this.totalLength = carportLength + shedLength;
         this.carportWidth = carportWidth;
         this.shedWidth = shedWidth;
-        this.carportHeight = carportHeight;
+        this.carportHeight = 210;
         this.roofHeight = roofHeight;
         nonShedLength = this.carportLength - this.shedLength;
     }
-    
-    private List<String> flatRoofBu
-
+      
     /**
      * @return the type
      */
@@ -166,15 +161,23 @@ public class Carport {
     /**
      * @return the partList
      */
-    public String getPartList() {
+    public List<String> getPartList() {
         return partList;
     }
 
     /**
      * @param partList the partList to set
      */
-    public void setPartList(String partList) {
+    public void setPartList(List<String> partList) {
         this.partList = partList;
+    }
+
+    public double getTotalLength() {
+        return totalLength;
+    }
+
+    public void setTotalLength(double totalLength) {
+        this.totalLength = totalLength;
     }
     
             
