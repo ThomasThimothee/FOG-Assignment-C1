@@ -13,7 +13,6 @@
         <form name="fog-assignment" action="orderServlet" method="POST">
             <input type="hidden" name="formName" value="order"/>
             <%
-
                 int[] carportWidth = FlatFacade.getCarportWidth();
                 int[] carportLength = FlatFacade.getCarportLength();
                 int[] shedWidth = FlatFacade.getShedWidth();
@@ -25,7 +24,13 @@
 
                 <div class="row">
                     <div class="box">
-                        <div class="col-lg-12">     
+                        <div class="col-lg-12">   
+                            <%  if ("Error".equals(request.getAttribute("errorMessageIncorrectDimensions"))) { %>
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
+                            </div>
+                            <% } %>
                             <table border="1">
                                 <thead>
                                     <tr>
