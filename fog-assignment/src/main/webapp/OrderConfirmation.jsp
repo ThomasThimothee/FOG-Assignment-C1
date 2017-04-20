@@ -23,7 +23,7 @@
 
                     <div class="col-lg-12">
                         <hr>
-                        <h1 class="intro-text text-center">Your Order</h1>     
+                        <h1 class="intro-text text-center">Order</h1>     
                         <p>Carport Width: <%=carportWidth%></p>
                         <p>Carport Length: <%=carportLength%></p>
                         <p>Shed Width: <%=shedWidth%></p>
