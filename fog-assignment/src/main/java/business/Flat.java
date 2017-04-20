@@ -12,7 +12,13 @@ public class Flat extends Carport {
 
     public String createPartList() {
         StringBuilder sb = new StringBuilder();
-
+        
+        // Træ & Tagplader       
+        sb.append("_________________________________________________________________________\n");
+        sb.append("-------------------------------------------------------------------------------------------------------------\n");
+        sb.append("Træplader & Tagplader\n");
+        sb.append("-------------------------------------------------------------------------------------------------------------\n");
+        
         // A
         if (carportWidth <= 270 && carportWidth >= 240) {
             sb.append("1x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til for- & bagende.\n");
@@ -188,11 +194,56 @@ public class Flat extends Carport {
         }
 
         // O
-        sb.append(roofType).append(": ???   -   tagplader monteres på spær.\n");
+        sb.append(roofType).append(": 600   -   tagplader monteres på spær.\n");
 
         // P
-        sb.append(roofType).append(": ???   -   tagplader monteres på spær.\n");
-
+        sb.append(roofType).append(": 360   -   tagplader monteres på spær.\n");
+        
+        // Beslag & Skruer
+        sb.append("-------------------------------------------------------------------------------------------------------------\n");
+        sb.append("Beslag & Skruer\n");
+        sb.append("-------------------------------------------------------------------------------------------------------------\n");
+        
+        // A
+        sb.append("3x pakke Plastmo bundskruer 200 stk.   -   skruer til tagplader.\n");
+        
+        // B
+        sb.append("2x rulle hulbånd 1x20 mm. 10 mtr.   -   til vindkryds på spær.\n");
+        
+        // C
+        sb.append("15x stk. universal 190 mm højre   -   til montering af spær på rem.\n");
+        
+        // D
+        sb.append("15x stk. universal 190 mm venstre   -   til montering af spær på rem.\n");
+        
+        // E
+        sb.append("1x pakke 4,5x60 mm. skruer 200 stk.   -   til montering af stern & vandbrædt.\n");
+        
+        // F
+        sb.append("3x pakke 4,0x50 mm. beslagskruer 250 stk.   -   til montering af universalbeslag & hulbånd\n");
+        
+        // G
+        sb.append("18x stk. 10x120 mm. bræddebolt   -   til montering af rem på stolper.\n");
+        
+        // H
+        sb.append("12x stk. 40x40x11 mm. firkantskiver   -   til montering af rem på stolper\n");
+        
+        // I
+        sb.append("2x pakke 4,5x70 mm. skruer 400 stk.   -   til montering af yderste beklædning.\n");
+        
+        // J
+        sb.append("2x pakke 4,5x50 mm. skruer 300 stk.   -   til montering af inderste beklædning.\n");
+        
+        // K
+        sb.append("1x sæt 50x75 mm. stalddørsgreb   -   til lås på dør i skur.\n");
+        
+        // L
+        sb.append("2x stk. 390 mm. t-hængsel   -   til skurdør.\n");
+        
+        // M
+        sb.append("32x stk. 35 mm. vinkelbeslag   -   til montering af løsholter i skur.\n");
+        sb.append("_________________________________________________________________________\n");
+        
         return sb.toString();
     }
 
