@@ -29,6 +29,10 @@ public class orderServlet extends HttpServlet {
                 int carportLength = Integer.parseInt(request.getParameter("carport length"));
                 int shedWidth = Integer.parseInt(request.getParameter("shed width"));
                 int shedLength = Integer.parseInt(request.getParameter("shed length"));
+                if(carportWidth-30 < shedWidth || carportLength-30 < shedLength) {
+                    request.setAttribute("errorMessage", "Incorrect messurements");
+                    request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
+                }
                 String roofType = (String) request.getParameter("roof type");
                 Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportWidth, carportLength, shedWidth, shedLength, 0);
                 String listOfParts = flat.createPartList();
@@ -39,7 +43,7 @@ public class orderServlet extends HttpServlet {
                  request.setAttribute("listOfParts", listOfParts);
                  request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                   } catch (NullPointerException e) {
-                    request.setAttribute("errorMessageUserNotFound", "Incorrect messurements");
+                    request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                 }
                 break;
