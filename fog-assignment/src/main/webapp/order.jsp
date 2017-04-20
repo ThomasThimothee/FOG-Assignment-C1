@@ -8,7 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
+    <head>
+        
+    </head>
     <body>
         <form name="fog-assignment" action="orderServlet" method="POST">
             <input type="hidden" name="formName" value="order"/>
