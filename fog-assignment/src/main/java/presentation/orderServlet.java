@@ -25,21 +25,25 @@ public class orderServlet extends HttpServlet {
         switch (formName) {
             case "order":
                 try {
-                    int carportWidth = Integer.parseInt(request.getParameter("carport width"));
-                    int carportLength = Integer.parseInt(request.getParameter("carport length"));
-                    int shedWidth = Integer.parseInt(request.getParameter("shed width"));
-                    int shedLength = Integer.parseInt(request.getParameter("shed length"));
-                    String roofType = (String) request.getParameter("roof type");
-                    Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportWidth, carportLength, shedWidth, shedLength, 0);
-                    String listOfParts = flat.createPartList();
-                    request.setAttribute("carport width", carportWidth);
-                    request.setAttribute("carport length", carportLength);
-                    request.setAttribute("shed width", shedWidth);
-                    request.setAttribute("shed length", shedLength);
-                    request.setAttribute("listOfParts", listOfParts);
+                int carportWidth = Integer.parseInt(request.getParameter("carport width"));
+                int carportLength = Integer.parseInt(request.getParameter("carport length"));
+                int shedWidth = Integer.parseInt(request.getParameter("shed width"));
+                int shedLength = Integer.parseInt(request.getParameter("shed length"));
+                if(carportWidth-30 < shedWidth || carportLength-30 < shedLength) {
+                    request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
-                } catch (NullPointerException e) {
-                    request.setAttribute("errorMessageUserNotFound", "Incorrect messurements");
+                }
+                String roofType = (String) request.getParameter("roof type");
+                Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportWidth, carportLength, shedWidth, shedLength, 0);
+                String listOfParts = flat.createPartList();
+                 request.setAttribute("carport width", carportWidth);
+                  request.setAttribute("carport length", carportLength);
+                 request.setAttribute("shed width", shedWidth);
+                 request.setAttribute("shed length", shedLength);
+                 request.setAttribute("listOfParts", listOfParts);
+                 request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
+                  } catch (NullPointerException e) {
+                    request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                 }
                 break;
