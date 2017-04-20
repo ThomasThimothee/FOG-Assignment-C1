@@ -21,60 +21,60 @@ public class Flat extends Carport {
         
         // A
         if (carportWidth <= 270 && carportWidth >= 240) {
-            sb.append("1x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til for- & bagende.\n");
+            sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth <= 360 && carportWidth > 270) {
-            sb.append("2x 25x200 mm. trykimp. brædt: 360   -   understernbrædder til for- & bagende.\n");
+            sb.append("2x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            sb.append("2x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til for- & bagende.\n");
+            sb.append("2x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            sb.append("4x 25x200 mm. trykimp. brædt: 360   -   understernbrædder til for- & bagende.\n");
+            sb.append("4x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth > 720) {
-            sb.append("4x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til for- & bagende.\n");
+            sb.append("4x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
         }
 
         // B
         if (totalLength <= 180 && totalLength >= 150) {
-            sb.append("1x 25x200 mm. trykimp. brædt: 360   -   understernbrædder til siderne.\n");
+            sb.append("1x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 270 && totalLength > 180) {
-            sb.append("1x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til siderne.\n");
+            sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 360 && totalLength > 270) {
-            sb.append("2x 25x200 mm. trykimp. brædt: 360   -   understernbrædder til siderne.\n");
+            sb.append("2x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 540 && totalLength > 360) {
-            sb.append("2x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til siderne.\n");
+            sb.append("2x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 720 && totalLength > 540) {
-            sb.append("4x 25x200 mm. trykimp. brædt: 360   -   understernbrædder til siderne.\n");
+            sb.append("4x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 1080 && totalLength > 720) {
-            sb.append("4x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til siderne.\n");
+            sb.append("4x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
         } else if (totalLength > 1080) {
-            sb.append("6x 25x200 mm. trykimp. brædt: 540   -   understernbrædder til siderne.\n");
+            sb.append("6x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
         }
 
         // C
         if (carportWidth <= 360 && carportWidth >= 240) {
-            sb.append("1x 25x125 mm. trykimp. brædt: 360   -   oversternbrædder til forenden.\n");
+            sb.append("1x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til forenden.\n");
         } else if (carportWidth < 540 && carportWidth > 360) {
-            sb.append("1x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til forenden.\n");
+            sb.append("1x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til forenden.\n");
         } else if (carportWidth < 720 && carportWidth > 540) {
-            sb.append("2x 25x125 mm. trykimp. brædt: 360   -   oversternbrædder til forenden.\n");
+            sb.append("2x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til forenden.\n");
         } else if (carportWidth > 720) {
-            sb.append("2x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til forenden.\n");
+            sb.append("2x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til forenden.\n");
         }
 
         // D
         if (totalLength <= 180 && totalLength >= 150) {
-            sb.append("1x 25x125 mm. trykimp. brædt: 360   -   oversternbrædder til siderne.\n");
+            sb.append("1x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 270 && totalLength > 180) {
-            sb.append("1x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til siderne.\n");
+            sb.append("1x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 360 && totalLength > 270) {
-            sb.append("2x 25x125 mm. trykimp. brædt: 360   -   oversternbrædder til siderne.\n");
+            sb.append("2x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 540 && totalLength > 360) {
-            sb.append("2x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til siderne.\n");
+            sb.append("2x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 720 && totalLength > 540) {
-            sb.append("4x 25x125 mm. trykimp. brædt: 360   -   oversternbrædder til siderne.\n");
+            sb.append("4x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 1080 && totalLength > 720) {
-            sb.append("4x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til siderne.\n");
+            sb.append("4x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til siderne.\n");
         } else if (totalLength > 1080) {
-            sb.append("6x 25x125 mm. trykimp. brædt: 540   -   oversternbrædder til siderne.\n");
+            sb.append("6x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til siderne.\n");
         }
 
         // E
@@ -159,38 +159,38 @@ public class Flat extends Carport {
 
         // L
         int numberOfPieces = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
-        sb.append(numberOfPieces).append("x 19x100 mm. trykimp. brædt: ").append(carportHeight).append("   -   til beklædning af skur 1 på 2.\n");
+        sb.append(numberOfPieces).append("x 19x100 mm. trykimp. bræt: ").append(carportHeight).append("   -   til beklædning af skur 1 på 2.\n");
 
         // M
         if (totalLength <= 180 && totalLength > 150) {
-            sb.append("1x 19x100 mm. trykimp. brædt: 360   -   vandbrædt på stern i sider.\n");
+            sb.append("1x 19x100 mm. trykimp. bræt: 360   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 210 && totalLength > 180) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 210   -   vandbrædt på stern i sider.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 210   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 240 && totalLength > 210) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 240   -   vandbrædt på stern i sider.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 240   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 360 && totalLength > 240) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 360   -   vandbrædt på stern i sider.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 360   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 480 && totalLength > 360) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 480   -   vandbrædt på stern i sider.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 480   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 540 && totalLength > 480) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 540   -   vandbrædt på stern i sider.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 540   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 720 && totalLength > 540) {
-            sb.append("4x 19x100 mm. trykimp. brædt: 360   -   vandbrædt på stern i sider.\n");
+            sb.append("4x 19x100 mm. trykimp. bræt: 360   -   vandbræt på stern i sider.\n");
         } else if (totalLength <= 1080 && totalLength > 720) {
-            sb.append("4x 19x100 mm. trykimp. brædt: 540   -   vandbrædt på stern i sider.\n");
+            sb.append("4x 19x100 mm. trykimp. bræt: 540   -   vandbræt på stern i sider.\n");
         } else if (totalLength > 1080) {
-            sb.append("6x 19x100 mm. trykimp. brædt: 540   -   vandbrædt på stern i sider.\n");
+            sb.append("6x 19x100 mm. trykimp. bræt: 540   -   vandbræt på stern i sider.\n");
         }
 
         // N
         if (carportWidth <= 360 && carportWidth > 240) {
-            sb.append("1x 19x100 mm. trykimp. brædt: 360   -   vandbrædt på stern i forende.\n");
+            sb.append("1x 19x100 mm. trykimp. bræt: 360   -   vandbræt på stern i forende.\n");
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            sb.append("1x 19x100 mm. trykimp. brædt: 540   -   vandbrædt på stern i forende.\n");
+            sb.append("1x 19x100 mm. trykimp. bræt: 540   -   vandbræt på stern i forende.\n");
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 360   -   vandbrædt på stern i forende.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 360   -   vandbræt på stern i forende.\n");
         } else if (carportWidth > 720) {
-            sb.append("2x 19x100 mm. trykimp. brædt: 540   -   vandbrædt på stern i forende.\n");
+            sb.append("2x 19x100 mm. trykimp. bræt: 540   -   vandbræt på stern i forende.\n");
         }
 
         // O
@@ -217,7 +217,7 @@ public class Flat extends Carport {
         sb.append("15x stk. universal 190 mm venstre   -   til montering af spær på rem.\n");
         
         // E
-        sb.append("1x pakke 4,5x60 mm. skruer 200 stk.   -   til montering af stern & vandbrædt.\n");
+        sb.append("1x pakke 4,5x60 mm. skruer 200 stk.   -   til montering af stern & vandbræt.\n");
         
         // F
         sb.append("3x pakke 4,0x50 mm. beslagskruer 250 stk.   -   til montering af universalbeslag & hulbånd\n");
