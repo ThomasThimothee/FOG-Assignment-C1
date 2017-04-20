@@ -75,6 +75,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                                            <p>Shed dimensions should be ATLEAST 30 cm less in both width and length than carport dimensions</p>
                             <input type="submit" value="Order" />
                         </div>
                     </div>
