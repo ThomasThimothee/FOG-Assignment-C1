@@ -158,7 +158,7 @@ public class Flat extends Carport {
         sb.append("11x 97x97 mm. trykimp. Stolpe: 300   -   stolper nedgraves 90 cm. i jord.\n");
 
         // L
-        int numberOfPieces = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 63.5);
+        int numberOfPieces = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
         sb.append(numberOfPieces).append("x 19x100 mm. trykimp. brædt: ").append(carportHeight).append("   -   til beklædning af skur 1 på 2.\n");
 
         // M
