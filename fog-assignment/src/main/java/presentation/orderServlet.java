@@ -1,4 +1,3 @@
-
 package presentation;
 
 import business.Flat;
@@ -18,10 +17,11 @@ import javax.servlet.http.HttpSession;
  * @author Lovro
  */
 public class orderServlet extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String formName = request.getParameter("formName");
+        String formName = request.getParameter("formName");
         switch (formName) {
             case "order":
                 try {
@@ -47,9 +47,9 @@ public class orderServlet extends HttpServlet {
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                 }
                 break;
-                }
+        }
     }
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
