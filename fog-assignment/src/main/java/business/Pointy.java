@@ -165,6 +165,7 @@ public class Pointy extends Carport {
     }
 
 
+
     public double getAngle() {
         return angle;
     }
