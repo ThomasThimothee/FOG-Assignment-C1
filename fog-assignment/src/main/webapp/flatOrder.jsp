@@ -13,7 +13,8 @@
     </head>
     <body>
         <form name="fog-assignment" action="orderServlet" method="POST">
-            <input type="hidden" name="formName" value="order"/>
+            <input type="hidden" name="action" value="order"/>
+            <input type="hidden" name="carportType" value="flat"/>
             <%
                 int[] carportWidth = FlatFacade.getCarportWidth();
                 int[] carportLength = FlatFacade.getCarportLength();
@@ -22,8 +23,6 @@
                 String[] type = FlatFacade.getRoofType();
             %>  
             <div class="container">
-
-
                 <div class="row">
                     <div class="box">
                         <div class="col-lg-12">   

@@ -62,6 +62,7 @@ public class orderServlet extends HttpServlet {
                     request.setAttribute("shed width", shedWidth);
                     request.setAttribute("shed length", shedLength);
                     request.setAttribute("listOfParts", listOfParts);
+                    request.setAttribute("carportType", carportType);
                     if (carportType.equals("pointy")) {
                         request.setAttribute("angle", angle);
                     }
