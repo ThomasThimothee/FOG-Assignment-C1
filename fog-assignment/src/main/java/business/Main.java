@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
+
+import java.util.Iterator;
 
 /**
  *
@@ -12,8 +9,18 @@ package business;
 public class Main {
     
     public static void main(String[] args) {
-        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 480, 180, 300, 150, 100);
-        System.out.println(flat.createPartList());
+        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 250, 160, 300, 150, 100);
+        Partlist partlist = flat.createPartList();
+        Iterator woodIterator = partlist.getWoodParts().iterator();
+        while (woodIterator.hasNext()) {
+            Wood wood  = (Wood) (woodIterator.next());
+            System.out.println(wood.toString());
+        }
+        Iterator screwIterator = partlist.getScrewParts().iterator();
+        while (screwIterator.hasNext()) {
+            Screw screw = (Screw) (screwIterator.next());
+            System.out.println(screw.toString());
+        }
     }
     
 }

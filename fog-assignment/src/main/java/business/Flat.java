@@ -5,12 +5,14 @@ package business;
  * @author mathiasjepsen
  */
 public class Flat extends Carport {
-
+    
+    protected Partlist partlist = new Partlist();
+    
     public Flat(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
         super(type, roofType, carportLength, shedLength, carportWidth, shedWidth, roofHeight);
     }
 
-    public String createPartList() {
+    public Partlist createPartList() {
         StringBuilder sb = new StringBuilder();
         
         // Træ & Tagplader       
@@ -21,6 +23,8 @@ public class Flat extends Carport {
         
         // A
         if (carportWidth <= 270 && carportWidth >= 240) {
+            Wood wood = new Wood(1, "25x200 mm.", "trykimp. bræt", 540, "understernbrædder til for- & bagende");
+            partlist.getWoodParts().add(wood);
             sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth <= 360 && carportWidth > 270) {
             sb.append("2x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til for- & bagende.\n");
@@ -34,6 +38,8 @@ public class Flat extends Carport {
 
         // B
         if (totalLength <= 180 && totalLength >= 150) {
+            Wood wood = new Wood(1, "25x200 mm.", "trykimp. bræt", 360, "understernbrædder til siderne");
+            partlist.getWoodParts().add(wood);
             sb.append("1x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 270 && totalLength > 180) {
             sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
@@ -51,6 +57,8 @@ public class Flat extends Carport {
 
         // C
         if (carportWidth <= 360 && carportWidth >= 240) {
+            Wood wood = new Wood(1, "25x125 mm.", "trykimp. bræt", 360, "oversternbrædder til forenden");
+            partlist.getWoodParts().add(wood);
             sb.append("1x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til forenden.\n");
         } else if (carportWidth < 540 && carportWidth > 360) {
             sb.append("1x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til forenden.\n");
@@ -205,9 +213,13 @@ public class Flat extends Carport {
         sb.append("-------------------------------------------------------------------------------------------------------------\n");
         
         // A
+        Screw screwA = new Screw(3, "pakke", "", "Plastmo bundskruer 200 stk.", "skruer til tagplader");
+        partlist.getScrewParts().add(screwA);
         sb.append("3x pakke Plastmo bundskruer 200 stk.   -   skruer til tagplader.\n");
         
         // B
+        Screw screwB = new Screw(2, "rulle", "1x20 mm.", "hulbånd 10 mtr.", "til vindkryds på spær");
+        partlist.getScrewParts().add(screwB);
         sb.append("2x rulle hulbånd 1x20 mm. 10 mtr.   -   til vindkryds på spær.\n");
         
         // C
@@ -244,7 +256,7 @@ public class Flat extends Carport {
         sb.append("32x stk. 35 mm. vinkelbeslag   -   til montering af løsholter i skur.\n");
         sb.append("_________________________________________________________________________\n");
         
-        return sb.toString();
+        return partlist;
     }
 
     public String getRoofType() {
@@ -295,4 +307,12 @@ public class Flat extends Carport {
         this.shedWidth = shedWidth;
     }
 
+    public Partlist getPartlist() {
+        return partlist;
+    }
+
+    public void setPartlist(Partlist partlist) {
+        this.partlist = partlist;
+    }
+    
 }
