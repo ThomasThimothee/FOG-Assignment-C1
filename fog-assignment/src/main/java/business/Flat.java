@@ -39,38 +39,47 @@ public class Flat extends Carport {
 
         // B
         if (totalLength <= 180 && totalLength >= 150) {
-            Wood wood = new Wood(1, "25x200 mm.", "trykimp. bræt", 360, "understernbrædder til siderne");
+            Wood wood = new Wood(1, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
             super.partList.getWoodParts().add(wood);
-            sb.append("1x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
         } else if (totalLength <= 270 && totalLength > 180) {
-            sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(1, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         } else if (totalLength <= 360 && totalLength > 270) {
-            sb.append("2x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(2, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         } else if (totalLength <= 540 && totalLength > 360) {
-            sb.append("2x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(2, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         } else if (totalLength <= 720 && totalLength > 540) {
-            sb.append("4x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(4, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         } else if (totalLength <= 1080 && totalLength > 720) {
-            sb.append("4x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(4, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         } else if (totalLength > 1080) {
-            sb.append("6x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til siderne.\n");
+            Wood wood = new Wood(6, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
         }
 
         // C
         if (carportWidth <= 360 && carportWidth >= 240) {
-            Wood wood = new Wood(1, "25x125 mm.", "trykimp. bræt", 360, "oversternbrædder til forenden");
+            Wood wood = new Wood(1, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
             super.partList.getWoodParts().add(wood);
-            sb.append("1x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til forenden.\n");
         } else if (carportWidth < 540 && carportWidth > 360) {
-            sb.append("1x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til forenden.\n");
+            Wood wood = new Wood(1, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
+            super.partList.getWoodParts().add(wood);
         } else if (carportWidth < 720 && carportWidth > 540) {
-            sb.append("2x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til forenden.\n");
+            Wood wood = new Wood(2, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
+            super.partList.getWoodParts().add(wood);
         } else if (carportWidth > 720) {
-            sb.append("2x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til forenden.\n");
+            Wood wood = new Wood(2, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
+            super.partList.getWoodParts().add(wood);
         }
 
         // D
         if (totalLength <= 180 && totalLength >= 150) {
+            Wood wood = new Wood(1, 25, 125, 360, "trykimp. bræt", "oversternbrædder til siderne");
+            super.partList.getWoodParts().add(wood);
             sb.append("1x 25x125 mm. trykimp. bræt: 360   -   oversternbrædder til siderne.\n");
         } else if (totalLength <= 270 && totalLength > 180) {
             sb.append("1x 25x125 mm. trykimp. bræt: 540   -   oversternbrædder til siderne.\n");
@@ -214,14 +223,12 @@ public class Flat extends Carport {
         sb.append("-------------------------------------------------------------------------------------------------------------\n");
         
         // A
-        Screw screwA = new Screw(3, "pakke", "", "Plastmo bundskruer 200 stk.", "skruer til tagplader");
+        Screw screwA = new Screw(3, "pakke", 0, 0, 0, "Plastmo bundskruer 200 stk.", "skruer til tagplader");
         super.partList.getScrewParts().add(screwA);
-        sb.append("3x pakke Plastmo bundskruer 200 stk.   -   skruer til tagplader.\n");
         
         // B
-        Screw screwB = new Screw(2, "rulle", "1x20 mm.", "hulbånd 10 mtr.", "til vindkryds på spær");
+        Screw screwB = new Screw(2, "rulle", 1, 20, 0, "hulbånd 10 mtr.", "til vindkryds på spær");
         super.partList.getScrewParts().add(screwB);
-        sb.append("2x rulle hulbånd 1x20 mm. 10 mtr.   -   til vindkryds på spær.\n");
         
         // C
         sb.append("15x stk. universal 190 mm højre   -   til montering af spær på rem.\n");
@@ -230,10 +237,12 @@ public class Flat extends Carport {
         sb.append("15x stk. universal 190 mm venstre   -   til montering af spær på rem.\n");
         
         // E
-        sb.append("1x pakke 4,5x60 mm. skruer 200 stk.   -   til montering af stern & vandbræt.\n");
+        Screw screwE = new Screw(1, "pakke", 4.5, 60, 0, "skruer 200 stk.", "til montering af stern & vandbræt");
+        super.partList.getScrewParts().add(screwE);
         
         // F
-        sb.append("3x pakke 4,0x50 mm. beslagskruer 250 stk.   -   til montering af universalbeslag & hulbånd\n");
+        Screw screwF = new Screw(3, "pakke", 4, 50, 0, "beslagskruer 250 stk.", "til montering af universalbeslag & hulbånd");
+        super.partList.getScrewParts().add(screwF);
         
         // G
         sb.append("18x stk. 10x120 mm. bræddebolt   -   til montering af rem på stolper.\n");

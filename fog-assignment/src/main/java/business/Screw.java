@@ -4,91 +4,31 @@ package business;
  *
  * @author mathiasjepsen
  */
-public class Screw {
+public class Screw extends Part {
     
-     private int quantity;
-     private String unit;
-     private String type;
-     private double width;
-     private double depth;
-     private double length;
-     private String description;
+    private String unit;
 
-    public Screw(int quantity, String scale, double width, double depth, double length, String type, String description) {
-        this.quantity = quantity;
-        this.unit = scale;
-        this.type = type;
-        this.description = description;
-        this.width = width;
-        this.depth = depth;
-        this.length = length;
+    public Screw(int quantity, String unit, double width, double depth, double length, String type, String description) {
+        super(quantity, width, depth, length, type, description);
+        this.unit = unit;
     }
 
     @Override
     public String toString() {
-        if (getLength() == 0) {
-            return quantity + "x " + unit + " " + width + "x" + depth + " mm. " + type + "   -   " + description + ".\n";
+        if (length == 0 && width == 0 && depth == 0) {
+            return quantity + "x " + unit + " " + type + "   -   " + description + ".\n";
+        } else if (length == 0) {
+            return quantity + "x " + unit + " " + String.format("%.1f" , width) + "x" + String.format("%.0f" , depth) + " mm. " + type + "   -   " + description + ".\n";
         } else {
-            return quantity + "x " + unit + " " + width + "x" + depth + "x" + length + " mm. " + type + "   -   " + description + ".\n"; 
+            return quantity + "x " + unit + " " + String.format("%.0f" , width) + "x" + String.format("%.0f" , depth) + "x" + String.format("%.0f" , length) + " mm. " + type + "   -   " + description + ".\n"; 
         }
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getScale() {
+    public String getUnit() {
         return unit;
     }
 
-    public void setScale(String scale) {
-        this.unit = scale;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getDepth() {
-        return depth;
-    }
-
-    public void setDepth(double depth) {
-        this.depth = depth;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
-    }
-    
-    
-     
 }
