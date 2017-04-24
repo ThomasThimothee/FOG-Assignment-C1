@@ -2,11 +2,7 @@ package Tests;
 
 import business.Flat;
 import business.Partlist;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
