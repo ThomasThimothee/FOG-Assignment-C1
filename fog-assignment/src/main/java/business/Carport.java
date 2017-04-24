@@ -1,7 +1,5 @@
 package business;
 
-import java.util.List;
-
 /**
  *
  * @author thomasthimothee
@@ -17,7 +15,7 @@ public class Carport {
     protected double carportHeight;
     protected double roofHeight;
     protected double nonShedLength;
-    protected List<String> partList;
+    protected Partlist partList;
 
     public Carport(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
         this.type = type;
@@ -30,6 +28,7 @@ public class Carport {
         this.carportHeight = 210;
         this.roofHeight = roofHeight;
         nonShedLength = this.carportLength - this.shedLength;
+        this.partList = new Partlist();
     }
       
     /**
@@ -157,27 +156,21 @@ public class Carport {
     public void setNonShedLength(double nonShedLength) {
         this.nonShedLength = nonShedLength;
     }
-
-    /**
-     * @return the partList
-     */
-    public List<String> getPartList() {
-        return partList;
-    }
-
-    /**
-     * @param partList the partList to set
-     */
-    public void setPartList(List<String> partList) {
-        this.partList = partList;
-    }
-
+    
     public double getTotalLength() {
         return totalLength;
     }
 
     public void setTotalLength(double totalLength) {
         this.totalLength = totalLength;
+    }
+
+    public Partlist getPartList() {
+        return partList;
+    }
+
+    public void setPartList(Partlist partList) {
+        this.partList = partList;
     }
     
             
