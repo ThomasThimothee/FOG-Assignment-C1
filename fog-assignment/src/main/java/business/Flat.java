@@ -21,17 +21,20 @@ public class Flat extends Carport {
         
         // A
         if (carportWidth <= 270 && carportWidth >= 240) {
-            Wood wood = new Wood(1, "25x200 mm.", "trykimp. bræt", 540, "understernbrædder til for- & bagende");
+            Wood wood = new Wood(1, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
             super.partList.getWoodParts().add(wood);
-            sb.append("1x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
         } else if (carportWidth <= 360 && carportWidth > 270) {
-            sb.append("2x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til for- & bagende.\n");
+            Wood wood = new Wood(2, 25, 200, 360, "trykimp. bræt", "understernbrædder til for- & bagende");
+            super.partList.getWoodParts().add(wood);
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            sb.append("2x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
+            Wood wood = new Wood(2, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
+            super.partList.getWoodParts().add(wood);
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            sb.append("4x 25x200 mm. trykimp. bræt: 360   -   understernbrædder til for- & bagende.\n");
+            Wood wood = new Wood(4, 25, 200, 360, "trykimp. bræt", "understernbrædder til for- & bagende");
+            super.partList.getWoodParts().add(wood);
         } else if (carportWidth > 720) {
-            sb.append("4x 25x200 mm. trykimp. bræt: 540   -   understernbrædder til for- & bagende.\n");
+            Wood wood = new Wood(4, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
+            super.partList.getWoodParts().add(wood);
         }
 
         // B

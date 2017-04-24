@@ -8,21 +8,23 @@ public class Wood {
     
     private int quantity;
     private int length;
-    private String dimensions;
+    private int width;
+    private int depth;
     private String type;
     private String description;
 
-    public Wood(int quantity, String dimensions, String type, int length, String description) {
+    public Wood(int quantity, int width, int depth, int length, String type, String description) {
         this.quantity = quantity;
         this.length = length;
-        this.dimensions = dimensions;
+        this.width = width;
+        this.depth = depth;
         this.type = type;
         this.description = description;
     }
 
     @Override
     public String toString() {
-        return quantity + "x " + dimensions + " " + type + ": " + length + "   -   " + description + ".\n";
+        return quantity + "x " + width + "x" + depth + " mm. " + type + ": " + length + "   -   " + description + ".\n";
     }
 
     public int getQuantity() {
@@ -41,14 +43,6 @@ public class Wood {
         this.length = length;
     }
 
-    public String getDimensions() {
-        return dimensions;
-    }
-
-    public void setDimensions(String dimensions) {
-        this.dimensions = dimensions;
-    }
-
     public String getType() {
         return type;
     }
@@ -63,6 +57,22 @@ public class Wood {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
     
 }

@@ -7,30 +7,30 @@ package business;
 public class Screw {
     
      private int quantity;
-     private String scale;
+     private String unit;
      private String type;
-     private String dimensions;
+     private double width;
+     private double depth;
+     private double length;
      private String description;
 
-    public Screw(int quantity, String scale, String dimensions, String type, String description) {
+    public Screw(int quantity, String scale, double width, double depth, double length, String type, String description) {
         this.quantity = quantity;
-        this.scale = scale;
+        this.unit = scale;
         this.type = type;
-        this.dimensions = dimensions;
         this.description = description;
+        this.width = width;
+        this.depth = depth;
+        this.length = length;
     }
 
     @Override
     public String toString() {
-        return quantity + "x " + scale + " " + dimensions + " " + type + "   -   " + description + ".\n";
-    }
-    
-    public String getDimensions() {
-        return dimensions;
-    }
-
-    public void setDimensions(String dimensions) {
-        this.dimensions = dimensions;
+        if (getLength() == 0) {
+            return quantity + "x " + unit + " " + width + "x" + depth + " mm. " + type + "   -   " + description + ".\n";
+        } else {
+            return quantity + "x " + unit + " " + width + "x" + depth + "x" + length + " mm. " + type + "   -   " + description + ".\n"; 
+        }
     }
 
     public int getQuantity() {
@@ -42,11 +42,11 @@ public class Screw {
     }
 
     public String getScale() {
-        return scale;
+        return unit;
     }
 
     public void setScale(String scale) {
-        this.scale = scale;
+        this.unit = scale;
     }
 
     public String getType() {
@@ -64,6 +64,31 @@ public class Screw {
     public void setDescription(String description) {
         this.description = description;
     }
-     
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getDepth() {
+        return depth;
+    }
+
+    public void setDepth(double depth) {
+        this.depth = depth;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+    
+    
      
 }
