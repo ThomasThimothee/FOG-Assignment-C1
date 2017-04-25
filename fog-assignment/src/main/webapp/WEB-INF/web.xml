@@ -8,9 +8,17 @@
         <servlet-name>orderServlet</servlet-name>
         <servlet-class>presentation.orderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>presentation.userServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>orderServlet</servlet-name>
         <url-pattern>/orderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/userServlet</url-pattern>
     </servlet-mapping>
    
 </web-app>
