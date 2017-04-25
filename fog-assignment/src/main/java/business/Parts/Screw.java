@@ -8,19 +8,19 @@ public class Screw extends Part {
     
     private String unit;
 
-    public Screw(int quantity, String unit, double width, double depth, double length, String type, String description) {
-        super(quantity, width, depth, length, type, description);
+    public Screw(PartType partType, int quantity, String unit, double width, double depth, double length, String name, String description) {
+        super(partType, quantity, width, depth, length, name, description);
         this.unit = unit;
     }
 
     @Override
     public String toString() {
         if (length == 0 && width == 0 && depth == 0) {
-            return quantity + "x " + unit + " " + type + "   -   " + description + ".\n";
+            return quantity + "x " + unit + " " + name + "   -   " + description + ".\n";
         } else if (length == 0) {
-            return quantity + "x " + unit + " " + String.format("%.1f" , width) + "x" + String.format("%.0f" , depth) + " mm. " + type + "   -   " + description + ".\n";
+            return quantity + "x " + unit + " " + String.format("%.1f" , width) + "x" + String.format("%.0f" , depth) + " mm. " + name + "   -   " + description + ".\n";
         } else {
-            return quantity + "x " + unit + " " + String.format("%.0f" , width) + "x" + String.format("%.0f" , depth) + "x" + String.format("%.0f" , length) + " mm. " + type + "   -   " + description + ".\n"; 
+            return quantity + "x " + unit + " " + String.format("%.0f" , width) + "x" + String.format("%.0f" , depth) + "x" + String.format("%.0f" , length) + " mm. " + name + "   -   " + description + ".\n"; 
         }
     }
 

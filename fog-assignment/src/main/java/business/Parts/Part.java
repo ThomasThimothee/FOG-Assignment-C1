@@ -6,22 +6,29 @@ package business.Parts;
  */
 public class Part {
     
+    public enum PartType {
+        WOOD,
+        SCREW,
+        TILE;
+    }
+    protected PartType partType;
     protected int quantity;
     protected double length;
     protected double width;
     protected double depth;
-    protected String type;
+    protected String name;
     protected String description;
 
-    public Part(int quantity, double width, double depth, double length, String type, String description) {
+    public Part(PartType partType, int quantity, double width, double depth, double length, String name, String description) {
+        this.partType = partType;
         this.quantity = quantity;
         this.length = length;
         this.width = width;
         this.depth = depth;
-        this.type = type;
+        this.name = name;
         this.description = description;
     }
-
+    
     public int getQuantity() {
         return quantity;
     }
@@ -54,12 +61,12 @@ public class Part {
         this.depth = depth;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -68,6 +75,14 @@ public class Part {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public PartType getPartType() {
+        return partType;
+    }
+
+    public void setPartType(PartType partType) {
+        this.partType = partType;
     }
     
     
