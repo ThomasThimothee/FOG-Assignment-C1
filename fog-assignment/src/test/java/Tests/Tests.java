@@ -39,6 +39,6 @@ public class Tests {
 
     @Test
     public void hello() {
-        assertEquals(360, partlist.getWoodParts().get(0).getLength());
+        assertEquals(360, partlist.getPartList().get(0).getLength(), 0.001);
     }
 }

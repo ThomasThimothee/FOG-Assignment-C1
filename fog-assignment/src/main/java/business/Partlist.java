@@ -1,5 +1,6 @@
 package business;
 
+import business.Parts.Part;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,20 +10,20 @@ import java.util.List;
  */
 public class Partlist {
     
-    private final List<Wood> woodParts;
-    private final List<Screw> screwParts;
+    private List<Part> partList;
 
     public Partlist() {
-        this.woodParts = new ArrayList<>();
-        this.screwParts = new ArrayList<>();
+        this.partList = new ArrayList<>();
     }
 
-    public List<Wood> getWoodParts() {
-        return woodParts;
+    public List<Part> getPartList() {
+        return partList;
     }
 
-    public List<Screw> getScrewParts() {
-        return screwParts;
+    public void setPartList(List<Part> partList) {
+        this.partList = partList;
     }
+
+    
     
 }

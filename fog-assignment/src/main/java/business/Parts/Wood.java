@@ -1,4 +1,4 @@
-package business;
+package business.Parts;
 
 /**
  *
@@ -6,7 +6,7 @@ package business;
  */
 public class Wood extends Part {
 
-    public Wood(int quantity, int width, int depth, int length, String type, String description) {
+    public Wood(int quantity, double width, double depth, double length, String type, String description) {
         super(quantity, width, depth, length, type, description);
     }
 
