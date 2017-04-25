@@ -1,4 +1,7 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="business.Partlist"%>
 <%@page import="business.Flat"%>
+<%@page import="business.Parts.Part"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +17,7 @@
             int shedLength = (int) request.getAttribute("shed length");
             String carportType = (String) request.getAttribute("carportType");
             int angle = 0;
+            Partlist partlist = (Partlist) request.getAttribute("partList");
             if (carportType.equals("pointy")) {
                 angle = (int) request.getAttribute("angle");
             } %>
@@ -31,7 +35,10 @@
                         <p>Angle: <%=angle%></p>
                         <% } %>
                         <h2><strong>Parts needed:</strong></h2>
-                        <p><%= request.getAttribute("listOfParts")%></p>
+                        <%  Iterator partIterator = partlist.getPartList().iterator();
+                                while (partIterator.hasNext()) { 
+                                    Part part = (Part) partIterator.next();
+                        %>          <p><%=part.toString() + "\n"%></p><% } %>
                     </div>
                 </div>
             </div>

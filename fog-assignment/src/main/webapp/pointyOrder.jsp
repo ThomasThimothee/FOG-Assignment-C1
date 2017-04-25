@@ -34,10 +34,10 @@
                             <table border="1">
                                 <thead>
                                     <tr>
-                                        <th>Carport width</th>
                                         <th>Carport length</th>
-                                        <th>Shed width</th>
+                                        <th>Carport width</th>
                                         <th>Shed length</th>
+                                        <th>Shed width</th>
                                         <th>Roof type</th>
                                         <th>Angle</th>
                                     </tr>
@@ -45,29 +45,29 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <select name="carport width">
-                                                <% for (int cw : carportWidth) {%>
-                                                <option><%=cw%></option>
-                                                <%}%>
-                                            </select>
-                                        </td>
-                                        <td>
                                             <select name="carport length">
                                                 <% for (int cl : carportLength) {%>
                                                 <option><%=cl%></option>
                                                 <%}%>
                                             </select></td>
+                                        </td>
                                         <td>
-                                            <select name="shed width">
-                                                <% for (int sw : shedWidth) {%>
-                                                <option><%=sw%></option>
+                                            <select name="carport width">
+                                                <% for (int cw : carportWidth) {%>
+                                                <option><%=cw%></option>
                                                 <%}%>
                                             </select>
-                                        </td>
                                         <td>
                                             <select name="shed length">
                                                 <% for (int sl : shedLength) {%>
                                                 <option><%=sl%></option>
+                                                <%}%>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="shed width">
+                                                <% for (int sw : shedWidth) {%>
+                                                <option><%=sw%></option>
                                                 <%}%>
                                             </select>
                                         </td>
