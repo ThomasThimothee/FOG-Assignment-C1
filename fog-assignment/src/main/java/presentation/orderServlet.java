@@ -52,7 +52,7 @@ public class orderServlet extends HttpServlet {
                     String listOfParts = "";
                     if (carportType.equals("flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportWidth, carportLength, shedWidth, shedLength, 0);
-                        listOfParts = flat.createPartList();
+                        //listOfParts = flat.createPartList();
                     } else {
                         Pointy pointy = new Pointy(carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, 0, angle);
                         listOfParts = pointy.createPartList();
