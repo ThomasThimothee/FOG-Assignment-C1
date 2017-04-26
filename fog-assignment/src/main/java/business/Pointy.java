@@ -17,7 +17,7 @@ public class Pointy extends Carport {
     private double angle;
 
     public Pointy(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight, double angle) {
-        super(type, roofType, carportLength, shedLength, carportWidth, shedWidth, roofHeight);
+        super(type, roofType, carportLength, carportWidth, shedLength, shedWidth, roofHeight);
         this.angle = angle;
     }
 
@@ -163,7 +163,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodM);
 
         // N
-        woodN = new Wood(Part.PartType.WOOD, 1, 38, 73, 540, "taglægte T1", "til z på bagside af dør");
+        woodN = new Wood(Part.PartType.WOOD, 1, 38, 73, 540, "taglægte T1", "til Z på bagside af dør");
         super.partList.getPartList().add(woodN);
 
         // O
