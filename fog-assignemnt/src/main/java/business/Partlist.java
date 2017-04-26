@@ -1,6 +1,6 @@
 package business;
 
-import business.Parts.Part
+import business.Parts.Part;
 import java.util.ArrayList;
 import java.util.List;
 

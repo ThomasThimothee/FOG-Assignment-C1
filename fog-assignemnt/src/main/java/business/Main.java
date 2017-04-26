@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class Main {
     
     public static void main(String[] args) {
-        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 240, 240, 150, 210, 0);
+        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 460, 380, 380, 330, 100);
         Partlist partlist = flat.createPartList();
         Iterator partIterator = partlist.getPartList().iterator();
         while (partIterator.hasNext()) {

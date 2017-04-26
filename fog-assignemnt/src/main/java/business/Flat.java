@@ -16,7 +16,7 @@ public class Flat extends Carport {
     Screw screwA, screwB, screwC, screwD, screwE, screwF, screwG, screwH, screwI, screwJ, screwK, screwL, screwM, screwN;
     
     public Flat(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
-        super(type, roofType, carportLength, carportWidth, shedLength, shedWidth, roofHeight);
+        super(type, roofType, carportLength, shedLength, carportWidth, shedWidth, roofHeight);
     }
 
     public Partlist createPartList() {
@@ -90,7 +90,7 @@ public class Flat extends Carport {
         super.partList.getPartList().add(woodE);
 
         // F
-        if (shedWidth <= 240 && shedWidth >= 210) {
+        if (shedWidth <= 240 && shedWidth > 210) {
             woodF = new Wood(PartType.WOOD, 6, 45, 95, 240, "ubh. reglar", "løsholter til skur gavle");
         } else if (shedWidth <= 270 && shedWidth > 240) {
             woodF = new Wood(PartType.WOOD, 6, 45, 95, 270, "ubh. reglar", "løsholter til skur gavle");
@@ -106,7 +106,7 @@ public class Flat extends Carport {
         super.partList.getPartList().add(woodF);
 
         // G
-        if (shedLength <= 240 && shedLength >= 150) {
+        if (shedLength <= 240 && shedLength > 150) {
             woodG = new Wood(PartType.WOOD, 4, 45, 95, 240, "ubh. reglar", "løsholter til skur sider");
         } else if (shedLength <= 270 && shedLength > 240) {
             woodG = new Wood(PartType.WOOD, 4, 45, 95, 270, "ubh. reglar", "løsholter til skur sider");
@@ -136,7 +136,7 @@ public class Flat extends Carport {
         super.partList.getPartList().add(woodH);
 
         // I
-        if (shedLength <= 240 && shedLength >= 150) {
+        if (shedLength <= 240 && shedLength > 150) {
             woodI = new Wood(PartType.WOOD, 1, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
         } else if (shedLength <= 300 && shedLength > 240) {
             woodI = new Wood(PartType.WOOD, 1, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
@@ -197,11 +197,13 @@ public class Flat extends Carport {
             woodM = new Wood(PartType.WOOD, 4, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i sider");
         } else if (totalLength > 1080) {
             woodM = new Wood(PartType.WOOD, 6, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i sider");
-        } 
+        } else {
+            woodM = new Wood(PartType.WOOD, 0, 0, 0, 0, "UNINITIALIZED", "");
+        }
         super.partList.getPartList().add(woodM);
 
         // N
-        if (carportWidth <= 360 && carportWidth >= 240) {
+        if (carportWidth <= 360 && carportWidth > 240) {
             woodN = new Wood(PartType.WOOD, 1, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i forende");
         } else if (carportWidth <= 540 && carportWidth > 360) {
             woodN = new Wood(PartType.WOOD, 1, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i forende");
@@ -266,7 +268,7 @@ public class Flat extends Carport {
         super.partList.getPartList().add(screwK);
         
         // L
-        screwL = new Screw(PartType.SCREW, 2, "stk.", 0, 0, 390, "t-hængsel", "til dør i skur");
+        screwL = new Screw(PartType.SCREW, 2, "stk.", 0, 0, 390, "t-hængsel", "til skurdør");
         super.partList.getPartList().add(screwL);
         
         // M

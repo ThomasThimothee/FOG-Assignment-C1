@@ -2,13 +2,10 @@ package presentation;
 
 import business.Flat;
 import business.FlatFacade;
-import business.Partlist;
-import business.Parts.Part;
 import business.Pointy;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +22,6 @@ public class orderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         String action = request.getParameter("action");
         String carportType = request.getParameter("carportType");
         switch (action) {
@@ -53,19 +49,19 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("index.html").forward(request, response);
                         }
                     }
-                    Partlist partList;
+                    String listOfParts = "";
                     if (carportType.equals("flat")) {
-                        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
-                        partList = flat.createPartList();
-                   } else { 
-                        Pointy pointy = new Pointy(carportType, roofType, carportLength, carportWidth, shedLength, shedWidth, 0, angle);
-                        partList = pointy.createPartList();
+                        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportWidth, carportLength, shedWidth, shedLength, 0);
+                        //listOfParts = flat.createPartList();
+                    } else {
+                        Pointy pointy = new Pointy(carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, 0, angle);
+                        //listOfParts = pointy.createPartList();
                     }
                     request.setAttribute("carport width", carportWidth);
                     request.setAttribute("carport length", carportLength);
                     request.setAttribute("shed width", shedWidth);
                     request.setAttribute("shed length", shedLength);
-                    request.setAttribute("partList", partList);
+                    request.setAttribute("listOfParts", listOfParts);
                     request.setAttribute("carportType", carportType);
                     if (carportType.equals("pointy")) {
                         request.setAttribute("angle", angle);
