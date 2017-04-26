@@ -1,6 +1,6 @@
 package business;
 
-import business.Parts.Part;
+import business.parts.Part;
 import java.util.Iterator;
 
 /**

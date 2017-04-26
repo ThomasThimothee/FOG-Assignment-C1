@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import business.Customer;
-import business.CustomerFacade;
+import business.facades.CustomerFacade;
 import business.Employee;
-import business.EmployeeFacade;
+import business.facades.EmployeeFacade;
 
 /**
  *

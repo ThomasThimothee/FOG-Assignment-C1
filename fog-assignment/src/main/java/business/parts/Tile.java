@@ -1,4 +1,4 @@
-package business.Parts;
+package business.parts;
 
 /**
  *

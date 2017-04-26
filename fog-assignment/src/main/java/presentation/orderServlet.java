@@ -1,9 +1,9 @@
 package presentation;
 
 import business.Flat;
-import business.FlatFacade;
+import business.facades.FlatFacade;
 import business.Partlist;
-import business.Parts.Part;
+import business.parts.Part;
 import business.Pointy;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,9 +1,9 @@
 package business;
 
-import business.Parts.Part.PartType;
-import business.Parts.Wood;
-import business.Parts.Tile;
-import business.Parts.Screw;
+import business.parts.Part.PartType;
+import business.parts.Wood;
+import business.parts.Tile;
+import business.parts.Screw;
 
 /**
  *
