@@ -4,7 +4,7 @@
     Author     : Lovro
 --%>
 
-<%@page import="business.FlatFacade"%>
+<%@page import="business.facades.FlatFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

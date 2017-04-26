@@ -1,7 +1,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="business.Partlist"%>
 <%@page import="business.Flat"%>
-<%@page import="business.Parts.Part"%>
+<%@page import="business.parts.Part"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

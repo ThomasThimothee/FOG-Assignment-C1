@@ -4,7 +4,7 @@
     Author     : thomasthimothee
 --%>
 
-<%@page import="business.PointyFacade"%>
+<%@page import="business.facades.PointyFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
