@@ -17,7 +17,7 @@ public class Pointy extends Carport {
     private double angle;
 
     public Pointy(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight, double angle) {
-        super(type, roofType, carportLength, shedLength, carportWidth, shedWidth, roofHeight);
+        super(type, roofType, carportLength, carportWidth, shedLength, shedWidth, roofHeight);
         this.angle = angle;
     }
 
@@ -47,7 +47,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodB);
         
         // C
-        if (shedLength <= 240 && shedLength > 150) {
+        if (shedLength <= 240 && shedLength >= 150) {
             woodC = new Wood(Part.PartType.WOOD, 1, 25, 150, 480, "trykimp. bræt", "Sternbrædder til siderne skur del");
         } else if (shedLength <= 270 && shedLength > 240) {
             woodC = new Wood(Part.PartType.WOOD, 1, 25, 150, 540, "trykimp. bræt", "Sternbrædder til siderne skur del");
@@ -87,7 +87,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodF);
         
         // G
-        if (shedLength <= 240 && shedLength > 150) {
+        if (shedLength <= 240 && shedLength >= 150) {
             woodG = new Wood(Part.PartType.WOOD, 1, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
         } else if (shedLength <= 300 && shedLength > 240) {
             woodG = new Wood(Part.PartType.WOOD, 1, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
@@ -101,7 +101,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodG);
 
         // H
-        if (shedLength <= 240 && shedLength > 150) {
+        if (shedLength <= 240 && shedLength >= 150) {
             woodH = new Wood(Part.PartType.WOOD, 4, 45, 95, 240, "ubh. reglar", "løsholter i siderne af skur");
         } else if (shedLength <= 270 && shedLength > 240) {
             woodH = new Wood(Part.PartType.WOOD, 4, 45, 95, 270, "ubh. reglar", "løsholter i siderne af skur");
@@ -117,7 +117,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodH);
 
         // I
-        if (shedWidth <= 240 && shedWidth > 210) {
+        if (shedWidth <= 240 && shedWidth >= 210) {
             woodI = new Wood(Part.PartType.WOOD, 6, 45, 95, 240, "ubh. reglar", "løsholter i gavle af skur");
         } else if (shedWidth <= 270 && shedWidth > 240) {
             woodI = new Wood(Part.PartType.WOOD, 6, 45, 95, 270, "ubh. reglar", "løsholter i gavle af skur");
@@ -147,7 +147,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodL);
 
         // M
-        if (totalLength <= 270 && totalLength > 150) {
+        if (totalLength <= 270 && totalLength >= 150) {
             woodM = new Wood(Part.PartType.WOOD, 1, 425, 50, 540, "trykimp. bræt", "til montering oven på tagfodslægte");
         } else if (totalLength <= 540 && totalLength > 270) {
             woodM = new Wood(Part.PartType.WOOD, 2, 425, 50, 540, "trykimp. bræt", "til montering oven på tagfodslægte");
@@ -171,7 +171,7 @@ public class Pointy extends Carport {
         super.partList.getPartList().add(woodO);
 
         // P
-        if (totalLength <= 420 && totalLength > 150) {
+        if (totalLength <= 420 && totalLength >= 150) {
             woodP = new Wood(Part.PartType.WOOD, 1, 38, 73, 420, "trykimp. bræt", "toplægte");
         } else if (totalLength <= 540 && totalLength > 420) {
             woodP = new Wood(Part.PartType.WOOD, 1, 38, 73, 540, "trykimp. bræt", "toplægte");

@@ -28,9 +28,6 @@ public class Carport {
         this.roofHeight = roofHeight;
         this.partList = new Partlist();
     }
-      
-    
-    
     
     /**
      * @return the type
