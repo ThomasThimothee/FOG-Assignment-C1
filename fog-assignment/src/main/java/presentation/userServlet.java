@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import business.Customer;
 import business.facades.CustomerFacade;
 import business.Employee;
+import business.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
 
 /**
@@ -18,9 +19,6 @@ import business.facades.EmployeeFacade;
  * @author Lovro
  */
 public class userServlet extends HttpServlet {
-
-    private final CustomerFacade customerFacade = new CustomerFacade();
-    private final EmployeeFacade employeeFacade = new EmployeeFacade();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,10 +32,10 @@ public class userServlet extends HttpServlet {
                     String lastName = request.getParameter("lastName");
                     String address = request.getParameter("address");
                     String phone = request.getParameter("phone");
-                    customerFacade.createCustomer(email, password, firstName, lastName, address, phone);
+                    CustomerFacade.createCustomer(email, password, firstName, lastName, address, phone);
                     request.setAttribute("messageUserCreated", "Congratulations, your new account has been created! Log in with your e-mail and password.");
                     request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
-                } catch (SQLException | NullPointerException e) {
+                } catch (InvalidUsernameOrPasswordException e) {
                     System.out.println(e.getMessage());
                     request.setAttribute("errorMessageEmailExists", "Error");
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
@@ -48,13 +46,13 @@ public class userServlet extends HttpServlet {
                 try {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
-                    Customer customer = customerFacade.getCustomer(email, password);
+                    Customer customer = CustomerFacade.getCustomer(email, password);
                     request.getSession().setAttribute("email", email);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentUser", customer);
                     request.getRequestDispatcher("index.html").forward(request, response);
 
-                } catch (SQLException | NullPointerException e) {
+                } catch (InvalidUsernameOrPasswordException e) {
                    request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
                 }
@@ -67,10 +65,10 @@ public class userServlet extends HttpServlet {
                     String lastName = request.getParameter("lastName");
                     String phone = request.getParameter("phone");
                     String email = request.getParameter("email");
-                    employeeFacade.createEmployee(username, password, firstName, lastName, phone, email);
+                    EmployeeFacade.createEmployee(username, password, firstName, lastName, phone, email);
                     request.setAttribute("messageUserCreated", "Congratulations, your new account has been created! Log in with your e-mail and password.");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
-                } catch (SQLException | NullPointerException e) {
+                } catch (InvalidUsernameOrPasswordException e) {
                    request.setAttribute("errorMessageUsernameExists", "Error");
                     request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
                 }
@@ -79,13 +77,13 @@ public class userServlet extends HttpServlet {
                       try {
                     String username = request.getParameter("username");
                     String password = request.getParameter("password");
-                    Employee employee = employeeFacade.getEmployee(username, password);
+                    Employee employee = EmployeeFacade.getEmployee(username, password);
                     request.getSession().setAttribute("username", username);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentUser", employee);
                     request.getRequestDispatcher("index.html").forward(request, response);
 
-                } catch (SQLException | NullPointerException e) {
+                } catch (InvalidUsernameOrPasswordException e) {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
                 }

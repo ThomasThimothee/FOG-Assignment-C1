@@ -1,31 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business.facades;
 
 import business.Employee;
+import business.InvalidUsernameOrPasswordException;
 import data.DataMapper;
-import data.IEmployeeFacade;
 import java.sql.SQLException;
 
 /**
  *
  * @author Lovro
  */
-public class EmployeeFacade implements IEmployeeFacade {
-    private DataMapper dm = new DataMapper();
+public class EmployeeFacade {
 
-    @Override
-    public Employee getEmployee(String username, String password) throws SQLException, NullPointerException {
-       return dm.employeeLogin(username, password);
-        
+    public static Employee getEmployee(String username, String password) throws InvalidUsernameOrPasswordException {
+        try {
+            DataMapper dm = new DataMapper();
+            return dm.employeeLogin(username, password);
+        } catch (SQLException | NullPointerException e) {
+            InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
+            throw ex;
+        }        
     }
-
-    @Override
-    public void createEmployee(String username, String password, String fistName, String lastName, String phone, String email) throws SQLException, NullPointerException {
-        dm.employeeSignup(username, password, fistName, lastName, phone, email);
+    
+    public static void createEmployee(String username, String password, String fistName, String lastName, String phone, String email) throws InvalidUsernameOrPasswordException {
+        try {
+            DataMapper dm = new DataMapper();
+            dm.employeeSignup(username, password, fistName, lastName, phone, email);
+        } catch (SQLException | NullPointerException e) {
+            InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
+            throw ex;
+        }            
     }
     
     
