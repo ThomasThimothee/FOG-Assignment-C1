@@ -1,16 +1,10 @@
 package presentation;
 
 import business.Flat;
-import business.facades.FlatFacade;
 import business.Partlist;
-import business.parts.Part;
 import business.Pointy;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.Iterator;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
