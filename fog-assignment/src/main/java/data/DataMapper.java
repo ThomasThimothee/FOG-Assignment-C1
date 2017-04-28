@@ -7,6 +7,7 @@ package data;
 
 import business.Customer;
 import business.Employee;
+import business.InsecurePasswordException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class DataMapper {
      public DataMapper() {
         con = new Connector().getConnection();
     }
-      public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, NullPointerException {
+      public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, NullPointerException, InsecurePasswordException {
         PreparedStatement updateCustomer = null;
         String str = "INSERT INTO customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         updateCustomer = con.prepareStatement(str);
@@ -33,7 +34,9 @@ public class DataMapper {
         updateCustomer.setString(4, lastName);
         updateCustomer.setString(5, address);
         updateCustomer.setString(6, phone);
-
+        if (password.length() < 7) {
+            throw new InsecurePasswordException();
+        } 
         int rowAffected = updateCustomer.executeUpdate();
         if (rowAffected == 1) {
             con.commit();

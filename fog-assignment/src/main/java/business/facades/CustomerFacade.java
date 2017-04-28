@@ -1,6 +1,7 @@
 package business.facades;
 
 import business.Customer;
+import business.InsecurePasswordException;
 import business.InvalidUsernameOrPasswordException;
 import data.DataMapper;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class CustomerFacade {
         }
     }
 
-    public static void createCustomer(String email, String password, String firstName, String lastName, String address, String phone) throws InvalidUsernameOrPasswordException {
+    public static void createCustomer(String email, String password, String firstName, String lastName, String address, String phone) throws InvalidUsernameOrPasswordException, InsecurePasswordException {
         try {
             DataMapper dm = new DataMapper();
             dm.customerSignup(email, password, firstName, lastName, address, phone);
