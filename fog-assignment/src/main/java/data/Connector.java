@@ -8,9 +8,9 @@ public class Connector {
 
     private Connection con;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/fog";
-    private static final String ID = "root";
-    private static final String PW = "r00K123454";
+    private static final String URL = "jdbc:mysql://104.236.61.92:3306/fog";
+    private static final String ID = "lovro";
+    private static final String PW = "r00K1234";
 
     public Connection getConnection() {
         con = null;
