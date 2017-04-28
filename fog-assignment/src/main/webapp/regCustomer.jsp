@@ -35,39 +35,42 @@
                     <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />
                         <div class="form-group">
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="Username" name="username" placeholder="Username" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="Password" name="password" placeholder="Password" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="Name" name="name" placeholder="Name" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
+                                <div class="col-xs-10">
                                     <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-10">
+                                <div class="col-xs-10">
+                                    <input class="form-control" type="text" id="Password" name="password" placeholder="Password" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-10">
+                                    <input class="form-control" type="text" id="FirstName" name="firstName" placeholder="First Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-10">
+                                    <input class="form-control" type="text" id="LastName" name="lastName" placeholder="Last Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-10">
                                     <input class="form-control" type="text" id="Address" name="address" placeholder="Address" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-10">
+                                <div class="col-xs-10">
                                     <input class="form-control" type="text" id="Phone" name="phone" placeholder="Phone Number" />
                                 </div>
                             </div>
-                        <input type="submit" value="Register" name="register" />
+                        </div>
+                        <div class="row">
+                            <section class="col-xs-offset-4 col-xs-4">
+                            <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
                         </div>
                     </form>
-                    </div>
+                </div>
             </div>
         </div>
 </div>
