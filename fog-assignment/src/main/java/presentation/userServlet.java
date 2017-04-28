@@ -49,7 +49,6 @@ public class userServlet extends HttpServlet {
                     request.setAttribute("address", request.getParameter("address"));
                     request.setAttribute("phone", request.getParameter("phone"));
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
-
                 }
                 break;
             case "CustomerLoginForm":

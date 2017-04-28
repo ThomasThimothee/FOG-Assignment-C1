@@ -25,7 +25,7 @@ public class DataMapper {
     }
       public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, NullPointerException, InsecurePasswordException {
         PreparedStatement updateCustomer = null;
-        String str = "INSERT INTO customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
+        String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         updateCustomer = con.prepareStatement(str);
         con.setAutoCommit(false);
         updateCustomer.setString(1, email);
@@ -48,19 +48,18 @@ public class DataMapper {
         ResultSet rs = null;
         Customer customer = null;
         PreparedStatement getCustomer = null;
-        String getBorrowerString = "SELECT * FROM customer WHERE email = ? AND password = ? ;";
+        String getBorrowerString = "SELECT (email, password, firstName, lastName, address, phone) FROM customer WHERE email = ? AND password = ? ;";
         getCustomer = con.prepareStatement(getBorrowerString);
         getCustomer.setString(1, email);
         getCustomer.setString(2, password);
         rs = getCustomer.executeQuery();
         if (rs.next()) {
-            customer = new Customer(rs.getInt(1),
+            customer = new Customer(rs.getString(1),
                                     rs.getString(2),
                                     rs.getString(3),
                                     rs.getString(4),
                                     rs.getString(5),
-                                    rs.getString(6),
-                                    rs.getString(7));
+                                    rs.getString(6));
         }
         return customer;
         

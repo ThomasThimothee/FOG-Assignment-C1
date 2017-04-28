@@ -1,4 +1,4 @@
-package data;
+package com.c1.testproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
