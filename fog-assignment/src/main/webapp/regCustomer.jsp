@@ -67,13 +67,13 @@
                                 <div class="col-xs-10">
                                     <input class="form-control" type="text" id="Phone" name="phone" placeholder="Phone Number" />
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <section class="col-xs-offset-4 col-xs-4">
-                            <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
-                        </div>
-                    </form>
+                            </div>    
+                            <div class="row">
+                                <section class="col-xs-offset-4 col-xs-4"></section>
+                                <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
+                            </div>               
+                    </form>                                 
+                    </div>
                 </div>
             </div>
         </div>
