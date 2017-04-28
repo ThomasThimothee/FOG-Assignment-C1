@@ -42,6 +42,7 @@ public class userServlet extends HttpServlet {
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
                 } catch (InsecurePasswordException ex) {
                     System.out.println(ex.getMessage());
+                    request.setAttribute("InsecurePasswordException", "Error");
                     request.setAttribute("email", request.getParameter("email"));
                     request.setAttribute("firstName", request.getParameter("firstName"));
                     request.setAttribute("lastName", request.getParameter("lastName"));

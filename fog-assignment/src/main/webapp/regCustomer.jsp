@@ -36,8 +36,8 @@
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />
                         <div class="form-group">
                                 <div class="col-xs-10">
-                                    <%  if ("email".equals(request.getAttribute("email"))) { %>
-                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%>/>
+                                    <%  if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
+                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%>
                                     <% } else { %>
                                         <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
                                     <% } %>
