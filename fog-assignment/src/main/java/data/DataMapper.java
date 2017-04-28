@@ -87,7 +87,7 @@ public class DataMapper {
  
  public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException {
       PreparedStatement updateEmployee = null;
-        String str = "INSERT INTO salesrep(username, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
+        String str = "INSERT INTO salesrep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
         updateEmployee = con.prepareStatement(str);
         con.setAutoCommit(false);
         updateEmployee.setString(1, username);
