@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import business.Customer;
 import business.facades.CustomerFacade;
 import business.Employee;
+import business.InsecurePasswordException;
 import business.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
 
@@ -39,7 +40,15 @@ public class userServlet extends HttpServlet {
                     System.out.println(e.getMessage());
                     request.setAttribute("errorMessageEmailExists", "Error");
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
-                    
+                } catch (InsecurePasswordException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("email", request.getParameter("email"));
+                    request.setAttribute("firstName", request.getParameter("firstName"));
+                    request.setAttribute("lastName", request.getParameter("lastName"));
+                    request.setAttribute("address", request.getParameter("address"));
+                    request.setAttribute("phone", request.getParameter("phone"));
+                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+
                 }
                 break;
             case "CustomerLoginForm":
