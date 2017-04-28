@@ -1,6 +1,23 @@
- <div class="container">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>Customer Signup</title>
 
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+</head> 
+<div class="container">
             <div class="row">
                 <div class="box">  
                     <div class="col-lg-12">
@@ -12,43 +29,60 @@
                             <% } %>
                         <hr>
                         <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
-                    <hr>
-                    <form name ="CustomerRegistrationForm" action="userServlet" method="POST">
+                        <hr>
+                    </div>
+                    <div class="col-xs-offset-3 col-xs-7">
+                    <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />
-                        <table border="1">
-
-                            <tbody>
-                                <tr>
-                                    <td>Email</td>
-                                    <td><input type="text" name="email" value="" /></td>
-                                </tr>
-                                 <tr>
-                                    <td>Password</td>
-                                    <td><input type="text" name="password" value="" /></td>
-                                </tr>
-                                <tr>
-                                    <td>First Name</td>
-                                    <td><input type="text" name="firstName" value="" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Last Name</td>
-                                    <td><input type="text" name="lastName" value="" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td><input type="text" name="address" value="" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Phone</td>
-                                    <td><input type="text" name="phone" value="" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Username" name="username" placeholder="Username" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Password" name="password" placeholder="Password" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Name" name="name" placeholder="Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Address" name="address" placeholder="Address" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="Phone" name="phone" placeholder="Phone Number" />
+                                </div>
+                            </div>
                         <input type="submit" value="Register" name="register" />
+                        </div>
                     </form>
-                </div>
+                    </div>
             </div>
         </div>
- </div>
+</div>
+<script src="js/jquery.js"></script>
+<script>
+    $(function () {
+        $('#Email').on('keypress', function (e) {
+            if (e.which == 32)
+                return false;
+        });
+        $('#Password').on('keypress', function (e) {
+            if (e.which == 32)
+                return false;
+        });
+    });
+    </script>
     </body>
 </html>

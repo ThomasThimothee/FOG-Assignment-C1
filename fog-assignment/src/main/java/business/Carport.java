@@ -5,6 +5,7 @@ package business;
  * @author thomasthimothee
  */
 public class Carport {
+    
     protected String type;
     protected String roofType;
     protected double carportLength;
