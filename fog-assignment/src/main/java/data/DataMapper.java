@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import business.Customer;
 import business.Employee;
-import business.InsecurePasswordException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  *
@@ -23,7 +20,7 @@ public class DataMapper {
      public DataMapper() {
         con = new Connector().getConnection();
     }
-      public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, NullPointerException, InsecurePasswordException {
+      public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, InsecurePasswordException, IncorrectEmailFormattingException {
         PreparedStatement updateCustomer = null;
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         updateCustomer = con.prepareStatement(str);
@@ -34,6 +31,10 @@ public class DataMapper {
         updateCustomer.setString(4, lastName);
         updateCustomer.setString(5, address);
         updateCustomer.setString(6, phone);
+        boolean valid = EmailValidator.getInstance().isValid(email);
+        if (!valid) {
+            throw new IncorrectEmailFormattingException();
+        }
         if (password.length() < 7) {
             throw new InsecurePasswordException();
         } 
@@ -141,5 +142,7 @@ public class DataMapper {
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        return id;    }
+        return id;    
+    }
+   
 }
