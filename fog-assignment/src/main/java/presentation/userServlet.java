@@ -33,7 +33,7 @@ public class userServlet extends HttpServlet {
                     String lastName = request.getParameter("lastName");
                     String address = request.getParameter("address");
                     String phone = request.getParameter("phone");
-                    CustomerFacade.createCustomer(email, password, firstName, lastName, address, phone);
+                    CustomerFacade.createCustomer(email, password, firstName, lastName, address, phone);                  
                     request.setAttribute("messageUserCreated", "Congratulations, your new account has been created! Log in with your e-mail and password.");
                     request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
@@ -56,6 +56,8 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
+                    int customerID = CustomerFacade.getCustomerId(email, password); // retrieve the customer ID needed for carport preorder
+                    customer.setId_customer(customerID); // since we don't retrieve id in getcustomer in customer facade
                     request.getSession().setAttribute("email", email);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentUser", customer);

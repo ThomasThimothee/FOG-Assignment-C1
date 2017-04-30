@@ -1,7 +1,10 @@
 package business;
 
+import business.facades.CustomerFacade;
 import business.parts.Part;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -10,15 +13,11 @@ import java.util.Iterator;
 public class Main {
     
     public static void main(String[] args) {
-        Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", 460, 380, 150, 210, 100);
-        Partlist partlist = flat.createPartList();
-        Iterator partIterator = partlist.getPartList().iterator();
-        while (partIterator.hasNext()) {
-            Part part = (Part) (partIterator.next());
-            System.out.println(part.toString());
-            if (part.getPartType() == Part.PartType.WOOD) {
-                System.out.println("THIS IS WOOD");
-            }
+        try {
+            System.out.println(CustomerFacade.getCustomerId("tom@tom", "87654321"));
+        } catch (InvalidUsernameOrPasswordException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }

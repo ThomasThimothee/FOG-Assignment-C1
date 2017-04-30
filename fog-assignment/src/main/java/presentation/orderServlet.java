@@ -20,6 +20,7 @@ public class orderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String name = (String) session.getAttribute("name");
         String action = request.getParameter("action");
         String carportType = request.getParameter("carportType");
         switch (action) {

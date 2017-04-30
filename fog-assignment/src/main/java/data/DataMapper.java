@@ -48,7 +48,7 @@ public class DataMapper {
         ResultSet rs = null;
         Customer customer = null;
         PreparedStatement getCustomer = null;
-        String getBorrowerString = "SELECT (email, password, firstName, lastName, address, phone) FROM customer WHERE email = ? AND password = ? ;";
+        String getBorrowerString = "SELECT (email, password, firstName, lastName, address, phone) FROM Customer WHERE email = ? AND password = ? ;";
         getCustomer = con.prepareStatement(getBorrowerString);
         getCustomer.setString(1, email);
         getCustomer.setString(2, password);
@@ -69,7 +69,7 @@ public class DataMapper {
     boolean emailExists = false;
         ResultSet rs = null;
         PreparedStatement st = null;
-        String str = "select * from customer order by email desc ;";
+        String str = "select * from Customer order by email desc ;";
         st = con.prepareStatement(str);
         rs = st.executeQuery();
         String emailCounter;
@@ -89,7 +89,7 @@ public class DataMapper {
  
  public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException {
       PreparedStatement updateEmployee = null;
-        String str = "INSERT INTO salesrep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
+        String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
         updateEmployee = con.prepareStatement(str);
         con.setAutoCommit(false);
         updateEmployee.setString(1, username);
@@ -111,7 +111,7 @@ public class DataMapper {
         ResultSet rs = null;
         Employee employee = null;
         PreparedStatement getBorrower = null;
-        String getBorrowerString = "SELECT * FROM customer WHERE username = ? AND password = ? ;";
+        String getBorrowerString = "SELECT * FROM Customer WHERE username = ? AND password = ? ;";
         getBorrower = con.prepareStatement(getBorrowerString);
         getBorrower.setString(1, username);
         getBorrower.setString(2, password);
@@ -128,4 +128,18 @@ public class DataMapper {
         return employee;
         
     }
+
+    public int retrieveCustomerId(String email, String password) throws SQLException {
+        ResultSet rs = null;
+        int id = 0;
+        PreparedStatement getCustomerId = null;
+        String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
+        getCustomerId = con.prepareStatement(getCustomerIdString);
+        getCustomerId.setString(1, email);
+        getCustomerId.setString(2, password);
+        rs = getCustomerId.executeQuery();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        return id;    }
 }

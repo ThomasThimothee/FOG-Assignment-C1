@@ -35,6 +35,7 @@ public class Flat extends Carport {
             woodA = new Wood(PartType.WOOD, 4, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
         } 
         super.partList.getPartList().add(woodA);
+        
 
 
         // B
