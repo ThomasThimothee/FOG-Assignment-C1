@@ -23,7 +23,7 @@
             <div class="col-lg-12">
                 <% if ("Error".equals(request.getAttribute("errorMessageUserNotFound"))) { %>
                 <div class="alert alert-danger">
-                    <strong>UUUPS</strong> You've entered wrong email &/or password!
+                    <strong>Whoops</strong> You've entered wrong email &/or password!
                 </div>
                 <%}%>
             </div>

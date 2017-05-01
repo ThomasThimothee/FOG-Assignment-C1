@@ -32,6 +32,12 @@
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                     <strong>Warning!</strong> Please enter a valid e-mail address. 
                                 </div>
+                        <%  } 
+                            if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
+                                </div>
                         <%  } %>
                         <hr>
                         <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
