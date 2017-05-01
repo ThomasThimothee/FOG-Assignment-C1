@@ -42,8 +42,11 @@
                         <%  int height = carportWidth;
                             int width = carportLength + shedLength;%>
                             <svg width="<%=width + 50%>" height="<%=height + 50%>">
-                            <rect x="25" y="25" rx="5" ry="5" width="<%=width%>" height="<%=height%>" style="fill:white;stroke:black;stroke-width:5;" />
+                                <rect x="25" y="25" rx="5" ry="5" width="<%=width%>" height="<%=height%>" style="fill:white;stroke:black;stroke-width:5;" />
                             <%  int spærtræQuantity = partlist.getPartList().get(9).getQuantity() - 2;
+                                if (spærtræQuantity % 2 == 0) {
+                                    spærtræQuantity--;
+                                }
                                 int initialSpærtræIncrement = width / spærtræQuantity;
                                 int spærtræIncrement = initialSpærtræIncrement;
                                 int i = 0;
@@ -52,6 +55,16 @@
                                 <%  spærtræIncrement += initialSpærtræIncrement;
                                     i++;
                                 } %>
+<!--                                Remme i sider-->
+                                <line x1="25" y1="<%=shedWidth + 25%>" x2="<%=width + 25%>" y2="<%=shedWidth + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="25" y1="<%=(carportWidth-shedWidth) + 25%>" x2="<%=width + 25%>" y2="<%=(carportWidth-shedWidth) + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+<!--                                --------------->
+<!--                                shed walls-->
+                                <line x1="<%=carportLength + 25%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 25%>" x2="<%=carportLength + 25%>" y2="<%=(carportWidth - shedWidth) + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="<%=(width + 25) - (initialSpærtræIncrement / 2)%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 25%>" x2="<%=(width + 25) - (initialSpærtræIncrement / 2)%>" y2="<%=(carportWidth - shedWidth) + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+<!--                                ------------>
+                                <line x1="<%=carportLength + 25%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 25%>" x2="<%=initialSpærtræIncrement + 25%>" y2="<%=(carportWidth - shedWidth) + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="<%=carportLength + 25%>" y1="<%=(carportWidth - shedWidth) + 25%>" x2="<%=initialSpærtræIncrement + 25%>" y2="<%=(carportWidth - (carportWidth - shedWidth)) + 25%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
                         </svg>
                     </div>
                 </div>

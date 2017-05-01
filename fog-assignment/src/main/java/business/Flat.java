@@ -59,9 +59,9 @@ public class Flat extends Carport {
         // C
         if (carportWidth <= 360 && carportWidth >= 240) {
             woodC = new Wood(PartType.WOOD, 1, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
-        } else if (carportWidth < 540 && carportWidth > 360) {
+        } else if (carportWidth <= 540 && carportWidth > 360) {
             woodC = new Wood(PartType.WOOD, 1, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
-        } else if (carportWidth < 720 && carportWidth > 540) {
+        } else if (carportWidth <= 720 && carportWidth > 540) {
             woodC = new Wood(PartType.WOOD, 2, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
         } else if (carportWidth > 720) {
             woodC = new Wood(PartType.WOOD, 2, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
