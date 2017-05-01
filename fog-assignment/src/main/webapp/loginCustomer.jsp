@@ -18,51 +18,53 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
-<div class="row">
-    <div class="box">
-                <% if ( "Error".equals( request.getAttribute( "errorMessageUserNotFound" ) ) ) {%>
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12">
+                <% if ("Error".equals(request.getAttribute("errorMessageUserNotFound"))) { %>
                 <div class="alert alert-danger">
-                    <strong>UUUPS</strong> You've entered wrong email &/or password!
+                    <strong>Whoops</strong> You've entered wrong email &/or password!
                 </div>
                 <%}%>
-                <div class="col-lg-12">
-                    <hr>
-                    <h2 class="intro-text text-center">Login
-                        <strong>form</strong>
-                    </h2>
-                    <hr>
-                    <div class="col-xs-offset-3 col-xs-7">
-                   <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
+            </div>
+            <hr>
+            <h2 class="intro-text text-center">Login
+                <strong>form</strong>
+            </h2>
+            <hr>
+            <div class="col-xs-offset-3 col-xs-7">
+                <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerLoginForm"/>
+                    <div class="row">
+                        <div class="form-group col-xs-10">
+                            <input type="text" class="form-control" name="email" placeholder="E-mail">
+                        </div>
+                        <div class="form-group col-xs-10">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
                         <div class="row">
-                            <div class="form-group col-xs-10">
-                                <input type="text" class="form-control" name="email" placeholder="E-mail">
-                            </div>
-                            <div class="form-group col-xs-10">
-                                <input type="password" class="form-control" name="password" placeholder="Password">
-                            </div>
-                            <div class="form-group col-xs-10">
+                            <div class="col-xs-offset-2 col-xs-6">
                                 <input type="hidden" name="action" value="login">
                                 <label><br></label>
-                                <button type="submit" class="btn btn-success">Sign in</button>
+                                <button type="submit" class="form-control btn btn-success">Sign in</button>
                             </div>
                         </div>
-                    </form>
                     </div>
-                </div>
+                </form>
             </div>
-  </div>
+        </div>
+    </div>
 </body>
 <script src="js/jquery.js"></script>
 <script>
     $(function () {
         $('#Email').on('keypress', function (e) {
             if (e.which == 32)
-            return false;
+                return false;
         });
         $('#Password').on('keypress', function (e) {
             if (e.which == 32)
-            return false;
+                return false;
         });
     });
 </script>

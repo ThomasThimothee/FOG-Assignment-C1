@@ -22,11 +22,23 @@
                 <div class="box">  
                     <div class="col-lg-12">
                         <%  if ("Error".equals(request.getAttribute("errorMessageEmailExists"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong>Email already Exists 
-                            </div>
-                            <% } %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> E-mail already exists. 
+                                </div>
+                        <%  } 
+                            if ("Error".equals(request.getAttribute("IncorrectEmailFormattingException"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> Please enter a valid e-mail address. 
+                                </div>
+                        <%  } 
+                            if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
+                                </div>
+                        <%  } %>
                         <hr>
                         <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
                         <hr>
@@ -37,7 +49,7 @@
                         <div class="form-group">
                                 <div class="col-xs-10">
                                     <%  if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
-                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%>
+                                        <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%> />
                                     <% } else { %>
                                         <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
                                     <% } %>
@@ -45,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-10">
-                                    <input class="form-control" type="text" id="Password" name="password" placeholder="Password" />
+                                    <input class="form-control" type="password" id="Password" name="password" placeholder="Password" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -69,8 +81,9 @@
                                 </div>
                             </div>    
                             <div class="row">
-                                <section class="col-xs-offset-4 col-xs-4"></section>
-                                <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
+                                <div class="col-xs-offset-2 col-xs-6">
+                                    <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
+                                </div>
                             </div>               
                     </form>                                 
                     </div>

@@ -1,18 +1,16 @@
 package presentation;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import business.Customer;
 import business.facades.CustomerFacade;
 import business.Employee;
-import business.InsecurePasswordException;
-import business.InvalidUsernameOrPasswordException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
+import business.exceptions.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
 import javax.servlet.http.HttpSession;
 
@@ -51,6 +49,10 @@ public class userServlet extends HttpServlet {
                     request.setAttribute("address", request.getParameter("address"));
                     request.setAttribute("phone", request.getParameter("phone"));
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                } catch (IncorrectEmailFormattingException e) {
+                    System.out.println(e.getMessage());
+                    request.setAttribute("IncorrectEmailFormattingException", "Error");
+                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
                 }
                 break;
             case "CustomerLoginForm":
@@ -58,6 +60,7 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
+                    session.setAttribute("currentUser", customer);
                     int customerID = CustomerFacade.getCustomerId(email, password); // retrieve the customer ID needed for carport preorder
                     customer.setId_customer(customerID); // since we don't retrieve id in getcustomer in customer facade
                     session.setAttribute("currentUser", customer);
