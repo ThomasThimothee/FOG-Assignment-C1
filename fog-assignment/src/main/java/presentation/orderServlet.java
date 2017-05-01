@@ -1,8 +1,10 @@
 package presentation;
 
+import business.Customer;
 import business.Flat;
 import business.Partlist;
 import business.Pointy;
+import business.facades.CarportFacade;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +22,12 @@ public class orderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("name");
+        Customer customer = (Customer) session.getAttribute("currentUser");// try to retrieve current user
         String action = request.getParameter("action");
         String carportType = request.getParameter("carportType");
         switch (action) {
             case "order":
+                
                 try {
                     int carportWidth = Integer.parseInt(request.getParameter("carport width"));
                     int carportLength = Integer.parseInt(request.getParameter("carport length"));
@@ -48,6 +51,15 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("index.html").forward(request, response);
                         }
                     }
+                    String concat = customer.getFirstName() + customer.getLastName();
+                    CarportFacade.createCarport(concat);
+                    int carportID = CarportFacade.getCarportId(concat);
+                    //// test if retrieve all info needed for the partlist and order in db
+                    System.out.println("customer name: ");
+                    System.out.println("customer id: ");
+                    System.out.println("carport id: ");
+                    ///
+                    
                     Partlist partList;
                     if (carportType.equals("flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);

@@ -62,7 +62,6 @@ public class userServlet extends HttpServlet {
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentUser", customer);
                     request.getRequestDispatcher("index.html").forward(request, response);
-
                 } catch (InvalidUsernameOrPasswordException e) {
                    request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);

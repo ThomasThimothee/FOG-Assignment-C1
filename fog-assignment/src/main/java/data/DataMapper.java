@@ -48,18 +48,18 @@ public class DataMapper {
         ResultSet rs = null;
         Customer customer = null;
         PreparedStatement getCustomer = null;
-        String getBorrowerString = "SELECT (email, password, firstName, lastName, address, phone) FROM Customer WHERE email = ? AND password = ? ;";
-        getCustomer = con.prepareStatement(getBorrowerString);
+        String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;"; // had to change this
+        getCustomer = con.prepareStatement(getCustomerString);
         getCustomer.setString(1, email);
         getCustomer.setString(2, password);
         rs = getCustomer.executeQuery();
         if (rs.next()) {
-            customer = new Customer(rs.getString(1),
-                                    rs.getString(2),
+            customer = new Customer(rs.getString(2),
                                     rs.getString(3),
                                     rs.getString(4),
                                     rs.getString(5),
-                                    rs.getString(6));
+                                    rs.getString(6),
+                                    rs.getString(7));
         }
         return customer;
         
@@ -142,4 +142,31 @@ public class DataMapper {
             id = rs.getInt(1);
         }
         return id;    }
+
+    public void newCarport(String concat) throws SQLException {
+        PreparedStatement createCarport = null;
+        String createCarportString = "INSERT INTO Carport(name) VALUES (?);";
+        createCarport = con.prepareStatement(createCarportString);
+        con.setAutoCommit(false);
+        createCarport.setString(1, concat);
+        int rowAffected = createCarport.executeUpdate();
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }    }
+
+    public int retrieveCarportId(String concat) throws SQLException {
+        ResultSet rs = null;
+        int id = 0;
+        PreparedStatement getCarportId = null;
+        String getCarportIdString = "SELECT idCarport FROM Carport WHERE name = ?;";
+        getCarportId = con.prepareStatement(getCarportIdString);
+        getCarportId.setString(1, concat);
+        rs = getCarportId.executeQuery();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        return id;      }
+
 }
