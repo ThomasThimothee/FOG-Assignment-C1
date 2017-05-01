@@ -27,7 +27,6 @@ public class orderServlet extends HttpServlet {
         String carportType = request.getParameter("carportType");
         switch (action) {
             case "order":
-                
                 try {
                     int carportWidth = Integer.parseInt(request.getParameter("carport width"));
                     int carportLength = Integer.parseInt(request.getParameter("carport length"));
