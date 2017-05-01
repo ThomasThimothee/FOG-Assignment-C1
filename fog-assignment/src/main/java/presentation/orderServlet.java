@@ -22,7 +22,7 @@ public class orderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("currentUser");// try to retrieve current user
+        Customer customer = (Customer) session.getAttribute("currentCustomer");// try to retrieve current user
         String action = request.getParameter("action");
         String carportType = request.getParameter("carportType");
         switch (action) {

@@ -83,7 +83,16 @@ public class userServlet extends HttpServlet {
                 } catch (InvalidUsernameOrPasswordException e) {
                    request.setAttribute("errorMessageUsernameExists", "Error");
                     request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
-                }
+                } catch (InsecurePasswordException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("InsecurePasswordException", "Error");
+                    request.setAttribute("email", request.getParameter("email"));
+                    request.setAttribute("firstName", request.getParameter("firstName"));
+                    request.setAttribute("lastName", request.getParameter("lastName"));
+                    request.setAttribute("address", request.getParameter("address"));
+                    request.setAttribute("phone", request.getParameter("phone"));
+                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                } 
                 break;
                 case"EmployeeLoginForm":
                       try {
@@ -92,13 +101,12 @@ public class userServlet extends HttpServlet {
                     Employee employee = EmployeeFacade.getEmployee(username, password);
                     request.getSession().setAttribute("username", username);
                     request.getSession().setAttribute("password", password);
-                    request.getSession().setAttribute("currentUser", employee);
+                    request.getSession().setAttribute("currentEmployee", employee);
                     request.getRequestDispatcher("index.html").forward(request, response);
-
                 } catch (InvalidUsernameOrPasswordException e) {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
-                }
+                } 
                 break;
         }
     }

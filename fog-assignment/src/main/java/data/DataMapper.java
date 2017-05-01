@@ -88,7 +88,7 @@ public class DataMapper {
         return emailExists;
     }
 
-    public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException {
+    public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException, InsecurePasswordException {
         PreparedStatement updateEmployee = null;
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
         updateEmployee = con.prepareStatement(str);
@@ -99,7 +99,9 @@ public class DataMapper {
         updateEmployee.setString(4, lastName);
         updateEmployee.setString(5, phone);
         updateEmployee.setString(6, email);
-
+        if (password.length() < 7) {
+            throw new InsecurePasswordException();
+        }
         int rowAffected = updateEmployee.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -112,19 +114,18 @@ public class DataMapper {
         ResultSet rs = null;
         Employee employee = null;
         PreparedStatement getBorrower = null;
-        String getBorrowerString = "SELECT * FROM Customer WHERE username = ? AND password = ? ;";
+        String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
         getBorrower = con.prepareStatement(getBorrowerString);
         getBorrower.setString(1, username);
         getBorrower.setString(2, password);
         rs = getBorrower.executeQuery();
         if (rs.next()) {
-            employee = new Employee(rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7));
+            employee = new Employee(rs.getString(2),
+                                    rs.getString(3),
+                                    rs.getString(4),
+                                    rs.getString(5),
+                                    rs.getString(6),
+                                    rs.getString(7));
         }
         return employee;
 

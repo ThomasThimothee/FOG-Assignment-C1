@@ -6,8 +6,7 @@ package business;
  */
 public class Employee {
 
-    public Employee(int id_employee, String username, String password, String firstName, String lastName, String phone, String email) {
-        this.id_employee = id_employee;
+    public Employee(String username, String password, String firstName, String lastName, String phone, String email) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
