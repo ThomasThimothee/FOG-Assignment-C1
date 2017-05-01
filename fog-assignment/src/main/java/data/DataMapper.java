@@ -49,22 +49,23 @@ public class DataMapper {
         ResultSet rs = null;
         Customer customer = null;
         PreparedStatement getCustomer = null;
-        String getBorrowerString = "SELECT (email, password, firstName, lastName, address, phone) FROM Customer WHERE email = ? AND password = ? ;";
-        getCustomer = con.prepareStatement(getBorrowerString);
+        String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;"; // had to change this
+        getCustomer = con.prepareStatement(getCustomerString);
         getCustomer.setString(1, email);
         getCustomer.setString(2, password);
         rs = getCustomer.executeQuery();
         if (rs.next()) {
-            customer = new Customer(rs.getString(1),
-                                    rs.getString(2),
+            customer = new Customer(rs.getString(2),
                                     rs.getString(3),
                                     rs.getString(4),
                                     rs.getString(5),
-                                    rs.getString(6));
+                                    rs.getString(6),
+                                    rs.getString(7));
         }
         return customer;
         
     }
+ 
   public boolean emailExists(String email) throws SQLException 
 {
     boolean emailExists = false;
