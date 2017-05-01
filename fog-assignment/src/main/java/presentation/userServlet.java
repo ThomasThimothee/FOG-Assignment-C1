@@ -12,6 +12,7 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,6 +22,7 @@ public class userServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String formName = request.getParameter("formName");
         switch (formName) {
             case "CustomerRegistrationForm":
@@ -58,6 +60,7 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
+                    session.setAttribute("currentUser", customer);
                     int customerID = CustomerFacade.getCustomerId(email, password); // retrieve the customer ID needed for carport preorder
                     customer.setId_customer(customerID); // since we don't retrieve id in getcustomer in customer facade
                     request.getSession().setAttribute("email", email);
