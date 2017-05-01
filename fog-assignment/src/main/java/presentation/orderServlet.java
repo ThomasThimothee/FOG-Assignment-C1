@@ -4,7 +4,7 @@ import business.Customer;
 import business.Flat;
 import business.Partlist;
 import business.Pointy;
-import business.facades.CarportFacade;
+import business.facades.OrderFacade;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,8 +51,8 @@ public class orderServlet extends HttpServlet {
                         }
                     }
 //                    String concat = customer.getFirstName() + customer.getLastName();
-//                    CarportFacade.createCarport(concat);
-//                    int carportID = CarportFacade.getCarportId(concat);
+//                    OrderFacade.createCarport(concat);
+//                    int carportID = OrderFacade.getCarportId(concat);
                     //// test if retrieve all info needed for the partlist and order in db
                     System.out.println("customer name: " + customer.getFirstName());
                     System.out.println("customer id: " + customer.getId_customer());

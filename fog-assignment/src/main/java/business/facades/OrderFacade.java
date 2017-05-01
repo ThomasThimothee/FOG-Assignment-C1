@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author thomasthimothee
  */
-public class CarportFacade {
+public class OrderFacade {
     
 //        public static void createCarport(String concat){
 //        try {
