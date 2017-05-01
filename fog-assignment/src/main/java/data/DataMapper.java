@@ -1,29 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import business.Customer;
 import business.Employee;
-import business.InsecurePasswordException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  *
  * @author Lovro
  */
 public class DataMapper {
-     private final Connection con;
-     
-     public DataMapper() {
+
+    private final Connection con;
+
+    public DataMapper() {
         con = new Connector().getConnection();
     }
-      public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, NullPointerException, InsecurePasswordException {
+
+    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, InsecurePasswordException, IncorrectEmailFormattingException {
         PreparedStatement updateCustomer = null;
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         updateCustomer = con.prepareStatement(str);
@@ -34,9 +33,13 @@ public class DataMapper {
         updateCustomer.setString(4, lastName);
         updateCustomer.setString(5, address);
         updateCustomer.setString(6, phone);
+        boolean valid = EmailValidator.getInstance().isValid(email);
+        if (!valid) {
+            throw new IncorrectEmailFormattingException();
+        }
         if (password.length() < 7) {
             throw new InsecurePasswordException();
-        } 
+        }
         int rowAffected = updateCustomer.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -44,7 +47,8 @@ public class DataMapper {
             con.rollback();
         }
     }
- public Customer customerLogin(String email, String password) throws SQLException, NullPointerException {
+
+    public Customer customerLogin(String email, String password) throws SQLException, NullPointerException {
         ResultSet rs = null;
         Customer customer = null;
         PreparedStatement getCustomer = null;
@@ -55,40 +59,37 @@ public class DataMapper {
         rs = getCustomer.executeQuery();
         if (rs.next()) {
             customer = new Customer(rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getString(4),
-                                    rs.getString(5),
-                                    rs.getString(6),
-                                    rs.getString(7));
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7));
         }
         return customer;
-        
+
     }
-  public boolean emailExists(String email) throws SQLException 
-{
-    boolean emailExists = false;
+
+    public boolean emailExists(String email) throws SQLException {
+        boolean emailExists = false;
         ResultSet rs = null;
         PreparedStatement st = null;
         String str = "select * from Customer order by email desc ;";
         st = con.prepareStatement(str);
         rs = st.executeQuery();
         String emailCounter;
-         if(rs.next()) 
-         {
-           emailCounter =  rs.getString("email");
-           if(emailCounter.equals(email))
-           {
-               System.out.println("It already exists");
-              emailExists = true;
-           }
-         }
+        if (rs.next()) {
+            emailCounter = rs.getString("email");
+            if (emailCounter.equals(email)) {
+                System.out.println("It already exists");
+                emailExists = true;
+            }
+        }
 
- return emailExists;
-     }
+        return emailExists;
+    }
 
- 
- public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException {
-      PreparedStatement updateEmployee = null;
+    public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException {
+        PreparedStatement updateEmployee = null;
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
         updateEmployee = con.prepareStatement(str);
         con.setAutoCommit(false);
@@ -106,8 +107,8 @@ public class DataMapper {
             con.rollback();
         }
     }
- 
- public Employee employeeLogin(String username, String password) throws SQLException, NullPointerException {
+
+    public Employee employeeLogin(String username, String password) throws SQLException, NullPointerException {
         ResultSet rs = null;
         Employee employee = null;
         PreparedStatement getBorrower = null;
@@ -118,15 +119,15 @@ public class DataMapper {
         rs = getBorrower.executeQuery();
         if (rs.next()) {
             employee = new Employee(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getString(4),
-                                    rs.getString(5),
-                                    rs.getString(6),
-                                    rs.getString(7));
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7));
         }
         return employee;
-        
+
     }
 
     public int retrieveCustomerId(String email, String password) throws SQLException {
@@ -141,7 +142,8 @@ public class DataMapper {
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        return id;    }
+        return id;
+    }
 
     public void newCarport(String concat) throws SQLException {
         PreparedStatement createCarport = null;
@@ -154,7 +156,8 @@ public class DataMapper {
             con.commit();
         } else {
             con.rollback();
-        }    }
+        }
+    }
 
     public int retrieveCarportId(String concat) throws SQLException {
         ResultSet rs = null;
@@ -167,6 +170,7 @@ public class DataMapper {
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        return id;      }
+        return id;
+    }
 
 }

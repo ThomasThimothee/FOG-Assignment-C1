@@ -1,7 +1,7 @@
 package business.facades;
 
 import business.Employee;
-import business.InvalidUsernameOrPasswordException;
+import business.exceptions.InvalidUsernameOrPasswordException;
 import data.DataMapper;
 import java.sql.SQLException;
 
