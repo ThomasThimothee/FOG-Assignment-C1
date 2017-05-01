@@ -24,7 +24,7 @@
                         <%  if ("Error".equals(request.getAttribute("errorMessageEmailExists"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong>Email already Exists 
+                                <strong>Warning!</strong> Email already Exists 
                             </div>
                             <% } %>
                         <hr>
