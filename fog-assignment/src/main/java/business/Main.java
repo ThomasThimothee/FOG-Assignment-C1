@@ -19,7 +19,6 @@ public class Main {
     public static void main(String[] args) throws InvalidUsernameOrPasswordException {
        Customer customer = CustomerFacade.getCustomer("testmail@mail", "testmail");
        
-        System.out.println("ID = " + CustomerFacade.getCustomerId("testmail@mail", "testmail"));
         System.out.println("name = " + customer.getFirstName());
     }
 }

@@ -50,13 +50,13 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("index.html").forward(request, response);
                         }
                     }
-                    String concat = customer.getFirstName() + customer.getLastName();
-                    CarportFacade.createCarport(concat);
-                    int carportID = CarportFacade.getCarportId(concat);
+//                    String concat = customer.getFirstName() + customer.getLastName();
+//                    CarportFacade.createCarport(concat);
+//                    int carportID = CarportFacade.getCarportId(concat);
                     //// test if retrieve all info needed for the partlist and order in db
-                    System.out.println("customer name: ");
-                    System.out.println("customer id: ");
-                    System.out.println("carport id: ");
+                    System.out.println("customer name: " + customer.getFirstName());
+                    System.out.println("customer id: " + customer.getId_customer());
+                    System.out.println("customer email: " + customer.getEmail());
                     ///
                     
                     Partlist partList;

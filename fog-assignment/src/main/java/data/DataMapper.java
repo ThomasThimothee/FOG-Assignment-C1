@@ -130,47 +130,47 @@ public class DataMapper {
 
     }
 
-    public int retrieveCustomerId(String email, String password) throws SQLException {
+    public void setCustomerId(Customer customer) throws SQLException {
         ResultSet rs = null;
         int id = 0;
         PreparedStatement getCustomerId = null;
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         getCustomerId = con.prepareStatement(getCustomerIdString);
-        getCustomerId.setString(1, email);
-        getCustomerId.setString(2, password);
+        getCustomerId.setString(1, customer.getEmail());
+        getCustomerId.setString(2, customer.getPassword());
         rs = getCustomerId.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        return id;
+        customer.setId_customer(id);
     }
 
-    public void newCarport(String concat) throws SQLException {
-        PreparedStatement createCarport = null;
-        String createCarportString = "INSERT INTO Carport(name) VALUES (?);";
-        createCarport = con.prepareStatement(createCarportString);
-        con.setAutoCommit(false);
-        createCarport.setString(1, concat);
-        int rowAffected = createCarport.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
-        }
-    }
-
-    public int retrieveCarportId(String concat) throws SQLException {
-        ResultSet rs = null;
-        int id = 0;
-        PreparedStatement getCarportId = null;
-        String getCarportIdString = "SELECT idCarport FROM Carport WHERE name = ?;";
-        getCarportId = con.prepareStatement(getCarportIdString);
-        getCarportId.setString(1, concat);
-        rs = getCarportId.executeQuery();
-        if (rs.next()) {
-            id = rs.getInt(1);
-        }
-        return id;
-    }
+//    public void newOrder(String concat) throws SQLException {
+//        PreparedStatement createCarport = null;
+//        String createCarportString = "INSERT INTO Order(name) VALUES (?);";
+//        createCarport = con.prepareStatement(createCarportString);
+//        con.setAutoCommit(false);
+//        createCarport.setString(1, concat);
+//        int rowAffected = createCarport.executeUpdate();
+//        if (rowAffected == 1) {
+//            con.commit();
+//        } else {
+//            con.rollback();
+//        }
+//    }
+//
+//    public int retrieveCarportId(String concat) throws SQLException {
+//        ResultSet rs = null;
+//        int id = 0;
+//        PreparedStatement getCarportId = null;
+//        String getCarportIdString = "SELECT idCarport FROM Carport WHERE name = ?;";
+//        getCarportId = con.prepareStatement(getCarportIdString);
+//        getCarportId.setString(1, concat);
+//        rs = getCarportId.executeQuery();
+//        if (rs.next()) {
+//            id = rs.getInt(1);
+//        }
+//        return id;
+//    }
 
 }

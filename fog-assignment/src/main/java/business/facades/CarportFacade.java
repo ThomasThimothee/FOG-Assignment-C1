@@ -14,22 +14,22 @@ import java.sql.SQLException;
  */
 public class CarportFacade {
     
-        public static void createCarport(String concat){
-        try {
-            DataMapper dm = new DataMapper();
-            dm.newCarport(concat);
-        } catch (SQLException | NullPointerException e) {
-
-        }
-    }
-        public static int getCarportId(String concat) {
-        int id = 0;
-        try {
-            DataMapper dm = new DataMapper();
-            id = dm.retrieveCarportId(concat);
-        } catch (SQLException | NullPointerException e) {
-
-        }
-        return id;
-    }
+//        public static void createCarport(String concat){
+//        try {
+//            DataMapper dm = new DataMapper();
+//            dm.newCarport(concat);
+//        } catch (SQLException | NullPointerException e) {
+//
+//        }
+//    }
+//        public static int getCarportId(String concat) {
+//        int id = 0;
+//        try {
+//            DataMapper dm = new DataMapper();
+//            id = dm.retrieveCarportId(concat);
+//        } catch (SQLException | NullPointerException e) {
+//            
+//        }
+//        return id;
+//    }
 }

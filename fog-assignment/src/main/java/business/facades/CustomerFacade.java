@@ -33,15 +33,13 @@ public class CustomerFacade {
         }
     }
 
-    public static int getCustomerId(String email, String password) throws InvalidUsernameOrPasswordException {
-        int id = 0;
+    public static void setCustomerId(Customer customer) throws InvalidUsernameOrPasswordException {
         try {
             DataMapper dm = new DataMapper();
-            id = dm.retrieveCustomerId(email, password);
+            dm.setCustomerId(customer);
         } catch (SQLException | NullPointerException e) {
             InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
             throw ex;
         }
-        return id;
     }
 }
