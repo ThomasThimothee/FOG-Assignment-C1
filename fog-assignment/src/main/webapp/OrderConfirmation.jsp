@@ -39,6 +39,20 @@
                                 while (partIterator.hasNext()) { 
                                     Part part = (Part) partIterator.next();
                         %>          <p><%=part.toString() + "\n"%></p><% } %>
+                        <%  int height = carportWidth;
+                            int width = carportLength + shedLength;%>
+                            <svg width="<%=width + 50%>" height="<%=height + 50%>">
+                            <rect x="25" y="25" rx="5" ry="5" width="<%=width%>" height="<%=height%>" style="fill:white;stroke:black;stroke-width:5;" />
+                            <%  int spærtræQuantity = partlist.getPartList().get(9).getQuantity() - 2;
+                                int initialSpærtræIncrement = width / spærtræQuantity;
+                                int spærtræIncrement = initialSpærtræIncrement;
+                                int i = 0;
+                                while (i < spærtræQuantity) { %>
+                                    <line x1="<%=spærtræIncrement + 25%>" y1="<%=height + 25%>" x2="<%=spærtræIncrement + 25%>" y2="25" style="fill:white;stroke:rgb(0,0,0);stroke-width:6" />
+                                <%  spærtræIncrement += initialSpærtræIncrement;
+                                    i++;
+                                } %>
+                        </svg>
                     </div>
                 </div>
             </div>

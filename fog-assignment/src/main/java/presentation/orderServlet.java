@@ -42,21 +42,19 @@ public class orderServlet extends HttpServlet {
                         switch (carportType) {
                             case "flat":
                                 request.getRequestDispatcher("flatOrder.jsp").forward(request, response);
-                                break;
+                                return;
                             case "pointy":
                                 request.getRequestDispatcher("pointyOrder.jsp").forward(request, response);
-                                break;
+                                return;
                             default:
                                 request.getRequestDispatcher("index.html").forward(request, response);
+                                return;
                         }
                     }
 //                    String concat = customer.getFirstName() + customer.getLastName();
 //                    CarportFacade.createCarport(concat);
 //                    int carportID = CarportFacade.getCarportId(concat);
                     //// test if retrieve all info needed for the partlist and order in db
-                    System.out.println("customer name: " + customer.getFirstName());
-                    System.out.println("customer id: " + customer.getId_customer());
-                    System.out.println("customer email: " + customer.getEmail());
                     ///
                     
                     Partlist partList;
