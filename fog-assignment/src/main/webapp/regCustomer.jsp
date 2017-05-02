@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
+<body>
 <div class="container">
             <div class="row">
                 <div class="box">  
@@ -46,7 +47,7 @@
                     <div class="col-xs-offset-3 col-xs-7">
                     <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />
-                        <div class="form-group">
+                            <div class="form-group">
                                 <div class="col-xs-10">
                                     <%  if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
                                         <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%> />
@@ -90,7 +91,7 @@
                 </div>
             </div>
         </div>
-</div>
+</body>
 <script src="js/jquery.js"></script>
 <script>
     $(function () {
@@ -104,5 +105,4 @@
         });
     });
     </script>
-    </body>
 </html>

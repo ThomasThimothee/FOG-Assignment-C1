@@ -1,6 +1,9 @@
 package business;
 
+
+import business.facades.CarportFacade;
 import business.exceptions.InvalidUsernameOrPasswordException;
+
 import business.facades.CustomerFacade;
 import business.parts.Part;
 import java.util.Iterator;
@@ -13,12 +16,9 @@ import java.util.logging.Logger;
  */
 public class Main {
     
-    public static void main(String[] args) {
-        try {
-            System.out.println(CustomerFacade.getCustomerId("tom@tom", "87654321"));
-        } catch (InvalidUsernameOrPasswordException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    public static void main(String[] args) throws InvalidUsernameOrPasswordException {
+       Customer customer = CustomerFacade.getCustomer("testmail@mail", "testmail");
+       
+        System.out.println("name = " + customer.getFirstName());
     }
 }
