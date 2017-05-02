@@ -50,9 +50,8 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("index.html").forward(request, response);
                         }
                     }
-//                    String concat = customer.getFirstName() + customer.getLastName();
-//                    OrderFacade.createCarport(concat);
-//                    int carportID = OrderFacade.getCarportId(concat);
+                    OrderFacade.createOrder(customer.getId_customer(), 7, false, 100.00); //hard code the idSalesRep and price
+                    int orderId = OrderFacade.getOrderId(customer.getId_customer(), 7); // hard code the sales person ID
                     //// test if retrieve all info needed for the partlist and order in db
                     System.out.println("customer name: " + customer.getFirstName());
                     System.out.println("customer id: " + customer.getId_customer());

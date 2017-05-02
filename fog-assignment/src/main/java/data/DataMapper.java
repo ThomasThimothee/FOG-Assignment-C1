@@ -121,11 +121,11 @@ public class DataMapper {
         rs = getBorrower.executeQuery();
         if (rs.next()) {
             employee = new Employee(rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getString(4),
-                                    rs.getString(5),
-                                    rs.getString(6),
-                                    rs.getString(7));
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7));
         }
         return employee;
 
@@ -146,32 +146,36 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-//    public void newOrder(String concat) throws SQLException {
-//        PreparedStatement createCarport = null;
-//        String createCarportString = "INSERT INTO Order(name) VALUES (?);";
-//        createCarport = con.prepareStatement(createCarportString);
-//        con.setAutoCommit(false);
-//        createCarport.setString(1, concat);
-//        int rowAffected = createCarport.executeUpdate();
-//        if (rowAffected == 1) {
-//            con.commit();
-//        } else {
-//            con.rollback();
-//        }
-//    }
-//
-//    public int retrieveCarportId(String concat) throws SQLException {
-//        ResultSet rs = null;
-//        int id = 0;
-//        PreparedStatement getCarportId = null;
-//        String getCarportIdString = "SELECT idCarport FROM Carport WHERE name = ?;";
-//        getCarportId = con.prepareStatement(getCarportIdString);
-//        getCarportId.setString(1, concat);
-//        rs = getCarportId.executeQuery();
-//        if (rs.next()) {
-//            id = rs.getInt(1);
-//        }
-//        return id;
-//    }
+    public void createOrder(int customerId, int salesRepId, boolean status, double price) throws SQLException {
+        PreparedStatement createOrder = null;
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, status, totalPrice) VALUES (?,?,?,?);";
+        createOrder = con.prepareStatement(createOrderString);
+        con.setAutoCommit(false);
+        createOrder.setInt(1, customerId);
+        createOrder.setInt(2, salesRepId);
+        createOrder.setBoolean(3, status);
+        createOrder.setDouble(4, price);
+        int rowAffected = createOrder.executeUpdate();
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }
+    }
+
+    public int retrieveOrderId(int customerId, int salesRepId) throws SQLException {
+        ResultSet rs = null;
+        int id = 0;
+        PreparedStatement getOrderId = null;
+        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND idSalesRep = ? ;";
+        getOrderId = con.prepareStatement(getOrderIdString);
+        getOrderId.setInt(1, customerId);
+        getOrderId.setInt(2, salesRepId);
+        rs = getOrderId.executeQuery();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        return id;
+    }
 
 }

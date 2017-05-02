@@ -17,8 +17,7 @@ import java.util.logging.Logger;
 public class Main {
     
     public static void main(String[] args) throws InvalidUsernameOrPasswordException {
-       Customer customer = CustomerFacade.getCustomer("testmail@mail", "testmail");
-       
-        System.out.println("name = " + customer.getFirstName());
+       int i = OrderFacade.getOrderId(1 ,7);
+        System.out.println("order id: "+ i);
     }
 }
