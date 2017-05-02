@@ -6,6 +6,10 @@ import business.Partlist;
 import business.Pointy;
 import business.facades.OrderFacade;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,8 +54,12 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("index.html").forward(request, response);
                         }
                     }
-                    OrderFacade.createOrder(customer.getId_customer(), 7, false, 100.00); //hard code the idSalesRep and price
-                    int orderId = OrderFacade.getOrderId(customer.getId_customer(), 7); // hard code the sales person ID
+                    java.util.Date dateJava = new java.util.Date();
+                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
+                    
+                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, false, 0.00); //hard code the idSalesRep and price
+                    
+                    int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
                     //// test if retrieve all info needed for the partlist and order in db
                     System.out.println("customer name: " + customer.getFirstName());
                     System.out.println("customer id: " + customer.getId_customer());

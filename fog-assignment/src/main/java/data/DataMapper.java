@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.Timestamp;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -146,15 +148,16 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date,boolean status, double price) throws SQLException {
         PreparedStatement createOrder = null;
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, status, totalPrice) VALUES (?,?,?,?);";
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, status, totalPrice) VALUES (?,?,?,?,?);";
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
         createOrder.setInt(2, salesRepId);
-        createOrder.setBoolean(3, status);
-        createOrder.setDouble(4, price);
+        createOrder.setTimestamp(3, date);
+        createOrder.setBoolean(4, status);
+        createOrder.setDouble(5, price);
         int rowAffected = createOrder.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -163,14 +166,14 @@ public class DataMapper {
         }
     }
 
-    public int retrieveOrderId(int customerId, int salesRepId) throws SQLException {
+    public int retrieveOrderId(int customerId, Timestamp date) throws SQLException {
         ResultSet rs = null;
         int id = 0;
         PreparedStatement getOrderId = null;
-        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND idSalesRep = ? ;";
+        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
         getOrderId = con.prepareStatement(getOrderIdString);
         getOrderId.setInt(1, customerId);
-        getOrderId.setInt(2, salesRepId);
+        getOrderId.setTimestamp(2, date);
         rs = getOrderId.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
