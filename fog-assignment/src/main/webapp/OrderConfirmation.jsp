@@ -60,31 +60,31 @@
                                 } %>
 <!--                                ----------------------->
 <!--                                Remme i sider-->
-                                <line x1="90" y1="<%=shedWidth + 50%>" x2="<%=width + 90%>" y2="<%=shedWidth + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
-                                <line x1="90" y1="<%=(carportWidth-shedWidth) + 50%>" x2="<%=width + 90%>" y2="<%=(carportWidth-shedWidth) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="90" y1="<%=shedWidth + ((carportWidth-shedWidth) / 2) + 50%>" x2="<%=width + 90%>" y2="<%=shedWidth + ((carportWidth-shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="90" y1="<%=((carportWidth-shedWidth) / 2) + 50%>" x2="<%=width + 90%>" y2="<%=((carportWidth-shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
 <!--                                --------------->
 <!--                                Shed walls-->
-                                <line x1="<%=carportLength + 90%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" x2="<%=carportLength + 90%>" y2="<%=(carportWidth - shedWidth) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
-                                <line x1="<%=(width + 90) - (initialSpærtræIncrement / 2)%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" x2="<%=(width + 90) - (initialSpærtræIncrement / 2)%>" y2="<%=(carportWidth - shedWidth) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="<%=carportLength + 90%>" y1="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" x2="<%=carportLength + 90%>" y2="<%=((carportWidth - shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
+                                <line x1="<%=(width + 90) - (initialSpærtræIncrement / 2)%>" y1="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" x2="<%=(width + 90) - (initialSpærtræIncrement / 2)%>" y2="<%=((carportWidth - shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:8" />
 <!--                                ------------>
 <!--                                Middle cross-->
-                                <line x1="<%=carportLength + 90%>" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" x2="<%=initialSpærtræIncrement + 90%>" y2="<%=(carportWidth - shedWidth) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:6" />
-                                <line x1="<%=carportLength + 90%>" y1="<%=(carportWidth - shedWidth) + 50%>" x2="<%=initialSpærtræIncrement + 90%>" y2="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:6" />
+                                <line x1="<%=carportLength + 90%>" y1="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" x2="<%=initialSpærtræIncrement + 90%>" y2="<%=((carportWidth - shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:6" />
+                                <line x1="<%=carportLength + 90%>" y1="<%=((carportWidth - shedWidth) / 2) + 50%>" x2="<%=initialSpærtræIncrement + 90%>" y2="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:6" />
 <!--                                -------------->
 <!--                                Stolper-->
                             <%  double firstStolpeX = carportLength * 0.18; 
                                 double secondStolpeX = carportLength * 0.78; %>
-                                <rect x="<%=firstStolpeX + 90%>" y="<%=(carportWidth - shedWidth) + 42%>" width="16" height="16" style="fill:black;" />
-                                <rect x="<%=secondStolpeX + 90%>" y="<%=(carportWidth - shedWidth) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=firstStolpeX + 90%>" y="<%=((carportWidth - shedWidth) / 2) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=secondStolpeX + 90%>" y="<%=((carportWidth - shedWidth) / 2) + 42%>" width="16" height="16" style="fill:black;" />
                                 
-                                <rect x="<%=firstStolpeX + 90%>" y="<%=(carportWidth - (carportWidth - shedWidth)) + 42%>" width="16" height="16" style="fill:black;" />
-                                <rect x="<%=secondStolpeX + 90%>" y="<%=(carportWidth - (carportWidth - shedWidth)) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=firstStolpeX + 90%>" y="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=secondStolpeX + 90%>" y="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 42%>" width="16" height="16" style="fill:black;" />
                                 
-                                <rect x="<%=carportLength + 82%>" y="<%=(carportWidth - (carportWidth - shedWidth)) + 42%>" width="16" height="16" style="fill:black;" />
-                                <rect x="<%=(width + 82) - (initialSpærtræIncrement / 2)%>" y="<%=(carportWidth - (carportWidth - shedWidth)) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=carportLength + 82%>" y="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=(width + 82) - (initialSpærtræIncrement / 2)%>" y="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 42%>" width="16" height="16" style="fill:black;" />
                                 
-                                <rect x="<%=carportLength + 82%>" y="<%=(carportWidth - shedWidth) + 42%>" width="16" height="16" style="fill:black;" />
-                                <rect x="<%=(width + 82) - (initialSpærtræIncrement / 2)%>" y="<%=(carportWidth - shedWidth) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=carportLength + 82%>" y="<%=((carportWidth - shedWidth) / 2) + 42%>" width="16" height="16" style="fill:black;" />
+                                <rect x="<%=(width + 82) - (initialSpærtræIncrement / 2)%>" y="<%=((carportWidth - shedWidth) / 2) + 42%>" width="16" height="16" style="fill:black;" />
                                 
                                 <rect x="<%=carportLength + 82%>" y="<%=(carportWidth / 2) + 42%>" width="16" height="16" style="fill:black;" />
                                 <rect x="<%=(width + 82) - (initialSpærtræIncrement / 2)%>" y="<%=(carportWidth / 2) + 42%>" width="16" height="16" style="fill:black;" />
@@ -107,17 +107,18 @@
                                 <line x1="90" y1="<%=height + 80%>" x2="90" y2="<%=height + 70%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
                                 <line x1="<%=width + 90%>" y1="<%=height + 80%>" x2="<%=width + 90%>" y2="<%=height + 70%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
                                 <line x1="90" y1="<%=height + 80%>" x2="<%=width + 90%>" y2="<%=height + 80%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
-                                <text x="<%=(width / 2) + 90%>" y="<%=height + 70%>" fill="black"><%=(double) width / 100%></text>
-<!--                                ----------------------->
+                                <text x="<%=(width / 2) + 90%>" y="<%=height + 70%>" fill="black"><%=String.format("%.2f", (double) width / 100)%></text>
+                                
                                 <line x1="80" y1="50" x2="20" y2="50" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
                                 <line x1="80" y1="<%=height + 50%>" x2="20" y2="<%=height + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
                                 <line x1="20" y1="50" x2="20" y2="<%=height + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
-                                <text x="<%=-(shedWidth / 2) - 80%>" y="40" fill="black" transform="rotate(-90, 0, 0)"><%=(double) carportWidth / 100%></text>
+                                <text x="<%=-(shedWidth / 2) - 80%>" y="40" fill="black" transform="rotate(-90, 0, 0)"><%=String.format("%.2f", (double) carportWidth / 100)%></text>
                                 
-                                <line x1="80" y1="<%=(carportWidth - shedWidth) + 50%>" x2="50" y2="<%=(carportWidth - shedWidth) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
-                                <line x1="80" y1="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" x2="50" y2="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
-                                <line x1="50" y1="<%=(carportWidth - shedWidth) + 50%>" x2="50" y2="<%=(carportWidth - (carportWidth - shedWidth)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
-                                <text x="<%=-(shedWidth / 2) - 80%>" y="70" fill="black" transform="rotate(-90, 0, 0)"><%=(double) shedWidth / 100%></text>
+                                <line x1="80" y1="<%=((carportWidth - shedWidth) / 2) + 50%>" x2="50" y2="<%=((carportWidth - shedWidth) / 2) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
+                                <line x1="80" y1="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" x2="50" y2="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
+                                <line x1="50" y1="<%=((carportWidth - shedWidth) / 2) + 50%>" x2="50" y2="<%=(carportWidth - ((carportWidth - shedWidth) / 2)) + 50%>" style="fill:white;stroke:rgb(0,0,0);stroke-width:2" />
+                                <text x="<%=-(shedWidth / 2) - 80%>" y="70" fill="black" transform="rotate(-90, 0, 0)"><%=String.format("%.2f", (double) shedWidth / 100)%></text>
+<!--                                ----------------------->
                         </svg>
                     </div>
                 </div>
