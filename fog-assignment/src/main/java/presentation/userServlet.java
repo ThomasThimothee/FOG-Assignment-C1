@@ -60,7 +60,7 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
-                    session.setAttribute("currentUser", customer);
+                    session.setAttribute("currentCustomer", customer);
                     CustomerFacade.setCustomerId(customer); // retrieve the customer ID needed for carport preorder
                     request.getRequestDispatcher("index.html").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {

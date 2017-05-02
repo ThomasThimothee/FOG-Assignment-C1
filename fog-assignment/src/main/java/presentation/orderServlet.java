@@ -46,12 +46,13 @@ public class orderServlet extends HttpServlet {
                         switch (carportType) {
                             case "flat":
                                 request.getRequestDispatcher("flatOrder.jsp").forward(request, response);
-                                break;
+                                return;
                             case "pointy":
                                 request.getRequestDispatcher("pointyOrder.jsp").forward(request, response);
-                                break;
+                                return;
                             default:
                                 request.getRequestDispatcher("index.html").forward(request, response);
+                                return;
                         }
                     }
                     java.util.Date dateJava = new java.util.Date();
@@ -61,9 +62,6 @@ public class orderServlet extends HttpServlet {
                     
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
                     //// test if retrieve all info needed for the partlist and order in db
-                    System.out.println("customer name: " + customer.getFirstName());
-                    System.out.println("customer id: " + customer.getId_customer());
-                    System.out.println("customer email: " + customer.getEmail());
                     ///
                     
                     Partlist partList;
