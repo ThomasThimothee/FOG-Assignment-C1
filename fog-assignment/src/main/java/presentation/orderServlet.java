@@ -56,14 +56,10 @@ public class orderServlet extends HttpServlet {
                         }
                     }
                     java.util.Date dateJava = new java.util.Date();
-                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
-                    
+                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());                    
                     OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, false, 0.00); //hard code the idSalesRep and price
-                    
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
-                    //// test if retrieve all info needed for the partlist and order in db
-                    ///
-                    
+
                     Partlist partList;
                     if (carportType.equals("flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
