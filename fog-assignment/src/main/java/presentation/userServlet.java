@@ -60,18 +60,14 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
-                    session.setAttribute("currentUser", customer);
-                    int customerID = CustomerFacade.getCustomerId(email, password); // retrieve the customer ID needed for carport preorder
-                    customer.setId_customer(customerID); // since we don't retrieve id in getcustomer in customer facade
-                    request.getSession().setAttribute("email", email);
-                    request.getSession().setAttribute("password", password);
-                    request.getSession().setAttribute("currentUser", customer);
+                    session.setAttribute("currentCustomer", customer);
+                    CustomerFacade.setCustomerId(customer); // retrieve the customer ID needed for carport preorder
                     request.getRequestDispatcher("index.html").forward(request, response);
-
                 } catch (InvalidUsernameOrPasswordException e) {
-                   request.setAttribute("errorMessageUserNotFound", "Error");
+                    System.out.println(e.getMessage());
+                    request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
-                }
+                } 
                 break;
             case "EmployeeRegistrationForm":
                try {
@@ -87,7 +83,16 @@ public class userServlet extends HttpServlet {
                 } catch (InvalidUsernameOrPasswordException e) {
                    request.setAttribute("errorMessageUsernameExists", "Error");
                     request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
-                }
+                } catch (InsecurePasswordException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("InsecurePasswordException", "Error");
+                    request.setAttribute("email", request.getParameter("email"));
+                    request.setAttribute("firstName", request.getParameter("firstName"));
+                    request.setAttribute("lastName", request.getParameter("lastName"));
+                    request.setAttribute("address", request.getParameter("address"));
+                    request.setAttribute("phone", request.getParameter("phone"));
+                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                } 
                 break;
                 case"EmployeeLoginForm":
                       try {
@@ -96,13 +101,12 @@ public class userServlet extends HttpServlet {
                     Employee employee = EmployeeFacade.getEmployee(username, password);
                     request.getSession().setAttribute("username", username);
                     request.getSession().setAttribute("password", password);
-                    request.getSession().setAttribute("currentUser", employee);
+                    request.getSession().setAttribute("currentEmployee", employee);
                     request.getRequestDispatcher("index.html").forward(request, response);
-
                 } catch (InvalidUsernameOrPasswordException e) {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
-                }
+                } 
                 break;
         }
     }

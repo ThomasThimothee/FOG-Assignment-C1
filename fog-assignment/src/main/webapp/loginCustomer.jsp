@@ -36,14 +36,14 @@
                 <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerLoginForm"/>
                     <div class="row">
-                        <div class="form-group col-xs-10">
+                        <div class="form-group col-xs-7">
                             <input type="text" class="form-control" name="email" placeholder="E-mail">
                         </div>
-                        <div class="form-group col-xs-10">
+                        <div class="form-group col-xs-7">
                             <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <div class="row">
-                            <div class="col-xs-offset-2 col-xs-6">
+                            <div class="col-xs-offset-1 col-xs-5">
                                 <input type="hidden" name="action" value="login">
                                 <label><br></label>
                                 <button type="submit" class="form-control btn btn-success">Sign in</button>
