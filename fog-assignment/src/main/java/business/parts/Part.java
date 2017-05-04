@@ -5,7 +5,7 @@ package business.parts;
  * @author mathiasjepsen
  */
 public class Part {
-    
+
     public enum PartType {
         WOOD,
         SCREW,
@@ -14,21 +14,17 @@ public class Part {
     protected PartType partType;
     protected int quantity;
     protected double length;
-    protected double width;
-    protected double depth;
     protected String name;
     protected String description;
 
-    public Part(PartType partType, int quantity, double width, double depth, double length, String name, String description) {
+    public Part(PartType partType, int quantity, double length, String name, String description) {
         this.partType = partType;
         this.quantity = quantity;
         this.length = length;
-        this.width = width;
-        this.depth = depth;
         this.name = name;
         this.description = description;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
@@ -43,22 +39,6 @@ public class Part {
 
     public void setLength(double length) {
         this.length = length;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getDepth() {
-        return depth;
-    }
-
-    public void setDepth(double depth) {
-        this.depth = depth;
     }
 
     public String getName() {
@@ -84,7 +64,27 @@ public class Part {
     public void setPartType(PartType partType) {
         this.partType = partType;
     }
-    
-    
-    
+
+    public double partPrice(double standardPrice) {
+        double price = 0;
+        switch (this.partType) {
+            case WOOD:
+                price = standardPrice * this.length * this.quantity;
+                break;
+
+            case SCREW:
+                price = standardPrice * this.quantity;;
+                break;
+
+            case TILE:
+                price = standardPrice * this.quantity;
+                break;
+            default:
+                price = 0;
+                break;
+        }
+
+        return price;
+    }
+
 }

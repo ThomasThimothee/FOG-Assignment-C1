@@ -181,4 +181,40 @@ public class DataMapper {
         return id;
     }
 
+    public double retrievePartPrice(String partName) throws SQLException {
+        ResultSet rs = null;
+        double price = 0;
+        PreparedStatement getPrice = null;
+        String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
+        getPrice = con.prepareStatement(getPriceString);
+        getPrice.setString(1, partName);
+        rs = getPrice.executeQuery();
+        if (rs.next()) {
+            price = rs.getDouble(1);
+        }
+        return price;       
+    }
+
+
+    public void createOrderline(String partName, int orderId, double length, int quantity, String explanation, double price) throws SQLException {
+        PreparedStatement createOrderline = null;
+        String createOrderlineString = "INSERT INTO fog.Orderline(partName, orderId, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
+        createOrderline = con.prepareStatement(createOrderlineString);
+        con.setAutoCommit(false);
+        createOrderline.setString(1, partName);
+        createOrderline.setInt(2, orderId);
+        createOrderline.setDouble(3, length);
+        createOrderline.setInt(4, quantity);
+        createOrderline.setString(5, explanation);
+        createOrderline.setDouble(6, price);
+        System.out.println("test10");
+        int rowAffected = createOrderline.executeUpdate();
+        System.out.println("rowaffected : "+rowAffected);
+        System.out.println("test11");
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }    }
+
 }

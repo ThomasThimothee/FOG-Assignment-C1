@@ -63,7 +63,7 @@ public class orderServlet extends HttpServlet {
                     Partlist partList;
                     if (carportType.equals("flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
-                        partList = flat.createPartList();
+                        partList = flat.createPartList();                        
                    } else { 
                         Pointy pointy = new Pointy(carportType, roofType, carportLength, carportWidth, shedLength, shedWidth, 0, angle);
                         partList = pointy.createPartList();
@@ -77,6 +77,7 @@ public class orderServlet extends HttpServlet {
                     if (carportType.equals("pointy")) {
                         request.setAttribute("angle", angle);
                     }
+                    OrderFacade.createOrderLines(partList, orderId);
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     request.setAttribute("errorMessage", "Incorrect messurements");

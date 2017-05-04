@@ -10,272 +10,364 @@ import business.parts.Screw;
  * @author mathiasjepsen
  */
 public class Flat extends Carport {
-        
+
     Wood woodA, woodB, woodC, woodD, woodE, woodF, woodG, woodH, woodI, woodJ, woodK, woodL, woodM, woodN;
-    Tile tileO, tileP;
+    Tile tileA, tileB;
     Screw screwA, screwB, screwC, screwD, screwE, screwF, screwG, screwH, screwI, screwJ, screwK, screwL, screwM, screwN;
-    
+
+    int qWoodA, qWoodB, qWoodC, qWoodD, qWoodE, qWoodF, qWoodG, qWoodH, qWoodI, qWoodJ, qWoodK, qWoodL, qWoodM, qWoodN,
+            qTileA, qTileB,
+            qScrewA, qScrewB, qScrewC, qScrewD, qScrewE, qScrewF, qScrewG, qScrewH, qScrewI, qScrewJ, qScrewK, qScrewL, qScrewM, qScrewN;
+
+    double lengthWoodA, lengthWoodB, lengthWoodC, lengthWoodD, lengthWoodE, lengthWoodF, lengthWoodG, lengthWoodH, lengthWoodI, lengthWoodJ, lengthWoodK, lengthWoodL, lengthWoodM, lengthWoodN;
+
     public Flat(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
         super(type, roofType, carportLength, carportWidth, shedLength, shedWidth, roofHeight);
     }
 
     public Partlist createPartList() {
-        
+
         // Træ & Tagplader       
         // A
         if (carportWidth <= 270 && carportWidth >= 240) {
-            woodA = new Wood(PartType.WOOD, 1, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
+            qWoodA = 1;
+            lengthWoodA = 540;
         } else if (carportWidth <= 360 && carportWidth > 270) {
-            woodA = new Wood(PartType.WOOD, 2, 25, 200, 360, "trykimp. bræt", "understernbrædder til for- & bagende");
+            qWoodA = 2;
+            lengthWoodA = 360;
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            woodA = new Wood(PartType.WOOD, 2, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
+            qWoodA = 2;
+            lengthWoodA = 540;
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            woodA = new Wood(PartType.WOOD, 4, 25, 200, 360, "trykimp. bræt", "understernbrædder til for- & bagende");
+            qWoodA = 4;
+            lengthWoodA = 360;
         } else if (carportWidth > 720) {
-            woodA = new Wood(PartType.WOOD, 4, 25, 200, 540, "trykimp. bræt", "understernbrædder til for- & bagende");
-        } 
+            qWoodA = 4;
+            lengthWoodA = 540;
+        }
+        woodA = new Wood(PartType.WOOD, qWoodA, lengthWoodA, "25x200 mm. trykimp. bræt", "understernbrædder til for- & bagende");
         super.partList.getPartList().add(woodA);
-        
-
 
         // B
         if (totalLength <= 180 && totalLength >= 150) {
-            woodB = new Wood(PartType.WOOD, 1, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 1;
+            lengthWoodB = 360;
         } else if (totalLength <= 270 && totalLength > 180) {
-            woodB = new Wood(PartType.WOOD, 1, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 1;
+            lengthWoodB = 540;
         } else if (totalLength <= 360 && totalLength > 270) {
-            woodB = new Wood(PartType.WOOD, 2, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 2;
+            lengthWoodB = 360;
         } else if (totalLength <= 540 && totalLength > 360) {
-            woodB = new Wood(PartType.WOOD, 2, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 2;
+            lengthWoodB = 540;
         } else if (totalLength <= 720 && totalLength > 540) {
-            woodB = new Wood(PartType.WOOD, 4, 25, 200, 360, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 4;
+            lengthWoodB = 360;
         } else if (totalLength <= 1080 && totalLength > 720) {
-            woodB = new Wood(PartType.WOOD, 4, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
+            qWoodB = 4;
+            lengthWoodB = 540;
         } else if (totalLength > 1080) {
-            woodB = new Wood(PartType.WOOD, 6, 25, 200, 540, "trykimp. bræt", "understernbrædder til siderne");
-        } 
+            qWoodB = 6;
+            lengthWoodB = 540;
+        }
+        woodB = new Wood(PartType.WOOD, qWoodB,  lengthWoodB, "25x200 mm. trykimp. bræt", "understernbrædder til siderne");
         super.partList.getPartList().add(woodB);
 
         // C
         if (carportWidth <= 360 && carportWidth >= 240) {
-            woodC = new Wood(PartType.WOOD, 1, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
+            qWoodC = 1;
+            lengthWoodC = 360;
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            woodC = new Wood(PartType.WOOD, 1, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
+            qWoodC = 1;
+            lengthWoodC = 540;
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            woodC = new Wood(PartType.WOOD, 2, 25, 125, 360, "trykimp. bræt", "oversternbrædder til forenden");
+            qWoodC = 2;
+            lengthWoodC = 360;
         } else if (carportWidth > 720) {
-            woodC = new Wood(PartType.WOOD, 2, 25, 125, 540, "trykimp. bræt", "oversternbrædder til forenden");
-        } 
+            qWoodC = 2;
+            lengthWoodC = 540;
+        }
+        woodC = new Wood(PartType.WOOD, qWoodC, lengthWoodC, "25x125 mm. trykimp. bræt", "oversternbrædder til forenden");
         super.partList.getPartList().add(woodC);
 
         // D
         if (totalLength <= 180 && totalLength >= 150) {
-            woodD = new Wood(PartType.WOOD, 1, 25, 125, 360, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodD = 1;
+            lengthWoodD = 360;
         } else if (totalLength <= 270 && totalLength > 180) {
-            woodD = new Wood(PartType.WOOD, 1, 25, 125, 540, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodD = 1;
+            lengthWoodD = 540;
         } else if (totalLength <= 360 && totalLength > 270) {
-            woodD = new Wood(PartType.WOOD, 2, 25, 125, 360, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodD = 2;
+            lengthWoodD = 360;
         } else if (totalLength <= 540 && totalLength > 360) {
-            woodD = new Wood(PartType.WOOD, 2, 25, 125, 540, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodD = 2;
+            lengthWoodD = 540;
         } else if (totalLength <= 720 && totalLength > 540) {
-            woodD = new Wood(PartType.WOOD, 4, 25, 125, 360, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodD = 4;
+            lengthWoodD = 360;
         } else if (totalLength <= 1080 && totalLength > 720) {
-            woodD = new Wood(PartType.WOOD, 4, 25, 125, 540, "trykimp. bræt", "oversternbrædder til siderne");
+            qWoodC = 4;
+            lengthWoodC = 540;
         } else if (totalLength > 1080) {
-            woodD = new Wood(PartType.WOOD, 6, 25, 125, 540, "trykimp. bræt", "oversternbrædder til siderne");
-        } 
+            qWoodD = 6;
+            lengthWoodD = 540;
+        }
+        woodD = new Wood(PartType.WOOD, qWoodD, lengthWoodD, "25x125 mm. trykimp. bræt", "oversternbrædder til siderne");
         super.partList.getPartList().add(woodD);
 
         // E
-        woodE = new Wood(PartType.WOOD, 1, 38, 73, 420, "ubh. lægte", "til Z på bagside af dør");
+        qWoodE = 1;
+        lengthWoodE = 420;
+        woodE = new Wood(PartType.WOOD, qWoodE, lengthWoodE, "38x73 mm. lægte", "til Z på bagside af dør");
         super.partList.getPartList().add(woodE);
 
         // F
         if (shedWidth <= 240 && shedWidth >= 210) {
-            woodF = new Wood(PartType.WOOD, 6, 45, 95, 240, "ubh. reglar", "løsholter til skur gavle");
+            qWoodF = 6;
+            lengthWoodF = 240;
         } else if (shedWidth <= 270 && shedWidth > 240) {
-            woodF = new Wood(PartType.WOOD, 6, 45, 95, 270, "ubh. reglar", "løsholter til skur gavle");
+            qWoodF = 6;
+            lengthWoodF = 270;
         } else if (shedWidth <= 360 && shedWidth > 270) {
-            woodF = new Wood(PartType.WOOD, 6, 45, 95, 360, "ubh. reglar", "løsholter til skur gavle");
+            qWoodF = 6;
+            lengthWoodF = 360;
         } else if (shedWidth <= 480 && shedWidth > 360) {
-            woodF = new Wood(PartType.WOOD, 12, 45, 95, 240, "ubh. reglar", "løsholter til skur gavle");
+            qWoodF = 12;
+            lengthWoodF = 240;
         } else if (shedWidth <= 540 && shedWidth > 480) {
-            woodF = new Wood(PartType.WOOD, 12, 45, 95, 270, "ubh. reglar", "løsholter til skur gavle");
+            qWoodF = 12;
+            lengthWoodF = 270;
         } else if (shedWidth > 540) {
-            woodF = new Wood(PartType.WOOD, 12, 45, 95, 360, "ubh. reglar", "løsholter til skur gavle");
-        } 
+            qWoodF = 12;
+            lengthWoodF = 360;
+        }
+        woodF = new Wood(PartType.WOOD, qWoodF, lengthWoodF, "45x95 mm. ubh. Reglar", "løsholter til skur gavle");
         super.partList.getPartList().add(woodF);
 
         // G
         if (shedLength <= 240 && shedLength >= 150) {
-            woodG = new Wood(PartType.WOOD, 4, 45, 95, 240, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 4;
+            lengthWoodG = 240;
         } else if (shedLength <= 270 && shedLength > 240) {
-            woodG = new Wood(PartType.WOOD, 4, 45, 95, 270, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 4;
+            lengthWoodG = 270;
         } else if (shedLength <= 360 && shedLength > 270) {
-            woodG = new Wood(PartType.WOOD, 4, 45, 95, 360, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 4;
+            lengthWoodG = 360;
         } else if (shedLength <= 480 && shedLength > 360) {
-            woodG = new Wood(PartType.WOOD, 8, 45, 95, 240, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 8;
+            lengthWoodG = 240;
         } else if (shedLength <= 540 && shedLength > 480) {
-            woodG = new Wood(PartType.WOOD, 8, 45, 95, 270, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 8;
+            lengthWoodG = 270;
         } else if (shedLength > 540) {
-            woodG = new Wood(PartType.WOOD, 8, 45, 95, 360, "ubh. reglar", "løsholter til skur sider");
+            qWoodG = 8;
+            lengthWoodG = 360;
         }
+        woodG = new Wood(PartType.WOOD, 8,  360, "45x95 mm. ubh. Reglar", "løsholter til skur sider");
         super.partList.getPartList().add(woodG);
 
         // H
         if (carportLength == 240) {
-            woodH = new Wood(PartType.WOOD, 1, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper");
+            qWoodH = 1;
+            lengthWoodH = 480;
         } else if (carportLength <= 300 && carportLength > 240) {
-            woodH = new Wood(PartType.WOOD, 1, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper");
+            qWoodH = 1;
+            lengthWoodH = 600;
         } else if (carportLength <= 480 && carportLength > 300) {
-            woodH = new Wood(PartType.WOOD, 2, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper");
+            qWoodH = 2;
+            lengthWoodH = 480;
         } else if (carportLength <= 600 && carportLength > 480) {
-            woodH = new Wood(PartType.WOOD, 2, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper");
+            qWoodH = 2;
+            lengthWoodH = 600;
         } else if (carportLength > 600) {
-            woodH = new Wood(PartType.WOOD, 4, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper");
+            qWoodH = 4;
+            lengthWoodH = 480;
         }
+        woodH = new Wood(PartType.WOOD, qWoodH, lengthWoodH, "45x195 mm. ubh. Spærtræ", "remme i sider, sadles ned i stolper");
         super.partList.getPartList().add(woodH);
 
         // I
         if (shedLength <= 240 && shedLength >= 150) {
-            woodI = new Wood(PartType.WOOD, 1, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
+            qWoodI = 1;
+            lengthWoodI = 480;
         } else if (shedLength <= 300 && shedLength > 240) {
-            woodI = new Wood(PartType.WOOD, 1, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
+            qWoodI = 1;
+            lengthWoodI = 600;
         } else if (shedLength <= 480 && shedLength > 300) {
-            woodI = new Wood(PartType.WOOD, 2, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
+            qWoodI = 2;
+            lengthWoodI = 480;
         } else if (shedLength <= 600 && shedLength > 480) {
-            woodI = new Wood(PartType.WOOD, 2, 45, 195, 600, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
+            qWoodI = 2;
+            lengthWoodI = 600;
         } else if (shedLength > 600) {
-            woodI = new Wood(PartType.WOOD, 4, 45, 195, 480, "ubh. spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
+            qWoodI = 4;
+            lengthWoodI = 480;
         }
+        woodI = new Wood(PartType.WOOD, qWoodI,  lengthWoodI, "45x195 mm. ubh. Spærtræ", "remme i sider, sadles ned i stolper (skur del, deles)");
         super.partList.getPartList().add(woodI);
 
         // J
         switch (roofType) {
             case "Plastmo Ecolite Blue":
-                int nb = (int) ((totalLength / 55) + 1);
-                if (carportWidth < 480) {            
-                    woodI = new Wood(PartType.WOOD, nb, 45, 195, 480, "ubh. spærtræ", "spær. monteres på rem");
+                qWoodJ = (int) ((totalLength / 55) + 1);
+                if (carportWidth < 480) {
+                    lengthWoodJ = 480;
                 } else if (carportWidth > 480 && carportWidth <= 600) {
-                    woodI = new Wood(PartType.WOOD, nb, 45, 195, 600, "ubh. spærtræ", "spær. monteres på rem");
+                    lengthWoodJ = 600;
                 } else if (carportWidth > 600) {
-                    nb = nb * 2;
-                    woodI = new Wood(PartType.WOOD, nb, 45, 195, 480, "ubh. spærtræ", "spær. monteres på rem");
+                    lengthWoodJ = 480;
+                    qWoodJ = qWoodJ * 2;
                 }
-                super.partList.getPartList().add(woodI);
+                woodJ = new Wood(PartType.WOOD, qWoodJ,  lengthWoodJ, "45x195 mm. ubh. Spærtræ", "spær. monteres på rem");
+                super.partList.getPartList().add(woodJ);
                 break;
             default:
-                woodI = new Wood(PartType.WOOD, 0, 0, 0, 0, "ROOFTYPE REQUIRED", "");
-                super.partList.getPartList().add(woodI);
+                woodJ = new Wood(PartType.WOOD, 0, 0, "ROOFTYPE REQUIRED", "");
+                super.partList.getPartList().add(woodJ);
                 break;
         }
 
         // K
-        woodK = new Wood(PartType.WOOD, 11, 97, 97, 300, "trykimp. stolpe", "stolper nedgraves 90 cm. i jord");
+        qWoodK = 11;
+        lengthWoodK = 300;        
+        woodK = new Wood(PartType.WOOD, qWoodK, lengthWoodK, "97x97 mm. trykimp. Stolpe", "stolper nedgraves 90 cm. i jord");
         super.partList.getPartList().add(woodK);
 
         // L
-        int numberOfPieces = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
-        woodL = new Wood(PartType.WOOD, numberOfPieces, 19, 100, carportHeight, "trykimp. stolpe", "til beklædning af skur 1 på 2");
+        qWoodL = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
+        woodL = new Wood(PartType.WOOD, qWoodL, carportHeight, "19x100 mm. trykimp. Bræt", "til beklædning af skur 1 på 2");
         super.partList.getPartList().add(woodL);
 
         // M
         if (totalLength <= 180 && totalLength >= 150) {
-            woodM = new Wood(PartType.WOOD, 1, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 1;
+            lengthWoodM = 360;
         } else if (totalLength <= 210 && totalLength > 180) {
-            woodM = new Wood(PartType.WOOD, 2, 19, 100, 210, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 2;
+            lengthWoodM = 210;
         } else if (totalLength <= 240 && totalLength > 210) {
-            woodM = new Wood(PartType.WOOD, 2, 19, 100, 240, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 2;
+            lengthWoodM = 240;
         } else if (totalLength <= 360 && totalLength > 240) {
-            woodM = new Wood(PartType.WOOD, 2, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 2;
+            lengthWoodM = 360;
         } else if (totalLength <= 480 && totalLength > 360) {
-            woodM = new Wood(PartType.WOOD, 2, 19, 100, 480, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 2;
+            lengthWoodM = 480;
         } else if (totalLength <= 540 && totalLength > 480) {
-            woodM = new Wood(PartType.WOOD, 2, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 2;
+            lengthWoodM = 540;
         } else if (totalLength <= 720 && totalLength > 540) {
-            woodM = new Wood(PartType.WOOD, 4, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 4;
+            lengthWoodM = 360;
         } else if (totalLength <= 1080 && totalLength > 720) {
-            woodM = new Wood(PartType.WOOD, 4, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 4;
+            lengthWoodM = 540;
         } else if (totalLength > 1080) {
-            woodM = new Wood(PartType.WOOD, 6, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i sider");
+            qWoodM = 6;
+            lengthWoodM = 540;
         } else {
-            woodM = new Wood(PartType.WOOD, 0, 0, 0, 0, "UNINITIALIZED", "");
+            woodM = new Wood(PartType.WOOD, 0, 0, "UNINITIALIZED", "");
         }
+        woodM = new Wood(PartType.WOOD, qWoodM,  lengthWoodM, "19x100 mm. trykimp. Bræt", "vandbræt på stern i sider");
         super.partList.getPartList().add(woodM);
 
         // N
         if (carportWidth <= 360 && carportWidth >= 240) {
-            woodN = new Wood(PartType.WOOD, 1, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i forende");
+            qWoodN = 1;
+            lengthWoodN = 360;
         } else if (carportWidth <= 540 && carportWidth > 360) {
-            woodN = new Wood(PartType.WOOD, 1, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i forende");
+            qWoodN = 1;
+            lengthWoodN = 540;
         } else if (carportWidth <= 720 && carportWidth > 540) {
-            woodN = new Wood(PartType.WOOD, 2, 19, 100, 360, "trykimp. bræt", "vandbræt på stern i forende");
+            qWoodN = 2;
+            lengthWoodN = 360;
         } else if (carportWidth > 720) {
-            woodN = new Wood(PartType.WOOD, 1, 19, 100, 540, "trykimp. bræt", "vandbræt på stern i forende");
+            qWoodN = 2;
+            lengthWoodN = 540;
         }
+        woodN = new Wood(PartType.WOOD, qWoodN, lengthWoodN, "19x100 mm. trykimp. Bræt", "vandbræt på stern i forende");
         super.partList.getPartList().add(woodN);
 
         // O
-        tileO = new Tile(PartType.TILE, 6, "stk.", 0, 0, 600, roofType, "tagplader monteres på spær");
-        super.partList.getPartList().add(tileO);
+        qTileA = 6;        
+        tileA = new Tile(PartType.TILE, qTileA, "stk.", 600, roofType, "tagplader monteres på spær");
+        super.partList.getPartList().add(tileA);
 
         // P
-        tileP = new Tile(PartType.TILE, 6, "stk.", 0, 0, 360, roofType, "tagplader monteres på spær");
-        super.partList.getPartList().add(tileP);
-        
+        qTileB = 6;
+        tileB = new Tile(PartType.TILE, qTileB, "stk.", 360, roofType, "tagplader monteres på spær");
+        super.partList.getPartList().add(tileB);
+
         // Beslag & Skruer
         // A
-        screwA = new Screw(PartType.SCREW, 3, "pakke", 0, 0, 0, "Plastmo bundskruer 200 stk.", "skruer til tagplader");
+        qScrewA = 3;
+        screwA = new Screw(PartType.SCREW, qScrewA, "pakke", 0, "Plastmo bundskruer 200 stk.", "skruer til tagplader");
         super.partList.getPartList().add(screwA);
-        
+
         // B
-        screwB = new Screw(PartType.SCREW, 2, "rulle", 1, 20, 0, "hulbånd 10 mtr.", "til vindkryds på spær");
+        qScrewB = 2;
+        screwB = new Screw(PartType.SCREW, qScrewB, "rulle", 0, "1x20 mm. hulbånd 10 mtr.", "til vindkryds på spær");
         super.partList.getPartList().add(screwB);
-        
+
         // C
-        screwC = new Screw(PartType.SCREW, 15, "stk.", 0, 0, 190, "universal højre", "til montering af spær på rem");
+        qScrewC = 15;
+        screwC = new Screw(PartType.SCREW, qScrewC, "stk.",  190, "universal højre", "til montering af spær på rem");
         super.partList.getPartList().add(screwC);
-        
+
         // D
-        screwD = new Screw(PartType.SCREW, 15, "stk.", 0, 0, 190, "universal venstre", "til montering af spær på rem");
+        qScrewD = 15;
+        screwD = new Screw(PartType.SCREW, qScrewD, "stk.", 190, "universal venstre", "til montering af spær på rem");
         super.partList.getPartList().add(screwD);
-        
+
         // E
-        screwE = new Screw(PartType.SCREW, 1, "pakke", 4.5, 60, 0, "skruer 200 stk.", "til montering af stern & vandbræt");
+        qScrewE = 1;
+        screwE = new Screw(PartType.SCREW, qScrewE, "pakke", 0, "4,5x60 mm. skruer 200 stk.", "til montering af stern & vandbræt");
         super.partList.getPartList().add(screwE);
-        
+
         // F
-        screwF = new Screw(PartType.SCREW, 3, "pakke", 4, 50, 0, "beslagskruer 250 stk.", "til montering af universalbeslag & hulbånd");
+        qScrewF = 3;
+        screwF = new Screw(PartType.SCREW, qScrewF, "pakke", 0, "4x50 mm. beslagskruer 250 stk.", "til montering af universalbeslag & hulbånd");
         super.partList.getPartList().add(screwF);
-        
+
         // G
-        screwG = new Screw(PartType.SCREW, 18, "stk.", 10, 120, 0, "bræddebolt", "til montering af rem på stolper");
+        qScrewG = 18;
+        screwG = new Screw(PartType.SCREW, qScrewG, "stk.", 0, "10x120 mm. Bræddebolt", "til montering af rem på stolper");
         super.partList.getPartList().add(screwG);
-        
+
         // H
-        screwH = new Screw(PartType.SCREW, 12, "stk.", 40, 40, 11, "firkantskiver", "til montering af rem på stolper");
+        qScrewH = 12;
+        screwH = new Screw(PartType.SCREW, qScrewH, "stk.", 11, "40x40 mm. firkantskiver", "til montering af rem på stolper");
         super.partList.getPartList().add(screwH);
-        
+
         // I
-        screwI = new Screw(PartType.SCREW, 2, "pakke", 4.5, 70, 0, "skruer 400 stk.", "til montering af yderste beklædning");
+        qScrewI = 2;
+        screwI = new Screw(PartType.SCREW, qScrewI, "pakke", 0, "4,5x70 mm. skruer 400 stk.", "til montering af yderste beklædning");
         super.partList.getPartList().add(screwI);
-        
+
         // J
-        screwJ = new Screw(PartType.SCREW, 2, "pakke", 4.5, 50, 0, "skruer 300 stk.", "til montering af inderste beklædning");
+        qScrewJ = 2;
+        screwJ = new Screw(PartType.SCREW, qScrewJ, "pakke", 0, "4,5x50 mm. skruer 300 stk.", "til montering af inderste beklædning");
         super.partList.getPartList().add(screwJ);
-        
+
         // K
-        screwK = new Screw(PartType.SCREW, 1, "sæt", 50, 75, 0, "stalddørsgreb", "til lås på dør i skur");
+        qScrewK = 1;
+        screwK = new Screw(PartType.SCREW, qScrewK, "sæt", 0, "50x75 mm. Stalddørsgreb", "til lås på dør i skur");
         super.partList.getPartList().add(screwK);
-        
+
         // L
-        screwL = new Screw(PartType.SCREW, 2, "stk.", 0, 0, 390, "t-hængsel", "til skurdør");
+        qScrewL = 2;
+        screwL = new Screw(PartType.SCREW, qScrewL, "stk.", 390, "t-hængsel", "til skurdør");
         super.partList.getPartList().add(screwL);
-        
+
         // M
-        screwM = new Screw(PartType.SCREW, 32, "stk.", 0, 0, 35, "vinkelbeslag", "til montering af løsholter i skur");
+        qScrewM = 32;
+        screwM = new Screw(PartType.SCREW, qScrewM, "stk.", 35, "vinkelbeslag", "til montering af løsholter i skur");
         super.partList.getPartList().add(screwM);
-        
+
         return super.partList;
     }
 }

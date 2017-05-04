@@ -13,12 +13,6 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-                    java.util.Date dateJava = new java.util.Date();
-                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
-                    
-                    OrderFacade.createOrder(3, 7, dateSql, false, 0.00); //hard code the idSalesRep and price
-                    
-                    int orderId = OrderFacade.getOrderId(3, dateSql);
-                    System.out.println("order id: " + orderId);
+       OrderFacade.createOrderline("universal venstre", 12, 0, 2, "understernbrædder til siderne", 15.00);
     }
 }
