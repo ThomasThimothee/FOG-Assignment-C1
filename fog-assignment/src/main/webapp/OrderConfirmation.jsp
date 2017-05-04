@@ -59,7 +59,7 @@
                         <%  int height = carportWidth;
                             int width = carportLength + shedLength;%>
                             <svg width="<%=width + 100%>" height="<%=height + 100%>">
-<!--                                Carport width and length rectangle-->
+<!--                                Carport width and length rectangle-->   
                                 <rect x="90" y="50" rx="5" ry="5" width="<%=width%>" height="<%=height%>" style="fill:white;stroke:black;stroke-width:4;" />
 <!--                                ------------------------------------>
 <!--                                Spær, monteres på rem-->
