@@ -44,7 +44,6 @@ public class OrderFacade {
 
     public static void createOrderLines(Partlist partlist, int orderId) {
         try {
-            DataMapper dm = new DataMapper();
             Iterator partIterator = partlist.getPartList().iterator();
             while (partIterator.hasNext()) {
                 Part part = (Part) partIterator.next();
