@@ -78,7 +78,7 @@ public class orderServlet extends HttpServlet {
                         request.setAttribute("angle", angle);
                     }
                     OrderFacade.createOrderLines(partList, orderId);
-                    double standardOrderPrice = OrderFacade.getStandardOrderPrice(orderId);
+                    OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
                     
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
