@@ -169,8 +169,8 @@ public class SVGUtils {
             beamIncrement += initialBeamIncrement;
             i++;
         }
-        s += drawLine(0, (cWidth / 2) - 6, tLength, (cWidth / 2) - 6, 6);
-        s += drawLine(0, (cWidth / 2) + 6, tLength, (cWidth / 2) + 6, 6);
+        s += drawLine(0, (cWidth / 2) - 4, tLength, (cWidth / 2) - 4, 6);
+        s += drawLine(0, (cWidth / 2) + 4, tLength, (cWidth / 2) + 4, 6);
         
         // Top dimensions
         spærtræIncrement = initialOffset;
