@@ -217,4 +217,17 @@ public class DataMapper {
             con.rollback();
         }    }
 
+    public double retrieveStandardOrderPrice(int orderId) throws SQLException {
+        ResultSet rs = null;
+        double standardOrderPrice = 0;
+        PreparedStatement getStandardOrderPrice = null;
+        String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE orderId = ? ;";
+        getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString);
+        getStandardOrderPrice.setInt(1, orderId);
+        rs = getStandardOrderPrice.executeQuery();
+        if (rs.next()) {
+            standardOrderPrice = rs.getDouble(1);
+        }
+        return standardOrderPrice;      }
+
 }

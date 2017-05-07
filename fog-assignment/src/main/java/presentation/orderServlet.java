@@ -78,6 +78,9 @@ public class orderServlet extends HttpServlet {
                         request.setAttribute("angle", angle);
                     }
                     OrderFacade.createOrderLines(partList, orderId);
+                    double standardOrderPrice = OrderFacade.getStandardOrderPrice(orderId);
+                    OrderFacade.updateFinalPrice(orderId);
+                    
                     request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     request.setAttribute("errorMessage", "Incorrect messurements");

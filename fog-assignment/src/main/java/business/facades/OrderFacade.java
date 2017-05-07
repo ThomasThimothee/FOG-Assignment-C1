@@ -60,7 +60,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.retrievePartPrice(partName);
-        } catch (SQLException |NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
         }
         return price;
     }
@@ -69,7 +69,22 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.createOrderline(partName, orderId, length, quantity, explanation, price);
-        } catch (SQLException|NullPointerException e) {
-        } 
+        } catch (SQLException | NullPointerException e) {
+        }
     }
+
+    public static double getStandardOrderPrice(int orderId) {
+        double price = 0;
+        try {
+            DataMapper dm = new DataMapper();
+            price = dm.retrieveStandardOrderPrice(orderId);
+        } catch (SQLException | NullPointerException e) {
+        }
+        return price;
+    }
+
+    public static void updateFinalPrice(int orderId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
