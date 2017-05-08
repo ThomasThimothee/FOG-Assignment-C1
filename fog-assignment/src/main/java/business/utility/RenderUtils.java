@@ -24,18 +24,18 @@ public class RenderUtils {
                             for (String str : navBarItems) {
                                 String[] items = str.trim().split("\\s*,\\s*");
                                 if (items.length > 2) {
-                                    s += "<li class=\"dropdown\">";
-                                    s +=    "<a href=\"javascript:void(0)\" class=\"dropbtn\">" + items[0] + "</a>";
-                                    s +=    "<div class=\"dropdown-content\">";
-                                                for (int i = 1; i <= items.length - 2; i += 2) {
-                                    s +=            "<a href=\"" + items[i + 1] + "\">"+ items[i] + "</a>";
-                                                }
-                                    s +=    "</div>";
-                                    s += "</li>";
+        s +=                        "<li class=\"dropdown\">";
+        s +=                            "<a href=\"javascript:void(0)\" class=\"dropbtn\">" + items[0] + "</a>";
+        s +=                            "<div class=\"dropdown-content\">";
+                                        for (int i = 1; i <= items.length - 2; i += 2) {
+        s +=                                "<a href=\"" + items[i + 1] + "\">"+ items[i] + "</a>";
+                                        }
+        s +=                            "</div>";
+        s +=                        "</li>";
                                 } else {
-                                    s += "<li>";
-                                    s +=    "<a href=\"" + items[1] + "\">" + items[0] + "</a>";
-                                    s += "</li>";
+        s +=                        "<li>";
+        s +=                            "<a href=\"" + items[1] + "\">" + items[0] + "</a>";
+        s +=                        "</li>";
                                 }
                             }
         s +=            "</ul>";
