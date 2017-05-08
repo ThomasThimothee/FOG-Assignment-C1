@@ -15,10 +15,10 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-        Pointy pointy = new Pointy("Pointy", "test", 540, 340, 250, 250, 0, 15);
+        Pointy pointy = new Pointy("Pointy", "test", 240, 240, 150, 210, 0, 15);
         Partlist partList = pointy.createPartList();
         
-        OrderFacade.createOrderLines(partList, 17);
+        OrderFacade.createOrderLines(partList, 29);
 
     }
 }
