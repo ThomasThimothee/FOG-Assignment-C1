@@ -18,7 +18,7 @@ public class Main {
         java.util.Date dateJava = new java.util.Date();
                     java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
         
-        OrderFacade.createOrder(3, 7, dateSql, 630, 690, 240, 270, false, 0);
+        OrderFacade.createOrder(4, 7, dateSql,"Flat", "Ecolite Test", 630, 690, 240, 270, false, 0);
 
     }
 }
