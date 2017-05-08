@@ -148,16 +148,20 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, int carportWidth, int carportLength, int shedWidth, int shedLength, boolean status, double price) throws SQLException {
         PreparedStatement createOrder = null;
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, status, totalPrice) VALUES (?,?,?,?,?);";
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportWidth, carportLength, shedWidth, shedLength, status, totalPrice) VALUES (?,?,?,?,?,?,?,?,?);";
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
         createOrder.setInt(2, salesRepId);
         createOrder.setTimestamp(3, date);
-        createOrder.setBoolean(4, status);
-        createOrder.setDouble(5, price);
+        createOrder.setInt(4, carportWidth);
+        createOrder.setInt(5, carportLength);
+        createOrder.setInt(6, shedWidth);
+        createOrder.setInt(7, shedLength);
+        createOrder.setBoolean(8, status);
+        createOrder.setDouble(9, price);
         int rowAffected = createOrder.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -261,15 +265,15 @@ public class DataMapper {
         }
     }
 
-    public void setTotalPrice(double totalPrice, int orderId) throws SQLException {
+    public void setStandardPrice(double totalPrice, int orderId) throws SQLException {
         ResultSet rs = null;
-        PreparedStatement setTotalPrice = null;
-        String setTotalPriceString = "UPDATE fog.Order SET totalPrice = ? WHERE idOrder= ?;";
-        setTotalPrice = con.prepareStatement(setTotalPriceString);
+        PreparedStatement setStandardPrice = null;
+        String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
+        setStandardPrice = con.prepareStatement(setStandardPriceString);
         con.setAutoCommit(false);
-        setTotalPrice.setDouble(1, totalPrice);
-        setTotalPrice.setInt(2, orderId);
-        int rowAffected = setTotalPrice.executeUpdate();
+        setStandardPrice.setDouble(1, totalPrice);
+        setStandardPrice.setInt(2, orderId);
+        int rowAffected = setStandardPrice.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
         } else {
@@ -305,20 +309,20 @@ public class DataMapper {
             finalPrice = rs.getDouble(1);
         }
         return finalPrice;
-    }    
+    }
 
     public double retrieveStandardOrderPrice(int orderId) throws SQLException {
         ResultSet rs = null;
-        double totalPrice = 0;
-        PreparedStatement getTotalPrice = null;
-        String getTotalPriceString = "SELECT totalPrice from fog.Order WHERE idOrder = ? ;";
-        getTotalPrice = con.prepareStatement(getTotalPriceString);
-        getTotalPrice.setInt(1, orderId);
-        rs = getTotalPrice.executeQuery();
+        double standardPrice = 0;
+        PreparedStatement getStandardPrice = null;
+        String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
+        getStandardPrice = con.prepareStatement(getStandardPriceString);
+        getStandardPrice.setInt(1, orderId);
+        rs = getStandardPrice.executeQuery();
         if (rs.next()) {
-            totalPrice = rs.getDouble(1);
+            standardPrice = rs.getDouble(1);
         }
-        return totalPrice;
+        return standardPrice;
     }
 
 }

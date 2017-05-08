@@ -21,10 +21,10 @@ import java.util.logging.Logger;
  */
 public class OrderFacade {
 
-    public static void createOrder(int customerId, int salesRepId, Timestamp date, Boolean status, double price) {
+    public static void createOrder(int customerId, int salesRepId, Timestamp date, int carportWidth, int carportLength, int shedWidth, int shedLength, Boolean status, double price) {
         try {
             DataMapper dm = new DataMapper();
-            dm.createOrder(customerId, salesRepId, date, status, price);
+            dm.createOrder(customerId, salesRepId, date, carportWidth, carportLength, shedWidth, shedLength, status, price);
         } catch (SQLException | NullPointerException e) {
 
         }
@@ -73,7 +73,6 @@ public class OrderFacade {
         }
     }
 
-
     public static double calculateStandardOrderPrice(int orderId) {
         double price = 0;
         try {
@@ -89,7 +88,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             totalPrice = calculateStandardOrderPrice(orderId);
-            dm.setTotalPrice(totalPrice, orderId);
+            dm.setStandardPrice(totalPrice, orderId);
         } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(OrderFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,7 +103,7 @@ public class OrderFacade {
         }
         return price;
     }
-    
+
     public static void setDiscountRate(double rate, int orderId) {
         try {
             DataMapper dm = new DataMapper();
@@ -138,8 +137,8 @@ public class OrderFacade {
             Logger.getLogger(OrderFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-            public static double getFinalPrice(int orderId) {
+
+    public static double getFinalPrice(int orderId) {
         double price = 0;
         try {
             DataMapper dm = new DataMapper();

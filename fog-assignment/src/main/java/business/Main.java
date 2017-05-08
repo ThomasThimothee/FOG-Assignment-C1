@@ -15,18 +15,10 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
+        java.util.Date dateJava = new java.util.Date();
+                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
         
-        double standardPrice = OrderFacade.calculateStandardOrderPrice(15);
-        System.out.println("Calculated Standard price of the order 15 = "+standardPrice);  
-        OrderFacade.setStandardOrderPrice(15);
-        double newStan = OrderFacade.getStandardOrderPrice(15);
-        System.out.println("Standard price of the order 15 = "+newStan);  
-        OrderFacade.setDiscountRate(0.1, 15);
-        double rate = OrderFacade.getDiscountRate(15);
-        System.out.println("rate of the order 15 = " + rate); 
-        OrderFacade.updateFinalPrice(15);
-        double finalprice = OrderFacade.getFinalPrice(15);
-        System.out.println("final Price is: " + finalprice);
+        OrderFacade.createOrder(3, 7, dateSql, 630, 690, 240, 270, false, 0);
 
     }
 }
