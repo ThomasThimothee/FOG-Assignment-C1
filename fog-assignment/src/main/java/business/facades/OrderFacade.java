@@ -38,14 +38,12 @@ public class OrderFacade {
 
     public static void createOrderLines(Partlist partlist, int orderId) {
         try {
-            int i= 0;
             Iterator partIterator = partlist.getPartList().iterator();
             while (partIterator.hasNext()) {
                 Part part = (Part) partIterator.next();
                 double standardPrice = getPartPrice(part.getName());
                 double finalPrice = part.partPrice(standardPrice);
                 createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
-                i++;
             }
         } catch (NullPointerException e) {
         }

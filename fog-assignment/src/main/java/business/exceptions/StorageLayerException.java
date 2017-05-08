@@ -6,6 +6,10 @@ package business.exceptions;
  */
 public class StorageLayerException extends Exception {
     
+    public StorageLayerException() {
+
+    }
+
     public StorageLayerException(String message) {
         super(message);
     }
