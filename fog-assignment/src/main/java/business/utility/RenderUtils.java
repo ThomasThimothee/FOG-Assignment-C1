@@ -45,4 +45,36 @@ public class RenderUtils {
         return s;
     }
     
+    public String createFormRows(String[] values) {
+        String s = "";
+                for (String str : values) {
+                    String[] words = {};
+                    boolean isMultipleWords = false;
+        s +=        "<div class=\"form-group\">";
+        s +=            "<div class=\"col-xs-offset-2 col-xs-8\">";
+                            for (int i = 0; i < str.length() - 1; i++) {
+                                if (Character.isUpperCase(str.charAt(i))) {
+                                    words = str.split("(?=\\p{Upper})");
+                                    isMultipleWords = true;
+                                    break;
+                                }
+                            }
+                            if (isMultipleWords) {
+        s +=                    "<input class=\"form-control\" type=\"text\" id=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" name=\"" + str + "\" placeholder=\"";
+                                String placeholder = "";
+                                for (int i = 0; i < words.length; i++) {
+                                    placeholder += words[i].substring(0, 1).toUpperCase() + words[i].substring(1) + " ";                
+                                }
+                                String result = placeholder.trim();
+        s +=                    result;            
+        s +=                    "\" />";
+                            } else {
+        s +=                    "<input class=\"form-control\" type=\"text\" id=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" name=\"" + str.toLowerCase() + "\" placeholder=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" />";
+                            } 
+        s +=            "</div>";
+        s +=        "</div>";
+                }
+        return s;
+    }
+    
 }

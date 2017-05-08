@@ -1,3 +1,4 @@
+<%@page import="business.utility.RenderUtils"%>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
+<% RenderUtils render = new RenderUtils(); %>
 <div class="container">
             <div class="row">
                 <div class="box">  
@@ -44,11 +46,10 @@
                         <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
                         <hr>
                     </div>
-                    <div class="col-xs-offset-3 col-xs-7">
                     <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />
                             <div class="form-group">
-                                <div class="col-xs-10">
+                                <div class="col-xs-offset-2 col-xs-8">
                                     <%  if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
                                         <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%> />
                                     <% } else { %>
@@ -56,39 +57,16 @@
                                     <% } %>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="password" id="Password" name="password" placeholder="Password" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="text" id="FirstName" name="firstName" placeholder="First Name" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="text" id="LastName" name="lastName" placeholder="Last Name" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="text" id="Address" name="address" placeholder="Address" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="text" id="Phone" name="phone" placeholder="Phone Number" />
-                                </div>
-                            </div>    
+                            <% String[] values = {"password", "firstName", "lastName", "address", "phone"}; %>
+                            <%=render.createFormRows(values)%>
                             <div class="row">
-                                <div class="col-xs-offset-2 col-xs-6">
+                                <div class="col-xs-offset-2 col-xs-8">
                                     <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
                                 </div>
                             </div>               
                     </form>                                 
                     </div>
-                </div>
+                
             </div>
         </div>
 </body>
