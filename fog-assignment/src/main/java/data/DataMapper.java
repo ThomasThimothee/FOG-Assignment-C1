@@ -207,10 +207,7 @@ public class DataMapper {
         createOrderline.setInt(4, quantity);
         createOrderline.setString(5, explanation);
         createOrderline.setDouble(6, price);
-        System.out.println("test10");
         int rowAffected = createOrderline.executeUpdate();
-        System.out.println("rowaffected : "+rowAffected);
-        System.out.println("test11");
         if (rowAffected == 1) {
             con.commit();
         } else {

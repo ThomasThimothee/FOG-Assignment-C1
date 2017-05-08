@@ -30,7 +30,7 @@
     <body>
         <form name="fog-assignment" action="orderServlet" method="POST">
             <input type="hidden" name="action" value="order"/>
-            <input type="hidden" name="carportType" value="pointy"/>
+            <input type="hidden" name="carportType" value="Pointy"/>
             <%
                 int[] carportWidth = PointyFacade.getCarportWidth();
                 int[] carportLength = PointyFacade.getCarportLength();

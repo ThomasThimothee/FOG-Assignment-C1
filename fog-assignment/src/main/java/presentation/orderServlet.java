@@ -38,16 +38,16 @@ public class orderServlet extends HttpServlet {
                     int shedLength = Integer.parseInt(request.getParameter("shed length"));
                     String roofType = (String) request.getParameter("roof type");
                     int angle = 0;
-                    if (carportType.equals("pointy")) {
+                    if (carportType.equals("Pointy")) {
                         angle = Integer.parseInt(request.getParameter("angle"));
                     }
                     if (carportWidth - 30 < shedWidth || carportLength - 30 < shedLength) {
                         request.setAttribute("errorMessageIncorrectDimensions", "Error");
                         switch (carportType) {
-                            case "flat":
+                            case "Flat":
                                 request.getRequestDispatcher("flatOrder.jsp").forward(request, response);
                                 return;
-                            case "pointy":
+                            case "Pointy":
                                 request.getRequestDispatcher("pointyOrder.jsp").forward(request, response);
                                 return;
                             default:
@@ -61,27 +61,20 @@ public class orderServlet extends HttpServlet {
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;
-                    if (carportType.equals("flat")) {
+                    if (carportType.equals("Flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
-                        partList = flat.createPartList();                        
+                        partList = flat.createPartList(); 
+                        request.setAttribute("selectedCarport", flat);
                    } else { 
                         Pointy pointy = new Pointy(carportType, roofType, carportLength, carportWidth, shedLength, shedWidth, 0, angle);
                         partList = pointy.createPartList();
-                    }
-                    request.setAttribute("carport width", carportWidth);
-                    request.setAttribute("carport length", carportLength);
-                    request.setAttribute("shed width", shedWidth);
-                    request.setAttribute("shed length", shedLength);
-                    request.setAttribute("partList", partList);
-                    request.setAttribute("carportType", carportType);
-                    if (carportType.equals("pointy")) {
-                        request.setAttribute("angle", angle);
+                        request.setAttribute("selectedCarport", pointy);
                     }
                     OrderFacade.createOrderLines(partList, orderId);
-                    request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
+                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     request.setAttribute("errorMessage", "Incorrect messurements");
-                    request.getRequestDispatcher("OrderConfirmation.jsp").forward(request, response);
+                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 }
                 break;
         }

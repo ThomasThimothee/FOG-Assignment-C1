@@ -156,8 +156,6 @@ public class Carport {
 
     public void setPartList(Partlist partList) {
         this.partList = partList;
-    }
-    
-            
+    } 
     
 }

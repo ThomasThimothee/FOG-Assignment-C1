@@ -37,7 +37,7 @@ public class SVGUtils {
         String s = drawCarportSides(xOffset, yOffset, tLength, cWidth, 4);
         
         // 'Spær' 
-        int spærtræQuantity = flat.getPartList().getPartList().get(0).getQuantity() - 1;
+        int spærtræQuantity = flat.getPartList().getPartList().get(9).getQuantity() - 1;
         double initialSpærtræIncrement = tLength / spærtræQuantity;
         double spærtræIncrement = initialSpærtræIncrement;
         int i = 0;
@@ -122,7 +122,7 @@ public class SVGUtils {
         String s = drawCarportSides(xOffset, yOffset, tLength, cWidth, 4);
         
         // 'Spær'
-        int spærtræQuantity = pointy.getPartList().getPartList().get(0).getQuantity() - 1;
+        int spærtræQuantity = 5;
         double initialSpærtræIncrement = cLength / spærtræQuantity;
         double initialOffset = (cLength - (initialSpærtræIncrement / 2)) / spærtræQuantity;
         double spærtræIncrement = initialOffset;
@@ -185,7 +185,7 @@ public class SVGUtils {
             i++;
         }
         s += drawLine(cLength + ((sLength / 2) - (initialSpærtræIncrement / 4)), -10, cLength + ((sLength / 2) - (initialSpærtræIncrement / 4)), -20, 2);
-        s += drawLine(tLength - (initialSpærtræIncrement / 2), -10, tLength - (initialSpærtræIncrement / 2), -20, 4);
+        s += drawLine(tLength - (initialSpærtræIncrement / 2), -10, tLength - (initialSpærtræIncrement / 2), -20, 2);
         s += drawText((sLength / 2), cLength + ((sLength / 4) - (initialSpærtræIncrement / 4)), -10, "");
         s += drawText((sLength / 2), cLength + ((sLength / 2) + ((sLength / 8)) - (initialSpærtræIncrement / 4)), -10, "");
         
