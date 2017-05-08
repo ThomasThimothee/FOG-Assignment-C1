@@ -185,7 +185,7 @@ public class SVGUtils {
             i++;
         }
         s += drawLine(cLength + ((sLength / 2) - (initialSpærtræIncrement / 4)), -10, cLength + ((sLength / 2) - (initialSpærtræIncrement / 4)), -20, 2);
-        s += drawLine(tLength - (initialSpærtræIncrement / 2), -10, tLength - (initialSpærtræIncrement / 2), -20, 2);
+        s += drawLine(tLength - (initialSpærtræIncrement / 2), -10, tLength - (initialSpærtræIncrement / 2), -20, 2 );
         s += drawText((sLength / 2), cLength + ((sLength / 4) - (initialSpærtræIncrement / 4)), -10, "");
         s += drawText((sLength / 2), cLength + ((sLength / 2) + ((sLength / 8)) - (initialSpærtræIncrement / 4)), -10, "");
         

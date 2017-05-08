@@ -27,7 +27,7 @@ public class PointyFacade {
           return angle;
       }
       public static String[] getRoofType() {
-          String[] type = {"Plastmo Ecolite Blue"};
+          String[] type = {"Sort"};
                   return type;
       }
 }
