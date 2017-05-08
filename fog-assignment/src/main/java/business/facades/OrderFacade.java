@@ -39,12 +39,19 @@ public class OrderFacade {
 
     public static void createOrderLines(Partlist partlist, int orderId) {
         try {
+            int i= 0;
             Iterator partIterator = partlist.getPartList().iterator();
             while (partIterator.hasNext()) {
+                System.out.println("index "+i);
                 Part part = (Part) partIterator.next();
+                System.out.println("test1 "+i);
                 double standardPrice = getPartPrice(part.getName());
+                System.out.println("test2 "+i + " standardprice part "+standardPrice);
                 double finalPrice = part.partPrice(standardPrice);
-                createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getName(), finalPrice);
+                System.out.println("test3 "+i + " finalprice part "+finalPrice);
+                createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
+                System.out.println("test4 "+i);
+                i++;
             }
         } catch (NullPointerException e) {
         }
@@ -60,10 +67,10 @@ public class OrderFacade {
         return price;
     }
 
-    public static void createOrderline(String partName, int orderId, double length, int quantity, String explanation, double price) {
+    public static void createOrderline(String partName, int idOrder, double length, int quantity, String explanation, double price) {
         try {
             DataMapper dm = new DataMapper();
-            dm.createOrderline(partName, orderId, length, quantity, explanation, price);
+            dm.createOrderline(idOrder, partName, length, quantity, explanation, price);
         } catch (SQLException | NullPointerException e) {
         }
     }

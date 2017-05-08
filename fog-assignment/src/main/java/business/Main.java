@@ -15,10 +15,10 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-        java.util.Date dateJava = new java.util.Date();
-                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
+        Pointy pointy = new Pointy("Flat", "test", 540, 340, 120, 140, 0, 15);
+        Partlist partList = pointy.createPartList();
         
-        OrderFacade.createOrder(5, 7, dateSql,"Flat", "Ecolite Test2", 630, 690, 240, 270, 15.5, false, 0);
+        OrderFacade.createOrderLines(partList, 21);
 
     }
 }

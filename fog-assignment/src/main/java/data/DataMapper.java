@@ -196,14 +196,14 @@ public class DataMapper {
         return price;
     }
 
-    public void createOrderline(String partName, int orderId, double length, int quantity, String explanation, double price) throws SQLException {
-        String createOrderlineString = "INSERT INTO fog.Orderline(partName, orderId, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
 
+    public void createOrderline(int idOrder, String partName,  double length, int quantity, String explanation, double price) throws SQLException {
         PreparedStatement createOrderline = null;
+        String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
         createOrderline = con.prepareStatement(createOrderlineString);
         con.setAutoCommit(false);
-        createOrderline.setString(1, partName);
-        createOrderline.setInt(2, orderId);
+        createOrderline.setInt(1, idOrder);
+        createOrderline.setString(2, partName);
         createOrderline.setDouble(3, length);
         createOrderline.setInt(4, quantity);
         createOrderline.setString(5, explanation);
