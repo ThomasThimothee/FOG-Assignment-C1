@@ -21,7 +21,7 @@ public class OrderFacade {
             DataMapper dm = new DataMapper();
             dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
         } catch (SQLException | NullPointerException e) {
-
+            
         }
     }
 
@@ -30,7 +30,6 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             id = dm.retrieveOrderId(customerId, date);
-
         } catch (SQLException | NullPointerException e) {
 
         }
@@ -42,15 +41,10 @@ public class OrderFacade {
             int i= 0;
             Iterator partIterator = partlist.getPartList().iterator();
             while (partIterator.hasNext()) {
-                System.out.println("index "+i);
                 Part part = (Part) partIterator.next();
-                System.out.println("test1 "+i);
                 double standardPrice = getPartPrice(part.getName());
-                System.out.println("test2 "+i + " standardprice part "+standardPrice);
                 double finalPrice = part.partPrice(standardPrice);
-                System.out.println("test3 "+i + " finalprice part "+finalPrice);
                 createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
-                System.out.println("test4 "+i);
                 i++;
             }
         } catch (NullPointerException e) {
