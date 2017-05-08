@@ -4,6 +4,7 @@ import business.Customer;
 import business.Employee;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
+import static business.facades.OrderFacade.getFinalPrice;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -265,10 +266,8 @@ public class DataMapper {
 
     public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
+try (Connection con = new Connector().getConnection(); PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
 
-        ResultSet rs = null;
-        PreparedStatement setStandardPrice = null;
-        setStandardPrice = con.prepareStatement(setStandardPriceString);
         con.setAutoCommit(false);
         setStandardPrice.setDouble(1, standardPrice);
         setStandardPrice.setInt(2, orderId);
@@ -279,13 +278,12 @@ public class DataMapper {
             con.rollback();
         }
     }
+    }
+    
 
     public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
-
-        ResultSet rs = null;
-        PreparedStatement setFinalPrice = null;
-        setFinalPrice = con.prepareStatement(setFinalPriceString);
+try (Connection con = new Connector().getConnection(); PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
         con.setAutoCommit(false);
         setFinalPrice.setDouble(1, finalPrice);
         setFinalPrice.setInt(2, orderId);
@@ -296,35 +294,34 @@ public class DataMapper {
             con.rollback();
         }
     }
+    }
 
     public double retrieveFinalPrice(int orderId) throws SQLException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
-
-        ResultSet rs = null;
+  try (Connection con = new Connector().getConnection(); PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
         double finalPrice = 0;
-        PreparedStatement getFinalPrice = null;
-        getFinalPrice = con.prepareStatement(getFinalPriceString);
         getFinalPrice.setInt(1, orderId);
-        rs = getFinalPrice.executeQuery();
+        
+       try(ResultSet rs = getFinalPrice.executeQuery()) {
         if (rs.next()) {
             finalPrice = rs.getDouble(1);
         }
         return finalPrice;
     }
-
+  }
+    }
+    
     public double retrieveStandardOrderPrice(int orderId) throws SQLException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
-        
-        ResultSet rs = null;
+                try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
         double standardPrice = 0;
-        PreparedStatement getStandardPrice = null;
-        getStandardPrice = con.prepareStatement(getStandardPriceString);
         getStandardPrice.setInt(1, orderId);
-        rs = getStandardPrice.executeQuery();
+       try (ResultSet rs = getStandardPrice.executeQuery()) {
         if (rs.next()) {
             standardPrice = rs.getDouble(1);
         }
         return standardPrice;
     }
-
+                }
+    }
 }
