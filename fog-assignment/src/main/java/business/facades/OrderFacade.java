@@ -14,10 +14,10 @@ import java.util.Iterator;
  */
 public class OrderFacade {
 
-    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Boolean status, double price) {
+    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) {
         try {
             DataMapper dm = new DataMapper();
-            dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, status, price);
+            dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
         } catch (SQLException | NullPointerException e) {
 
         }

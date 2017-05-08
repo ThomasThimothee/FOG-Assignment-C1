@@ -37,9 +37,9 @@ public class orderServlet extends HttpServlet {
                     int shedWidth = Integer.parseInt(request.getParameter("shed width"));
                     int shedLength = Integer.parseInt(request.getParameter("shed length"));
                     String roofType = (String) request.getParameter("roof type");
-                    int angle = 0;
+                    double angle = 0;
                     if (carportType.equals("pointy")) {
-                        angle = Integer.parseInt(request.getParameter("angle"));
+                        angle = Double.parseDouble(("angle"));
                     }
                     if (carportWidth - 30 < shedWidth || carportLength - 30 < shedLength) {
                         request.setAttribute("errorMessageIncorrectDimensions", "Error");
@@ -57,7 +57,7 @@ public class orderServlet extends HttpServlet {
                     }
                     java.util.Date dateJava = new java.util.Date();
                     java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
-                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, false, 0.00); //hard code the idSalesRep and price
+                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, carportType, roofType, carportWidth, carportLength,shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;

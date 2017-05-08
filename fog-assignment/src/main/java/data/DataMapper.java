@@ -148,9 +148,9 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
         PreparedStatement createOrder = null;
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
@@ -162,10 +162,10 @@ public class DataMapper {
         createOrder.setInt(7, carportLength);
         createOrder.setInt(8, shedWidth);
         createOrder.setInt(9, shedLength);
-        createOrder.setBoolean(10, status);
-        createOrder.setDouble(11, price);
+        createOrder.setDouble(10, angle);
+        createOrder.setBoolean(11, status);
+        createOrder.setDouble(12, price);
         int rowAffected = createOrder.executeUpdate();
-        System.out.println("test15");
         if (rowAffected == 1) {
             con.commit();
         } else {
