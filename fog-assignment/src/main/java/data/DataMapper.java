@@ -18,126 +18,117 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class DataMapper {
 
-    private final Connection con;
-
-    public DataMapper() {
-        con = new Connector().getConnection();
-    }
-
     public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, InsecurePasswordException, IncorrectEmailFormattingException {
-        PreparedStatement updateCustomer = null;
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
-        updateCustomer = con.prepareStatement(str);
-        con.setAutoCommit(false);
-        updateCustomer.setString(1, email);
-        updateCustomer.setString(2, password);
-        updateCustomer.setString(3, firstName);
-        updateCustomer.setString(4, lastName);
-        updateCustomer.setString(5, address);
-        updateCustomer.setString(6, phone);
-        boolean valid = EmailValidator.getInstance().isValid(email);
-        if (!valid) {
-            throw new IncorrectEmailFormattingException();
-        }
-        if (password.length() < 7) {
-            throw new InsecurePasswordException();
-        }
-        int rowAffected = updateCustomer.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomer = con.prepareStatement(str)) {
+            con.setAutoCommit(false);
+            updateCustomer.setString(1, email);
+            updateCustomer.setString(2, password);
+            updateCustomer.setString(3, firstName);
+            updateCustomer.setString(4, lastName);
+            updateCustomer.setString(5, address);
+            updateCustomer.setString(6, phone);
+            boolean valid = EmailValidator.getInstance().isValid(email);
+            if (!valid) {
+                throw new IncorrectEmailFormattingException();
+            }
+            if (password.length() < 7) {
+                throw new InsecurePasswordException();
+            }
+            int rowAffected = updateCustomer.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public Customer customerLogin(String email, String password) throws SQLException, NullPointerException {
-        ResultSet rs = null;
-        Customer customer = null;
-        PreparedStatement getCustomer = null;
-        String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;"; // had to change this
-        getCustomer = con.prepareStatement(getCustomerString);
-        getCustomer.setString(1, email);
-        getCustomer.setString(2, password);
-        rs = getCustomer.executeQuery();
-        if (rs.next()) {
-            customer = new Customer(rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7));
+        String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
+            Customer customer = null;
+            getCustomer.setString(1, email);
+            getCustomer.setString(2, password);
+            try (ResultSet rs = getCustomer.executeQuery()) {
+                if (rs.next()) {
+                    customer = new Customer(rs.getString(2),
+                                            rs.getString(3),
+                                            rs.getString(4),
+                                            rs.getString(5),
+                                            rs.getString(6),
+                                            rs.getString(7));
+                }
+            }
+            return customer;
         }
-        return customer;
-
     }
 
     public boolean emailExists(String email) throws SQLException {
-        boolean emailExists = false;
-        ResultSet rs = null;
-        PreparedStatement st = null;
         String str = "select * from Customer order by email desc ;";
-        st = con.prepareStatement(str);
-        rs = st.executeQuery();
-        String emailCounter;
-        if (rs.next()) {
-            emailCounter = rs.getString("email");
-            if (emailCounter.equals(email)) {
-                System.out.println("It already exists");
-                emailExists = true;
+        try (Connection con = new Connector().getConnection(); PreparedStatement st = con.prepareStatement(str)) {
+            boolean emailExists = false;
+            try (ResultSet rs = st.executeQuery()) {
+                String emailCounter;
+                if (rs.next()) {
+                    emailCounter = rs.getString("email");
+                    if (emailCounter.equals(email)) {
+                        emailExists = true;
+                    }
+                }
             }
+            return emailExists;
         }
-
-        return emailExists;
     }
 
     public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException, InsecurePasswordException {
-        PreparedStatement updateEmployee = null;
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
-        updateEmployee = con.prepareStatement(str);
-        con.setAutoCommit(false);
-        updateEmployee.setString(1, username);
-        updateEmployee.setString(2, password);
-        updateEmployee.setString(3, firstName);
-        updateEmployee.setString(4, lastName);
-        updateEmployee.setString(5, phone);
-        updateEmployee.setString(6, email);
-        if (password.length() < 7) {
-            throw new InsecurePasswordException();
-        }
-        int rowAffected = updateEmployee.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateEmployee = con.prepareStatement(str)) {
+            con.setAutoCommit(false);
+            updateEmployee.setString(1, username);
+            updateEmployee.setString(2, password);
+            updateEmployee.setString(3, firstName);
+            updateEmployee.setString(4, lastName);
+            updateEmployee.setString(5, phone);
+            updateEmployee.setString(6, email);
+            if (password.length() < 7) {
+                throw new InsecurePasswordException();
+            }
+            int rowAffected = updateEmployee.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public Employee employeeLogin(String username, String password) throws SQLException, NullPointerException {
-        ResultSet rs = null;
-        Employee employee = null;
-        PreparedStatement getBorrower = null;
         String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
-        getBorrower = con.prepareStatement(getBorrowerString);
-        getBorrower.setString(1, username);
-        getBorrower.setString(2, password);
-        rs = getBorrower.executeQuery();
-        if (rs.next()) {
-            employee = new Employee(rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7));
+        try (Connection con = new Connector().getConnection(); PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
+            Employee employee = null;
+            getBorrower.setString(1, username);
+            getBorrower.setString(2, password);
+            try (ResultSet rs = getBorrower.executeQuery()) {
+                if (rs.next()) {
+                    employee = new Employee(rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
+                }
+            }
+            return employee;
         }
-        return employee;
-
     }
 
     public void setCustomerId(Customer customer) throws SQLException {
+        String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
+
         ResultSet rs = null;
         int id = 0;
         PreparedStatement getCustomerId = null;
-        String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         getCustomerId = con.prepareStatement(getCustomerIdString);
         getCustomerId.setString(1, customer.getEmail());
         getCustomerId.setString(2, customer.getPassword());
@@ -149,8 +140,9 @@ public class DataMapper {
     }
 
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
-        PreparedStatement createOrder = null;
         String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+
+        PreparedStatement createOrder = null;
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
@@ -174,10 +166,11 @@ public class DataMapper {
     }
 
     public int retrieveOrderId(int customerId, Timestamp date) throws SQLException {
+        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
+
         ResultSet rs = null;
         int id = 0;
         PreparedStatement getOrderId = null;
-        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
         getOrderId = con.prepareStatement(getOrderIdString);
         getOrderId.setInt(1, customerId);
         getOrderId.setTimestamp(2, date);
@@ -189,10 +182,11 @@ public class DataMapper {
     }
 
     public double retrievePartPrice(String partName) throws SQLException {
+        String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
+
         ResultSet rs = null;
         double price = 0;
         PreparedStatement getPrice = null;
-        String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
         getPrice = con.prepareStatement(getPriceString);
         getPrice.setString(1, partName);
         rs = getPrice.executeQuery();
@@ -203,8 +197,9 @@ public class DataMapper {
     }
 
     public void createOrderline(String partName, int orderId, double length, int quantity, String explanation, double price) throws SQLException {
-        PreparedStatement createOrderline = null;
         String createOrderlineString = "INSERT INTO fog.Orderline(partName, orderId, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
+
+        PreparedStatement createOrderline = null;
         createOrderline = con.prepareStatement(createOrderlineString);
         con.setAutoCommit(false);
         createOrderline.setString(1, partName);
@@ -222,10 +217,11 @@ public class DataMapper {
     }
 
     public double calculateStandardOrderPrice(int orderId) throws SQLException {
+        String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
+
         ResultSet rs = null;
         double standardOrderPrice = 0;
         PreparedStatement getStandardOrderPrice = null;
-        String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
         getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString);
         getStandardOrderPrice.setInt(1, orderId);
         rs = getStandardOrderPrice.executeQuery();
@@ -236,10 +232,11 @@ public class DataMapper {
     }
 
     public double retrieveDiscountRate(int orderId) throws SQLException {
+        String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
+
         ResultSet rs = null;
         double discountRate = 0;
         PreparedStatement getDiscountRate = null;
-        String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
         getDiscountRate = con.prepareStatement(getDiscountRateString);
         getDiscountRate.setInt(1, orderId);
         rs = getDiscountRate.executeQuery();
@@ -250,9 +247,10 @@ public class DataMapper {
     }
 
     public void setDiscountRate(double rate, int orderId) throws SQLException {
+        String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
+
         ResultSet rs = null;
         PreparedStatement setDiscountRate = null;
-        String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
         setDiscountRate = con.prepareStatement(setDiscountRateString);
         con.setAutoCommit(false);
         setDiscountRate.setDouble(1, rate);
@@ -266,9 +264,10 @@ public class DataMapper {
     }
 
     public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
+        String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
+
         ResultSet rs = null;
         PreparedStatement setStandardPrice = null;
-        String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
         setStandardPrice = con.prepareStatement(setStandardPriceString);
         con.setAutoCommit(false);
         setStandardPrice.setDouble(1, standardPrice);
@@ -282,9 +281,10 @@ public class DataMapper {
     }
 
     public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
+        String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
+
         ResultSet rs = null;
         PreparedStatement setFinalPrice = null;
-        String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
         setFinalPrice = con.prepareStatement(setFinalPriceString);
         con.setAutoCommit(false);
         setFinalPrice.setDouble(1, finalPrice);
@@ -298,10 +298,11 @@ public class DataMapper {
     }
 
     public double retrieveFinalPrice(int orderId) throws SQLException {
+        String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
+
         ResultSet rs = null;
         double finalPrice = 0;
         PreparedStatement getFinalPrice = null;
-        String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
         getFinalPrice = con.prepareStatement(getFinalPriceString);
         getFinalPrice.setInt(1, orderId);
         rs = getFinalPrice.executeQuery();
@@ -312,10 +313,11 @@ public class DataMapper {
     }
 
     public double retrieveStandardOrderPrice(int orderId) throws SQLException {
+        String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
+        
         ResultSet rs = null;
         double standardPrice = 0;
         PreparedStatement getStandardPrice = null;
-        String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
         getStandardPrice = con.prepareStatement(getStandardPriceString);
         getStandardPrice.setInt(1, orderId);
         rs = getStandardPrice.executeQuery();
