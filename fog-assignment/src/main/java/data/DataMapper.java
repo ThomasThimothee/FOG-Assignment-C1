@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -112,11 +111,11 @@ public class DataMapper {
             try (ResultSet rs = getBorrower.executeQuery()) {
                 if (rs.next()) {
                     employee = new Employee(rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getString(6),
-                            rs.getString(7));
+                                            rs.getString(3),
+                                            rs.getString(4),
+                                            rs.getString(5),
+                                            rs.getString(6),
+                                            rs.getString(7));
                 }
             }
             return employee;
@@ -125,206 +124,190 @@ public class DataMapper {
 
     public void setCustomerId(Customer customer) throws SQLException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
-
-        ResultSet rs = null;
-        int id = 0;
-        PreparedStatement getCustomerId = null;
-        getCustomerId = con.prepareStatement(getCustomerIdString);
-        getCustomerId.setString(1, customer.getEmail());
-        getCustomerId.setString(2, customer.getPassword());
-        rs = getCustomerId.executeQuery();
-        if (rs.next()) {
-            id = rs.getInt(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
+            int id = 0;
+            getCustomerId.setString(1, customer.getEmail());
+            getCustomerId.setString(2, customer.getPassword());
+            try (ResultSet rs = getCustomerId.executeQuery()) {
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                }
+                customer.setId_customer(id);
+            }
         }
-        customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
         String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-
-        PreparedStatement createOrder = null;
-        createOrder = con.prepareStatement(createOrderString);
-        con.setAutoCommit(false);
-        createOrder.setInt(1, customerId);
-        createOrder.setInt(2, salesRepId);
-        createOrder.setTimestamp(3, date);
-        createOrder.setString(4, carportType);
-        createOrder.setString(5, roofType);
-        createOrder.setInt(6, carportWidth);
-        createOrder.setInt(7, carportLength);
-        createOrder.setInt(8, shedWidth);
-        createOrder.setInt(9, shedLength);
-        createOrder.setDouble(10, angle);
-        createOrder.setBoolean(11, status);
-        createOrder.setDouble(12, price);
-        int rowAffected = createOrder.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
+            con.setAutoCommit(false);
+            createOrder.setInt(1, customerId);
+            createOrder.setInt(2, salesRepId);
+            createOrder.setTimestamp(3, date);
+            createOrder.setString(4, carportType);
+            createOrder.setString(5, roofType);
+            createOrder.setInt(6, carportWidth);
+            createOrder.setInt(7, carportLength);
+            createOrder.setInt(8, shedWidth);
+            createOrder.setInt(9, shedLength);
+            createOrder.setDouble(10, angle);
+            createOrder.setBoolean(11, status);
+            createOrder.setDouble(12, price);
+            int rowAffected = createOrder.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public int retrieveOrderId(int customerId, Timestamp date) throws SQLException {
         String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
-
-        ResultSet rs = null;
-        int id = 0;
-        PreparedStatement getOrderId = null;
-        getOrderId = con.prepareStatement(getOrderIdString);
-        getOrderId.setInt(1, customerId);
-        getOrderId.setTimestamp(2, date);
-        rs = getOrderId.executeQuery();
-        if (rs.next()) {
-            id = rs.getInt(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
+            int id = 0;
+            getOrderId.setInt(1, customerId);
+            getOrderId.setTimestamp(2, date);
+            try (ResultSet rs = getOrderId.executeQuery()) {
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                }
+                return id;
+            }
         }
-        return id;
     }
 
     public double retrievePartPrice(String partName) throws SQLException {
         String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
-
-        ResultSet rs = null;
-        double price = 0;
-        PreparedStatement getPrice = null;
-        getPrice = con.prepareStatement(getPriceString);
-        getPrice.setString(1, partName);
-        rs = getPrice.executeQuery();
-        if (rs.next()) {
-            price = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
+            double price = 0;
+            getPrice.setString(1, partName);
+            try (ResultSet rs = getPrice.executeQuery()) {
+                if (rs.next()) {
+                    price = rs.getDouble(1);
+                }
+            }
+            return price;
         }
-        return price;
     }
 
-
-    public void createOrderline(int idOrder, String partName,  double length, int quantity, String explanation, double price) throws SQLException {
-        PreparedStatement createOrderline = null;
+    public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws SQLException {
         String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
-        createOrderline = con.prepareStatement(createOrderlineString);
-        con.setAutoCommit(false);
-        createOrderline.setInt(1, idOrder);
-        createOrderline.setString(2, partName);
-        createOrderline.setDouble(3, length);
-        createOrderline.setInt(4, quantity);
-        createOrderline.setString(5, explanation);
-        createOrderline.setDouble(6, price);
-        int rowAffected = createOrderline.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
+            con.setAutoCommit(false);
+            createOrderline.setInt(1, idOrder);
+            createOrderline.setString(2, partName);
+            createOrderline.setDouble(3, length);
+            createOrderline.setInt(4, quantity);
+            createOrderline.setString(5, explanation);
+            createOrderline.setDouble(6, price);
+            int rowAffected = createOrderline.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public double calculateStandardOrderPrice(int orderId) throws SQLException {
         String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
-
-        ResultSet rs = null;
-        double standardOrderPrice = 0;
-        PreparedStatement getStandardOrderPrice = null;
-        getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString);
-        getStandardOrderPrice.setInt(1, orderId);
-        rs = getStandardOrderPrice.executeQuery();
-        if (rs.next()) {
-            standardOrderPrice = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
+            double standardOrderPrice = 0;
+            getStandardOrderPrice.setInt(1, orderId);
+            try (ResultSet rs = getStandardOrderPrice.executeQuery()) {
+                if (rs.next()) {
+                    standardOrderPrice = rs.getDouble(1);
+                }
+            }
+            return standardOrderPrice;
         }
-        return standardOrderPrice;
     }
 
     public double retrieveDiscountRate(int orderId) throws SQLException {
         String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
-
-        ResultSet rs = null;
-        double discountRate = 0;
-        PreparedStatement getDiscountRate = null;
-        getDiscountRate = con.prepareStatement(getDiscountRateString);
-        getDiscountRate.setInt(1, orderId);
-        rs = getDiscountRate.executeQuery();
-        if (rs.next()) {
-            discountRate = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
+            double discountRate = 0;
+            getDiscountRate.setInt(1, orderId);
+            try (ResultSet rs = getDiscountRate.executeQuery()) {
+                if (rs.next()) {
+                    discountRate = rs.getDouble(1);
+                }
+            }
+            return discountRate;
         }
-        return discountRate;
     }
 
     public void setDiscountRate(double rate, int orderId) throws SQLException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
-
-        ResultSet rs = null;
-        PreparedStatement setDiscountRate = null;
-        setDiscountRate = con.prepareStatement(setDiscountRateString);
-        con.setAutoCommit(false);
-        setDiscountRate.setDouble(1, rate);
-        setDiscountRate.setInt(2, orderId);
-        int rowAffected = setDiscountRate.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
+            con.setAutoCommit(false);
+            setDiscountRate.setDouble(1, rate);
+            setDiscountRate.setInt(2, orderId);
+            int rowAffected = setDiscountRate.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
-
-        ResultSet rs = null;
-        PreparedStatement setStandardPrice = null;
-        setStandardPrice = con.prepareStatement(setStandardPriceString);
-        con.setAutoCommit(false);
-        setStandardPrice.setDouble(1, standardPrice);
-        setStandardPrice.setInt(2, orderId);
-        int rowAffected = setStandardPrice.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
+            con.setAutoCommit(false);
+            setStandardPrice.setDouble(1, standardPrice);
+            setStandardPrice.setInt(2, orderId);
+            int rowAffected = setStandardPrice.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
-
-        ResultSet rs = null;
-        PreparedStatement setFinalPrice = null;
-        setFinalPrice = con.prepareStatement(setFinalPriceString);
-        con.setAutoCommit(false);
-        setFinalPrice.setDouble(1, finalPrice);
-        setFinalPrice.setInt(2, orderId);
-        int rowAffected = setFinalPrice.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
+            con.setAutoCommit(false);
+            setFinalPrice.setDouble(1, finalPrice);
+            setFinalPrice.setInt(2, orderId);
+            int rowAffected = setFinalPrice.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
 
     public double retrieveFinalPrice(int orderId) throws SQLException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
-
-        ResultSet rs = null;
-        double finalPrice = 0;
-        PreparedStatement getFinalPrice = null;
-        getFinalPrice = con.prepareStatement(getFinalPriceString);
-        getFinalPrice.setInt(1, orderId);
-        rs = getFinalPrice.executeQuery();
-        if (rs.next()) {
-            finalPrice = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
+            double finalPrice = 0;
+            getFinalPrice.setInt(1, orderId);
+            try (ResultSet rs = getFinalPrice.executeQuery()) {
+                if (rs.next()) {
+                    finalPrice = rs.getDouble(1);
+                }
+                return finalPrice;
+            }
         }
-        return finalPrice;
     }
 
     public double retrieveStandardOrderPrice(int orderId) throws SQLException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
-        
-        ResultSet rs = null;
-        double standardPrice = 0;
-        PreparedStatement getStandardPrice = null;
-        getStandardPrice = con.prepareStatement(getStandardPriceString);
-        getStandardPrice.setInt(1, orderId);
-        rs = getStandardPrice.executeQuery();
-        if (rs.next()) {
-            standardPrice = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
+            double standardPrice = 0;
+            getStandardPrice.setInt(1, orderId);
+            try (ResultSet rs = getStandardPrice.executeQuery()) {
+                if (rs.next()) {
+                    standardPrice = rs.getDouble(1);
+                }
+                return standardPrice;
+            }
         }
-        return standardPrice;
     }
-
 }
