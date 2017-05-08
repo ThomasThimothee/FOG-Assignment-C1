@@ -148,20 +148,23 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date, int carportWidth, int carportLength, int shedWidth, int shedLength, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
         PreparedStatement createOrder = null;
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportWidth, carportLength, shedWidth, shedLength, status, totalPrice) VALUES (?,?,?,?,?,?,?,?,?);";
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
         createOrder.setInt(2, salesRepId);
         createOrder.setTimestamp(3, date);
-        createOrder.setInt(4, carportWidth);
-        createOrder.setInt(5, carportLength);
-        createOrder.setInt(6, shedWidth);
-        createOrder.setInt(7, shedLength);
-        createOrder.setBoolean(8, status);
-        createOrder.setDouble(9, price);
+        createOrder.setString(4, carportType);
+        createOrder.setString(5, roofType);
+        createOrder.setInt(6, carportWidth);
+        createOrder.setInt(7, carportLength);
+        createOrder.setInt(8, shedWidth);
+        createOrder.setInt(9, shedLength);
+        createOrder.setDouble(10, angle);
+        createOrder.setBoolean(11, status);
+        createOrder.setDouble(12, price);
         int rowAffected = createOrder.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -262,13 +265,13 @@ public class DataMapper {
         }
     }
 
-    public void setStandardPrice(double totalPrice, int orderId) throws SQLException {
+    public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
         ResultSet rs = null;
         PreparedStatement setStandardPrice = null;
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
         setStandardPrice = con.prepareStatement(setStandardPriceString);
         con.setAutoCommit(false);
-        setStandardPrice.setDouble(1, totalPrice);
+        setStandardPrice.setDouble(1, standardPrice);
         setStandardPrice.setInt(2, orderId);
         int rowAffected = setStandardPrice.executeUpdate();
         if (rowAffected == 1) {
