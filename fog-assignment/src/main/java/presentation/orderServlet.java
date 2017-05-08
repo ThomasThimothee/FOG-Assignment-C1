@@ -39,7 +39,7 @@ public class orderServlet extends HttpServlet {
                     String roofType = (String) request.getParameter("roof type");
                     double angle = 0;
                     if (carportType.equals("Pointy")) {
-                        angle = Double.parseDouble(("angle"));
+                        angle = Double.parseDouble(request.getParameter("angle"));
                     }
                     if (carportWidth - 30 < shedWidth || carportLength - 30 < shedLength) {
                         request.setAttribute("errorMessageIncorrectDimensions", "Error");
