@@ -1,6 +1,8 @@
 package business;
 
 import business.facades.OrderFacade;
+import business.parts.Part;
+import business.parts.Part.PartType;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,10 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-       OrderFacade.createOrderline("universal venstre", 12, 0, 2, "understernbrædder til siderne", 15.00);
+        java.util.Date dateJava = new java.util.Date();
+                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
+        
+        OrderFacade.createOrder(3, 7, dateSql, 630, 690, 240, 270, false, 0);
+
     }
 }

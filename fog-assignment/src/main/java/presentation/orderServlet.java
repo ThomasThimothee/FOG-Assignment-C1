@@ -56,8 +56,8 @@ public class orderServlet extends HttpServlet {
                         }
                     }
                     java.util.Date dateJava = new java.util.Date();
-                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());                    
-                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, false, 0.00); //hard code the idSalesRep and price
+                    java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
+                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, carportWidth, carportLength, shedWidth, shedLength, false, 0.00); //hard code the idSalesRep and price
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;
@@ -65,12 +65,14 @@ public class orderServlet extends HttpServlet {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
                         partList = flat.createPartList(); 
                         request.setAttribute("selectedCarport", flat);
-                   } else { 
+                    } else {
                         Pointy pointy = new Pointy(carportType, roofType, carportLength, carportWidth, shedLength, shedWidth, 0, angle);
                         partList = pointy.createPartList();
                         request.setAttribute("selectedCarport", pointy);
                     }
                     OrderFacade.createOrderLines(partList, orderId);
+                    OrderFacade.setStandardOrderPrice(orderId);
+                    OrderFacade.updateFinalPrice(orderId);
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     request.setAttribute("errorMessage", "Incorrect messurements");

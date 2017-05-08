@@ -148,16 +148,20 @@ public class DataMapper {
         customer.setId_customer(id);
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date,boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, int carportWidth, int carportLength, int shedWidth, int shedLength, boolean status, double price) throws SQLException {
         PreparedStatement createOrder = null;
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, status, totalPrice) VALUES (?,?,?,?,?);";
+        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportWidth, carportLength, shedWidth, shedLength, status, totalPrice) VALUES (?,?,?,?,?,?,?,?,?);";
         createOrder = con.prepareStatement(createOrderString);
         con.setAutoCommit(false);
         createOrder.setInt(1, customerId);
         createOrder.setInt(2, salesRepId);
         createOrder.setTimestamp(3, date);
-        createOrder.setBoolean(4, status);
-        createOrder.setDouble(5, price);
+        createOrder.setInt(4, carportWidth);
+        createOrder.setInt(5, carportLength);
+        createOrder.setInt(6, shedWidth);
+        createOrder.setInt(7, shedLength);
+        createOrder.setBoolean(8, status);
+        createOrder.setDouble(9, price);
         int rowAffected = createOrder.executeUpdate();
         if (rowAffected == 1) {
             con.commit();
@@ -192,9 +196,8 @@ public class DataMapper {
         if (rs.next()) {
             price = rs.getDouble(1);
         }
-        return price;       
+        return price;
     }
-
 
     public void createOrderline(String partName, int orderId, double length, int quantity, String explanation, double price) throws SQLException {
         PreparedStatement createOrderline = null;
@@ -212,6 +215,111 @@ public class DataMapper {
             con.commit();
         } else {
             con.rollback();
-        }    }
+        }
+    }
+
+    public double calculateStandardOrderPrice(int orderId) throws SQLException {
+        ResultSet rs = null;
+        double standardOrderPrice = 0;
+        PreparedStatement getStandardOrderPrice = null;
+        String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
+        getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString);
+        getStandardOrderPrice.setInt(1, orderId);
+        rs = getStandardOrderPrice.executeQuery();
+        if (rs.next()) {
+            standardOrderPrice = rs.getDouble(1);
+        }
+        return standardOrderPrice;
+    }
+
+    public double retrieveDiscountRate(int orderId) throws SQLException {
+        ResultSet rs = null;
+        double discountRate = 0;
+        PreparedStatement getDiscountRate = null;
+        String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
+        getDiscountRate = con.prepareStatement(getDiscountRateString);
+        getDiscountRate.setInt(1, orderId);
+        rs = getDiscountRate.executeQuery();
+        if (rs.next()) {
+            discountRate = rs.getDouble(1);
+        }
+        return discountRate;
+    }
+
+    public void setDiscountRate(double rate, int orderId) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement setDiscountRate = null;
+        String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
+        setDiscountRate = con.prepareStatement(setDiscountRateString);
+        con.setAutoCommit(false);
+        setDiscountRate.setDouble(1, rate);
+        setDiscountRate.setInt(2, orderId);
+        int rowAffected = setDiscountRate.executeUpdate();
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }
+    }
+
+    public void setStandardPrice(double totalPrice, int orderId) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement setStandardPrice = null;
+        String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
+        setStandardPrice = con.prepareStatement(setStandardPriceString);
+        con.setAutoCommit(false);
+        setStandardPrice.setDouble(1, totalPrice);
+        setStandardPrice.setInt(2, orderId);
+        int rowAffected = setStandardPrice.executeUpdate();
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }
+    }
+
+    public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement setFinalPrice = null;
+        String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
+        setFinalPrice = con.prepareStatement(setFinalPriceString);
+        con.setAutoCommit(false);
+        setFinalPrice.setDouble(1, finalPrice);
+        setFinalPrice.setInt(2, orderId);
+        int rowAffected = setFinalPrice.executeUpdate();
+        if (rowAffected == 1) {
+            con.commit();
+        } else {
+            con.rollback();
+        }
+    }
+
+    public double retrieveFinalPrice(int orderId) throws SQLException {
+        ResultSet rs = null;
+        double finalPrice = 0;
+        PreparedStatement getFinalPrice = null;
+        String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
+        getFinalPrice = con.prepareStatement(getFinalPriceString);
+        getFinalPrice.setInt(1, orderId);
+        rs = getFinalPrice.executeQuery();
+        if (rs.next()) {
+            finalPrice = rs.getDouble(1);
+        }
+        return finalPrice;
+    }
+
+    public double retrieveStandardOrderPrice(int orderId) throws SQLException {
+        ResultSet rs = null;
+        double standardPrice = 0;
+        PreparedStatement getStandardPrice = null;
+        String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
+        getStandardPrice = con.prepareStatement(getStandardPriceString);
+        getStandardPrice.setInt(1, orderId);
+        rs = getStandardPrice.executeQuery();
+        if (rs.next()) {
+            standardPrice = rs.getDouble(1);
+        }
+        return standardPrice;
+    }
 
 }
