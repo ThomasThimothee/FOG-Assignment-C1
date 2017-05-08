@@ -4,12 +4,10 @@ import business.Customer;
 import business.Employee;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
-import static business.facades.OrderFacade.getFinalPrice;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -54,11 +52,11 @@ public class DataMapper {
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
                     customer = new Customer(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
                 }
             }
             return customer;
@@ -193,7 +191,6 @@ public class DataMapper {
         }
     }
 
-
     public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws SQLException {
         String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
@@ -258,62 +255,59 @@ public class DataMapper {
 
     public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
-try (Connection con = new Connector().getConnection(); PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
-
-        con.setAutoCommit(false);
-        setStandardPrice.setDouble(1, standardPrice);
-        setStandardPrice.setInt(2, orderId);
-        int rowAffected = setStandardPrice.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
+            con.setAutoCommit(false);
+            setStandardPrice.setDouble(1, standardPrice);
+            setStandardPrice.setInt(2, orderId);
+            int rowAffected = setStandardPrice.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
     }
-    }
-    
 
     public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
-try (Connection con = new Connector().getConnection(); PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
-        con.setAutoCommit(false);
-        setFinalPrice.setDouble(1, finalPrice);
-        setFinalPrice.setInt(2, orderId);
-        int rowAffected = setFinalPrice.executeUpdate();
-        if (rowAffected == 1) {
-            con.commit();
-        } else {
-            con.rollback();
+        try (Connection con = new Connector().getConnection(); PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
+            con.setAutoCommit(false);
+            setFinalPrice.setDouble(1, finalPrice);
+            setFinalPrice.setInt(2, orderId);
+            int rowAffected = setFinalPrice.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
         }
-    }
     }
 
     public double retrieveFinalPrice(int orderId) throws SQLException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
-  try (Connection con = new Connector().getConnection(); PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
-        double finalPrice = 0;
-        getFinalPrice.setInt(1, orderId);
-        
-       try(ResultSet rs = getFinalPrice.executeQuery()) {
-        if (rs.next()) {
-            finalPrice = rs.getDouble(1);
+        try (Connection con = new Connector().getConnection(); PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
+            double finalPrice = 0;
+            getFinalPrice.setInt(1, orderId);
+            try (ResultSet rs = getFinalPrice.executeQuery()) {
+                if (rs.next()) {
+                    finalPrice = rs.getDouble(1);
+                }
+                return finalPrice;
+            }
         }
-        return finalPrice;
     }
-  }
-    }
-    
+
     public double retrieveStandardOrderPrice(int orderId) throws SQLException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
-                try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
-        double standardPrice = 0;
-        getStandardPrice.setInt(1, orderId);
-       try (ResultSet rs = getStandardPrice.executeQuery()) {
-        if (rs.next()) {
-            standardPrice = rs.getDouble(1);
-        }
-        return standardPrice;
-    }
+        try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
+            double standardPrice = 0;
+            getStandardPrice.setInt(1, orderId);
+            try (ResultSet rs = getStandardPrice.executeQuery()) {
+                if (rs.next()) {
+                    standardPrice = rs.getDouble(1);
                 }
+                return standardPrice;
+            }
+        }
     }
 }
