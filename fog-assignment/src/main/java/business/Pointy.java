@@ -89,14 +89,14 @@ public class Pointy extends Carport {
 
         // D
         qWoodD = 1;
-        lengthWoodD = 0;
-        woodD = new Wood(Part.PartType.WOOD, qWoodD, lengthWoodD, "faedigskaret", "byg-selv spær (skal samles) 8 stk");
+        lengthWoodD = 1;
+        woodD = new Wood(Part.PartType.WOOD, qWoodD, lengthWoodD, "faedigskaret", "byg-selv spaer (skal samles) 8 stk");
         super.partList.getPartList().add(woodD);
 
         // E
         qWoodE = 9;
         lengthWoodE = 300;
-        woodE = new Wood(Part.PartType.WOOD, qWoodE, lengthWoodE, "97x97 mm. trykimp. stolpe", "Stolper nedgraves 90 cm");
+        woodE = new Wood(Part.PartType.WOOD, qWoodE, lengthWoodE, "97x97 mm. trykimp. Stolpe", "Stolper nedgraves 90 cm");
         super.partList.getPartList().add(woodE);
 
         // F
@@ -116,7 +116,7 @@ public class Pointy extends Carport {
             qWoodF = 4;
             lengthWoodF = 480;
         }
-        woodF = new Wood(Part.PartType.WOOD, qWoodF, lengthWoodF, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper");
+        woodF = new Wood(Part.PartType.WOOD, qWoodF, lengthWoodF, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper Carport del");
         super.partList.getPartList().add(woodF);
 
         // G
@@ -194,13 +194,13 @@ public class Pointy extends Carport {
         // K
         qWoodK = (int) ((carportWidth * 2 * 10 - 100) / 73 / 3);
         lengthWoodK = 240;
-        woodK = new Wood(Part.PartType.WOOD, qWoodK, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklædning af gavle 1 pa 2");
+        woodK = new Wood(Part.PartType.WOOD, qWoodK, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklaedning af gavle 1 pa 2");
         super.partList.getPartList().add(woodK);
 
         // L
         qWoodL = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
         lengthWoodK = 210;
-        woodL = new Wood(Part.PartType.WOOD, qWoodL, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklædning af skur 1 pa 2");
+        woodL = new Wood(Part.PartType.WOOD, qWoodL, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklaedning af skur 1 pa 2");
         super.partList.getPartList().add(woodL);
 
         // M
@@ -229,13 +229,13 @@ public class Pointy extends Carport {
         // N
         qWoodN = 1;
         lengthWoodN = 540;
-        woodN = new Wood(Part.PartType.WOOD, qWoodN, lengthWoodN, "38x73 mm. taglaegte T1", "til z pa bagside af dor");
+        woodN = new Wood(Part.PartType.WOOD, qWoodN, lengthWoodN, "38x73 mm. Taglaegte T1", "til z pa bagside af dor");
         super.partList.getPartList().add(woodN);
 
         // O
         qWoodO = 21;
         lengthWoodO = 540;
-        woodO = new Wood(Part.PartType.WOOD, qWoodO, lengthWoodO, "38x73 mm. taglaegte T1", "til montering pa spaer, 7 raekker laegter pa hver skiftevis 1 hel & 1 halv laegte");
+        woodO = new Wood(Part.PartType.WOOD, qWoodO, lengthWoodO, "38x73 mm. Taglaegte T1", "til montering pa spaer, 7 raekker laegter pa hver skiftevis 1 hel & 1 halv laegte");
         super.partList.getPartList().add(woodO);
 
         // P
@@ -258,7 +258,7 @@ public class Pointy extends Carport {
             qWoodP = 3;
             lengthWoodP = 540;
         }
-        woodP = new Wood(Part.PartType.WOOD, qWoodP, lengthWoodP, "38x73 mm. taglaegte T1", "toplaegte");
+        woodP = new Wood(Part.PartType.WOOD, qWoodP, lengthWoodP, "38x73 mm. Taglaegte T1", "toplaegte");
         super.partList.getPartList().add(woodP);
 
         // Tagpakken
