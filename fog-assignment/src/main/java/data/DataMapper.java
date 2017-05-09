@@ -57,13 +57,13 @@ public class DataMapper {
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
                     customer = new Customer(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
                 }
-            } 
+            }
             return customer;
         } catch (SQLException | NullPointerException ex) {
             throw new InvalidUsernameOrPasswordException();
@@ -122,11 +122,11 @@ public class DataMapper {
             try (ResultSet rs = getBorrower.executeQuery()) {
                 if (rs.next()) {
                     employee = new Employee(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
                     employee.setEmployeeId(rs.getInt(1));
                 }
             }
@@ -191,7 +191,7 @@ public class DataMapper {
                     id = rs.getInt(1);
                 }
                 return id;
-            } 
+            }
         } catch (SQLException ex) {
             throw new StorageLayerException();
         }
@@ -248,7 +248,7 @@ public class DataMapper {
         } catch (SQLException ex) {
             throw new StorageLayerException();
         }
-    } 
+    }
 
     public double retrieveDiscountRate(int orderId) throws StorageLayerException {
         String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
@@ -350,22 +350,24 @@ public class DataMapper {
     }
 
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
-    String getEmployeesString = "SELECT * FROM SalesRep;";
-    ArrayList<Employee> list = new ArrayList<Employee>();
+        String getEmployeesString = "SELECT * FROM SalesRep;";
+        ArrayList<Employee> list = new ArrayList<Employee>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (ResultSet rs = getEmployees.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
+                    int userId = rs.getInt(1);
                     employee = new Employee(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
-                    employee.setEmployeeId(rs.getInt(1));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
+                    employee.setEmployeeId(userId);
                     list.add(employee);
                 }
             }
+            System.out.println("size list= " + list.size());
             return list;
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();

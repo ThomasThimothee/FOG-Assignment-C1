@@ -42,7 +42,6 @@ public class EmployeeFacade {
             employeesList = dm.retrieveAllEmployees();
             Random r = new Random();
             randomIndex = r.nextInt(employeesList.size());
-            System.out.println("size list= " + employeesList.size());
         } catch (StorageLayerException e) {
 
         }
