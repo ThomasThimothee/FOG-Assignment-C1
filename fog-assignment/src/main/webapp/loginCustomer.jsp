@@ -1,3 +1,4 @@
+<%@page import="business.utility.RenderUtils"%>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
+    <% RenderUtils render = new RenderUtils(); %>
+    <div class="container">
     <div class="row">
         <div class="box">
             <div class="col-lg-12">
@@ -32,18 +35,13 @@
                 <strong>form</strong>
             </h2>
             <hr>
-            <div class="col-xs-offset-3 col-xs-7">
                 <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerLoginForm"/>
                     <div class="row">
-                        <div class="form-group col-xs-7">
-                            <input type="text" class="form-control" name="email" placeholder="E-mail">
-                        </div>
-                        <div class="form-group col-xs-7">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                        </div>
+                        <% String[] values = {"username", "password"}; %>
+                        <%=render.createFormRows(values)%>
                         <div class="row">
-                            <div class="col-xs-offset-1 col-xs-5">
+                            <div class="col-xs-offset-4 col-xs-4">
                                 <input type="hidden" name="action" value="login">
                                 <label><br></label>
                                 <button type="submit" class="form-control btn btn-success">Sign in</button>
@@ -51,8 +49,8 @@
                         </div>
                     </div>
                 </form>
-            </div>
         </div>
+    </div>
     </div>
 </body>
 <script src="js/jquery.js"></script>
