@@ -1,5 +1,6 @@
 package business;
 
+import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import business.parts.Part;
 import business.parts.Part.PartType;
@@ -16,10 +17,10 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-        Pointy pointy = new Pointy("Pointy", "test", 240, 240, 150, 210, 0, 15);
-        Partlist partList = pointy.createPartList();
-        
-        OrderFacade.createOrderLines(partList, 29);
+        for (int i = 0; i < 10; i++)
+        {
+        System.out.println(EmployeeFacade.getRandomEmployeeId());
+        }
 
     }
 }

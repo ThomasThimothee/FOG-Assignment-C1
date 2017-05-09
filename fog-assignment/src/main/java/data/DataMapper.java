@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -126,6 +127,7 @@ public class DataMapper {
                                             rs.getString(5),
                                             rs.getString(6),
                                             rs.getString(7));
+                    employee.setEmployeeId(rs.getInt(1));
                 }
             }
             return employee;
@@ -343,6 +345,29 @@ public class DataMapper {
                 return standardPrice;
             }
         } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
+    public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
+    String getEmployeesString = "SELECT * FROM SalesRep;";
+    ArrayList<Employee> list = new ArrayList<Employee>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
+            Employee employee = null;
+            try (ResultSet rs = getEmployees.executeQuery()) {
+                if (rs.next()) {
+                    employee = new Employee(rs.getString(2),
+                                            rs.getString(3),
+                                            rs.getString(4),
+                                            rs.getString(5),
+                                            rs.getString(6),
+                                            rs.getString(7));
+                    employee.setEmployeeId(rs.getInt(1));
+                    list.add(employee);
+                }
+            }
+            return list;
+        } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
         }
     }

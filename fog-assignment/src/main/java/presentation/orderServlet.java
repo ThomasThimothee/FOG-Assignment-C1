@@ -4,6 +4,7 @@ import business.Customer;
 import business.Flat;
 import business.Partlist;
 import business.Pointy;
+import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -57,7 +58,8 @@ public class orderServlet extends HttpServlet {
                     }
                     java.util.Date dateJava = new java.util.Date();
                     java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
-                    OrderFacade.createOrder(customer.getId_customer(), 7, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
+                    int employeeId = EmployeeFacade.getRandomEmployeeId();
+                    OrderFacade.createOrder(customer.getId_customer(), employeeId, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
                     int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;
@@ -73,7 +75,7 @@ public class orderServlet extends HttpServlet {
                     OrderFacade.createOrderLines(partList, orderId);
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
-                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
+                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);                    
                 } catch (NullPointerException e) {
                     request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);

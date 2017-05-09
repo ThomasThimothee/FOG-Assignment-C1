@@ -6,6 +6,8 @@ package business;
  */
 public class Employee {
 
+    private int employeeId;
+
     public Employee(String username, String password, String firstName, String lastName, String phone, String email) {
         this.username = username;
         this.password = password;
@@ -13,6 +15,14 @@ public class Employee {
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int id) {
+        this.employeeId = id;
     }
 
     public String getUsername() {
