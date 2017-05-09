@@ -25,6 +25,7 @@ public class orderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("currentCustomer");// try to retrieve current user
         String action = request.getParameter("action");
