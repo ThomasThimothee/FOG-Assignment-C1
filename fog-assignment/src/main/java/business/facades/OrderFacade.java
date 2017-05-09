@@ -1,6 +1,7 @@
 package business.facades;
 
 import business.Partlist;
+import business.exceptions.StorageLayerException;
 import business.parts.Part;
 import data.DataMapper;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
             
         }
     }
@@ -30,7 +31,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             id = dm.retrieveOrderId(customerId, date);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
 
         }
         return id;
@@ -54,7 +55,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.retrievePartPrice(partName);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
         }
         return price;
     }
@@ -63,7 +64,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.createOrderline(idOrder, partName, length, quantity, explanation, price);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -73,7 +74,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.calculateStandardOrderPrice(orderId);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
         }
         return price;
     }
@@ -84,7 +85,7 @@ public class OrderFacade {
             DataMapper dm = new DataMapper();
             totalPrice = calculateStandardOrderPrice(orderId);
             dm.setStandardPrice(totalPrice, orderId);
-        } catch (SQLException | NullPointerException ex) {
+        } catch (StorageLayerException ex) {
         }
     }
 
@@ -93,7 +94,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.retrieveStandardOrderPrice(orderId);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
         }
         return price;
     }
@@ -102,7 +103,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.setDiscountRate(rate, orderId);
-        } catch (SQLException | NullPointerException ex) {
+        } catch (StorageLayerException ex) {
         }
     }
 
@@ -111,7 +112,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.retrieveDiscountRate(orderId);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
         }
         return price;
     }
@@ -126,7 +127,7 @@ public class OrderFacade {
             discountRate = getDiscountRate(orderId);
             finalPrice = standardPrice * (1 - discountRate);
             dm.setFinalPrice(finalPrice, orderId);
-        } catch (SQLException | NullPointerException ex) {
+        } catch (StorageLayerException ex) {
         }
     }
 
@@ -135,7 +136,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             price = dm.retrieveFinalPrice(orderId);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
         }
         return price;
     }

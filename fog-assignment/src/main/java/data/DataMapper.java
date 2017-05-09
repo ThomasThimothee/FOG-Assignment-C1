@@ -4,6 +4,8 @@ import business.Customer;
 import business.Employee;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
+import business.exceptions.InvalidUsernameOrPasswordException;
+import business.exceptions.StorageLayerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +19,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class DataMapper {
 
-    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws SQLException, InsecurePasswordException, IncorrectEmailFormattingException {
+    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException {
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomer = con.prepareStatement(str)) {
             con.setAutoCommit(false);
@@ -40,10 +42,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException e) {
+            throw new StorageLayerException();
         }
     }
 
-    public Customer customerLogin(String email, String password) throws SQLException, NullPointerException {
+    public Customer customerLogin(String email, String password) throws StorageLayerException, InvalidUsernameOrPasswordException {
         String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
             Customer customer = null;
@@ -58,12 +62,14 @@ public class DataMapper {
                                             rs.getString(6),
                                             rs.getString(7));
                 }
-            }
+            } 
             return customer;
+        } catch (SQLException | NullPointerException ex) {
+            throw new InvalidUsernameOrPasswordException();
         }
     }
 
-    public boolean emailExists(String email) throws SQLException {
+    public boolean emailExists(String email) throws StorageLayerException {
         String str = "select * from Customer order by email desc ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement st = con.prepareStatement(str)) {
             boolean emailExists = false;
@@ -77,10 +83,12 @@ public class DataMapper {
                 }
             }
             return emailExists;
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws SQLException, NullPointerException, InsecurePasswordException {
+    public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws InsecurePasswordException, StorageLayerException {
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateEmployee = con.prepareStatement(str)) {
             con.setAutoCommit(false);
@@ -99,10 +107,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public Employee employeeLogin(String username, String password) throws SQLException, NullPointerException {
+    public Employee employeeLogin(String username, String password) throws StorageLayerException {
         String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
             Employee employee = null;
@@ -119,10 +129,12 @@ public class DataMapper {
                 }
             }
             return employee;
+        } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void setCustomerId(Customer customer) throws SQLException {
+    public void setCustomerId(Customer customer) throws StorageLayerException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
             int id = 0;
@@ -134,10 +146,12 @@ public class DataMapper {
                 }
                 customer.setId_customer(id);
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws SQLException {
+    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {
         String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
             con.setAutoCommit(false);
@@ -159,10 +173,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public int retrieveOrderId(int customerId, Timestamp date) throws SQLException {
+    public int retrieveOrderId(int customerId, Timestamp date) throws StorageLayerException {
         String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
             int id = 0;
@@ -173,11 +189,13 @@ public class DataMapper {
                     id = rs.getInt(1);
                 }
                 return id;
-            }
+            } 
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public double retrievePartPrice(String partName) throws SQLException {
+    public double retrievePartPrice(String partName) throws StorageLayerException {
         String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
             double price = 0;
@@ -188,10 +206,12 @@ public class DataMapper {
                 }
             }
             return price;
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws SQLException {
+    public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws StorageLayerException {
         String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
             con.setAutoCommit(false);
@@ -207,10 +227,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public double calculateStandardOrderPrice(int orderId) throws SQLException {
+    public double calculateStandardOrderPrice(int orderId) throws StorageLayerException {
         String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
             double standardOrderPrice = 0;
@@ -221,10 +243,12 @@ public class DataMapper {
                 }
             }
             return standardOrderPrice;
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
-    }
+    } 
 
-    public double retrieveDiscountRate(int orderId) throws SQLException {
+    public double retrieveDiscountRate(int orderId) throws StorageLayerException {
         String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
             double discountRate = 0;
@@ -235,10 +259,12 @@ public class DataMapper {
                 }
             }
             return discountRate;
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void setDiscountRate(double rate, int orderId) throws SQLException {
+    public void setDiscountRate(double rate, int orderId) throws StorageLayerException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
             con.setAutoCommit(false);
@@ -250,10 +276,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void setStandardPrice(double standardPrice, int orderId) throws SQLException {
+    public void setStandardPrice(double standardPrice, int orderId) throws StorageLayerException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
             con.setAutoCommit(false);
@@ -265,10 +293,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public void setFinalPrice(double finalPrice, int orderId) throws SQLException {
+    public void setFinalPrice(double finalPrice, int orderId) throws StorageLayerException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
             con.setAutoCommit(false);
@@ -280,10 +310,12 @@ public class DataMapper {
             } else {
                 con.rollback();
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public double retrieveFinalPrice(int orderId) throws SQLException {
+    public double retrieveFinalPrice(int orderId) throws StorageLayerException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
             double finalPrice = 0;
@@ -294,10 +326,12 @@ public class DataMapper {
                 }
                 return finalPrice;
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 
-    public double retrieveStandardOrderPrice(int orderId) throws SQLException {
+    public double retrieveStandardOrderPrice(int orderId) throws StorageLayerException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
             double standardPrice = 0;
@@ -308,6 +342,8 @@ public class DataMapper {
                 }
                 return standardPrice;
             }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
         }
     }
 }

@@ -3,6 +3,7 @@ package business.facades;
 import business.Employee;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
+import business.exceptions.StorageLayerException;
 import data.DataMapper;
 import java.sql.SQLException;
 
@@ -16,7 +17,7 @@ public class EmployeeFacade {
         try {
             DataMapper dm = new DataMapper();
             return dm.employeeLogin(username, password);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
             InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
             throw ex;
         }        
@@ -26,9 +27,8 @@ public class EmployeeFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.employeeSignup(username, password, fistName, lastName, phone, email);
-        } catch (SQLException | NullPointerException e) {
-            InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
-            throw ex;
+        } catch (StorageLayerException e) {
+
         }            
     }
     

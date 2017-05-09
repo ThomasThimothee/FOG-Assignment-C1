@@ -4,6 +4,7 @@ import business.Customer;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
+import business.exceptions.StorageLayerException;
 import data.DataMapper;
 import java.sql.SQLException;
 
@@ -17,9 +18,8 @@ public class CustomerFacade {
         try {
             DataMapper dm = new DataMapper();
             return dm.customerLogin(email, password);
-        } catch (SQLException | NullPointerException e) {
-            InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
-            throw ex;
+        } catch (StorageLayerException e) {
+            throw new InvalidUsernameOrPasswordException();
         }
     }
 
@@ -27,9 +27,8 @@ public class CustomerFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.customerSignup(email, password, firstName, lastName, address, phone);
-        } catch (SQLException | NullPointerException e) {
-            InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
-            throw ex;
+        } catch (StorageLayerException e) {
+
         }
     }
 
@@ -37,7 +36,7 @@ public class CustomerFacade {
         try {
             DataMapper dm = new DataMapper();
             dm.setCustomerId(customer);
-        } catch (SQLException | NullPointerException e) {
+        } catch (StorageLayerException e) {
             InvalidUsernameOrPasswordException ex = new InvalidUsernameOrPasswordException();
             throw ex;
         }
