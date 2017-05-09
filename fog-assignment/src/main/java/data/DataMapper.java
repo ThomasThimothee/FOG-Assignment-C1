@@ -351,7 +351,7 @@ public class DataMapper {
 
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
     String getEmployeesString = "SELECT * FROM SalesRep;";
-    ArrayList<Employee> list = new ArrayList<Employee>();
+    ArrayList<Employee> list = new ArrayList<>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (ResultSet rs = getEmployees.executeQuery()) {
