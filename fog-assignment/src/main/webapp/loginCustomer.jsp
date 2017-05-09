@@ -38,7 +38,7 @@
                 <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerLoginForm"/>
                     <div class="row">
-                        <% String[] values = {"username", "password"}; %>
+                        <% String[] values = {"email", "password"}; %>
                         <%=render.createFormRows(values)%>
                         <div class="row">
                             <div class="col-xs-offset-4 col-xs-4">

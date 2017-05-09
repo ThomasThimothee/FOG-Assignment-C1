@@ -2,6 +2,7 @@ package data;
 
 import business.Customer;
 import business.Employee;
+import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
@@ -20,11 +21,15 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class DataMapper {
 
-    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException {
+    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomer = con.prepareStatement(str)) {
             con.setAutoCommit(false);
-            updateCustomer.setString(1, email);
+            if (!emailExists(email)) {
+                updateCustomer.setString(1, email);
+            } else {
+                throw new EmailAlreadyInUseException();
+            }
             updateCustomer.setString(2, password);
             updateCustomer.setString(3, firstName);
             updateCustomer.setString(4, lastName);
@@ -57,26 +62,26 @@ public class DataMapper {
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
                     customer = new Customer(rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getString(6),
-                            rs.getString(7));
+                                            rs.getString(3),
+                                            rs.getString(4),
+                                            rs.getString(5),
+                                            rs.getString(6),
+                                            rs.getString(7));
                 }
             }
             return customer;
-        } catch (SQLException | NullPointerException ex) {
+        } catch (SQLException ex) {
             throw new InvalidUsernameOrPasswordException();
         }
     }
 
     public boolean emailExists(String email) throws StorageLayerException {
-        String str = "select * from Customer order by email desc ;";
+        String str = "SELECT email FROM Customer;";
         try (Connection con = new Connector().getConnection(); PreparedStatement st = con.prepareStatement(str)) {
             boolean emailExists = false;
             try (ResultSet rs = st.executeQuery()) {
                 String emailCounter;
-                if (rs.next()) {
+                while (rs.next()) {
                     emailCounter = rs.getString("email");
                     if (emailCounter.equals(email)) {
                         emailExists = true;
@@ -136,7 +141,7 @@ public class DataMapper {
         }
     }
 
-    public void setCustomerId(Customer customer) throws StorageLayerException {
+    public void setCustomerId(Customer customer) throws StorageLayerException, InvalidUsernameOrPasswordException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
             int id = 0;
@@ -150,6 +155,8 @@ public class DataMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
+        } catch (NullPointerException e) {
+            throw new InvalidUsernameOrPasswordException();
         }
     }
 
@@ -367,9 +374,41 @@ public class DataMapper {
                     list.add(employee);
                 }
             }
-            System.out.println("size list= " + list.size());
             return list;
         } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
+        }
+    }
+    
+    public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
+        String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
+            con.setAutoCommit(false);
+            if (!emailExists(updatedCustomer.getEmail())) {
+                updateCustomerInformation.setString(1, updatedCustomer.getEmail());
+            } else {
+                throw new EmailAlreadyInUseException();
+            }
+            updateCustomerInformation.setString(2, updatedCustomer.getPassword());
+            updateCustomerInformation.setString(3, updatedCustomer.getFirstName());
+            updateCustomerInformation.setString(4, updatedCustomer.getLastName());
+            updateCustomerInformation.setString(5, updatedCustomer.getAddress());
+            updateCustomerInformation.setString(6, updatedCustomer.getPhone());
+            updateCustomerInformation.setInt(7, oldCustomer.getId_customer());
+            boolean valid = EmailValidator.getInstance().isValid(updatedCustomer.getEmail());
+            if (!valid) {
+                throw new IncorrectEmailFormattingException();
+            }
+            if (updatedCustomer.getPassword().length() < 7) {
+                throw new InsecurePasswordException();
+            }
+            int rowAffected = updateCustomerInformation.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException e) {
             throw new StorageLayerException();
         }
     }
