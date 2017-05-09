@@ -1,4 +1,4 @@
-<%@page import="business.utility.RenderUtils"%>
+<%@page import="presentation.utility.RenderUtils"%>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -1,4 +1,4 @@
-package business.utility;
+package presentation.utility;
 
 import business.Flat;
 import business.Pointy;

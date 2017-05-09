@@ -1,6 +1,6 @@
 <%@page import="business.Pointy"%>
 <%@page import="business.Carport"%>
-<%@page import="business.utility.SVGUtils"%>
+<%@page import="presentation.utility.SVGUtils"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="business.Partlist"%>
 <%@page import="business.Flat"%>
