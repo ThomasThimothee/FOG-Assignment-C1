@@ -35,8 +35,8 @@ public class EmployeeFacade {
     }
 
     public static int getRandomEmployeeId() {
-        ArrayList<Employee> employeesList= new ArrayList<Employee>();
-        int randomIndex=0;
+        ArrayList<Employee> employeesList = new ArrayList<>();
+        int randomIndex = 0;
         try {
             DataMapper dm = new DataMapper();
             employeesList = dm.retrieveAllEmployees();
@@ -45,7 +45,7 @@ public class EmployeeFacade {
         } catch (StorageLayerException e) {
 
         }
-         return employeesList.get(randomIndex).getEmployeeId();
+        return employeesList.get(randomIndex).getEmployeeId();
     }
 
 }
