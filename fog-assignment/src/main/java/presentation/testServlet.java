@@ -45,7 +45,7 @@ public class testServlet extends HttpServlet {
             case "ViewPartlist":
                 try {
                     int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    OrderFacade.retrieveCarport(idOrder);
+                    OrderFacade.retrievePartlist(idOrder);
                     request.setAttribute("idOrder", idOrder);
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
                 } catch (NullPointerException e) {

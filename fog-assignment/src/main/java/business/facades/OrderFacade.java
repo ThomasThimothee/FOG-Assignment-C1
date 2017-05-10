@@ -163,5 +163,16 @@ public class OrderFacade {
         }
         return order;
     }
+    public static ArrayList<Orderline> retrievePartlist(int idOrder) {
+        ArrayList<Orderline> list = new ArrayList<>();
+       try{
+           DataMapper dm = new DataMapper();
+          list = dm.retrievePartlist(idOrder);
+           
+       }catch(StorageLayerException e) {
+           
+       }
+       return list;
+    }
  
 }

@@ -12,6 +12,7 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
+import business.facades.OrderFacade;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -104,7 +105,7 @@ public class userServlet extends HttpServlet {
                     request.getSession().setAttribute("username", username);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentEmployee", employee);
-                    request.getRequestDispatcher("index.html").forward(request, response);
+                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);

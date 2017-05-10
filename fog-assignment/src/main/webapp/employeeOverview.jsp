@@ -32,20 +32,7 @@
     </head>
     <body>
         <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
-        <% ArrayList<Order> list = new ArrayList<>(); 
-        Order order = new Order();
-        order.setCarportType("pointy");
-        list.add(order);
-        Order order1 = new Order();
-        order1.setCarportType("Pointy1");
-        list.add(order1);
-        Order order2 = new Order();
-        order2.setCarportType("Pointy2");
-        list.add(order2);
-        Order order3 = new Order();
-        order3.setCarportType("flat");
-        list.add(order3);
-        
+        <% ArrayList<Order> list = OrderFacade.retrieveAllOrder(); 
         %>
        
             <div class="container">
@@ -68,7 +55,7 @@
                                     <tr>
                                         <%
                                          for(Order thisorder:list) { 
-                                     %>        <td><%=thisorder.getCarportType()%></td>
+                                     %>        <td><%=thisorder.getOrderId()%></td>
                                   <% } %>
                                     </tr>
                                     <tr>
