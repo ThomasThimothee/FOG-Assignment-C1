@@ -5,12 +5,14 @@
  */
 package presentation;
 
+import business.Order;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,26 +34,24 @@ public class testServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     DataMapper dm = new DataMapper();
+        DataMapper dm = new DataMapper();
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-         String formName = request.getParameter("formName");
-         String redirectSite = request.getParameter("redirectTo");
+        String formName = request.getParameter("formName");
         switch (formName) {
             case "ViewPartlist":
-                try{
-                  //  if(redirectSite.)
-                 //   int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                  // OrderFacade.retrieveOrderline(idOrder);
-                  //  request.setAttribute("idOrder", idOrder);
+                try {
+                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+                    OrderFacade.retrieveCarport(idOrder);
+                    request.setAttribute("idOrder", idOrder);
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
                     request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+                }
                 break;
             case "ViewCustomerDetails":
                 try {
@@ -59,12 +59,28 @@ public class testServlet extends HttpServlet {
                     CustomerFacade.retrieveCustomerDetails(idCustomer);
                     request.setAttribute("idCustomer", idCustomer);
                     request.getRequestDispatcher("customerDetails.jsp").forward(request, response);
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
-                       request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
- }
- }
+                break;
+            case "AddDiscount":
+                try {
+                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+                    double discountRate = Double.parseDouble(request.getParameter("discountRate"));
+                    OrderFacade.setDiscountRate(discountRate, idOrder);
+                    OrderFacade.updateFinalPrice(idOrder);   
+                    ArrayList<Order> list = OrderFacade.retrieveAllOrder();
+                    request.setAttribute("list", list);
+                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+                } catch (NullPointerException e) {
+                    System.out.println(e.getMessage());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                break;
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

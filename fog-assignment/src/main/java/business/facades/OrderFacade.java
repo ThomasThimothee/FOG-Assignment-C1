@@ -1,5 +1,7 @@
 package business.facades;
 
+import business.Carport;
+import business.Order;
 import business.Orderline;
 import business.Partlist;
 import business.exceptions.StorageLayerException;
@@ -142,14 +144,24 @@ public class OrderFacade {
         }
         return price;
     }
-    public static ArrayList<Orderline> retrieveOrderline(int idOrder) {
-        ArrayList<Orderline> list = new ArrayList<>();
+    public static Carport retrieveCarport(int idOrder) {
+       Carport carport = null;
        try{
            DataMapper dm = new DataMapper();
-          list = dm.retrieveOrderline(idOrder);
+           carport = dm.retrieveCarport(idOrder);
        }catch (StorageLayerException e) {
        }
-       return list;
+       return carport;
+    }
+    public static ArrayList<Order> retrieveAllOrder(){
+        ArrayList<Order> order = new ArrayList<>();
+        try{
+            DataMapper dm = new DataMapper();
+            order = dm.retrieveAllOrders();
+        }catch(StorageLayerException e) {
+            
+        }
+        return order;
     }
  
 }

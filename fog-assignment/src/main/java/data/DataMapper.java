@@ -1,9 +1,13 @@
 package data;
 
+import business.Carport;
 import business.Customer;
 import business.Employee;
+import business.Flat;
+import business.Order;
 import business.Orderline;
 import business.Partlist;
+import business.Pointy;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
@@ -376,26 +380,36 @@ public class DataMapper {
         }
     }
 
-    public ArrayList<Orderline> retrieveOrderline(int idOrder) throws StorageLayerException {
-        String getOrderlineString = "SELECT * FROM Orderline where idOrder = ?;";
-        ArrayList<Orderline> list = new ArrayList<>();
+    public Carport retrieveCarport(int idOrder) throws StorageLayerException {
+        String getOrderlineString = "SELECT (carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, roofHeight) FROM fog.Order where idOrder = ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getOrderline = con.prepareStatement(getOrderlineString)) {
-            Orderline orderline = null;
-            getOrderline.setInt(1, idOrder);
+            Carport carport = null;
             try (ResultSet rs = getOrderline.executeQuery()) {
-                while (rs.next()) {
-                    orderline = new Orderline(
-                            rs.getString(2),
-                            rs.getInt(3),
-                            rs.getInt(4),
-                            rs.getString(5),
-                            rs.getDouble(6));
-                    list.add(orderline);
+                if (rs.next()) {
+                    if (rs.getString(1).equals("Flat")) {
+                        carport = new Flat(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getDouble(3),
+                                rs.getDouble(4),
+                                rs.getDouble(5),
+                                rs.getDouble(6),
+                                rs.getDouble(7));
+                    } else {
+                        carport = new Pointy(rs.getString(1),
+                                rs.getString(2),
+                                rs.getDouble(3),
+                                rs.getDouble(4),
+                                rs.getDouble(5),
+                                rs.getDouble(6),
+                                rs.getDouble(7),
+                                rs.getDouble(8));
+                    }
 
                 }
-                return list;
+                return carport;
             }
-        }catch (SQLException | NullPointerException ex) {
+        } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
         }
     }
@@ -436,6 +450,39 @@ public class DataMapper {
                 return list;
             }
         } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+    public ArrayList<Order> retrieveAllOrders() throws StorageLayerException{
+        String getOrderString = "SELECT * FROM fog.Order;";
+         ArrayList<Order> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
+            Order order = null;
+            try (ResultSet rs = getOrders.executeQuery()) {
+                while (rs.next()) {
+                    order = new Order();
+                        order.setOrderId(rs.getInt(1));
+                        order.setCustomerId(rs.getInt(2));
+                        order.setSalesRepId(rs.getInt(3));
+                        order.setDate(rs.getTimestamp(4));
+                        order.setCarportType(rs.getString(5));
+                        order.setRoofType(rs.getString(6));
+                        order.setCarportWidth(rs.getDouble(7));
+                        order.setCarportLength(rs.getDouble(8));
+                        order.setShedWidth(rs.getDouble(9));
+                        order.setShedLength(rs.getDouble(10));
+                        order.setRoofHeight(rs.getDouble(11));
+                        order.setAngle(rs.getDouble(12));
+                        order.setStatus(rs.getBoolean(13));
+                        order.setDiscount(rs.getDouble(14));
+                        order.setStandardPrice(rs.getDouble(15));
+                        order.setFinalPrice(rs.getDouble(16));
+                        
+                    list.add(order);
+                }
+            }
+            return list;
+        } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
         }
     }

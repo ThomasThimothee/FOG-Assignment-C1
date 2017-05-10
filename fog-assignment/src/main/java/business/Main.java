@@ -19,7 +19,5 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) throws StorageLayerException {
-        DataMapper dm = new DataMapper();
-        System.out.println(OrderFacade.retrieveOrderline(15));
 }
 }

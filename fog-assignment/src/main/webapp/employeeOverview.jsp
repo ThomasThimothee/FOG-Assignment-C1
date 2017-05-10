@@ -4,6 +4,9 @@
     Author     : Lovro
 --%>
 
+<%@page import="business.Order"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="business.facades.OrderFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,8 +31,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-          <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
-            <input type="hidden" name="formName" value="ViewPartlist" />
+        <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
+        <% ArrayList<Order> list = new ArrayList<>(); 
+        Order order = new Order();
+        order.setCarportType("pointy");
+        list.add(order);
+        Order order1 = new Order();
+        order1.setCarportType("Pointy1");
+        list.add(order1);
+        Order order2 = new Order();
+        order2.setCarportType("Pointy2");
+        list.add(order2);
+        Order order3 = new Order();
+        order3.setCarportType("flat");
+        list.add(order3);
+        
+        %>
+       
             <div class="container">
                 <div class="row">
                     <div class="box">
@@ -43,16 +61,14 @@
                                         <th>Order date</th>
                                         <th>Carport type</th>
                                         <th>Roof type</th>
+                                        <th>Discount Rate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1005</td>
-                                        <td>101</td>
-                                        <td>7</td>
-                                        <td>24/04/2017</td>
-                                        <td>Flat</td>
-                                        <td>Ecolite Blue</td>
+                                        <% for(int i = 0; i<list.size(); i++) 
+                                          <td>1005</td>
+                                      %>
                                     </tr>
                                     <tr>
                                         <td>1004</td>
@@ -61,6 +77,7 @@
                                         <td>24/04/2017</td>
                                         <td>Flat</td>
                                         <td>Ecolite Blue</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>1008</td>
@@ -69,24 +86,32 @@
                                         <td>24/04/2017</td>
                                         <td>Flat</td>
                                         <td>Ecolite Blue</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="row">
+                                <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
+            <input type="hidden" name="formName" value="AddDiscount" />
                                 <div class="form-group col-md-4">
-
-                                    <button type="submit" name="discout" class="btn btn-success">Add discount</button><input type="text" class="form-control">
+                                    <button type="submit" name="discout" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control"><input type="text" name="idOrder" class="form-control">
                                 </div>
-
+                         
+</form>
+   <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
+            <input type="hidden" name="formName" value="ViewPartlist" />
                                 <div class="form-group col-md-4">
 
                                     <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control">
                                 </div>
+   </form>
+   <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
+            <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
                                 <div class="form-group col-md-4">
 
                                     <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control">
                                 </div>
-
+   </form>
 
                             </div>
                         </div>
@@ -131,7 +156,6 @@
                         }
                     }
                 }
-            </script>
-                </form>
+            </script>   
     </body>
 </html>
