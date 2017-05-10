@@ -41,6 +41,12 @@
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
                             </div>
+                    <%  }  
+                        if ("Error".equals(request.getAttribute("EmailAlreadyInUseException"))) { %>
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Error!</strong> The entered e-mail is already in use. 
+                            </div>
                     <%  } %>
                     <hr>
                     <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
