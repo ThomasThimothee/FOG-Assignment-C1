@@ -82,6 +82,21 @@ public class orderServlet extends HttpServlet {
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 }
                 break;
+                case "customerPayment":
+                    int orderId = Integer.parseInt(request.getParameter("orderId"));
+                    double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
+                    double amount = Double.parseDouble(request.getParameter("amount"));
+                    if (finalPrice == amount)
+                    {
+                        OrderFacade.updateSatus(orderId);
+                        
+                    }else{
+                        request.setAttribute("InvalideAmount", "Error");
+                        request.getRequestDispatcher("CustomerPayment.jsp").forward(request, response);
+                    }
+                    break;
+                    
+                    
         }
     }
 

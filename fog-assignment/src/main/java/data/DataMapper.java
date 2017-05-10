@@ -62,11 +62,11 @@ public class DataMapper {
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
                     customer = new Customer(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
                 }
             }
             return customer;
@@ -357,8 +357,8 @@ public class DataMapper {
     }
 
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
-    String getEmployeesString = "SELECT * FROM SalesRep;";
-    ArrayList<Employee> list = new ArrayList<>();
+        String getEmployeesString = "SELECT * FROM SalesRep;";
+        ArrayList<Employee> list = new ArrayList<>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (ResultSet rs = getEmployees.executeQuery()) {
@@ -379,7 +379,7 @@ public class DataMapper {
             throw new StorageLayerException();
         }
     }
-    
+
     public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
         String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
@@ -411,6 +411,22 @@ public class DataMapper {
                 con.rollback();
             }
         } catch (SQLException e) {
+            throw new StorageLayerException();
+        }
+    }
+
+    public void updateStatus(int orderId) throws StorageLayerException {
+        String updateStatusString = "UPDATE fog.Order SET status = TRUE WHERE idOrder = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
+            con.setAutoCommit(false);
+            updateStatus.setInt(1, orderId);
+            int rowAffected = updateStatus.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException ex) {
             throw new StorageLayerException();
         }
     }
