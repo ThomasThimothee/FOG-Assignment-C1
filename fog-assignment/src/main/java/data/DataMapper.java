@@ -3,6 +3,7 @@ package data;
 import business.Carport;
 import business.Customer;
 import business.Employee;
+import business.exceptions.EmailAlreadyInUseException;
 import business.Flat;
 import business.Order;
 import business.Orderline;
@@ -20,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -28,11 +31,15 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class DataMapper {
 
-    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException {
+    public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomer = con.prepareStatement(str)) {
             con.setAutoCommit(false);
-            updateCustomer.setString(1, email);
+            if (!emailExists(email)) {
+                updateCustomer.setString(1, email);
+            } else {
+                throw new EmailAlreadyInUseException();
+            }
             updateCustomer.setString(2, password);
             updateCustomer.setString(3, firstName);
             updateCustomer.setString(4, lastName);
@@ -73,18 +80,18 @@ public class DataMapper {
                 }
             }
             return customer;
-        } catch (SQLException | NullPointerException ex) {
+        } catch (SQLException ex) {
             throw new InvalidUsernameOrPasswordException();
         }
     }
 
     public boolean emailExists(String email) throws StorageLayerException {
-        String str = "select * from Customer order by email desc ;";
+        String str = "SELECT email FROM Customer;";
         try (Connection con = new Connector().getConnection(); PreparedStatement st = con.prepareStatement(str)) {
             boolean emailExists = false;
             try (ResultSet rs = st.executeQuery()) {
                 String emailCounter;
-                if (rs.next()) {
+                while (rs.next()) {
                     emailCounter = rs.getString("email");
                     if (emailCounter.equals(email)) {
                         emailExists = true;
@@ -144,7 +151,7 @@ public class DataMapper {
         }
     }
 
-    public void setCustomerId(Customer customer) throws StorageLayerException {
+    public void setCustomerId(Customer customer) throws StorageLayerException, InvalidUsernameOrPasswordException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
             int id = 0;
@@ -158,6 +165,8 @@ public class DataMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
+        } catch (NullPointerException e) {
+            throw new InvalidUsernameOrPasswordException();
         }
     }
 
@@ -363,13 +372,15 @@ public class DataMapper {
         try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (ResultSet rs = getEmployees.executeQuery()) {
-                while (rs.next()) {
+                while (rs.next()) {                  
+                    int userId = rs.getInt(1);
                     employee = new Employee(rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
                             rs.getString(5),
                             rs.getString(6),
-                            rs.getString(7));
+                            rs.getString(7));            
+                    employee.setEmployeeId(userId);
                     employee.setEmployeeId(rs.getInt(1));
                     list.add(employee);
                 }
@@ -377,6 +388,40 @@ public class DataMapper {
             return list;
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
+        }
+    }
+
+    public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
+        String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
+            con.setAutoCommit(false);
+            if (emailExists(updatedCustomer.getEmail()) && updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
+                updateCustomerInformation.setString(1, oldCustomer.getEmail());
+            } else if (emailExists(updatedCustomer.getEmail()) && !updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
+                throw new EmailAlreadyInUseException();
+            } else {
+                updateCustomerInformation.setString(1, updatedCustomer.getEmail());
+            }
+            updateCustomerInformation.setString(2, updatedCustomer.getPassword());
+            updateCustomerInformation.setString(3, updatedCustomer.getFirstName());
+            updateCustomerInformation.setString(4, updatedCustomer.getLastName());
+            updateCustomerInformation.setString(5, updatedCustomer.getAddress());
+            updateCustomerInformation.setString(6, updatedCustomer.getPhone());
+            updateCustomerInformation.setInt(7, oldCustomer.getId_customer());
+            boolean valid = EmailValidator.getInstance().isValid(updatedCustomer.getEmail());
+            if (!valid) {
+                throw new IncorrectEmailFormattingException();
+            }
+            if (updatedCustomer.getPassword().length() < 7) {
+                throw new InsecurePasswordException();
+            }
+            int rowAffected = updateCustomerInformation.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException e) {
         }
     }
 
@@ -430,6 +475,22 @@ public class DataMapper {
         }
     }
 
+    public void updateStatus(int orderId) throws StorageLayerException {
+        String updateStatusString = "UPDATE fog.Order SET status = TRUE WHERE idOrder = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
+            con.setAutoCommit(false);
+            updateStatus.setInt(1, orderId);
+            int rowAffected = updateStatus.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
     public ArrayList<Customer> retrieveCustomerDetails(int idCustomer) throws StorageLayerException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
         ArrayList<Customer> list = new ArrayList<>();
@@ -453,31 +514,32 @@ public class DataMapper {
             throw new StorageLayerException();
         }
     }
-    public ArrayList<Order> retrieveAllOrders() throws StorageLayerException{
+
+    public ArrayList<Order> retrieveAllOrders() throws StorageLayerException {
         String getOrderString = "SELECT * FROM fog.Order;";
-         ArrayList<Order> list = new ArrayList<>();
+        ArrayList<Order> list = new ArrayList<>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
             Order order = null;
             try (ResultSet rs = getOrders.executeQuery()) {
                 while (rs.next()) {
                     order = new Order();
-                        order.setOrderId(rs.getInt(1));
-                        order.setCustomerId(rs.getInt(2));
-                        order.setSalesRepId(rs.getInt(3));
-                        order.setDate(rs.getTimestamp(4));
-                        order.setCarportType(rs.getString(5));
-                        order.setRoofType(rs.getString(6));
-                        order.setCarportWidth(rs.getDouble(7));
-                        order.setCarportLength(rs.getDouble(8));
-                        order.setShedWidth(rs.getDouble(9));
-                        order.setShedLength(rs.getDouble(10));
-                        order.setRoofHeight(rs.getDouble(11));
-                        order.setAngle(rs.getDouble(12));
-                        order.setStatus(rs.getBoolean(13));
-                        order.setDiscount(rs.getDouble(14));
-                        order.setStandardPrice(rs.getDouble(15));
-                        order.setFinalPrice(rs.getDouble(16));
-                        
+                    order.setOrderId(rs.getInt(1));
+                    order.setCustomerId(rs.getInt(2));
+                    order.setSalesRepId(rs.getInt(3));
+                    order.setDate(rs.getTimestamp(4));
+                    order.setCarportType(rs.getString(5));
+                    order.setRoofType(rs.getString(6));
+                    order.setCarportWidth(rs.getDouble(7));
+                    order.setCarportLength(rs.getDouble(8));
+                    order.setShedWidth(rs.getDouble(9));
+                    order.setShedLength(rs.getDouble(10));
+                    order.setRoofHeight(rs.getDouble(11));
+                    order.setAngle(rs.getDouble(12));
+                    order.setStatus(rs.getBoolean(13));
+                    order.setDiscount(rs.getDouble(14));
+                    order.setStandardPrice(rs.getDouble(15));
+                    order.setFinalPrice(rs.getDouble(16));
+
                     list.add(order);
                 }
             }
@@ -508,4 +570,38 @@ public class DataMapper {
         }
     }
     
+    public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
+        String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
+        ArrayList<Order> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
+            Order order = null;
+            getCustomerOrders.setInt(1, idCustomer);
+            try (ResultSet rs = getCustomerOrders.executeQuery()) {
+                while (rs.next()) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt(1));
+                    order.setCustomerId(rs.getInt(2));
+                    order.setSalesRepId(rs.getInt(3));
+                    order.setDate(rs.getTimestamp(4));
+                    order.setCarportType(rs.getString(5));
+                    order.setRoofType(rs.getString(6));
+                    order.setCarportWidth(rs.getDouble(7));
+                    order.setCarportLength(rs.getDouble(8));
+                    order.setShedWidth(rs.getDouble(9));
+                    order.setShedLength(rs.getDouble(10));
+                    order.setRoofHeight(rs.getDouble(11));
+                    order.setAngle(rs.getDouble(12));
+                    order.setStatus(rs.getBoolean(13));
+                    order.setDiscount(rs.getDouble(14));
+                    order.setStandardPrice(rs.getDouble(15));
+                    order.setFinalPrice(rs.getDouble(16));
+
+                    list.add(order);
+                }
+            }
+            return list;
+        } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
+        }    }
+
 }

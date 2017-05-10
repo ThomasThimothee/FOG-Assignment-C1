@@ -14,19 +14,18 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author thomasthimothee
  */
 public class OrderFacade {
 
-    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) {
+    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) {
         try {
             DataMapper dm = new DataMapper();
             dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
         } catch (StorageLayerException e) {
-            
+
         }
     }
 
@@ -144,6 +143,16 @@ public class OrderFacade {
         }
         return price;
     }
+
+
+    public static void updateSatus(int orderId) {
+        try {
+            DataMapper dm = new DataMapper();
+            dm.updateStatus(orderId);
+        } catch (StorageLayerException ex) {
+        }
+    }
+
     public static Carport retrieveCarport(int idOrder) {
        Carport carport = null;
        try{
@@ -173,6 +182,16 @@ public class OrderFacade {
            
        }
        return list;
+    }
+    public static ArrayList<Order> retrieveCustomerOrders(int id_customer) {
+                ArrayList<Order> list = new ArrayList<>();
+        try{
+            DataMapper dm = new DataMapper();
+            list = dm.retrieveCustomerOrders(id_customer);
+        }catch(StorageLayerException e) {
+            
+        }
+        return list;
     }
  
 }

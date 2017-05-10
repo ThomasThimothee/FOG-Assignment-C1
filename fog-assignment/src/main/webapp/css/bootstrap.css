@@ -3520,7 +3520,8 @@ tbody.collapse.in {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  right: auto;
   z-index: 1000;
   display: none;
   float: left;
@@ -3528,8 +3529,9 @@ tbody.collapse.in {
   padding: 5px 0;
   margin: 2px 0 0;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
   list-style: none;
+  transform: translate(-50%, 0);
   background-color: #fff;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;

@@ -13,13 +13,21 @@
 
     <!-- Custom CSS -->
     <link href="css/business-casual.css" rel="stylesheet">
-
+    <link href="stylesheet.css" rel="stylesheet">
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
+    <div class="brand">FOG</div>
 <% RenderUtils render = new RenderUtils(); %>
+<%  String[] navBarItems = {"Home, notLoggedInHome.jsp", 
+                            "Log in, loginCustomer.jsp",
+                            "Sign up, regCustomer.jsp",
+                            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+%>
+<%=render.createNavBar(navBarItems)%>
     <div class="container">
         <div class="row">
             <div class="box">  
@@ -40,6 +48,12 @@
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
+                            </div>
+                    <%  }  
+                        if ("Error".equals(request.getAttribute("EmailAlreadyInUseException"))) { %>
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Error!</strong> The entered e-mail is already in use. 
                             </div>
                     <%  } %>
                     <hr>

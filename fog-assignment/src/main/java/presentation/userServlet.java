@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import business.Customer;
 import business.facades.CustomerFacade;
 import business.Employee;
+import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
@@ -56,6 +57,10 @@ public class userServlet extends HttpServlet {
                     System.out.println(e.getMessage());
                     request.setAttribute("IncorrectEmailFormattingException", "Error");
                     request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                } catch (EmailAlreadyInUseException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("EmailAlreadyInUseException", "Error");
+                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
                 }
                 break;
             case "CustomerLoginForm":
@@ -63,9 +68,9 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
+                    CustomerFacade.setCustomerId(customer); 
                     session.setAttribute("currentCustomer", customer);
-                    CustomerFacade.setCustomerId(customer); // retrieve the customer ID needed for carport preorder
-                    request.getRequestDispatcher("index.html").forward(request, response);
+                    request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
                     System.out.println(e.getMessage());
                     request.setAttribute("errorMessageUserNotFound", "Error");
@@ -94,10 +99,10 @@ public class userServlet extends HttpServlet {
                     request.setAttribute("lastName", request.getParameter("lastName"));
                     request.setAttribute("address", request.getParameter("address"));
                     request.setAttribute("phone", request.getParameter("phone"));
-                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                    request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
                 } 
                 break;
-                case"EmployeeLoginForm":
+            case "EmployeeLoginForm":
                       try {
                     String username = request.getParameter("username");
                     String password = request.getParameter("password");
@@ -110,6 +115,42 @@ public class userServlet extends HttpServlet {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
                 } 
+                break;
+            case "CustomerInformation":
+                 try {
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    String firstName = request.getParameter("firstName");
+                    String lastName = request.getParameter("lastName");
+                    String address = request.getParameter("address");
+                    String phone = request.getParameter("phone");
+                    Customer updatedCustomer = new Customer(email, password, firstName, lastName, address, phone);
+                    Customer oldCustomer = (Customer) session.getAttribute("currentCustomer");
+                    CustomerFacade.updateCustomerInformation(updatedCustomer, oldCustomer); 
+                    session.setAttribute("currentCustomer", updatedCustomer);
+                    request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
+                } catch (InvalidUsernameOrPasswordException e) {
+                    System.out.println(e.getMessage());
+                    request.setAttribute("errorMessageEmailExists", "Error");
+                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                } catch (InsecurePasswordException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("InsecurePasswordException", "Error");
+                    request.setAttribute("email", request.getParameter("email"));
+                    request.setAttribute("firstName", request.getParameter("firstName"));
+                    request.setAttribute("lastName", request.getParameter("lastName"));
+                    request.setAttribute("address", request.getParameter("address"));
+                    request.setAttribute("phone", request.getParameter("phone"));
+                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                } catch (IncorrectEmailFormattingException e) {
+                    System.out.println(e.getMessage());
+                    request.setAttribute("IncorrectEmailFormattingException", "Error");
+                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                } catch (EmailAlreadyInUseException ex) {
+                    System.out.println(ex.getMessage());
+                    request.setAttribute("EmailAlreadyInUseException", "Error");
+                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                }
                 break;
         }
     }

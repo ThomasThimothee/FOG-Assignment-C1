@@ -35,18 +35,17 @@ public class EmployeeFacade {
     }
 
     public static int getRandomEmployeeId() {
-        ArrayList<Employee> employeesList= new ArrayList<>();
-        int randomIndex=0;
+        ArrayList<Employee> employeesList = new ArrayList<>();
+        int randomIndex = 0;
         try {
             DataMapper dm = new DataMapper();
             employeesList = dm.retrieveAllEmployees();
             Random r = new Random();
             randomIndex = r.nextInt(employeesList.size());
-            System.out.println("size list= " + employeesList.size());
         } catch (StorageLayerException e) {
 
         }
-         return employeesList.get(randomIndex).getEmployeeId();
+        return employeesList.get(randomIndex).getEmployeeId();
     }
 
 }

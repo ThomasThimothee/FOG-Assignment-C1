@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import java.sql.Timestamp;
@@ -12,6 +7,7 @@ import java.sql.Timestamp;
  * @author thomasthimothee
  */
 public class Order {
+
 
     private int orderId, customerId, salesRepId;
     private java.sql.Timestamp date;
@@ -26,7 +22,9 @@ public class Order {
     private boolean status;
     private double discount;
     private double standardPrice;
-   
+    private double finalPrice;
+    
+
     public int getOrderId() {
         return orderId;
     }
@@ -154,8 +152,7 @@ public class Order {
     public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
- private double finalPrice;
-            
 
+   
 
 }

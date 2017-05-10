@@ -1,5 +1,5 @@
 
-<%@page import="business.utility.RenderUtils"%>
+<%@page import="presentation.utility.RenderUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,64 +18,34 @@
 
         <!-- Custom CSS -->
         <link href="css/business-casual.css" rel="stylesheet">
-
+        <link href="stylesheet.css" rel="stylesheet">
+        
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            li a, .dropbtn {
-                display: inline-block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            li a:hover, .dropdown:hover .dropbtn {
-            }
-
-            li.dropdown {
-                display: inline-block;
-            }
-
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                background-color: #f9f9f9;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                text-align: left;
-            }
-
-            .dropdown-content a:hover {background-color: #f1f1f1}
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-        </style>
     </head>
-
-
-
     <body>
-        <% RenderUtils render = new RenderUtils(); %>
-        <div class="brand">FOG</div>
-        <!-- Navigation -->
-        <%  String[] navBarItems = {"Home, index.jsp", 
-                                    "Register, Admin, regEmployee.jsp, Customer, regCustomer.jsp",
-                                    "Login, Admin, loginEmployee.jsp, Customer, loginCustomer.jsp",
-                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
-        %>
-        <%=render.createNavBar(navBarItems)%>
+    <div class="brand">FOG</div>
+    <div class="container">
+        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10 text-center">
+            <div class="box">
+                <div class="btn-group">
+                    <a href="notLoggedInHome.jsp" class="btn btn-default btn-lg" role="button" style="margin-right: 20px">Customer</a>
+                </div>
+                <div class="dropdown btn-group">
+                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employee
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="loginEmployee.jsp">Log in</a></li>
+                        <li><a class="dropdown-item" href="regEmployee.jsp">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </body>
 
     <!-- jQuery -->
