@@ -47,6 +47,44 @@ public class RenderUtils {
         return s;
     }
     
+    public String createCarousel() {
+        String  s =  "";
+                s += "<div class=\"container\">";
+                s += "<div class=\"row\">";
+                s += "<div class=\"col-xs-offset-2 col-xs-8 text-center\">";
+                s +=    "<div class=\"box\">";
+                s +=        "<div id=\"carousel-example-generic\" class=\"carousel slide\">";
+                s +=            "<!-- Indicators -->";
+                s +=            "<ol class=\"carousel-indicators hidden-xs\">";
+                s +=                "<li data-target=\"#carousel-example-generic\" data-slide-to=\"0\" class=\"active\"></li>";
+                s +=                "<li data-target=\"#carousel-example-generic\" data-slide-to=\"1\"></li>";
+                s +=            "</ol>";
+                s +=
+                s +=            "<!-- Wrapper for slides -->";
+                s +=            "<div class=\"carousel-inner\">";
+                s +=                "<div class=\"item active\">";
+                s +=                    "<a href=\"flatOrder.jsp\"><img class=\"img-responsive img-full\" src=\"img/flatCarport.jpg\" alt=\"\"></a>";
+                s +=                "</div>";
+                s +=                "<div class=\"item\">";
+                s +=                    "<a href=\"pointyOrder.jsp\"><img class=\"img-responsive img-full\" src=\"img/pointyCarport.jpg\" alt=\"\"></a>";
+                s +=                "</div>";
+                s +=            "</div>";
+
+                s +=            "<!-- Controls -->";
+                s +=            "<a class=\"left carousel-control\" href=\"#carousel-example-generic\" data-slide=\"prev\">";
+                s +=                "<span class=\"icon-prev\"></span>";
+                s +=            "</a>";
+                s +=            "<a class=\"right carousel-control\" href=\"#carousel-example-generic\" data-slide=\"next\">";
+                s +=                "<span class=\"icon-next\"></span>";
+                s +=            "</a>";
+                s +=         "</div>";
+                s +=      "</div>";
+                s +=    "</div>";
+                s +=  "</div>";
+                s +=  "</div>";
+        return s;
+    }
+    
     public String createFormRows(String[] values) {
         String  s = "";
                 for (String str : values) {
