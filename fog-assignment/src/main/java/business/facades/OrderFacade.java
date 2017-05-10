@@ -172,5 +172,16 @@ public class OrderFacade {
         }
         return order;
     }
+
+    public static ArrayList<Order> retrieveCustomerOrders(int id_customer) {
+                ArrayList<Order> list = new ArrayList<>();
+        try{
+            DataMapper dm = new DataMapper();
+            list = dm.retrieveCustomerOrders(id_customer);
+        }catch(StorageLayerException e) {
+            
+        }
+        return list;
+    }
  
 }
