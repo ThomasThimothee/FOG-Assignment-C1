@@ -40,12 +40,20 @@
             int[] shedLength = PointyFacade.getShedLength();
             String[] type = PointyFacade.getRoofType();
             int[] angle = PointyFacade.getAngle();
-            String[] navBarItems = {"Home, notLoggedInHome.jsp",
-                "Log in, loginCustomer.jsp",
-                "Sign up, regCustomer.jsp",
-                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
-        %>
-        <%=render.createNavBar(navBarItems)%>  
+            String[] navBarItemsNotLoggedIn = {"Home, notLoggedInHome.jsp",
+                                                "Log in, loginCustomer.jsp",
+                                                "Sign up, regCustomer.jsp",
+                                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+            String[] navBarItemsLoggedIn = {"Home, loggedInHome.jsp", 
+                                            "Account, customerInfo.jsp",
+                                            "My Orders, customerOverview.jsp",
+                                            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                            "Logout, notLoggedInHome.jsp"};
+            if (customer != null) {
+            %> <%=render.createNavBar(navBarItemsLoggedIn)%> <%     
+            } else {
+            %> <%=render.createNavBar(navBarItemsNotLoggedIn)%> 
+        <%  } %>  
         <div class="container">
             <div class="row">
                 <div class="box">

@@ -4,6 +4,8 @@
     Author     : Lovro
 --%>
 
+<%@page import="business.Customer"%>
+<%@page import="presentation.utility.RenderUtils"%>
 <%@page import="business.facades.FlatFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,14 +31,28 @@
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">  
     </head>
     <body>
-        <%
+        <div class="brand">FOG</div>
+        <%  RenderUtils render = new RenderUtils();
+            Customer customer = (Customer) request.getSession().getAttribute("currentCustomer");
             int[] carportWidth = FlatFacade.getCarportWidth();
             int[] carportLength = FlatFacade.getCarportLength();
             int[] shedWidth = FlatFacade.getShedWidth();
             int[] shedLength = FlatFacade.getShedLength();
             String[] type = FlatFacade.getRoofType();
-        %>  
-        <div class="brand">FOG</div>
+            String[] navBarItemsNotLoggedIn = {"Home, notLoggedInHome.jsp",
+                                                "Log in, loginCustomer.jsp",
+                                                "Sign up, regCustomer.jsp",
+                                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+            String[] navBarItemsLoggedIn = {"Home, loggedInHome.jsp", 
+                                            "Account, customerInfo.jsp",
+                                            "My Orders, customerOverview.jsp",
+                                            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                            "Logout, notLoggedInHome.jsp"};
+            if (customer != null) {
+            %> <%=render.createNavBar(navBarItemsLoggedIn)%> <%     
+            } else {
+            %> <%=render.createNavBar(navBarItemsNotLoggedIn)%> 
+        <%  } %>
         <div class="container">
             <div class="row">
                 <div class="box">
