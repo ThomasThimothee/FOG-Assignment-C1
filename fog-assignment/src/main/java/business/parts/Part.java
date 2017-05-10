@@ -16,6 +16,16 @@ public class Part {
     protected double length;
     protected String name;
     protected String description;
+    protected int price;
+    private int carportId;
+
+    public int getCarportId() {
+        return carportId;
+    }
+
+    public void setCarportId(int carportId) {
+        this.carportId = carportId;
+    }
 
     public Part(PartType partType, int quantity, double length, String name, String description) {
         this.partType = partType;

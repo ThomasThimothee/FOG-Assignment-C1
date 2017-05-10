@@ -9,7 +9,6 @@ import java.util.List;
  * @author mathiasjepsen
  */
 public class Partlist {
-    
     private List<Part> partList;
 
     public Partlist() {

@@ -1,11 +1,13 @@
 package business.facades;
 
+import business.Orderline;
 import business.Partlist;
 import business.exceptions.StorageLayerException;
 import business.parts.Part;
 import data.DataMapper;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -140,4 +142,14 @@ public class OrderFacade {
         }
         return price;
     }
+    public static ArrayList<Orderline> retrieveOrderline(int idOrder) {
+        ArrayList<Orderline> list = new ArrayList<>();
+       try{
+           DataMapper dm = new DataMapper();
+          list = dm.retrieveOrderline(idOrder);
+       }catch (StorageLayerException e) {
+       }
+       return list;
+    }
+ 
 }

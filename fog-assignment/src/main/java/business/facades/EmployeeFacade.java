@@ -35,7 +35,7 @@ public class EmployeeFacade {
     }
 
     public static int getRandomEmployeeId() {
-        ArrayList<Employee> employeesList= new ArrayList<Employee>();
+        ArrayList<Employee> employeesList= new ArrayList<>();
         int randomIndex=0;
         try {
             DataMapper dm = new DataMapper();
