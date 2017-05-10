@@ -67,9 +67,9 @@ public class userServlet extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     Customer customer = CustomerFacade.getCustomer(email, password);
+                    CustomerFacade.setCustomerId(customer); 
                     session.setAttribute("currentCustomer", customer);
-                    CustomerFacade.setCustomerId(customer); // retrieve the customer ID needed for carport preorder
-                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                    request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
                     System.out.println(e.getMessage());
                     request.setAttribute("errorMessageUserNotFound", "Error");
@@ -127,7 +127,7 @@ public class userServlet extends HttpServlet {
                     Customer oldCustomer = (Customer) session.getAttribute("currentCustomer");
                     CustomerFacade.updateCustomerInformation(updatedCustomer, oldCustomer); 
                     session.setAttribute("currentCustomer", updatedCustomer);
-                    request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+                    request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
                     System.out.println(e.getMessage());
                     request.setAttribute("errorMessageEmailExists", "Error");

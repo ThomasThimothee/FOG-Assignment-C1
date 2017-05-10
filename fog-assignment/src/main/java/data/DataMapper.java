@@ -398,9 +398,9 @@ public class DataMapper {
             if (emailExists(updatedCustomer.getEmail()) && updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
                 updateCustomerInformation.setString(1, oldCustomer.getEmail());
             } else if (emailExists(updatedCustomer.getEmail()) && !updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
-                updateCustomerInformation.setString(1, updatedCustomer.getEmail());
-            } else {
                 throw new EmailAlreadyInUseException();
+            } else {
+                updateCustomerInformation.setString(1, updatedCustomer.getEmail());
             }
             updateCustomerInformation.setString(2, updatedCustomer.getPassword());
             updateCustomerInformation.setString(3, updatedCustomer.getFirstName());
