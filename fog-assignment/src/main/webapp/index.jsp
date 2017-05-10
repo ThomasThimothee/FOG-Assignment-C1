@@ -26,25 +26,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div class="brand">FOG</div>
-        <div class="container">
-            <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10 text-center">
-                <div class="box">
-                    <div class="dropdown btn-group">
-                        <button type="button" class="btn btn-default btn-lg" style="margin-bottom: 20px" >Customer</button>
-                        <div class="dropdown">
-                            <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Employee
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="loginEmployee.jsp">Log in</a></li>
-                                <li><a class="dropdown-item" href="regEmployee.jsp">Register</a></li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="brand">FOG</div>
+    <div class="container">
+        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10 text-center">
+            <div class="box">
+                <div class="btn-group">
+                    <a href="notLoggedInHome.jsp" class="btn btn-default btn-lg" role="button" style="margin-right: 20px">Customer</a>
+                </div>
+                <div class="dropdown btn-group">
+                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employee
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="loginEmployee.jsp">Log in</a></li>
+                        <li><a class="dropdown-item" href="regEmployee.jsp">Register</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
     </body>
 

@@ -25,11 +25,11 @@
     Customer customer = (Customer) request.getSession().getAttribute("currentCustomer");  %>
 <div class="brand">FOG</div>
 <!-- Navigation -->
-<%  String[] navBarItems = {"Home, index.jsp", 
-                            "Settings, customerInfo.jsp",
+<%  String[] navBarItems = {"Home, loggedInHome.jsp", 
+                            "Account, customerInfo.jsp",
                             "My Orders, customerOverview.jsp",
                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                            "Logout, index.jsp"};
+                            "Logout, notLoggedInHome.jsp"};
 %>
 <%=render.createNavBar(navBarItems)%>
 <div class="container">
