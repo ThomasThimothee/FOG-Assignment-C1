@@ -1,6 +1,9 @@
 package presentation.utility;
 
 import business.Customer;
+import business.Order;
+import java.util.List;
+
 
 /**
  *
@@ -116,6 +119,7 @@ public class RenderUtils {
                 }
         return s;
     }
+
     
     public String createFormRows(Customer customer) {
         String  s = "";

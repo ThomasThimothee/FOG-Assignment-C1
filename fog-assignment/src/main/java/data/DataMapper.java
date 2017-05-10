@@ -1,18 +1,28 @@
 package data;
 
+import business.Carport;
 import business.Customer;
 import business.Employee;
 import business.exceptions.EmailAlreadyInUseException;
+import business.Flat;
+import business.Order;
+import business.Orderline;
+import business.Partlist;
+import business.Pointy;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
+import business.parts.Part;
+import business.parts.Part.PartType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -62,11 +72,11 @@ public class DataMapper {
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
                     customer = new Customer(rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6),
-                                            rs.getString(7));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
                 }
             }
             return customer;
@@ -357,20 +367,21 @@ public class DataMapper {
     }
 
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
-    String getEmployeesString = "SELECT * FROM SalesRep;";
-    ArrayList<Employee> list = new ArrayList<>();
+        String getEmployeesString = "SELECT * FROM SalesRep;";
+        ArrayList<Employee> list = new ArrayList<>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (ResultSet rs = getEmployees.executeQuery()) {
-                while (rs.next()) {
+                while (rs.next()) {                  
                     int userId = rs.getInt(1);
                     employee = new Employee(rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
                             rs.getString(5),
                             rs.getString(6),
-                            rs.getString(7));
+                            rs.getString(7));            
                     employee.setEmployeeId(userId);
+                    employee.setEmployeeId(rs.getInt(1));
                     list.add(employee);
                 }
             }
@@ -379,7 +390,7 @@ public class DataMapper {
             throw new StorageLayerException();
         }
     }
-    
+
     public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
         String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
@@ -411,7 +422,131 @@ public class DataMapper {
                 con.rollback();
             }
         } catch (SQLException e) {
+        }
+    }
+
+    public Carport retrieveCarport(int idOrder) throws StorageLayerException {
+        String getOrderlineString = "SELECT (carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, roofHeight) FROM fog.Order where idOrder = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement getOrderline = con.prepareStatement(getOrderlineString)) {
+            Carport carport = null;
+            try (ResultSet rs = getOrderline.executeQuery()) {
+                if (rs.next()) {
+                    if (rs.getString(1).equals("Flat")) {
+                        carport = new Flat(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getDouble(3),
+                                rs.getDouble(4),
+                                rs.getDouble(5),
+                                rs.getDouble(6),
+                                rs.getDouble(7));
+                    } else {
+                        carport = new Pointy(rs.getString(1),
+                                rs.getString(2),
+                                rs.getDouble(3),
+                                rs.getDouble(4),
+                                rs.getDouble(5),
+                                rs.getDouble(6),
+                                rs.getDouble(7),
+                                rs.getDouble(8));
+                    }
+
+                }
+                return carport;
+            }
+        } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
         }
     }
+
+    public ArrayList<Integer> retrieveCarportId() throws StorageLayerException {
+        String getCarportIdString = "SELECT * FROM Orderline where carportId = ? ;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCarportId = con.prepareStatement(getCarportIdString)) {
+            ArrayList<Integer> list = new ArrayList<>();
+            try (ResultSet rs = getCarportId.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt(3));
+
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
+    public void updateStatus(int orderId) throws StorageLayerException {
+        String updateStatusString = "UPDATE fog.Order SET status = TRUE WHERE idOrder = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
+            con.setAutoCommit(false);
+            updateStatus.setInt(1, orderId);
+            int rowAffected = updateStatus.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
+    public ArrayList<Customer> retrieveCustomerDetails(int idCustomer) throws StorageLayerException {
+        String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
+        ArrayList<Customer> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
+            Customer customer;
+            getCustomer.setInt(1, idCustomer);
+            try (ResultSet rs = getCustomer.executeQuery()) {
+                while (rs.next()) {
+                    customer = new Customer(rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7));
+                    list.add(customer);
+
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
+    public ArrayList<Order> retrieveAllOrders() throws StorageLayerException {
+        String getOrderString = "SELECT * FROM fog.Order;";
+        ArrayList<Order> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
+            Order order = null;
+            try (ResultSet rs = getOrders.executeQuery()) {
+                while (rs.next()) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt(1));
+                    order.setCustomerId(rs.getInt(2));
+                    order.setSalesRepId(rs.getInt(3));
+                    order.setDate(rs.getTimestamp(4));
+                    order.setCarportType(rs.getString(5));
+                    order.setRoofType(rs.getString(6));
+                    order.setCarportWidth(rs.getDouble(7));
+                    order.setCarportLength(rs.getDouble(8));
+                    order.setShedWidth(rs.getDouble(9));
+                    order.setShedLength(rs.getDouble(10));
+                    order.setRoofHeight(rs.getDouble(11));
+                    order.setAngle(rs.getDouble(12));
+                    order.setStatus(rs.getBoolean(13));
+                    order.setDiscount(rs.getDouble(14));
+                    order.setStandardPrice(rs.getDouble(15));
+                    order.setFinalPrice(rs.getDouble(16));
+
+                    list.add(order);
+                }
+            }
+            return list;
+        } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
+        }
+    }
+
 }

@@ -79,5 +79,17 @@ public class Customer {
         this.phone = phone;
     }
 
+
+
+  @Override
+public String toString() {
+    return "Email: " + this.getEmail()+ 
+           ", Password: " + this.getPassword() +
+            ", First Name: " + this.getFirstName() +
+            ", Last Name: " + this.getLastName()+
+            ", Address: " + this.getAddress()+
+            ", Phone Number: " + this.getPhone();
+}
+
 }
 

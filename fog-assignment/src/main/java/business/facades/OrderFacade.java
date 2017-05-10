@@ -1,15 +1,18 @@
 package business.facades;
 
+import business.Carport;
+import business.Order;
+import business.Orderline;
 import business.Partlist;
 import business.exceptions.StorageLayerException;
 import business.parts.Part;
 import data.DataMapper;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
@@ -17,12 +20,12 @@ import java.util.logging.Logger;
  */
 public class OrderFacade {
 
-    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType,  int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) {
+    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) {
         try {
             DataMapper dm = new DataMapper();
             dm.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
         } catch (StorageLayerException e) {
-            
+
         }
     }
 
@@ -140,4 +143,34 @@ public class OrderFacade {
         }
         return price;
     }
+
+
+    public static void updateSatus(int orderId) {
+        try {
+            DataMapper dm = new DataMapper();
+            dm.updateStatus(orderId);
+        } catch (StorageLayerException ex) {
+        }
+    }
+
+    public static Carport retrieveCarport(int idOrder) {
+       Carport carport = null;
+       try{
+           DataMapper dm = new DataMapper();
+           carport = dm.retrieveCarport(idOrder);
+       }catch (StorageLayerException e) {
+       }
+       return carport;
+    }
+    public static ArrayList<Order> retrieveAllOrder(){
+        ArrayList<Order> order = new ArrayList<>();
+        try{
+            DataMapper dm = new DataMapper();
+            order = dm.retrieveAllOrders();
+        }catch(StorageLayerException e) {
+            
+        }
+        return order;
+    }
+ 
 }
