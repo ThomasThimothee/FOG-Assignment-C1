@@ -384,7 +384,9 @@ public class DataMapper {
         String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
             con.setAutoCommit(false);
-            if (!emailExists(updatedCustomer.getEmail())) {
+            if (emailExists(updatedCustomer.getEmail()) && updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
+                updateCustomerInformation.setString(1, oldCustomer.getEmail());
+            } else if (emailExists(updatedCustomer.getEmail()) && !updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
                 updateCustomerInformation.setString(1, updatedCustomer.getEmail());
             } else {
                 throw new EmailAlreadyInUseException();
