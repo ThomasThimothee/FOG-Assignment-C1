@@ -1,11 +1,15 @@
 package business.facades;
 
+import business.Carport;
+import business.Order;
+import business.Orderline;
 import business.Partlist;
 import business.exceptions.StorageLayerException;
 import business.parts.Part;
 import data.DataMapper;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -140,6 +144,7 @@ public class OrderFacade {
         return price;
     }
 
+
     public static void updateSatus(int orderId) {
         try {
             DataMapper dm = new DataMapper();
@@ -147,4 +152,25 @@ public class OrderFacade {
         } catch (StorageLayerException ex) {
         }
     }
+
+    public static Carport retrieveCarport(int idOrder) {
+       Carport carport = null;
+       try{
+           DataMapper dm = new DataMapper();
+           carport = dm.retrieveCarport(idOrder);
+       }catch (StorageLayerException e) {
+       }
+       return carport;
+    }
+    public static ArrayList<Order> retrieveAllOrder(){
+        ArrayList<Order> order = new ArrayList<>();
+        try{
+            DataMapper dm = new DataMapper();
+            order = dm.retrieveAllOrders();
+        }catch(StorageLayerException e) {
+            
+        }
+        return order;
+    }
+ 
 }

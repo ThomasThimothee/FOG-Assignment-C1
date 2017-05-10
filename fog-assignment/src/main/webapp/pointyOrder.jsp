@@ -68,7 +68,6 @@
                                                 <option><%=cl%></option>
                                                 <%}%>
                                             </select></td>
-                                        </td>
                                         <td>
                                             <select name="carport width">
                                                 <% for (int cw : carportWidth) {%>

@@ -8,6 +8,7 @@ import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import data.DataMapper;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +43,7 @@ public class CustomerFacade {
             throw ex;
         }
     }
+
     
     public static void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws IncorrectEmailFormattingException, InvalidUsernameOrPasswordException, InsecurePasswordException, EmailAlreadyInUseException {
         try {
@@ -51,4 +53,18 @@ public class CustomerFacade {
             
         }
     }
+
+
+    public static ArrayList<Customer> retrieveCustomerDetails(int idCustomer){
+          ArrayList<Customer> list = new ArrayList<>();
+       try{
+           DataMapper dm = new DataMapper();
+          list = dm.retrieveCustomerDetails(idCustomer);
+       }catch (StorageLayerException e)
+       {
+    }
+        return list;
+    }
+
 }
+
