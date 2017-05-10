@@ -66,9 +66,10 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <% for(int i = 0; i<list.size(); i++) 
-                                          <td>1005</td>
-                                      %>
+                                        <%
+                                         for(Order thisorder:list) { 
+                                     %>        <td><%=thisorder.getCarportType()%></td>
+                                  <% } %>
                                     </tr>
                                     <tr>
                                         <td>1004</td>

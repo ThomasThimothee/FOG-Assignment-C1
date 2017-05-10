@@ -15,7 +15,7 @@
     <body>
         <% int idOrder = (int) request.getAttribute("idOrder");
         %>
-        Parts: <% out.print(OrderFacade.retrieveOrderline(idOrder));
+        Parts: <% out.print(OrderFacade.retrieveAllOrder());
    %>
     </body>
 </html>

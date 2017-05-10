@@ -17,10 +17,11 @@ public class Order {
     private java.sql.Timestamp date;
     private String carportType;
     private String roofType;
-    private int carportWidth;
-    private int carportLength;
-    private int shedWidth;
-    private int shedLength;
+    private double carportWidth;
+    private double carportLength;
+    private double shedWidth;
+    private double shedLength;
+    private double roofHeight;
     private double angle;
     private boolean status;
     private double discount;
@@ -74,36 +75,44 @@ public class Order {
         this.roofType = roofType;
     }
 
-    public int getCarportWidth() {
+    public double getCarportWidth() {
         return carportWidth;
     }
 
-    public void setCarportWidth(int carportWidth) {
+    public void setCarportWidth(double carportWidth) {
         this.carportWidth = carportWidth;
     }
 
-    public int getCarportLength() {
+    public double getCarportLength() {
         return carportLength;
     }
 
-    public void setCarportLength(int carportLength) {
+    public void setCarportLength(double carportLength) {
         this.carportLength = carportLength;
     }
 
-    public int getShedWidth() {
+    public double getShedWidth() {
         return shedWidth;
     }
 
-    public void setShedWidth(int shedWidth) {
+    public void setShedWidth(double shedWidth) {
         this.shedWidth = shedWidth;
     }
 
-    public int getShedLength() {
+    public double getShedLength() {
         return shedLength;
     }
 
-    public void setShedLength(int shedLength) {
+    public void setShedLength(double shedLength) {
         this.shedLength = shedLength;
+    }
+
+    public double getRoofHeight() {
+        return roofHeight;
+    }
+
+    public void setRoofHeight(double roofHeight) {
+        this.roofHeight = roofHeight;
     }
 
     public double getAngle() {
