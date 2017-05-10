@@ -98,7 +98,7 @@ public class userServlet extends HttpServlet {
                     request.setAttribute("lastName", request.getParameter("lastName"));
                     request.setAttribute("address", request.getParameter("address"));
                     request.setAttribute("phone", request.getParameter("phone"));
-                    request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+                    request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
                 } 
                 break;
             case "EmployeeLoginForm":
@@ -109,7 +109,7 @@ public class userServlet extends HttpServlet {
                     request.getSession().setAttribute("username", username);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("currentEmployee", employee);
-                    request.getRequestDispatcher("index.html").forward(request, response);
+                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 } catch (InvalidUsernameOrPasswordException e) {
                      request.setAttribute("errorMessageUserNotFound", "Error");
                     request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
