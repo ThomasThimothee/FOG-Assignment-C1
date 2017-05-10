@@ -24,18 +24,28 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     </head>
     <body>
-        <% RenderUtils render = new RenderUtils(); %>
         <div class="brand">FOG</div>
-        <!-- Navigation -->
-        <%  String[] navBarItems = {"Home, index.jsp", 
-                                    "Register, Admin, regEmployee.jsp, Customer, regCustomer.jsp",
-                                    "Login, Admin, loginEmployee.jsp, Customer, loginCustomer.jsp",
-                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
-        %>
-        <%=render.createNavBar(navBarItems)%>
+        <div class="container">
+            <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10 text-center">
+                <div class="box">
+                    <div class="dropdown btn-group">
+                        <button type="button" class="btn btn-default btn-lg" style="margin-bottom: 20px" >Customer</button>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Employee
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="loginEmployee.jsp">Log in</a></li>
+                                <li><a class="dropdown-item" href="regEmployee.jsp">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 
     <!-- jQuery -->
