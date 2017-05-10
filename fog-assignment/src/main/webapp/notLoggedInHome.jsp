@@ -29,39 +29,7 @@
                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
 %>
 <%=render.createNavBar(navBarItems)%>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 text-center">
-            <div class="box">
-                <div id="carousel-example-generic" class="carousel slide">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators hidden-xs">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img class="img-responsive img-full" src="img/flatCarport.jpg" href="flatOrder.jsp" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-responsive img-full" src="img/pointyCarport.jpg" alt="">
-                        </div>
-                    </div>
-
-                    <!-- Controls -->
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                        <span class="icon-prev"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                        <span class="icon-next"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%=render.createCarousel()%>
 </body>
 <script src="js/jquery.js"></script>
 <!-- Bootstrap Core JavaScript -->
