@@ -30,14 +30,14 @@
 <%=render.createNavBar(navBarItems)%>
 <div class="container">
     <div class="row">
-        <div class="box">
-            <div class="col-lg-12">
+        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+            <div class="box">
                 <% if ("Error".equals(request.getAttribute("errorMessageUserNotFound"))) { %>
                 <div class="alert alert-danger">
                     <strong>Whoops</strong> You've entered wrong email &/or password!
                 </div>
                 <%}%>
-            </div>
+            
             <hr>
             <h2 class="intro-text text-center">Login
                 <strong>form</strong>
@@ -57,6 +57,7 @@
                         </div>
                     </div>
                 </form>
+            </div>
         </div>
     </div>
     </div>

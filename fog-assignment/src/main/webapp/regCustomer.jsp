@@ -28,10 +28,10 @@
                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
 %>
 <%=render.createNavBar(navBarItems)%>
-    <div class="container">
-        <div class="row">
-            <div class="box">  
-                <div class="col-lg-12">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+            <div class="box">
                     <%  if ("Error".equals(request.getAttribute("errorMessageEmailExists"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -57,9 +57,8 @@
                             </div>
                     <%  } %>
                     <hr>
-                    <h1 class="intro-text text-center">Welcome, please fill out the following fields to create your account.</h1>
+                    <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
                     <hr>
-                </div>
                 <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerRegistrationForm" />
                         <div class="form-group">
@@ -79,6 +78,7 @@
                             </div>
                         </div>               
                 </form>                                 
+            </div>
             </div>
         </div>
     </div>
