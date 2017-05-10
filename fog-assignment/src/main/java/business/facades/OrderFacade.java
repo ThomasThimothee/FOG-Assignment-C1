@@ -127,7 +127,7 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             standardPrice = getStandardOrderPrice(orderId);
-            discountRate = getDiscountRate(orderId);
+            discountRate = getDiscountRate(orderId)/100;
             finalPrice = standardPrice * (1 - discountRate);
             dm.setFinalPrice(finalPrice, orderId);
         } catch (StorageLayerException ex) {
