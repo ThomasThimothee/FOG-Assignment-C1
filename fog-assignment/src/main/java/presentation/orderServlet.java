@@ -2,6 +2,7 @@ package presentation;
 
 import business.Customer;
 import business.Flat;
+import business.Order;
 import business.Partlist;
 import business.Pointy;
 import business.facades.EmployeeFacade;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -82,14 +84,14 @@ public class orderServlet extends HttpServlet {
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 }
                 break;
-                case "customerPayment":
+                case "customerPayment":                  
                     int orderId = Integer.parseInt(request.getParameter("orderId"));
                     double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
                     double amount = Double.parseDouble(request.getParameter("amount"));
                     if (finalPrice == amount)
                     {
                         OrderFacade.updateSatus(orderId);
-                        
+                        request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);                     
                     }else{
                         request.setAttribute("InvalideAmount", "Error");
                         request.getRequestDispatcher("CustomerPayment.jsp").forward(request, response);

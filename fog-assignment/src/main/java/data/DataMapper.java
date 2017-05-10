@@ -549,4 +549,38 @@ public class DataMapper {
         }
     }
 
+    public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
+        String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
+        ArrayList<Order> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
+            Order order = null;
+            getCustomerOrders.setInt(1, idCustomer);
+            try (ResultSet rs = getCustomerOrders.executeQuery()) {
+                while (rs.next()) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt(1));
+                    order.setCustomerId(rs.getInt(2));
+                    order.setSalesRepId(rs.getInt(3));
+                    order.setDate(rs.getTimestamp(4));
+                    order.setCarportType(rs.getString(5));
+                    order.setRoofType(rs.getString(6));
+                    order.setCarportWidth(rs.getDouble(7));
+                    order.setCarportLength(rs.getDouble(8));
+                    order.setShedWidth(rs.getDouble(9));
+                    order.setShedLength(rs.getDouble(10));
+                    order.setRoofHeight(rs.getDouble(11));
+                    order.setAngle(rs.getDouble(12));
+                    order.setStatus(rs.getBoolean(13));
+                    order.setDiscount(rs.getDouble(14));
+                    order.setStandardPrice(rs.getDouble(15));
+                    order.setFinalPrice(rs.getDouble(16));
+
+                    list.add(order);
+                }
+            }
+            return list;
+        } catch (SQLException | NullPointerException ex) {
+            throw new StorageLayerException();
+        }    }
+
 }
