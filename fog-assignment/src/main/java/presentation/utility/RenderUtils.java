@@ -2,6 +2,7 @@ package presentation.utility;
 
 import business.Customer;
 import business.Order;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -135,6 +136,19 @@ public class RenderUtils {
                 s +=            "</div>";
                 s +=        "</div>";
                         }
+        return s;
+    }
+    
+    public String employeeOverviewTest(List<Order> orders) {
+        String  s = "";
+        for (Order order : orders) {
+            ArrayList<String> orderFields = order.createVariableArray(order);
+            s += "<tr>";
+                for (String field : orderFields) {
+            s +=    "<td>" + field + "</td>";
+                }
+            s += "</tr>";
+        }
         return s;
     }
 

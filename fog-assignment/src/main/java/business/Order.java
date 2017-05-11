@@ -1,6 +1,9 @@
 package business;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -10,7 +13,7 @@ public class Order {
 
 
     private int orderId, customerId, salesRepId;
-    private java.sql.Timestamp date;
+    private Timestamp date;
     private String carportType;
     private String roofType;
     private double carportWidth;
@@ -24,7 +27,30 @@ public class Order {
     private double standardPrice;
     private double finalPrice;
     
-
+    public ArrayList<String> createVariableArray(Order order) {
+        ArrayList<String> array = new ArrayList<>();
+        array.add(String.valueOf(order.getOrderId()));
+        array.add(String.valueOf(order.getCustomerId()));
+        array.add(String.valueOf(order.getSalesRepId()));
+        String newDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getDate());    
+        
+        array.add(newDate);
+//        array.add(carportType);
+//        array.add(roofType);
+//        array.add(String.valueOf(carportWidth));
+//        array.add(String.valueOf(carportLength));
+//        array.add(String.valueOf(shedWidth));
+//        array.add(String.valueOf(shedLength));
+//        array.add(String.valueOf(roofHeight));
+//        array.add(String.valueOf(angle));
+        array.add(String.valueOf(order.isStatus()));
+        array.add(String.valueOf(order.getDiscount()));
+        array.add(String.valueOf(order.getStandardPrice()));
+        array.add(String.valueOf(order.getFinalPrice()));
+        return array;
+    }
+    
+    
     public int getOrderId() {
         return orderId;
     }
