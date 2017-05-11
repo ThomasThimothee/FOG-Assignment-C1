@@ -2,17 +2,12 @@ package presentation;
 
 import business.Customer;
 import business.Flat;
-import business.Order;
 import business.Partlist;
 import business.Pointy;
 import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +50,7 @@ public class orderServlet extends HttpServlet {
                                 request.getRequestDispatcher("pointyOrder.jsp").forward(request, response);
                                 return;
                             default:
-                                request.getRequestDispatcher("index.html").forward(request, response);
+                                request.getRequestDispatcher("index.jsp").forward(request, response);
                                 return;
                         }
                     }
@@ -75,15 +70,16 @@ public class orderServlet extends HttpServlet {
                         partList = pointy.createPartList();
                         request.setAttribute("selectedCarport", pointy);
                     }
+                    // Make these into a transaction 
                     OrderFacade.createOrderLines(partList, orderId);
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);                    
-                } catch (NullPointerException e) {
-                    request.setAttribute("errorMessage", "Incorrect messurements");
-                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-                }
-                break;
+                    } catch (NullPointerException e) {
+                        request.setAttribute("errorMessage", "Incorrect messurements");
+                        request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
+                    }
+                    break;
                 case "customerPayment":                  
                     int orderId = Integer.parseInt(request.getParameter("orderId"));
                     double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
@@ -96,6 +92,9 @@ public class orderServlet extends HttpServlet {
                         request.setAttribute("InvalideAmount", "Error");
                         request.getRequestDispatcher("CustomerPayment.jsp").forward(request, response);
                     }
+                    break;
+                case "notLoggedIn":
+                    response.sendRedirect("loginCustomer.jsp");
                     break;
                     
                     

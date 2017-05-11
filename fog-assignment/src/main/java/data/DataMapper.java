@@ -545,11 +545,32 @@ public class DataMapper {
                 }
             }
             return list;
-        } catch (SQLException | NullPointerException ex) {
+        } catch (SQLException ex) {
             throw new StorageLayerException();
         }
     }
-
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws StorageLayerException{
+           String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
+           ArrayList<Orderline> list = new ArrayList<>();
+        try (Connection con = new Connector().getConnection(); PreparedStatement getPartlist = con.prepareStatement(getPartlistString)) {
+            Orderline orderline = null;
+            getPartlist.setInt(1, idOrder);
+            try (ResultSet rs = getPartlist.executeQuery()) {
+                while (rs.next()) {
+                orderline = new Orderline(rs.getString(2),
+                                          rs.getInt(3),
+                                          rs.getInt(4),
+                                          rs.getString(5),
+                                          rs.getDouble(6));
+                                          list.add(orderline);
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            throw new StorageLayerException();
+        }
+    }
+    
     public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
         ArrayList<Order> list = new ArrayList<>();

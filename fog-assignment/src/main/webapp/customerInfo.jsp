@@ -29,7 +29,7 @@
                             "Account, customerInfo.jsp",
                             "My Orders, customerOverview.jsp",
                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                            "Logout, notLoggedInHome.jsp"};
+                            "Logout, index.jsp"};
 %>
 <%=render.createNavBar(navBarItems)%>
 <div class="container">

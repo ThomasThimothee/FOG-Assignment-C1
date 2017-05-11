@@ -13,6 +13,7 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.facades.EmployeeFacade;
+import business.facades.OrderFacade;
 import javax.servlet.http.HttpSession;
 
 /**

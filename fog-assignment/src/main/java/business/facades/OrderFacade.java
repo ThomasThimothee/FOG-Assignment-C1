@@ -168,12 +168,22 @@ public class OrderFacade {
         try{
             DataMapper dm = new DataMapper();
             order = dm.retrieveAllOrders();
-        }catch(StorageLayerException e) {
+        } catch(StorageLayerException e) {
             
         }
         return order;
     }
-
+    public static ArrayList<Orderline> retrievePartlist(int idOrder) {
+        ArrayList<Orderline> list = new ArrayList<>();
+       try{
+           DataMapper dm = new DataMapper();
+          list = dm.retrievePartlist(idOrder);
+           
+       }catch(StorageLayerException e) {
+           
+       }
+       return list;
+    }
     public static ArrayList<Order> retrieveCustomerOrders(int id_customer) {
                 ArrayList<Order> list = new ArrayList<>();
         try{
