@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="box">
                     <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
-                        <table class="table table-striped table-bordered" id="myTable">
+                        <table class="table table-striped table-bordered table-responsive" id="myTable">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
