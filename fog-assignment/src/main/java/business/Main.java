@@ -20,6 +20,7 @@ public class Main {
 
 
     public static void main(String[] args) throws StorageLayerException {
+        OrderFacade.updateFinalPrice(15);
 }
 
 }
