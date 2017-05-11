@@ -153,6 +153,4 @@ public class Order {
         this.finalPrice = finalPrice;
     }
 
-   
-
 }

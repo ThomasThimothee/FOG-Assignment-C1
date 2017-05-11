@@ -10,6 +10,7 @@ import presentation.utility.RenderUtils;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -20,6 +21,11 @@ public class Main {
 
 
     public static void main(String[] args) throws StorageLayerException {
-}
+        ArrayList<Order> list = OrderFacade.retrieveAllOrder();
+         for(Order thisorder:list) { 
+            System.out.println(thisorder.getOrderId());
+         
+         }
+    }
 
 }

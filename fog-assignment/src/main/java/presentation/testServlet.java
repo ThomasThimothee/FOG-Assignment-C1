@@ -45,7 +45,7 @@ public class testServlet extends HttpServlet {
             case "ViewPartlist":
                 try {
                     int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    OrderFacade.retrieveCarport(idOrder);
+                    OrderFacade.retrievePartlist(idOrder);
                     request.setAttribute("idOrder", idOrder);
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
                 } catch (NullPointerException e) {
@@ -70,8 +70,6 @@ public class testServlet extends HttpServlet {
                     double discountRate = Double.parseDouble(request.getParameter("discountRate"));
                     OrderFacade.setDiscountRate(discountRate, idOrder);
                     OrderFacade.updateFinalPrice(idOrder);   
-                    ArrayList<Order> list = OrderFacade.retrieveAllOrder();
-                    request.setAttribute("list", list);
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
