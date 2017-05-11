@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="box">
                     <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
-                        <table class="tablesorter" id="myTable">
+                        <table class="table table-striped table-bordered" id="myTable">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>

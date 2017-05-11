@@ -61,7 +61,7 @@
                                 </svg>
                         <%  } else { 
                                 Pointy pointy = (Pointy) carport; %>    
-                                <svg viewBox="0, 0, <%=pointy.getTotalLength() + 100%>, <%=pointy.getCarportWidth() + 100%>" width="1024" height="768" preserveAspectRatio="xMinYMin meet">
+                                <svg viewBox="0, 0, <%=pointy.getTotalLength() + 100%>, <%=pointy.getCarportWidth() + 100%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">
                                     <%=svg.drawPointyTopView(pointy)%>
                                 </svg>
                         <%  } %>

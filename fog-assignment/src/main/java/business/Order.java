@@ -3,14 +3,12 @@ package business;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author thomasthimothee
  */
 public class Order {
-
 
     private int orderId, customerId, salesRepId;
     private Timestamp date;
@@ -32,8 +30,7 @@ public class Order {
         array.add(String.valueOf(order.getOrderId()));
         array.add(String.valueOf(order.getCustomerId()));
         array.add(String.valueOf(order.getSalesRepId()));
-        String newDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getDate());    
-        
+        String newDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getDate());        
         array.add(newDate);
 //        array.add(carportType);
 //        array.add(roofType);
