@@ -32,118 +32,233 @@
     </head>
     <body>
         <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
-        <% ArrayList<Order> list = OrderFacade.retrieveAllOrder(); 
+        <% ArrayList<Order> list = OrderFacade.retrieveAllOrder();
         %>
-       
-            <div class="container">
-                <div class="row">
-                    <div class="box">
-                        <div class="col-lg-12">   
-                            <table border="1" id="myTable">
-                                <thead>
-                                    <tr>
-                                        <th onclick="sortTable(0)">Order</th>
-                                        <th>Customer ID</th>
-                                        <th>Sales Rep ID</th>
-                                        <th>Order date</th>
-                                        <th>Carport type</th>
-                                        <th>Roof type</th>
-                                        <th>Discount Rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
+
+        <div class="container">
+            <div class="row">
+                <div class="box">
+                    <div class="col-lg-12">   
+                        <table border="1" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable(0)">Order ID</th>
+                                    <th>Customer ID</th>
+                                    <th>Sales Rep ID</th>
+                                    <th>Order date</th>
+                                    <th>Carport type</th>
+                                    <th>Roof type</th>
+                                    <th>Carport Width</th>
+                                    <th>Carport Length</th>
+                                    <th>Shed Width</th>
+                                    <th>Shed Length</th>
+                                    <th>Roof Height</th>
+                                    <th>Angle</th>
+                                    <th>Status</th>
+                                    <th>Discount Rate</th>
+                                    <th>Standard Price</th>
+                                    <th>Final Price</th>                                 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
                                         <%
-                                         for(Order thisorder:list) { 
-                                     %>        <td><%=thisorder.getOrderId()%></td>
-                                  <% } %>
-                                    </tr>
-                                    <tr>
-                                        <td>1004</td>
-                                        <td>101</td>
-                                        <td>7</td>
-                                        <td>24/04/2017</td>
-                                        <td>Flat</td>
-                                        <td>Ecolite Blue</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1008</td>
-                                        <td>101</td>
-                                        <td>7</td>
-                                        <td>24/04/2017</td>
-                                        <td>Flat</td>
-                                        <td>Ecolite Blue</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
-            <input type="hidden" name="formName" value="AddDiscount" />
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getOrderId() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getCustomerId() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getSalesRepId() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getDate() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getCarportType() + "</div>");
+                                            }
+                                        %> 
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getRoofType() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getCarportWidth() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getCarportLength() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getShedWidth() + "</div>");
+                                            }
+                                        %>   
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getShedLength() + "</div>");
+                                            }
+                                        %> 
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getRoofHeight() + "</div>");
+                                            }
+                                        %> 
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getAngle() + "</div>");
+                                            }
+                                        %>
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.isStatus() + "</div>");
+                                            }
+                                        %>   
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getDiscount() + "</div>");
+                                            }
+                                        %> 
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getStandardPrice() + "</div>");
+                                            }
+                                        %>   
+                                    </td>
+
+                                    <td>
+                                        <%
+                                            for (Order thisorder : list) {
+                                                out.print("<div>" + thisorder.getFinalPrice() + "</div>");
+                                            }
+                                        %>   
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
+                                <input type="hidden" name="formName" value="AddDiscount" />
                                 <div class="form-group col-md-4">
                                     <button type="submit" name="discout" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control"><input type="text" name="idOrder" class="form-control">
                                 </div>
-                         
-</form>
-   <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
-            <input type="hidden" name="formName" value="ViewPartlist" />
+
+                            </form>
+                            <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
+                                <input type="hidden" name="formName" value="ViewPartlist" />
                                 <div class="form-group col-md-4">
 
                                     <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control">
                                 </div>
-   </form>
-   <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
-            <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
+                            </form>
+                            <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
+                                <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
                                 <div class="form-group col-md-4">
 
                                     <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control">
                                 </div>
-   </form>
+                            </form>
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <script>
-                function sortTable(n) {
-                    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                    table = document.getElementById("myTable");
-                    switching = true;
-                   
-                    dir = "asc";
-                    while (switching) {
-                        switching = false;
-                        rows = table.getElementsByTagName("TR");
-                        for (i = 1; i < (rows.length - 1); i++) {
-                            shouldSwitch = false;
-                            x = rows[i].getElementsByTagName("TD")[n];
-                            y = rows[i + 1].getElementsByTagName("TD")[n];
-                            if (dir == "asc") {
-                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                    shouldSwitch = true;
-                                    break;
-                                }
-                            } else if (dir == "desc") {
-                                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                                    shouldSwitch = true;
-                                    break;
-                                }
+        </div>
+        <script>
+            function sortTable(n) {
+                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                table = document.getElementById("myTable");
+                switching = true;
+
+                dir = "asc";
+                while (switching) {
+                    switching = false;
+                    rows = table.getElementsByTagName("TR");
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                        if (dir == "asc") {
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
                             }
-                        }
-                        if (shouldSwitch) {
-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                            switching = true;
-                            switchcount++;
-                        } else {
-                            if (switchcount == 0 && dir == "asc") {
-                                dir = "desc";
-                                switching = true;
+                        } else if (dir == "desc") {
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
                             }
                         }
                     }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                        switchcount++;
+                    } else {
+                        if (switchcount == 0 && dir == "asc") {
+                            dir = "desc";
+                            switching = true;
+                        }
+                    }
                 }
-            </script>   
+            }
+        </script>   
     </body>
 </html>
