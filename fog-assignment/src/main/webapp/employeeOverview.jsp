@@ -34,7 +34,6 @@
         <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
         <% ArrayList<Order> list = OrderFacade.retrieveAllOrder();
         %>
-
         <div class="container">
             <div class="row">
                 <div class="box">

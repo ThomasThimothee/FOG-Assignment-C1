@@ -167,7 +167,7 @@ public class OrderFacade {
         try{
             DataMapper dm = new DataMapper();
             order = dm.retrieveAllOrders();
-        }catch(StorageLayerException e) {
+        } catch(StorageLayerException e) {
             
         }
         return order;

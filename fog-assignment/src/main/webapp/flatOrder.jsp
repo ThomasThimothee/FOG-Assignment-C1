@@ -47,7 +47,7 @@
                                             "Account, customerInfo.jsp",
                                             "My Orders, customerOverview.jsp",
                                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                            "Logout, notLoggedInHome.jsp"};
+                                            "Logout, index.jsp"};
             if (customer != null) {
             %> <%=render.createNavBar(navBarItemsLoggedIn)%> <%     
             } else {

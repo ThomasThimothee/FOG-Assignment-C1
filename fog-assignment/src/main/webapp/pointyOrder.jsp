@@ -48,7 +48,7 @@
                                             "Account, customerInfo.jsp",
                                             "My Orders, customerOverview.jsp",
                                             "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                            "Logout, notLoggedInHome.jsp"};
+                                            "Logout, index.jsp"};
             if (customer != null) {
             %> <%=render.createNavBar(navBarItemsLoggedIn)%> <%     
             } else {
@@ -56,16 +56,26 @@
         <%  } %>  
         <div class="container">
             <div class="row">
-                <div class="box">
-                    <div class="col-lg-12">   
+                <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+                    <div class="box">  
                         <%  if ("Error".equals(request.getAttribute("errorMessageIncorrectDimensions"))) { %>
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
-                        </div>
-                        <% } %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
+                                </div>
+                        <%  } 
+                            if (customer == null) { %>
+                                <div class="alert alert-warning alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> You are not logged in. You will not be able to make an order. 
+                                </div>
+                       <% } %>
                         <form name="fog-assignment" action="orderServlet" method="POST">
-                            <input type="hidden" name="action" value="order"/>
+                            <% if (customer != null) {%>
+                                <input type="hidden" name="action" value="order"/>
+                            <% } else { %>
+                                <input type="hidden" name="action" value="notLoggedIn"/>
+                            <% } %>
                             <input type="hidden" name="carportType" value="Pointy"/>
                             <table border="1">
                                 <thead>

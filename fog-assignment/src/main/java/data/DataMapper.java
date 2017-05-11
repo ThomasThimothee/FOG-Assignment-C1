@@ -544,7 +544,7 @@ public class DataMapper {
                 }
             }
             return list;
-        } catch (SQLException | NullPointerException ex) {
+        } catch (SQLException ex) {
             throw new StorageLayerException();
         }
     }
