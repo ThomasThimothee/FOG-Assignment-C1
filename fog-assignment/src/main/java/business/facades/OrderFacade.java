@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static jdk.nashorn.internal.objects.NativeMath.round;
 
 /**
  *
@@ -128,7 +129,7 @@ public class OrderFacade {
             DataMapper dm = new DataMapper();
             standardPrice = getStandardOrderPrice(orderId);
             discountRate = getDiscountRate(orderId)/100;
-            finalPrice = standardPrice * (1 - discountRate);
+            finalPrice = round((standardPrice * (1 - discountRate)),2);
             dm.setFinalPrice(finalPrice, orderId);
         } catch (StorageLayerException ex) {
         }

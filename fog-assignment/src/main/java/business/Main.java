@@ -21,11 +21,8 @@ public class Main {
 
 
     public static void main(String[] args) throws StorageLayerException {
-        ArrayList<Order> list = OrderFacade.retrieveAllOrder();
-         for(Order thisorder:list) { 
-            System.out.println(thisorder.getOrderId());
-         
+
          }
-    }
+
 
 }
