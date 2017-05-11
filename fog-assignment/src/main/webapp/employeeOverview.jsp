@@ -197,7 +197,7 @@
                             <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
                                 <input type="hidden" name="formName" value="AddDiscount" />
                                 <div class="form-group col-md-4">
-                                    <button type="submit" name="discout" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control"><input type="text" name="idOrder" class="form-control">
+                                    <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control">
                                 </div>
 
                             </form>
