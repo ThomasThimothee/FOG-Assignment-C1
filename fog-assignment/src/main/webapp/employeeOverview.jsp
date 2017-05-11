@@ -31,8 +31,8 @@
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
      <script>
         $(function(){
           $("#myTable").tablesorter({widgets: ['zebra']});
@@ -40,7 +40,6 @@
     </script>
     </head>
     <body>
-        <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
         <%  ArrayList<Order> list = OrderFacade.retrieveAllOrder();
             RenderUtils render = new RenderUtils();
         %>
@@ -48,7 +47,7 @@
             <div class="row">
                 <div class="box">
                     <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
-                        <table class="table table-striped table-bordered table-responsive" id="myTable">
+                        <table class="table" id="myTable">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -93,13 +92,5 @@
                 </div>
             </div>
         </div>
-        <script>
-           $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter(); 
-    } 
-); 
-    
-        </script>   
     </body>
 </html>
