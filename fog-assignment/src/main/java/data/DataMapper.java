@@ -527,6 +527,7 @@ public class DataMapper {
                     order.setCustomerId(rs.getInt(2));
                     order.setSalesRepId(rs.getInt(3));
                     order.setDate(rs.getTimestamp(4));
+                    System.out.println("date of the order =" + order.getDate());
                     order.setCarportType(rs.getString(5));
                     order.setRoofType(rs.getString(6));
                     order.setCarportWidth(rs.getDouble(7));
