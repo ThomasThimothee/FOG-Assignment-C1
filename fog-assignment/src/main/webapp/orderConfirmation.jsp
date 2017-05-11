@@ -36,8 +36,8 @@
             SVGUtils svg = new SVGUtils();%>
         <div class="container">
             <div class="row">
-                <div class="box">
-                    <div class="col-lg-12">
+                <div class="col-xs-offset-1 col-xs-10">
+                    <div class="box">
                         <hr>
                         <h1 class="intro-text text-center">Order</h1>     
                         <p>Carport Width: <%=carport.getCarportWidth()%></p>
@@ -56,7 +56,7 @@
                                 <% } 
                             if (carport.getType().equals("Flat")) { 
                                 Flat flat = (Flat) carport; %>
-                                <svg viewBox="0, 0, <%=carport.getTotalLength() + 100%>, <%=carport.getCarportWidth() + 100%>" width="1024" height="768" preserveAspectRatio="xMinYMin meet">
+                                <svg viewBox="0, 0, <%=carport.getTotalLength() + 100%>, <%=carport.getCarportWidth() + 100%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">
                                     <%=svg.drawFlatTopView(flat)%>
                                 </svg>
                         <%  } else { 
