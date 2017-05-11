@@ -197,7 +197,7 @@
                             <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
                                 <input type="hidden" name="formName" value="AddDiscount" />
                                 <div class="form-group col-md-4">
-                                    <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control">
+                                    <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                 </div>
 
                             </form>
@@ -205,14 +205,14 @@
                                 <input type="hidden" name="formName" value="ViewPartlist" />
                                 <div class="form-group col-md-4">
 
-                                    <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control">
+                                    <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                 </div>
                             </form>
                             <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
                                 <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
                                 <div class="form-group col-md-4">
 
-                                    <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control">
+                                    <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
                                 </div>
                             </form>
 
