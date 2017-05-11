@@ -30,8 +30,14 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="/path/to/jquery-latest.js"></script> 
-<script type="text/javascript" src="/path/to/jquery.tablesorter.js"></script> 
+        <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+     <script>
+        $(function(){
+          $("#myTable").tablesorter({widgets: ['zebra']});
+        });
+    </script>
     </head>
     <body>
         <%--  <% ArrayList<Order> list = (ArrayList<Order>) request.getAttribute("list"); %> --%>
