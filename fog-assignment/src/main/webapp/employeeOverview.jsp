@@ -25,6 +25,7 @@
 
         <!-- Custom CSS -->
         <link href="css/business-casual.css" rel="stylesheet">
+        <link href="stylesheet.css" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -37,17 +38,23 @@
          
         $(function(){
           $("#myTable").tablesorter({widgets: ['zebra']});
-        });
-    </script>
+           });
+     </script>
     </head>
     <body>
         <%  ArrayList<Order> list = OrderFacade.retrieveAllOrder();
-            RenderUtils render = new RenderUtils();
+            RenderUtils render = new RenderUtils(); %>
+        <div class="brand">FOG</div>
+<!--        <   !-- Navigation -->
+        <%  String[] navBarItems = {"Orders, emlpoyeeOverview.jsp",
+                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                    "Logout, index.jsp"};
         %>
+        <%=render.createNavBar(navBarItems)%>
         <div class="container">
             <div class="row">
                 <div class="box">
-                    <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
+                    <div class="col-xs-12" style="height:768px; overflow: auto">   
                         <table class="table" id="myTable">
                             <thead>
                                 <tr>
