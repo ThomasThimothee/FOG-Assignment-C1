@@ -151,5 +151,28 @@ public class RenderUtils {
         }
         return s;
     }
+    
+    public String createDimensionsSelection(ArrayList<int[]> values, String[] names) {
+        int columnSpacing = 12 / names.length;
+        String  s = "";
+                    for (int i = 0; i < names.length; i++) {
+                s +=    "<div class=\"col-xs-" + columnSpacing + "\">";
+                        String[] words = names[i].trim().split("\\s*,\\s*");
+                s +=    "<h5>";
+                        for (String word : words) {
+                s +=        word.substring(0, 1).toUpperCase() + word.substring(1) + " ";
+                        }
+                s =     s.trim();
+                s +=    "</h5>";
+                s +=        "<select class=\"form-control\" name=\"" + names[i] + "\">";
+                                for (int value : values.get(i)) {
+                s +=                "<option>" + value + "</option>";
+                                }
+                s +=        "</select>";
+                s +=    "</div>";
+                    }
+        return s;
+    }
+                         
 
 }

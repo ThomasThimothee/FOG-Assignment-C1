@@ -17,7 +17,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Customer Signup</title>
+        <title>Build - Pointy Carport</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
         <%  } %>  
         <div class="container">
             <div class="row">
-                <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+                <div class="col-xs-offset-1 col-xs-10">
                     <div class="box">  
                         <%  if ("Error".equals(request.getAttribute("errorMessageIncorrectDimensions"))) { %>
                                 <div class="alert alert-danger alert-dismissable">
@@ -70,72 +70,84 @@
                                     <strong>Warning!</strong> You are not logged in. You will not be able to make an order. 
                                 </div>
                        <% } %>
-                        <form name="fog-assignment" action="orderServlet" method="POST">
+                        <div class="row">
+                            <div class="col-xs-offset-2 col-xs-8">
+                                <p class="text-warning">The shed's dimensions need to be at least 30 cm. less in both width and length compared to the carport's dimensions</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <form class="form-horizontal" name="fog-assignment" action="orderServlet" method="POST">
                             <% if (customer != null) {%>
                                 <input type="hidden" name="action" value="order"/>
                             <% } else { %>
                                 <input type="hidden" name="action" value="notLoggedIn"/>
                             <% } %>
                             <input type="hidden" name="carportType" value="Pointy"/>
-                            <table border="1">
-                                <thead>
-                                    <tr>
-                                        <th>Carport length</th>
-                                        <th>Carport width</th>
-                                        <th>Shed length</th>
-                                        <th>Shed width</th>
-                                        <th>Roof type</th>
-                                        <th>Angle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select name="carport length">
-                                                <% for (int cl : carportLength) {%>
-                                                <option><%=cl%></option>
-                                                <%}%>
-                                            </select></td>
-                                        </td>
-                                        <td>
-                                            <select name="carport width">
-                                                <% for (int cw : carportWidth) {%>
-                                                <option><%=cw%></option>
-                                                <%}%>
-                                            </select>
-                                        <td>
-                                            <select name="shed length">
-                                                <% for (int sl : shedLength) {%>
-                                                <option><%=sl%></option>
-                                                <%}%>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="shed width">
-                                                <% for (int sw : shedWidth) {%>
-                                                <option><%=sw%></option>
-                                                <%}%>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="roof type">
-                                                <% for (String t : type) {%>
-                                                <option><%=t%></option>
-                                                <%}%>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="angle">
-                                                <% for (int a : angle) {%>
-                                                <option><%=a%></option>
-                                                <%}%>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p>Shed dimensions should be AT LEAST 30 cm less in both width and length than carport dimensions</p>
-                            <input type="submit" value="Order" />
+                            <div class="form-group">    
+                                <label class="control-label col-sm-offset-2 col-sm-2" for="carportLength">Carport length</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control "name="carport length" id="carportLength">
+                                        <% for (int cl : carportLength) {%>
+                                        <option><%=cl%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">   
+                                <label class="control-label  col-sm-offset-2 col-sm-2" for="carportWidth">Carport width</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="carport width" id="carportWidth">
+                                        <% for (int cw : carportWidth) {%>
+                                        <option><%=cw%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">  
+                                <label class="control-label  col-sm-offset-2 col-sm-2" for="shedLength">Shed length</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="shed length" id="shedLength">
+                                        <% for (int sl : shedLength) {%>
+                                        <option><%=sl%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">  
+                                <label class="control-label  col-sm-offset-2 col-sm-2" for="shedWidth">Shed width</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="shed width" id="shedWidth">
+                                        <% for (int sw : shedWidth) {%>
+                                        <option><%=sw%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">   
+                                <label class="control-label col-sm-offset-2 col-sm-2" for="roofType">Roof type</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="roof type" id="roofType">
+                                        <% for (String t : type) {%>
+                                        <option><%=t%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">   
+                                <label class="control-label col-sm-offset-2 col-sm-2" for="angle">Angle</label>                                    
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="angle" id="angle">
+                                        <% for (int a : angle) {%>
+                                        <option><%=a%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <input type="submit" class="btn btn-default" value="Order" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
