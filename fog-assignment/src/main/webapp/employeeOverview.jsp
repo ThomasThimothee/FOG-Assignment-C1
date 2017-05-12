@@ -72,35 +72,59 @@
                                 <%=render.employeeOverviewTest(list)%>
                             </tbody>
                         </table>
-                        </div>
-                        <div class="row">
-                            <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="AddDiscount" />
-                                
-                                    <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                               
-                                
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <form name="AddDiscount" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="AddDiscount" />
+                            <div class="col-xs-12">
+                                <div class="form-group"> 
+                                    <div class="col-xs-5">
+                                        <input type="text" name="discountRate" class="form-control" placeholder="Discount rate in %"> 
+                                    </div>
+                                        <div class="col-xs-5">
+                                            <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
+                                        </div>
+                                    <div class="col-xs-2">
+                                        <button type="submit" name="discount" class="btn btn-success">Add discount</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <form name="ViewPartlist" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="ViewPartlist" />
+                            <div class="col-xs-12">
+                                <div class="form-group"> 
+                                    <div class="col-xs-10">
+                                        <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
+                                    </div>
+ 
+                                    <div class="col-xs-2"> 
+                                        <button type="submit" name="partlist" class="btn btn-success ">View partlist</button>
+                                    </div>  
+                                </div>
 
-                            </form>
-                            <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="ViewPartlist" />
-                              
-
-                                    <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                               
-                            </form>
-                            <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
-                               
-
-                                    <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
-                               
-                                
-                            </form>
-
-                        </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form name="ViewCustomerDetails" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
+                            <div class="col-xs-12">
+                                <div class="form-group"> 
+                                    <div class="col-xs-10">
+                                        <input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button type="submit" name="customer details" class="btn btn-success">View customer details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
                 </div>
             </div>
-        </div>
+        </div>          
     </body>
 </html>
