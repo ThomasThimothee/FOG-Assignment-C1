@@ -55,15 +55,16 @@ public class CustomerFacade {
     }
 
 
-    public static ArrayList<Customer> retrieveCustomerDetails(int idCustomer){
-          ArrayList<Customer> list = new ArrayList<>();
-       try{
-           DataMapper dm = new DataMapper();
-          list = dm.retrieveCustomerDetails(idCustomer);
-       }catch (StorageLayerException e)
-       {
-    }
-        return list;
+    public static Customer retrieveCustomerDetails(int idCustomer){
+        Customer customer = null;
+        try {
+            DataMapper dm = new DataMapper();
+            customer = dm.retrieveCustomerDetails(idCustomer);
+        } catch (StorageLayerException e) {
+           
+        }
+       return customer;
+        
     }
 
 }

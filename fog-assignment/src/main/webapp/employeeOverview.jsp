@@ -46,9 +46,9 @@
             RenderUtils render = new RenderUtils(); %>
         <div class="brand">FOG</div>
         <!--        <   !-- Navigation -->
-        <%  String[] navBarItems = {"Orders, emlpoyeeOverview.jsp",
-                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                "Logout, index.jsp"};
+        <%  String[] navBarItems = {"Orders, employeeOverview.jsp",
+                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                    "Logout, index.jsp"};
         %>
         <%=render.createNavBar(navBarItems)%>
         <div class="container">

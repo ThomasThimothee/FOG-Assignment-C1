@@ -50,7 +50,7 @@ public class testServlet extends HttpServlet {
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
             case "ViewCustomerDetails":
@@ -58,10 +58,10 @@ public class testServlet extends HttpServlet {
                     int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
                     CustomerFacade.retrieveCustomerDetails(idCustomer);
                     request.setAttribute("idCustomer", idCustomer);
-                    request.getRequestDispatcher("customerDetails.jsp").forward(request, response);
+                    request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
             case "AddDiscount":
@@ -73,7 +73,7 @@ public class testServlet extends HttpServlet {
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
         }

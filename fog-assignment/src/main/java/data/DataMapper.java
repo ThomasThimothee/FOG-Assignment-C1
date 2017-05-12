@@ -491,24 +491,22 @@ public class DataMapper {
         }
     }
 
-    public ArrayList<Customer> retrieveCustomerDetails(int idCustomer) throws StorageLayerException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws StorageLayerException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
-        ArrayList<Customer> list = new ArrayList<>();
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
-            Customer customer;
+            Customer customer = null;
             getCustomer.setInt(1, idCustomer);
             try (ResultSet rs = getCustomer.executeQuery()) {
-                while (rs.next()) {
+                if (rs.next()) {
                     customer = new Customer(rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7));
-                    list.add(customer);
 
                 }
-                return list;
+                return customer;
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
