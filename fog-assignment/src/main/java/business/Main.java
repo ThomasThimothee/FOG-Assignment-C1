@@ -47,8 +47,7 @@ public class Main {
                    System.out.println("angle " + order.getPointy().getAngle());
                    
                }
-               
-               
+
            }
          }
 

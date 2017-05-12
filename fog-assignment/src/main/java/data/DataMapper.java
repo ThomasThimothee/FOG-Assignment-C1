@@ -532,12 +532,11 @@ public class DataMapper {
                         Pointy pointy = new Pointy(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11), rs.getDouble(12));
                         order.setPointy(pointy);
-                    }
-                    else if("Flat".equals(carportType)){
-                    Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
+                    } else if ("Flat".equals(carportType)) {
+                        Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11));
-                    order.setFlat(flat);
-                }            
+                        order.setFlat(flat);
+                    }
                     order.setStatus(rs.getBoolean(13));
                     order.setDiscount(rs.getDouble(14));
                     order.setStandardPrice(rs.getDouble(15));
@@ -587,17 +586,16 @@ public class DataMapper {
                     order.setCustomerId(rs.getInt(2));
                     order.setSalesRepId(rs.getInt(3));
                     order.setDate(rs.getTimestamp(4));
-                     String carportType = rs.getString(5);
+                    String carportType = rs.getString(5);
                     if ("Pointy".equals(carportType)) {
                         Pointy pointy = new Pointy(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11), rs.getDouble(12));
                         order.setPointy(pointy);
-                    }
-                    else if("Flat".equals(carportType)){
-                    Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
+                    } else if ("Flat".equals(carportType)) {
+                        Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11));
-                    order.setFlat(flat);
-                }            
+                        order.setFlat(flat);
+                    }
                     order.setStatus(rs.getBoolean(13));
                     order.setDiscount(rs.getDouble(14));
                     order.setStandardPrice(rs.getDouble(15));

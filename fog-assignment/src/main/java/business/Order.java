@@ -26,14 +26,6 @@ public class Order {
         array.add(String.valueOf(order.getSalesRepId()));
         String newDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getDate());        
         array.add(newDate);
-//        array.add(carportType);
-//        array.add(roofType);
-//        array.add(String.valueOf(carportWidth));
-//        array.add(String.valueOf(carportLength));
-//        array.add(String.valueOf(shedWidth));
-//        array.add(String.valueOf(shedLength));
-//        array.add(String.valueOf(roofHeight));
-//        array.add(String.valueOf(angle));
         array.add(String.valueOf(order.isStatus()));
         array.add(String.valueOf(order.getDiscount()));
         array.add(String.valueOf(order.getStandardPrice()));

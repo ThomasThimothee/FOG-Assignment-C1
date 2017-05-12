@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="box">
                     <div class="col-lg-12">  
-        <table border="1">
+        <table border="1" width="100%"style="overflow: auto" >
             <thead>
                 <tr>
                     <th>Part Name</th>
@@ -89,6 +89,7 @@
                 </tr>
             </tbody>
         </table>
+                        
                     </div>
                 </div>
             </div>
