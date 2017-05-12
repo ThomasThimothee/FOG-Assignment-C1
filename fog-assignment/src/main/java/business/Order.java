@@ -12,14 +12,8 @@ public class Order {
 
     private int orderId, customerId, salesRepId;
     private Timestamp date;
-    private String carportType;
-    private String roofType;
-    private double carportWidth;
-    private double carportLength;
-    private double shedWidth;
-    private double shedLength;
-    private double roofHeight;
-    private double angle;
+    private Flat flat;
+    private Pointy pointy;
     private boolean status;
     private double discount;
     private double standardPrice;
@@ -80,69 +74,22 @@ public class Order {
         this.date = date;
     }
 
-    public String getCarportType() {
-        return carportType;
+    public Flat getFlat() {
+        return flat;
     }
 
-    public void setCarportType(String carportType) {
-        this.carportType = carportType;
+    public void setFlat(Flat flat) {
+        this.flat = flat;
     }
 
-    public String getRoofType() {
-        return roofType;
+    public Pointy getPointy() {
+        return pointy;
     }
 
-    public void setRoofType(String roofType) {
-        this.roofType = roofType;
+    public void setPointy(Pointy pointy) {
+        this.pointy = pointy;
     }
 
-    public double getCarportWidth() {
-        return carportWidth;
-    }
-
-    public void setCarportWidth(double carportWidth) {
-        this.carportWidth = carportWidth;
-    }
-
-    public double getCarportLength() {
-        return carportLength;
-    }
-
-    public void setCarportLength(double carportLength) {
-        this.carportLength = carportLength;
-    }
-
-    public double getShedWidth() {
-        return shedWidth;
-    }
-
-    public void setShedWidth(double shedWidth) {
-        this.shedWidth = shedWidth;
-    }
-
-    public double getShedLength() {
-        return shedLength;
-    }
-
-    public void setShedLength(double shedLength) {
-        this.shedLength = shedLength;
-    }
-
-    public double getRoofHeight() {
-        return roofHeight;
-    }
-
-    public void setRoofHeight(double roofHeight) {
-        this.roofHeight = roofHeight;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
 
     public boolean isStatus() {
         return status;
