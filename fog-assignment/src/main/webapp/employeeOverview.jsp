@@ -34,21 +34,21 @@
         <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
-     <script>
-         
-        $(function(){
-          $("#myTable").tablesorter({widgets: ['zebra']});
-           });
-     </script>
+        <script>
+
+            $(function () {
+                $("#myTable").tablesorter({widgets: ['zebra']});
+            });
+        </script>
     </head>
     <body>
         <%  ArrayList<Order> list = OrderFacade.retrieveAllOrder();
             RenderUtils render = new RenderUtils(); %>
         <div class="brand">FOG</div>
-<!--        <   !-- Navigation -->
+        <!--        <   !-- Navigation -->
         <%  String[] navBarItems = {"Orders, emlpoyeeOverview.jsp",
-                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                    "Logout, index.jsp"};
+                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                "Logout, index.jsp"};
         %>
         <%=render.createNavBar(navBarItems)%>
         <div class="container">
@@ -72,33 +72,28 @@
                                 <%=render.employeeOverviewTest(list)%>
                             </tbody>
                         </table>
-                        </div>
-                        <div class="row">
-                            <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="AddDiscount" />
-                                
-                                    <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                               
-                                
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" name ="AddDiscount" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="AddDiscount" />
 
-                            </form>
-                            <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="ViewPartlist" />
-                              
+                            <button type="submit" name="discount" class="btn btn-success">Add discount</button><input type="text" name="discountRate" class="form-control" placeholder="discount rate in %"><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
+                        </form>
+                        <form class="form-horizontal" name ="ViewPartlist" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="ViewPartlist" />
+                            <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
 
-                                    <button type="submit" name="partlist" class="btn btn-success">View partlist</button><input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                               
-                            </form>
-                            <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
-                                <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
-                               
+                        </form>
+                        <form class="form-horizontal" name ="ViewCustomerDetails" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
 
-                                    <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
-                               
-                                
-                            </form>
 
-                        </div>
+                            <button type="submit" name="customer details" class="btn btn-success">View customer details</button><input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
+
+
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>
