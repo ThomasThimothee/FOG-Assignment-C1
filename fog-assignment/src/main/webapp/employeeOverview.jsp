@@ -34,6 +34,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
      <script>
+         
         $(function(){
           $("#myTable").tablesorter({widgets: ['zebra']});
         });
@@ -92,14 +93,6 @@
                         </div>
                 </div>
             </div>
-        </div>
-        <script>
-           $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter(); 
-    } 
-); 
-    
-        </script>   
+        </div> 
     </body>
 </html>
