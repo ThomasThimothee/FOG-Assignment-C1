@@ -5,7 +5,9 @@
  */
 package presentation;
 
+import business.Customer;
 import business.Order;
+import business.exceptions.InvalidOrderIdException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
@@ -40,6 +42,7 @@ public class testServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("currentCustomer");
         String formName = request.getParameter("formName");
         switch (formName) {
             case "ViewPartlist":
@@ -69,13 +72,46 @@ public class testServlet extends HttpServlet {
                     int idOrder = Integer.parseInt(request.getParameter("idOrder"));
                     double discountRate = Double.parseDouble(request.getParameter("discountRate"));
                     OrderFacade.setDiscountRate(discountRate, idOrder);
-                    OrderFacade.updateFinalPrice(idOrder);   
+                    OrderFacade.updateFinalPrice(idOrder);
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
+            case "PayOrder":
+                try {
+                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+                    Order order = OrderFacade.retrieveOrder(idOrder);
+                    if (customer.getId_customer() == order.getCustomerId()) {
+                        request.setAttribute("currentOrder", order);
+                        request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
+                    } else { // if user entered an
+                        request.setAttribute("Error", "IncorrectOrderId");
+                        request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                    }
+                } catch (InvalidOrderIdException | NullPointerException e) {
+                    request.setAttribute("Error", "IncorrectOrderId");
+                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                }
+                break;
+            case "ViewDrawing":
+                try {
+                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+                    Order order = OrderFacade.retrieveOrder(idOrder);
+                    if (customer.getId_customer() == order.getCustomerId()) {
+                        request.setAttribute("currentOrder", order);
+                        request.getRequestDispatcher("customerDrawing.jsp").forward(request, response);
+                    } else { // if user entered an
+                        request.setAttribute("Error", "IncorrectOrderId");
+                        request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                    }
+                } catch (InvalidOrderIdException | NullPointerException e) {
+                    request.setAttribute("Error", "IncorrectOrderId");
+                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                }
+                break;
+
         }
     }
 

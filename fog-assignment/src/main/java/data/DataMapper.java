@@ -1,5 +1,6 @@
 package data;
 
+import business.exceptions.InvalidOrderIdException;
 import business.Carport;
 import business.Customer;
 import business.Employee;
@@ -608,4 +609,37 @@ public class DataMapper {
         }
     }
 
+    public Order retrieveOrder(int idOrder) throws InvalidOrderIdException {
+        String getCustomerOrdersString = "SELECT * FROM fog.Order where idOrder = ?;";
+        try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
+            Order order = null;
+            getCustomerOrders.setInt(1, idOrder);
+            try (ResultSet rs = getCustomerOrders.executeQuery()) {
+                if (rs.next()) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt(1));
+                    order.setCustomerId(rs.getInt(2));
+                    order.setSalesRepId(rs.getInt(3));
+                    order.setDate(rs.getTimestamp(4));
+                    String carportType = rs.getString(5);
+                    if ("Pointy".equals(carportType)) {
+                        Pointy pointy = new Pointy(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
+                                rs.getDouble(10), rs.getDouble(11), rs.getDouble(12));
+                        order.setPointy(pointy);
+                    } else if ("Flat".equals(carportType)) {
+                        Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
+                                rs.getDouble(10), rs.getDouble(11));
+                        order.setFlat(flat);
+                    }
+                    order.setStatus(rs.getBoolean(13));
+                    order.setDiscount(rs.getDouble(14));
+                    order.setStandardPrice(rs.getDouble(15));
+                    order.setFinalPrice(rs.getDouble(16));
+                }
+            }
+            return order;
+        }catch (NullPointerException | SQLException ex) {
+            throw new InvalidOrderIdException();
+        }
+    }
 }

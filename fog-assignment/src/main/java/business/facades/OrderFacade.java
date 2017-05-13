@@ -4,6 +4,7 @@ import business.Carport;
 import business.Order;
 import business.Orderline;
 import business.Partlist;
+import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.parts.Part;
 import data.DataMapper;
@@ -196,6 +197,13 @@ public class OrderFacade {
 
         }
         return list;
+    }
+
+    public static Order retrieveOrder(int idOrder) throws InvalidOrderIdException {
+        Order order = new Order();
+        DataMapper dm = new DataMapper();
+        order = dm.retrieveOrder(idOrder);    
+        return order;
     }
 
 }
