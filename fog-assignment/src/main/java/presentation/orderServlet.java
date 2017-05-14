@@ -2,12 +2,16 @@ package presentation;
 
 import business.Customer;
 import business.Flat;
+import business.Order;
 import business.Partlist;
 import business.Pointy;
+import business.exceptions.InvalidOrderIdException;
 import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +67,7 @@ public class orderServlet extends HttpServlet {
                     Partlist partList;
                     if (carportType.equals("Flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
-                        partList = flat.createPartList(); 
+                        partList = flat.createPartList();
                         request.setAttribute("selectedCarport", flat);
                     } else {
                         Pointy pointy = new Pointy(carportType, roofType, carportLength, carportWidth, shedLength, shedWidth, 0, angle);
@@ -74,30 +78,36 @@ public class orderServlet extends HttpServlet {
                     OrderFacade.createOrderLines(partList, orderId);
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
-                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);                    
-                    } catch (NullPointerException e) {
-                        request.setAttribute("errorMessage", "Incorrect messurements");
-                        request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-                    }
-                    break;
-                case "customerPayment":                  
-                    int orderId = Integer.parseInt(request.getParameter("orderId"));
-                    double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
-                    double amount = Double.parseDouble(request.getParameter("amount"));
-                    if (finalPrice == amount)
-                    {
-                        OrderFacade.updateSatus(orderId);
-                        request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);                     
-                    }else{
-                        request.setAttribute("InvalideAmount", "Error");
-                        request.getRequestDispatcher("CustomerPayment.jsp").forward(request, response);
-                    }
-                    break;
-                case "notLoggedIn":
-                    response.sendRedirect("loginCustomer.jsp");
-                    break;
-                    
-                    
+                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
+                } catch (NullPointerException e) {
+                    request.setAttribute("errorMessage", "Incorrect messurements");
+                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
+                }
+                break;
+            case "customerPayment":
+                int orderId = Integer.parseInt(request.getParameter("orderId"));
+                double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
+                double amount = Double.parseDouble(request.getParameter("amount"));
+                Order order = null;
+                try {
+                    order = OrderFacade.retrieveOrder(orderId);
+                } catch (InvalidOrderIdException ex) {
+                    request.setAttribute("Error", "IncorrectOrderId");
+                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                }
+                if (finalPrice == amount) {
+                    OrderFacade.updateSatus(orderId);
+                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("currentOrder", order);
+                    request.setAttribute("InvalideAmount", "Error");
+                    request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
+                }
+                break;
+            case "notLoggedIn":
+                response.sendRedirect("loginCustomer.jsp");
+                break;
+
         }
     }
 

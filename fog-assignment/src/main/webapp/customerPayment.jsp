@@ -20,10 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>    
-    <%--     <% Order order = (Order) request.getAttribute("Order");%>  --%>
-    <% Order order = new Order(); %>
-    <% order.setOrderId(1234); %>
-    <% order.setFinalPrice(1500.0);%>
+        <% Order order = (Order) request.getAttribute("currentOrder");%> 
     <div class="container">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
              <%  if ("Error".equals(request.getAttribute("InvalideAmount"))) { %>
@@ -49,6 +46,7 @@
                     </thead>
                 </table>
                 <form class="form-horizontal" name ="customerPayment" action="orderServlet" method="POST">
+                    <input type="hidden" name="action" value="customerPayment" />
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-8">
                             <input class="form-control" type="text" id="Amount" name="amount" placeholder="Amount to pay" /> 
