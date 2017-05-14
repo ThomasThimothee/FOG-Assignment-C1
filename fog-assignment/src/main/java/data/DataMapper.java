@@ -625,10 +625,12 @@ public class DataMapper {
                     if ("Pointy".equals(carportType)) {
                         Pointy pointy = new Pointy(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11), rs.getDouble(12));
+                        pointy.createPartList();
                         order.setPointy(pointy);
                     } else if ("Flat".equals(carportType)) {
                         Flat flat = new Flat(carportType, rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9),
                                 rs.getDouble(10), rs.getDouble(11));
+                        flat.createPartList();
                         order.setFlat(flat);
                     }
                     order.setStatus(rs.getBoolean(13));

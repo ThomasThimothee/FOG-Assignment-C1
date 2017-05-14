@@ -75,14 +75,8 @@
                         <% if (carport.getType().equals("Pointy")) {
                                 Pointy pointy = (Pointy) carport;%>
                         <p>Angle: <%=pointy.getAngle()%></p>
-                        <% } %>
-                        <h2><strong>Parts needed:</strong></h2>
-                        <%  Iterator partIterator = carport.getPartList().getPartList().iterator();
-                            while (partIterator.hasNext()) {
-                                Part part = (Part) partIterator.next();
-                        %>          <p><%=part.toString() + "\n"%></p>
-                        <% }
-                            if (carport.getType().equals("Flat")) {
+                        <% } 
+                           if (carport.getType().equals("Flat")) {
                                 Flat flat = (Flat) carport;%>
                         <svg viewBox="0, 0, <%=carport.getTotalLength() + 100%>, <%=carport.getCarportWidth() + 100%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">
                         <%=svg.drawFlatTopView(flat)%>
