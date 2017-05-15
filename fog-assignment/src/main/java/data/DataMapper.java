@@ -493,10 +493,10 @@ public class DataMapper {
         }
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws StorageLayerException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws StorageLayerException, WrongCustomerIDException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
+         Customer customer = null;
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
-            Customer customer = null;
             getCustomer.setInt(1, idCustomer);
             try (ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {
@@ -506,7 +506,9 @@ public class DataMapper {
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7));
-
+                    if (customer == null) {
+                        throw new WrongCustomerIDException();
+                    }
                 }
                 return customer;
             }
