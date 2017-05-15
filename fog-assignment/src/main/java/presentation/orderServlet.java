@@ -6,6 +6,7 @@ import business.Order;
 import business.Partlist;
 import business.Pointy;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.StorageLayerException;
 import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
@@ -79,7 +80,7 @@ public class orderServlet extends HttpServlet {
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-                } catch (NullPointerException e) {
+                } catch (NullPointerException | InvalidOrderIdException | StorageLayerException ex) {
                     request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 }

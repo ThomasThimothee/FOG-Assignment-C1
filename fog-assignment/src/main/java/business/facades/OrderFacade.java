@@ -115,11 +115,11 @@ public class OrderFacade {
         return discountRate;
     }
 
-    public static void updateFinalPrice(int orderId) throws InvalidOrderIdException {
+    public static void updateFinalPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         double standardPrice;
         double discountRate;
         double finalPrice;
-        try {
+
             DataMapper dm = new DataMapper();
             standardPrice = getStandardOrderPrice(orderId);
             discountRate = getDiscountRate(orderId) / 100;
@@ -128,8 +128,7 @@ public class OrderFacade {
             finalPrice = Math.round(finalPrice);
             finalPrice = finalPrice / 100;
             dm.setFinalPrice(finalPrice, orderId);
-        } catch (StorageLayerException ex) {
-        }
+
     }
 
     public static double getFinalPrice(int orderId) {
