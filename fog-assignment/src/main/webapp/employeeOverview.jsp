@@ -60,9 +60,9 @@
                         <strong>Warning!</strong> Wrong Customer ID, please try again. 
                     </div>
                     <% } %>
-                    <% if ("IncorrectOrderId".equals(request.getAttribute("Error"))) { %>
+                    <% if ("IncorrectDiscountOrOrderId".equals(request.getAttribute("Error"))) { %>
                     <div class="alert alert-danger">
-                        <strong>Warning!</strong> Wrong Order ID, please try again.
+                        <strong>Warning!</strong> Wrong Order ID or Discount rate, please try again.
                     </div>
                     <%}%>
                     <div class="col-xs-12" style="height:768px; overflow: auto">   

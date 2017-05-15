@@ -9,14 +9,10 @@ import business.Customer;
 import business.Order;
 import business.exceptions.WrongCustomerIDException;
 import business.exceptions.InvalidOrderIdException;
-import business.exceptions.StorageLayerException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,38 +53,43 @@ public class testServlet extends HttpServlet {
                 employeeAddDiscount(request, response);
                 break;
             case "PayOrder":
-                try {
-                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    Order order = OrderFacade.retrieveOrder(idOrder);
-                    if (customer.getId_customer() == order.getCustomerId()) {
-                        request.setAttribute("currentOrder", order);
-                        request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
-                    } else { // if user entered an
-                        request.setAttribute("Error", "IncorrectOrderId");
-                        request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-                    }
-                } catch (InvalidOrderIdException e) {
-                    request.setAttribute("Error", "IncorrectOrderId");
-                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-                }
+                customerPayOrder(request, customer, response);
                 break;
             case "ViewDrawing":
-                try {
-                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    Order order = OrderFacade.retrieveOrder(idOrder);
-                    if (customer.getId_customer() == order.getCustomerId()) {
-                        request.setAttribute("currentOrder", order);
-                        request.getRequestDispatcher("customerDrawing.jsp").forward(request, response);
-                    } else { // if user entered an
-                        request.setAttribute("Error", "IncorrectOrderId");
-                        request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-                    }
-                } catch (InvalidOrderIdException e) {
-                    request.setAttribute("Error", "IncorrectOrderId");
-                    request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-                }
+                customerViewDrawing(request, customer, response);
                 break;
+        }
+    }
 
+    private void customerViewDrawing(HttpServletRequest request, Customer customer, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            Order order = OrderFacade.retrieveOrder(idOrder);
+            if (customer.getId_customer() == order.getCustomerId()) {
+                request.setAttribute("currentOrder", order);
+                request.getRequestDispatcher("customerDrawing.jsp").forward(request, response);
+            } else {
+                throw new InvalidOrderIdException();
+            }
+        } catch (InvalidOrderIdException | NumberFormatException e) {
+            request.setAttribute("Error", "IncorrectOrderId");
+            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+        }
+    }
+
+    private void customerPayOrder(HttpServletRequest request, Customer customer, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            Order order = OrderFacade.retrieveOrder(idOrder);
+            if (customer.getId_customer() == order.getCustomerId()) {
+                request.setAttribute("currentOrder", order);
+                request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
+            } else {
+                throw new InvalidOrderIdException();
+            }
+        } catch (InvalidOrderIdException | NumberFormatException e) {
+            request.setAttribute("Error", "IncorrectOrderId");
+            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
         }
     }
 
@@ -96,11 +97,14 @@ public class testServlet extends HttpServlet {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
             double discountRate = Double.parseDouble(request.getParameter("discountRate"));
+            if (discountRate > 100) {
+                throw new InvalidOrderIdException();
+            }
             OrderFacade.setDiscountRate(discountRate, idOrder);
             OrderFacade.updateFinalPrice(idOrder);
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-        } catch (InvalidOrderIdException e) {
-            request.setAttribute("Error", "IncorrectOrderId");
+        } catch (InvalidOrderIdException | NumberFormatException e) {
+            request.setAttribute("Error", "IncorrectDiscountOrOrderId");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
         }
     }
