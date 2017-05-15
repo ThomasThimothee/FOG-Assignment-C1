@@ -83,7 +83,6 @@ public class UserServlet extends HttpServlet {
         } catch (StorageLayerException e) {
             
         }
-        return;
     }
 
     private void employeeLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,8 +97,9 @@ public class UserServlet extends HttpServlet {
         } catch (InvalidUsernameOrPasswordException e) {
             request.setAttribute("Error", "errorMessageUserNotFound");
             request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
+        } catch (StorageLayerException ex) {
+            
         }
-        return;
     }
 
     private void employeeRegister(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -124,8 +124,9 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("address", request.getParameter("address"));
             request.setAttribute("phone", request.getParameter("phone"));
             request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+            
         }
-        return;
     }
 
     private void customerLogin(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws ServletException, IOException {
@@ -143,7 +144,6 @@ public class UserServlet extends HttpServlet {
         } catch (StorageLayerException ex) {
             
         }
-        return;
     }
 
     private void customerRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -180,7 +180,6 @@ public class UserServlet extends HttpServlet {
         } catch (StorageLayerException e) {
             
         }
-        return;
     }
 
     @Override
