@@ -176,16 +176,11 @@ public class OrderFacade {
         }
         return order;
     }
-    public static ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
-        ArrayList<Orderline> list = new ArrayList<>();
-       try{
-           DataMapper dm = new DataMapper();
-          list = dm.retrievePartlist(idOrder);
-           
-       }catch(StorageLayerException e) {
-           throw new WrongCustomerIDException();
-       }
-       return list;
+    public static ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
+        ArrayList<Orderline> list;
+        DataMapper dm = new DataMapper();
+        list = dm.retrievePartlist(idOrder);  
+        return list;
     }
     public static ArrayList<Order> retrieveCustomerOrders(int id_customer) {
         ArrayList<Order> list = new ArrayList<>();

@@ -54,14 +54,12 @@
         <div class="container">
             <div class="row">
                 <div class="box">
-                   <%  if ("Error".equals(request.getAttribute("WrongCustomerIDException"))) { %>
+                   <%  if ("WrongCustomerIDException".equals(request.getAttribute("Error"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> Wrong Customer ID, please try again. 
                             </div>
                      <% } %>
-                    <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
-                        <table class="table table-striped table-bordered" id="myTable">
                     <div class="col-xs-12" style="height:768px; overflow: auto">   
                         <table class="table" id="myTable">
                             <thead>

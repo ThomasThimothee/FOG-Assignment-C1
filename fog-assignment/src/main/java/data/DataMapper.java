@@ -14,6 +14,7 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
+import business.exceptions.WrongCustomerIDException;
 import business.parts.Part;
 import business.parts.Part.PartType;
 import java.sql.Connection;
@@ -550,11 +551,11 @@ public class DataMapper {
         }
     }
 
-    public ArrayList<Orderline> retrievePartlist(int idOrder) throws StorageLayerException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws StorageLayerException, WrongCustomerIDException {
         String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
         ArrayList<Orderline> list = new ArrayList<>();
+        Orderline orderline = null;
         try (Connection con = new Connector().getConnection(); PreparedStatement getPartlist = con.prepareStatement(getPartlistString)) {
-            Orderline orderline = null;
             getPartlist.setInt(1, idOrder);
             try (ResultSet rs = getPartlist.executeQuery()) {
                 while (rs.next()) {
@@ -564,6 +565,9 @@ public class DataMapper {
                             rs.getString(5),
                             rs.getDouble(6));
                     list.add(orderline);
+                }
+                if (orderline == null) {
+                    throw new WrongCustomerIDException();
                 }
                 return list;
             }

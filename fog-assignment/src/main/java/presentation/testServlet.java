@@ -9,6 +9,7 @@ import business.Customer;
 import business.Order;
 import business.exceptions.WrongCustomerIDException;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.StorageLayerException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
@@ -53,10 +54,10 @@ public class testServlet extends HttpServlet {
                     request.setAttribute("idOrder", idOrder);
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
                 } catch (WrongCustomerIDException e) {
-                    System.out.println(e.getMessage());
-                    request.setAttribute("Error", "WrongCustomerID");
+                    request.setAttribute("Error", "WrongCustomerIDException");
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } catch (StorageLayerException ex) {
+                    System.out.println(ex.getMessage());
                 }
                 break;
             case "ViewCustomerDetails":
@@ -64,13 +65,11 @@ public class testServlet extends HttpServlet {
                    int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
                     CustomerFacade.retrieveCustomerDetails(idCustomer);
                     request.setAttribute("idCustomer", idCustomer);
-                    request.getRequestDispatcher("customerDetails.jsp").forward(request, response);
-                    
+                    request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
                 } catch (WrongCustomerIDException ex) {
                     System.out.println(ex.getMessage()); 
                     request.setAttribute("Error", "WrongCustomerIDException");
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                    request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
                 } catch (NullPointerException e) {
                     System.out.println(e.getMessage());
                     request.getRequestDispatcher("index.jsp").forward(request, response);
