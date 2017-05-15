@@ -603,7 +603,6 @@ public class DataMapper {
                     order.setDiscount(rs.getDouble(14));
                     order.setStandardPrice(rs.getDouble(15));
                     order.setFinalPrice(rs.getDouble(16));
-
                     list.add(order);
                 }
             }

@@ -10,7 +10,7 @@ import business.parts.Wood;
  * @author mathiasjepsen
  */
 public class Pointy extends Carport {
-    
+
     private double angle;
 
     Wood woodA, woodB, woodC, woodD, woodE, woodF, woodG, woodH, woodI, woodJ, woodK, woodL, woodM, woodN, woodO, woodP;
@@ -18,8 +18,8 @@ public class Pointy extends Carport {
     Screw screwA, screwB, screwC, screwD, screwE, screwF, screwG, screwH, screwI, screwJ, screwK, screwL, screwM, screwN;
 
     int qWoodA, qWoodB, qWoodC, qWoodD, qWoodE, qWoodF, qWoodG, qWoodH, qWoodI, qWoodJ, qWoodK, qWoodL, qWoodM, qWoodN, qWoodO, qWoodP,
-        qTileA, qTileB, qTileC, qTileD, qTileE,
-        qScrewA, qScrewB, qScrewC, qScrewD, qScrewE, qScrewF, qScrewG, qScrewH, qScrewI, qScrewJ, qScrewK, qScrewL, qScrewM, qScrewN;
+            qTileA, qTileB, qTileC, qTileD, qTileE,
+            qScrewA, qScrewB, qScrewC, qScrewD, qScrewE, qScrewF, qScrewG, qScrewH, qScrewI, qScrewJ, qScrewK, qScrewL, qScrewM, qScrewN;
 
     double lengthWoodA, lengthWoodB, lengthWoodC, lengthWoodD, lengthWoodE, lengthWoodF, lengthWoodG, lengthWoodH, lengthWoodI, lengthWoodJ, lengthWoodK, lengthWoodL, lengthWoodM, lengthWoodN, lengthWoodO, lengthWoodP;
 
@@ -271,12 +271,12 @@ public class Pointy extends Carport {
 
         // B
         qTileB = 21;
-        tileB = new Tile(Part.PartType.TILE, qTileB, "stk.",  0, "B&C Rygsten sort", "monteres pa toplaegte med medfolgende beslag. Se tagsten vejledning");
+        tileB = new Tile(Part.PartType.TILE, qTileB, "stk.", 0, "B&C Rygsten sort", "monteres pa toplaegte med medfolgende beslag. Se tagsten vejledning");
         super.partList.getPartList().add(tileB);
 
         // C
         qTileC = 8;
-        tileC = new Tile(Part.PartType.TILE, qTileC, "stk.",  0, "B&C Toplaegte holder", "monteres pa toppen af spaeret (til toplaegte)");
+        tileC = new Tile(Part.PartType.TILE, qTileC, "stk.", 0, "B&C Toplaegte holder", "monteres pa toppen af spaeret (til toplaegte)");
         super.partList.getPartList().add(tileC);
 
         // D
@@ -286,7 +286,7 @@ public class Pointy extends Carport {
 
         // E
         qTileE = 2;
-        tileE = new Tile(Part.PartType.TILE, qTileE, "pakke",  0, "B&C Tagstensbindere & nakkekroge", "til montering af tagsten, alle ydersten + hver anden fastgores");
+        tileE = new Tile(Part.PartType.TILE, qTileE, "pakke", 0, "B&C Tagstensbindere & nakkekroge", "til montering af tagsten, alle ydersten + hver anden fastgores");
         super.partList.getPartList().add(tileE);
 
         // Beslag & Skruer        
@@ -360,5 +360,4 @@ public class Pointy extends Carport {
     public void setAngle(double angle) {
         this.angle = angle;
     }
-
 }

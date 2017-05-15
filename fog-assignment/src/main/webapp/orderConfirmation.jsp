@@ -44,16 +44,10 @@
                         <p>Carport Length: <%=carport.getCarportLength()%></p>
                         <p>Shed Width: <%=carport.getShedWidth()%></p>
                         <p>Shed Length: <%=carport.getShedLength()%></p>
-                        <% if (carport.getType().equals("Pointy")) {
+                        <%  if (carport.getType().equals("Pointy")) {
                                 Pointy pointy = (Pointy) carport; %>
                                 <p>Angle: <%=pointy.getAngle()%></p>
-                        <% } %>
-                        <h2><strong>Parts needed:</strong></h2>
-                        <%  Iterator partIterator = carport.getPartList().getPartList().iterator();
-                                while (partIterator.hasNext()) { 
-                                    Part part = (Part) partIterator.next();
-                        %>          <p><%=part.toString() + "\n"%></p>
-                                <% } 
+                        <%  } 
                             if (carport.getType().equals("Flat")) { 
                                 Flat flat = (Flat) carport; %>
                                 <svg viewBox="0, 0, <%=carport.getTotalLength() + 100%>, <%=carport.getCarportWidth() + 100%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">

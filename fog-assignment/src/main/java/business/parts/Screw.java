@@ -15,14 +15,10 @@ public class Screw extends Part {
 
     @Override
     public String toString() {
-        if /*(length == 0 && width == 0 && depth == 0) {
+        if (length == 0) {
             return quantity + "x " + unit + " " + name + "   -   " + description + ".\n";
-        } else if (width == 0 && depth == 0) {
-            return quantity + "x " + unit + " " + String.format("%.0f" , length) + " mm. " + name + "   -   " + description + ".\n";
-        } else if */(length == 0) {
-            return quantity + "x " + unit + " " + /*String.format("%.1f" , width) + "x" + String.format("%.0f" , depth) + " mm. " +*/ name + "   -   " + description + ".\n";
         } else {
-            return quantity + "x " + unit + " " + /*String.format("%.0f" , width) + "x" + String.format("%.0f" , depth) + */"x" + String.format("%.0f" , length) + " mm. " + name + "   -   " + description + ".\n"; 
+            return quantity + "x " + unit + " " + "x" + String.format("%.0f" , length) + " mm. " + name + "   -   " + description + ".\n"; 
         }
     }
 

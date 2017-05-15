@@ -7,6 +7,12 @@ package business;
 public class Employee {
 
     private int employeeId;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String email;
 
     public Employee(String username, String password, String firstName, String lastName, String phone, String email) {
         this.username = username;
@@ -72,11 +78,4 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
-    int id_employee;
-    String username;
-    String password;
-    String firstName;
-    String lastName;
-    String phone;
-    String email;
 }

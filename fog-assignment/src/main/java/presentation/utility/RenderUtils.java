@@ -5,7 +5,6 @@ import business.Order;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author mathiasjepsen
@@ -120,7 +119,6 @@ public class RenderUtils {
                 }
         return s;
     }
-
     
     public String createFormRows(Customer customer) {
         String  s = "";
@@ -139,10 +137,23 @@ public class RenderUtils {
         return s;
     }
     
-    public String employeeOverviewTest(List<Order> orders) {
+    public String createEmployeeOverviewTable(List<Order> orders) {
         String  s = "";
         for (Order order : orders) {
-            ArrayList<String> orderFields = order.createVariableArray(order);
+            ArrayList<String> orderFields = order.createEmployeeVariableArray(order);
+            s += "<tr>";
+                for (String field : orderFields) {
+            s +=    "<td>" + field + "</td>";
+                }
+            s += "</tr>";
+        }
+        return s;
+    }
+    
+    public String createCustomerOverviewTable(List<Order> orders) {
+        String  s = "";
+        for (Order order : orders) {
+            ArrayList<String> orderFields = order.createCustomerVariableArray(order);
             s += "<tr>";
                 for (String field : orderFields) {
             s +=    "<td>" + field + "</td>";
@@ -173,6 +184,4 @@ public class RenderUtils {
                     }
         return s;
     }
-                         
-
 }

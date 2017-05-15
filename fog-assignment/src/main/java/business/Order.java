@@ -19,7 +19,7 @@ public class Order {
     private double standardPrice;
     private double finalPrice;
     
-    public ArrayList<String> createVariableArray(Order order) {
+    public ArrayList<String> createEmployeeVariableArray(Order order) {
         ArrayList<String> array = new ArrayList<>();
         array.add(String.valueOf(order.getOrderId()));
         array.add(String.valueOf(order.getCustomerId()));
@@ -32,7 +32,17 @@ public class Order {
         array.add(String.valueOf(order.getFinalPrice()));
         return array;
     }
-    
+        
+    public ArrayList<String> createCustomerVariableArray(Order order) {
+        ArrayList<String> array = new ArrayList<>();
+        array.add(String.valueOf(order.getOrderId()));
+        array.add(String.valueOf(order.getSalesRepId()));
+        String newDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getDate());        
+        array.add(newDate);
+        array.add(String.valueOf(order.isStatus()));
+        array.add(String.valueOf(order.getFinalPrice()));
+        return array;
+    }
     
     public int getOrderId() {
         return orderId;
@@ -114,5 +124,4 @@ public class Order {
     public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
-
 }
