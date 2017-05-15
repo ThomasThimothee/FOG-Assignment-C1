@@ -21,8 +21,5 @@ public class Partlist {
 
     public void setPartList(List<Part> partList) {
         this.partList = partList;
-    }
-
-    
-    
+    }  
 }

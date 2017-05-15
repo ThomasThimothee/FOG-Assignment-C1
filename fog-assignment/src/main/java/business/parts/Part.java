@@ -96,5 +96,4 @@ public class Part {
 
         return price;
     }
-
 }

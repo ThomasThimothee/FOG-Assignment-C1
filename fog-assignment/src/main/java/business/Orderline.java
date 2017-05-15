@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 /**
@@ -10,12 +5,21 @@ package business;
  * @author Lovro
  */
 public class Orderline {
+
     private int idOrder;
     private String partName;
     private int length;
     private int quantity;
     private String explanation;
     private double price;
+   
+    public Orderline(String partName, int length, int quantity, String explanation, double price) {
+        this.partName = partName;
+        this.length = length;
+        this.quantity = quantity;
+        this.explanation = explanation;
+        this.price = price;
+    }
 
     public int getIdOrder() {
         return idOrder;
@@ -64,20 +68,13 @@ public class Orderline {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public Orderline(String partName, int length, int quantity, String explanation, double price) {
-        this.partName = partName;
-        this.length = length;
-        this.quantity = quantity;
-        this.explanation = explanation;
-        this.price = price;
-    }
+    
     @Override
-public String toString() {
-    return "Part Name: " + this.getPartName()+ 
-           ", Length: " + this.getLength() +
-            ", quantity: " + this.getQuantity() +
-            ", explanation: " + this.getExplanation()+
-            ", price: " + this.getPrice();
-}
+    public String toString() {
+        return "Part Name: " + this.getPartName()
+                + ", Length: " + this.getLength()
+                + ", quantity: " + this.getQuantity()
+                + ", explanation: " + this.getExplanation()
+                + ", price: " + this.getPrice();
+    }
 }
