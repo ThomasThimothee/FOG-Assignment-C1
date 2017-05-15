@@ -106,7 +106,7 @@ public class testServlet extends HttpServlet {
         } catch (InvalidOrderIdException | NumberFormatException e) {
             request.setAttribute("Error", "IncorrectDiscountOrOrderId");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-        }
+        } 
     }
 
     private void employeeViewCustomerDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

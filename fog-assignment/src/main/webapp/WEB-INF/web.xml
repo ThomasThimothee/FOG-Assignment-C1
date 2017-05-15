@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>orderServlet</servlet-name>
-        <servlet-class>presentation.orderServlet</servlet-class>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>presentation.OrderServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>presentation.userServlet</servlet-class>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>presentation.UserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>testServlet</servlet-name>
@@ -17,12 +17,12 @@
         <servlet-class>presentation.IndexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>orderServlet</servlet-name>
+        <servlet-name>OrderServlet</servlet-name>
         <url-pattern>/orderServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/userServlet</url-pattern>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>testServlet</servlet-name>

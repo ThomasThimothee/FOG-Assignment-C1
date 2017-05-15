@@ -49,7 +49,7 @@
                     <hr>
                     <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
                     <hr>
-                    <form class="form-horizontal" name ="EmployeeRegistrationForm" action="userServlet" method="POST">
+                    <form class="form-horizontal" name ="EmployeeRegistrationForm" action="UserServlet" method="POST">
                         <input type="hidden" name="formName" value="EmployeeRegistrationForm" />
                             <div class="form-group">
                                 <div class="col-xs-offset-2 col-xs-8">
