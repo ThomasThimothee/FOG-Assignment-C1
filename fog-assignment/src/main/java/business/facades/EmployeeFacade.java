@@ -5,7 +5,6 @@ import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import data.DataMapper;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
