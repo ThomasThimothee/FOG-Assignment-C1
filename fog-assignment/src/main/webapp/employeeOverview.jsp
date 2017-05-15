@@ -47,19 +47,24 @@
         <div class="brand">FOG</div>
         <!--        <   !-- Navigation -->
         <%  String[] navBarItems = {"Orders, employeeOverview.jsp",
-                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                    "Logout, index.jsp"};
+                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                "Logout, index.jsp"};
         %>
         <%=render.createNavBar(navBarItems)%>
         <div class="container">
             <div class="row">
                 <div class="box">
-                   <%  if ("WrongCustomerIDException".equals(request.getAttribute("Error"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> Wrong Customer ID, please try again. 
-                            </div>
-                     <% } %>
+                    <%  if ("WrongCustomerIDException".equals(request.getAttribute("Error"))) { %>
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Warning!</strong> Wrong Customer ID, please try again. 
+                    </div>
+                    <% } %>
+                    <% if ("IncorrectDiscountOrOrderId".equals(request.getAttribute("Error"))) { %>
+                    <div class="alert alert-danger">
+                        <strong>Warning!</strong> Wrong Order ID or Discount rate, please try again.
+                    </div>
+                    <%}%>
                     <div class="col-xs-12" style="height:768px; overflow: auto">   
                         <table class="table" id="myTable">
                             <thead>
@@ -87,9 +92,9 @@
                                     <div class="col-xs-5">
                                         <input type="text" name="discountRate" class="form-control" placeholder="Discount rate in %"> 
                                     </div>
-                                        <div class="col-xs-5">
-                                            <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                                        </div>
+                                    <div class="col-xs-5">
+                                        <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
+                                    </div>
                                     <div class="col-xs-2">
                                         <button type="submit" name="discount" class="btn btn-success">Add discount</button>
                                     </div>
@@ -105,7 +110,7 @@
                                     <div class="col-xs-10">
                                         <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                     </div>
- 
+
                                     <div class="col-xs-2"> 
                                         <button type="submit" name="partlist" class="btn btn-success ">View partlist</button>
                                     </div>  

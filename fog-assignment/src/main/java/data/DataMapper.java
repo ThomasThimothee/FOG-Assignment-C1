@@ -285,7 +285,7 @@ public class DataMapper {
         }
     }
 
-    public void setDiscountRate(double rate, int orderId) throws StorageLayerException {
+    public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
             con.setAutoCommit(false);
@@ -298,7 +298,7 @@ public class DataMapper {
                 con.rollback();
             }
         } catch (SQLException ex) {
-            throw new StorageLayerException();
+            throw new InvalidOrderIdException();
         }
     }
 
@@ -352,7 +352,7 @@ public class DataMapper {
         }
     }
 
-    public double retrieveStandardOrderPrice(int orderId) throws StorageLayerException {
+    public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
             double standardPrice = 0;
@@ -361,10 +361,13 @@ public class DataMapper {
                 if (rs.next()) {
                     standardPrice = rs.getDouble(1);
                 }
+                if (standardPrice == 0){
+                    throw new InvalidOrderIdException();
+                }
                 return standardPrice;
             }
         } catch (SQLException ex) {
-            throw new StorageLayerException();
+            throw new InvalidOrderIdException();
         }
     }
 
@@ -493,9 +496,9 @@ public class DataMapper {
         }
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws StorageLayerException, WrongCustomerIDException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
-         Customer customer = null;
+        Customer customer = null;
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
             getCustomer.setInt(1, idCustomer);
             try (ResultSet rs = getCustomer.executeQuery()) {
@@ -506,14 +509,14 @@ public class DataMapper {
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7));
-                    if (customer == null) {
-                        throw new WrongCustomerIDException();
-                    }
+                }
+                if (customer == null) {
+                    throw new WrongCustomerIDException();
                 }
                 return customer;
             }
         } catch (SQLException ex) {
-            throw new StorageLayerException();
+            throw new WrongCustomerIDException();
         }
     }
 
@@ -553,7 +556,7 @@ public class DataMapper {
         }
     }
 
-    public ArrayList<Orderline> retrievePartlist(int idOrder) throws StorageLayerException, WrongCustomerIDException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
         String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
         ArrayList<Orderline> list = new ArrayList<>();
         Orderline orderline = null;
@@ -574,7 +577,7 @@ public class DataMapper {
                 return list;
             }
         } catch (SQLException ex) {
-            throw new StorageLayerException();
+            throw new WrongCustomerIDException();
         }
     }
 
