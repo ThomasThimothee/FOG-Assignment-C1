@@ -643,8 +643,11 @@ public class DataMapper {
                     order.setFinalPrice(rs.getDouble(16));
                 }
             }
+            if (order == null) {
+                throw new InvalidOrderIdException();
+            }
             return order;
-        }catch (NullPointerException | SQLException ex) {
+        } catch (SQLException ex) {
             throw new InvalidOrderIdException();
         }
     }
