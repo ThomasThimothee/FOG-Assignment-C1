@@ -41,6 +41,9 @@
     <div class="container">
         <div class="row">
             <div class="box">
+                <hr>
+                <h2 class="intro-text text-center">Order <strong>Partlist</strong></h2>
+                <hr>
                 <div class="col-lg-12">  
                     <table border="1" width="100%"style="overflow: auto" >
                         <thead>

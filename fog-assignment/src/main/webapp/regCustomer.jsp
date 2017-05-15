@@ -59,7 +59,7 @@
                                 </div>
                         <%  } %>
                         <hr>
-                        <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
+                        <h1 class="intro-text text-center">SIGN UP <strong>FORM</strong></h1>                       
                         <hr>
                     <form class="form-horizontal" name ="CustomerRegistrationForm" action="UserServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerRegistrationForm" />

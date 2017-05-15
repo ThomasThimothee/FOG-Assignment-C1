@@ -24,10 +24,8 @@
 <body>
     <div class="brand">FOG</div>
     <% RenderUtils render = new RenderUtils(); %>
-    <%  String[] navBarItems = {"Home, index.jsp", 
-                                "Log in, loginEmployee.jsp",
-                                "Sign up, regCustomer.jsp",
-                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+    <%  String[] navBarItems = {"Log in, loginEmployee.jsp",
+                                "Sign up, regCustomer.jsp"};
     %>
     <%=render.createNavBar(navBarItems)%>
     <div class="container">
@@ -47,7 +45,7 @@
                             </div>
                     <%  } %>
                     <hr>
-                    <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
+                    <h1 class="intro-text text-center">SIGN UP <strong>FORM</strong></h1>
                     <hr>
                     <form class="form-horizontal" name ="EmployeeRegistrationForm" action="UserServlet" method="POST">
                         <input type="hidden" name="formName" value="EmployeeRegistrationForm" />

@@ -57,6 +57,9 @@
                         <strong>Whoops</strong> You've entered wrong order ID!
                     </div>
                     <%}%>
+                    <hr>
+                    <h2 class="intro-text text-center">Customer <strong>Orders</strong></h2>
+                    <hr>
                     <table class="table" id="myTable">
                         <thead>
                             <tr>

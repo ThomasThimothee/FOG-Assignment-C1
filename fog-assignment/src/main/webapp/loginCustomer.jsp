@@ -41,8 +41,7 @@
                     <%}%>
 
                 <hr>
-                <h2 class="intro-text text-center">Login
-                    <strong>form</strong>
+                <h2 class="intro-text text-center">Login <strong>form</strong>
                 </h2>
                 <hr>
                     <form class="form-horizontal" name ="CustomerLoginForm" action="UserServlet" method="POST">

@@ -33,13 +33,13 @@
     %>
     <div class="container">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
-             <%  if ("Error".equals(request.getAttribute("InvalideAmount"))) { %>
+            <div class="box">
+                <%  if ("Error".equals(request.getAttribute("InvalideAmount"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> Invalid amount, make sure you pay the exact price!. 
                             </div>
-                    <%  } %>
-            <div class="box">
+                <%  } %>
                 <hr>
                 <h2 class="intro-text text-center">Customer <strong>Payment</strong></h2>
                 <hr>

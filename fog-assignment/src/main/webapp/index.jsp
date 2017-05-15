@@ -37,23 +37,14 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
-                    <div class="dropdown btn-group">
-                        <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Employee
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <form  name ="Action" action="IndexServlet" method="POST">
-                                <input type="hidden" name="formName" value="loginEmployee" />
-                                <li><button type="submit" class="btn btn-default btn-lg dropdown-item">Log in</button></li>
-                            </form>
-                            <form name ="Action" action="IndexServlet" method="POST">
-                                <input type="hidden" name="formName" value="regEmployee" />
-                                <li><button type="submit" class="btn btn-default btn-lg dropdown-item">Register</button></li>
-                            </form>
-                        </ul>
+                <form  name ="Action" action="IndexServlet" method="POST">
+                    <input type="hidden" name="formName" value="employee" />
+                    <div class="row">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default btn-lg" style="margin-bottom: 20px">Employee</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

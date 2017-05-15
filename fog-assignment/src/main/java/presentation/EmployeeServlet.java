@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentation;
 
-import business.Customer;
 import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
-import data.DataMapper;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

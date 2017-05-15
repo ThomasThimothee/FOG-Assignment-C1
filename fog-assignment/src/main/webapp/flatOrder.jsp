@@ -64,6 +64,9 @@
                                 <strong>Warning!</strong> You are not logged in. You will not be able to make an order. 
                             </div>
                    <% } %>
+                    <hr>
+                    <h2 class="intro-text text-center">Build <strong>Flat Carport</strong></h2>
+                    <hr>
                    <div class="row">
                        <div class="col-xs-offset-2 col-xs-8">
                            <p class="text-warning">The shed's dimensions need to be at least 30 cm. less in both width and length compared to the carport's dimensions</p>

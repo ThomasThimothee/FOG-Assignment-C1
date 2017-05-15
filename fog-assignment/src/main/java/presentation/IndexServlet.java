@@ -34,15 +34,12 @@ public class IndexServlet extends HttpServlet {
             case "customer":
                 request.getRequestDispatcher("notLoggedInHome.jsp").forward(request, response);   
                 break;
-            case "loginEmployee":
+            case "employee":
                 request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);   
                 break;
-                case "regEmployee":
-                request.getRequestDispatcher("regEmployee.jsp").forward(request, response);   
-                break;
-                default:
-                    request.getRequestDispatcher("index.jsp").forward(request, response); 
-                    break;                                                
+            default:
+                request.getRequestDispatcher("index.jsp").forward(request, response); 
+                break;                                                
         }
     }
 

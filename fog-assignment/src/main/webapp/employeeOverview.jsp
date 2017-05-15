@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Employee Log-in</title>
+    <title>Employee Overview</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -59,6 +59,9 @@
                     <strong>Warning!</strong> Wrong Order ID or Discount rate, please try again.
                 </div>
                 <%}%>
+                <hr>
+                <h2 class="intro-text text-center">Employee <strong>Overview</strong></h2>
+                <hr>
                 <div class="col-xs-12" style="height:768px; overflow: auto">   
                     <table class="table" id="myTable">
                         <thead>

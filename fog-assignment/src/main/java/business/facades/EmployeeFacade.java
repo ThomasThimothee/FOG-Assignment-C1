@@ -4,7 +4,7 @@ import business.Employee;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
-import data.DataMapper;
+import data.EmployeeMapper;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,20 +15,20 @@ import java.util.Random;
 public class EmployeeFacade {
 
     public static Employee getEmployee(String username, String password) throws InvalidUsernameOrPasswordException, StorageLayerException {
-        DataMapper dm = new DataMapper();
-        return dm.employeeLogin(username, password);
+        EmployeeMapper em = new EmployeeMapper();
+        return em.employeeLogin(username, password);
     }
 
     public static void createEmployee(String username, String password, String fistName, String lastName, String phone, String email) throws InvalidUsernameOrPasswordException, InsecurePasswordException, StorageLayerException {
-        DataMapper dm = new DataMapper();
-        dm.employeeSignup(username, password, fistName, lastName, phone, email);
+        EmployeeMapper em = new EmployeeMapper();
+        em.employeeSignup(username, password, fistName, lastName, phone, email);
     }
 
     public static int getRandomEmployeeId() throws StorageLayerException {
         ArrayList<Employee> employeesList;
         int randomIndex;
-        DataMapper dm = new DataMapper();
-        employeesList = dm.retrieveAllEmployees();
+        EmployeeMapper em = new EmployeeMapper();
+        employeesList = em.retrieveAllEmployees();
         Random r = new Random();
         randomIndex = r.nextInt(employeesList.size());
         return employeesList.get(randomIndex).getEmployeeId();

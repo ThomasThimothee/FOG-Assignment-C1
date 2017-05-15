@@ -66,7 +66,8 @@
             <div class="col-xs-offset-1 col-xs-10">
                 <div class="box">
                     <hr>
-                    <h1 class="intro-text text-center">Order</h1>     
+                    <h2 class="intro-text text-center">Order <strong>Illustration</strong></h2>
+                    <hr>    
                     <p>Carport Width: <%=carport.getCarportWidth()%></p>
                     <p>Carport Length: <%=carport.getCarportLength()%></p>
                     <p>Shed Width: <%=carport.getShedWidth()%></p>

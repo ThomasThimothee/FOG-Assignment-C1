@@ -49,6 +49,9 @@
                             <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
                         </div>
                         <%  } %>
+                        <hr>
+                        <h2 class="intro-text text-center">Build <strong>Pointy Carport</strong></h2>
+                        <hr>
                         <div class="row">
                             <div class="col-xs-offset-2 col-xs-8">
                                 <p class="text-warning">The shed's dimensions need to be at least 30 cm. less in both width and length compared to the carport's dimensions</p>

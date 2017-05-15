@@ -156,10 +156,6 @@ public class UserServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             CustomerFacade.createCustomer(email, password, firstName, lastName, address, phone);
             request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
-        } catch (InvalidUsernameOrPasswordException e) {
-            System.out.println(e.getMessage());
-            request.setAttribute("Error", "errorMessageEmailExists");
-            request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
         } catch (InsecurePasswordException ex) {
             System.out.println(ex.getMessage());
             request.setAttribute("Error", "InsecurePasswordException");
