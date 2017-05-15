@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
             <div class="box">
-                <% if ("Error".equals(request.getAttribute("errorMessageUserNotFound"))) { %>
+                <% if ("errorMessageUserNotFound".equals(request.getAttribute("Error"))) { %>
                 <div class="alert alert-danger">
                     <strong>Whoops</strong> You've entered wrong email &/or password!
                 </div>
