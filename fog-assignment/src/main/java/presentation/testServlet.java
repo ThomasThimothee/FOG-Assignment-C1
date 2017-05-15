@@ -48,42 +48,13 @@ public class testServlet extends HttpServlet {
         String formName = request.getParameter("formName");
         switch (formName) {
             case "ViewPartlist":
-                try {
-                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    OrderFacade.retrievePartlist(idOrder);
-                    request.setAttribute("idOrder", idOrder);
-                    request.getRequestDispatcher("partList.jsp").forward(request, response);
-                } catch (WrongCustomerIDException e) {
-                    request.setAttribute("Error", "WrongCustomerIDException");
-                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                } catch (StorageLayerException ex) {
-                    System.out.println(ex.getMessage());
-                }
+                employeeViewPartlist(request, response);
                 break;
             case "ViewCustomerDetails":
-                try {
-                    int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
-                    CustomerFacade.retrieveCustomerDetails(idCustomer);
-                    request.setAttribute("idCustomer", idCustomer);
-                    request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
-                } catch (WrongCustomerIDException e) {
-                    request.setAttribute("Error", "WrongCustomerIDException");
-                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                } catch (StorageLayerException e) {
-                    System.out.println(e.getMessage());
-                }
+                employeeViewCustomerDetails(request, response);
                 break;
             case "AddDiscount":
-                try {
-                    int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-                    double discountRate = Double.parseDouble(request.getParameter("discountRate"));
-                    OrderFacade.setDiscountRate(discountRate, idOrder);
-                    OrderFacade.updateFinalPrice(idOrder);
-                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                } catch (NullPointerException e) {
-                    System.out.println(e.getMessage());
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
+                employeeAddDiscount(request, response);
                 break;
             case "PayOrder":
                 try {
@@ -118,6 +89,43 @@ public class testServlet extends HttpServlet {
                 }
                 break;
 
+        }
+    }
+
+    private void employeeAddDiscount(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
+        try {
+            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            double discountRate = Double.parseDouble(request.getParameter("discountRate"));
+            OrderFacade.setDiscountRate(discountRate, idOrder);
+            OrderFacade.updateFinalPrice(idOrder);
+            request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+        } catch (InvalidOrderIdException e) {
+            request.setAttribute("Error", "IncorrectOrderId");
+            request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+        }
+    }
+
+    private void employeeViewCustomerDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+            CustomerFacade.retrieveCustomerDetails(idCustomer);
+            request.setAttribute("idCustomer", idCustomer);
+            request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
+        } catch (WrongCustomerIDException | NumberFormatException e) {
+            request.setAttribute("Error", "WrongCustomerIDException");
+            request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+        }
+    }
+
+    private void employeeViewPartlist(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
+        try {
+            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            OrderFacade.retrievePartlist(idOrder);
+            request.setAttribute("idOrder", idOrder);
+            request.getRequestDispatcher("partList.jsp").forward(request, response);
+        } catch (WrongCustomerIDException | NumberFormatException e) {
+            request.setAttribute("Error", "WrongCustomerIDException");
+            request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
         }
     }
 

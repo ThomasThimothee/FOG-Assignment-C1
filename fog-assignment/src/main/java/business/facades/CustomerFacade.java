@@ -53,7 +53,7 @@ public class CustomerFacade {
         }
     }
 
-    public static Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
+    public static Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
         Customer customer;
         DataMapper dm = new DataMapper();
         customer = dm.retrieveCustomerDetails(idCustomer);
