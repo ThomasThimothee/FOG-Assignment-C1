@@ -9,6 +9,7 @@ import business.Customer;
 import business.Order;
 import business.exceptions.WrongCustomerIDException;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.StorageLayerException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
@@ -103,7 +104,7 @@ public class testServlet extends HttpServlet {
             OrderFacade.setDiscountRate(discountRate, idOrder);
             OrderFacade.updateFinalPrice(idOrder);
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-        } catch (InvalidOrderIdException | NumberFormatException e) {
+        } catch (InvalidOrderIdException | NumberFormatException | StorageLayerException e) {
             request.setAttribute("Error", "IncorrectDiscountOrOrderId");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
         }
