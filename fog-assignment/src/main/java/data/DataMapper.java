@@ -605,7 +605,6 @@ public class DataMapper {
                     order.setDiscount(rs.getDouble(14));
                     order.setStandardPrice(rs.getDouble(15));
                     order.setFinalPrice(rs.getDouble(16));
-
                     list.add(order);
                 }
             }
@@ -645,8 +644,11 @@ public class DataMapper {
                     order.setFinalPrice(rs.getDouble(16));
                 }
             }
+            if (order == null) {
+                throw new InvalidOrderIdException();
+            }
             return order;
-        } catch (NullPointerException | SQLException ex) {
+        } catch (SQLException ex) {
             throw new InvalidOrderIdException();
         }
     }

@@ -96,7 +96,7 @@ public class testServlet extends HttpServlet {
                         request.setAttribute("Error", "IncorrectOrderId");
                         request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                     }
-                } catch (InvalidOrderIdException | NullPointerException e) {
+                } catch (InvalidOrderIdException e) {
                     request.setAttribute("Error", "IncorrectOrderId");
                     request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                 }
@@ -112,7 +112,7 @@ public class testServlet extends HttpServlet {
                         request.setAttribute("Error", "IncorrectOrderId");
                         request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                     }
-                } catch (InvalidOrderIdException | NullPointerException e) {
+                } catch (InvalidOrderIdException e) {
                     request.setAttribute("Error", "IncorrectOrderId");
                     request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                 }

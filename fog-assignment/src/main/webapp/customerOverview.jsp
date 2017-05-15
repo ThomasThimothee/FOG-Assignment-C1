@@ -63,17 +63,14 @@
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
-                                    <th>Customer ID</th>
                                     <th>Sales Rep ID</th>
                                     <th>Order date</th>
-                                    <th>Status</th>
-                                    <th>Discount Rate</th>
-                                    <th>Standard Price</th>
+                                    <th>Paid</th>
                                     <th>Final Price</th>                                 
                                 </tr>
                             </thead>
                             <tbody>
-                                <%=render.employeeOverviewTest(list)%>
+                                <%=render.createCustomerOverviewTable(list)%>
                             </tbody>
                         </table>
                     </div>

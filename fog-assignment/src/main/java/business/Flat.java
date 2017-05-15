@@ -71,7 +71,7 @@ public class Flat extends Carport {
             qWoodB = 6;
             lengthWoodB = 540;
         }
-        woodB = new Wood(PartType.WOOD, qWoodB,  lengthWoodB, "25x200 mm. trykimp. Braet", "understernbraedder til siderne");
+        woodB = new Wood(PartType.WOOD, qWoodB, lengthWoodB, "25x200 mm. trykimp. Braet", "understernbraedder til siderne");
         super.partList.getPartList().add(woodB);
 
         // C
@@ -166,7 +166,7 @@ public class Flat extends Carport {
             qWoodG = 8;
             lengthWoodG = 360;
         }
-        woodG = new Wood(PartType.WOOD, 8,  360, "45x95 mm. ubh. Reglar", "losholter til skur sider");
+        woodG = new Wood(PartType.WOOD, 8, 360, "45x95 mm. ubh. Reglar", "losholter til skur sider");
         super.partList.getPartList().add(woodG);
 
         // H
@@ -206,7 +206,7 @@ public class Flat extends Carport {
             qWoodI = 4;
             lengthWoodI = 480;
         }
-        woodI = new Wood(PartType.WOOD, qWoodI,  lengthWoodI, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper (skur del, deles)");
+        woodI = new Wood(PartType.WOOD, qWoodI, lengthWoodI, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper (skur del, deles)");
         super.partList.getPartList().add(woodI);
 
         // J
@@ -221,7 +221,7 @@ public class Flat extends Carport {
                     lengthWoodJ = 480;
                     qWoodJ = qWoodJ * 2;
                 }
-                woodJ = new Wood(PartType.WOOD, qWoodJ,  lengthWoodJ, "45x195 mm. ubh. Spaertrae", "spaer. monteres pa rem");
+                woodJ = new Wood(PartType.WOOD, qWoodJ, lengthWoodJ, "45x195 mm. ubh. Spaertrae", "spaer. monteres pa rem");
                 super.partList.getPartList().add(woodJ);
                 break;
             default:
@@ -232,7 +232,7 @@ public class Flat extends Carport {
 
         // K
         qWoodK = 11;
-        lengthWoodK = 300;        
+        lengthWoodK = 300;
         woodK = new Wood(PartType.WOOD, qWoodK, lengthWoodK, "97x97 mm. trykimp. Stolpe", "stolper nedgraves 90 cm. i jord");
         super.partList.getPartList().add(woodK);
 
@@ -272,7 +272,7 @@ public class Flat extends Carport {
         } else {
             woodM = new Wood(PartType.WOOD, 0, 0, "UNINITIALIZED", "");
         }
-        woodM = new Wood(PartType.WOOD, qWoodM,  lengthWoodM, "19x100 mm. trykimp. Braet", "vandbraet pa stern i sider");
+        woodM = new Wood(PartType.WOOD, qWoodM, lengthWoodM, "19x100 mm. trykimp. Braet", "vandbraet pa stern i sider");
         super.partList.getPartList().add(woodM);
 
         // N
@@ -293,7 +293,7 @@ public class Flat extends Carport {
         super.partList.getPartList().add(woodN);
 
         // O (tile but saved as wood for the price method and saved as wood in example)
-        qTileA = 6;        
+        qTileA = 6;
         tileA = new Tile(PartType.WOOD, qTileA, "stk.", 600, roofType, "tagplader monteres pa spaer");
         super.partList.getPartList().add(tileA);
 
@@ -315,7 +315,7 @@ public class Flat extends Carport {
 
         // C
         qScrewC = 15;
-        screwC = new Screw(PartType.SCREW, qScrewC, "stk.",  190, "universal hojre", "til montering af spaer pa rem");
+        screwC = new Screw(PartType.SCREW, qScrewC, "stk.", 190, "universal hojre", "til montering af spaer pa rem");
         super.partList.getPartList().add(screwC);
 
         // D

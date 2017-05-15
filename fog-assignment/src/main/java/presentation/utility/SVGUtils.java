@@ -28,6 +28,89 @@ public class SVGUtils {
         return " <rect x=\"" + x + "\" y=\"" + y + "\" width=\"" + width + "\" height=\"" + height + "\" style=\"fill:white;stroke:black;stroke-width:" + stroke + "\"/>";
     }
     
+    private String drawSpær(Flat flat, int spærtræQuantity, double initialSpærtræIncrement) {
+        String s = "";
+        double increment = initialSpærtræIncrement;
+        int i = 0;
+        while (i < spærtræQuantity) {
+            s += drawLine(increment, flat.getCarportWidth(), increment, 0, 4);
+            increment += initialSpærtræIncrement;
+            i++;
+        }
+        return s;
+    }
+    
+    private String drawRemme(String s, double sWidth, double cWidth, double tLength, double cLength, double initialSpærtræIncrement) {
+        s += drawLine(0, (sWidth + ((cWidth - sWidth) / 2)), tLength, (sWidth + ((cWidth - sWidth) / 2)), 8);
+        s += drawLine(0, ((cWidth - sWidth) / 2), tLength, ((cWidth - sWidth) / 2), 8);
+        s += drawLine(cLength, (sWidth + ((cWidth - sWidth) / 2)), cLength, ((cWidth - sWidth) / 2), 8);
+        s += drawLine(tLength - (initialSpærtræIncrement / 2), (cWidth - ((cWidth - sWidth) / 2)), tLength - (initialSpærtræIncrement / 2), ((cWidth - sWidth) / 2), 8);
+        s += drawLine(cLength, cWidth - ((cWidth - sWidth) / 2), initialSpærtræIncrement, ((cWidth - sWidth) / 2), 8);
+        s += drawLine(cLength, ((cWidth - sWidth) / 2), initialSpærtræIncrement, cWidth - ((cWidth - sWidth) / 2), 8);
+        return s;
+    }
+    
+    private String drawStolper(double cLength, String s, double cWidth, double sWidth, double tLength, double initialSpærtræIncrement) {
+        // 'Stolper'
+        double firstStolpeX = cLength * 0.18;
+        double secondStolpeX = cLength * 0.78;
+        s += drawRect(firstStolpeX, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(secondStolpeX, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(firstStolpeX, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(secondStolpeX, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(cLength - 4, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(cLength  - 4, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
+        s += drawRect(cLength - 4, (cWidth / 2) - 4, 16, 16, 8);
+        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, (cWidth / 2) - 4, 16, 16, 8);
+        return s;
+    }
+    
+    private String drawTopDimensions(double spærtræIncrement, double initialSpærtræIncrement, String s, int spærtræQuantity) {
+        // Top dimensions
+        spærtræIncrement = initialSpærtræIncrement;
+        s += drawLine(0, -10, 0, -20, 2);
+        s += drawText((initialSpærtræIncrement), (initialSpærtræIncrement / 4), -10, "");
+        int i = 0;
+        while (i < spærtræQuantity) {
+            s += drawLine(spærtræIncrement, -10, spærtræIncrement, -20, 2);
+            if (i < spærtræQuantity - 1) {
+                s += drawText((initialSpærtræIncrement), ((initialSpærtræIncrement / 4) + spærtræIncrement), -10, "");
+            }
+            spærtræIncrement += initialSpærtræIncrement;
+            i++;
+        }
+        return s;
+    }
+    
+    private String drawLeftOuterDimensions(String s, double cWidth) {
+        // Left outer dimensions
+        s += drawLine(-10, 0, -70, 0, 2);
+        s += drawLine(-10, cWidth, -70, cWidth, 2);
+        s += drawLine(-70, 0, -70, cWidth, 2);
+        s += drawText(cWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), -10, "rotate(-90, 0, 0)");
+        return s;
+    }
+     
+    private String drawBottomDimensions(String s, double cWidth, double tLength) {
+        // Bottom dimensions
+        s += drawLine(0, cWidth + 30, 0, cWidth + 20, 2);
+        s += drawLine(tLength, cWidth + 30, tLength, cWidth + 20, 2);
+        s += drawLine(0, cWidth + 30, tLength, cWidth + 30, 2);
+        s += drawText(tLength, (tLength / 2), cWidth + 20, "");
+        return s;
+    }
+    
+    private String drawLeftInnerDimensions(String s, double cWidth, double sWidth) {
+        // Left inner dimensions
+        s += drawLine(-10, ((cWidth - sWidth) / 2), -40, ((cWidth - sWidth) / 2), 2);
+        s += drawLine(-10, cWidth - ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
+        s += drawLine(-40, ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
+        s += drawText(sWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), 20, "rotate(-90, 0, 0)");
+        return s;
+    }
+    
     public String drawFlatTopView(Flat flat) {
         double sWidth = flat.getShedWidth();
         double cWidth = flat.getCarportWidth();
@@ -38,79 +121,31 @@ public class SVGUtils {
         
         // 'Spær' 
         int spærtræQuantity = flat.getPartList().getPartList().get(9).getQuantity() - 1;
-        double initialSpærtræIncrement = tLength / spærtræQuantity;
+        double initialSpærtræIncrement = flat.getTotalLength() / spærtræQuantity;
         double spærtræIncrement = initialSpærtræIncrement;
-        int i = 0;
-        while (i < spærtræQuantity) {
-            s += drawLine(spærtræIncrement, cWidth, spærtræIncrement, 0, 4);
-            spærtræIncrement += initialSpærtræIncrement;
-            i++;
-        }
-        // 'Remme' in the sides
-        s += drawLine(0, (sWidth + ((cWidth - sWidth) / 2)), tLength, (sWidth + ((cWidth - sWidth) / 2)), 8);
-        s += drawLine(0, ((cWidth - sWidth) / 2), tLength, ((cWidth - sWidth) / 2), 8);
+        drawSpær(flat, spærtræQuantity, initialSpærtræIncrement);
         
-        // Shed walls
-        s += drawLine(cLength, (sWidth + ((cWidth - sWidth) / 2)), cLength, ((cWidth - sWidth) / 2), 8);
-        s += drawLine(tLength - (initialSpærtræIncrement / 2), (cWidth - ((cWidth - sWidth) / 2)), tLength - (initialSpærtræIncrement / 2), ((cWidth - sWidth) / 2), 8);
-        
-        // Middle cross
-        s += drawLine(cLength, cWidth - ((cWidth - sWidth) / 2), initialSpærtræIncrement, ((cWidth - sWidth) / 2), 8);
-        s += drawLine(cLength, ((cWidth - sWidth) / 2), initialSpærtræIncrement, cWidth - ((cWidth - sWidth) / 2), 8);
+        // 'Remme'
+        s += drawRemme(s, sWidth, cWidth, tLength, cLength, initialSpærtræIncrement);
         
         // 'Stolper'
-        double firstStolpeX = cLength * 0.18; 
-        double secondStolpeX = cLength * 0.78;
-        s += drawRect(firstStolpeX, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        s += drawRect(secondStolpeX, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        
-        s += drawRect(firstStolpeX, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        s += drawRect(secondStolpeX, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        
-        s += drawRect(cLength - 4, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, cWidth - ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        
-        s += drawRect(cLength  - 4, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, ((cWidth - sWidth) / 2) - 4, 16, 16, 8);
-        
-        s += drawRect(cLength - 4, (cWidth / 2) - 4, 16, 16, 8);
-        s += drawRect(tLength - (initialSpærtræIncrement / 2) - 4, (cWidth / 2) - 4, 16, 16, 8);
+        s += drawStolper(cLength, s, cWidth, sWidth, tLength, initialSpærtræIncrement);
         
         // Top dimensions
-        spærtræIncrement = initialSpærtræIncrement;
-        s += drawLine(0, -10, 0, -20, 2);
-        s += drawText((initialSpærtræIncrement), (initialSpærtræIncrement / 4), -10, "");
-        i = 0;
-        while (i < spærtræQuantity) {
-            s += drawLine(spærtræIncrement, -10, spærtræIncrement, -20, 2);
-            if (i < spærtræQuantity - 1) {
-                s += drawText((initialSpærtræIncrement), ((initialSpærtræIncrement / 4) + spærtræIncrement), -10, "");
-            }
-            spærtræIncrement += initialSpærtræIncrement;
-            i++;
-        }
+        s += drawTopDimensions(spærtræIncrement, initialSpærtræIncrement, s, spærtræQuantity);
         
         // Bottom dimensions
-        s += drawLine(0, cWidth + 30, 0, cWidth + 20, 2);
-        s += drawLine(tLength, cWidth + 30, tLength, cWidth + 20, 2);
-        s += drawLine(0, cWidth + 30, tLength, cWidth + 30, 2);
-        s += drawText(tLength, (tLength / 2), cWidth + 20, "");
+        s += drawBottomDimensions(s, cWidth, tLength);
         
         // Left outer dimensions
-        s += drawLine(-10, 0, -70, 0, 2);
-        s += drawLine(-10, cWidth, -70, cWidth, 2);
-        s += drawLine(-70, 0, -70, cWidth, 2);
-        s += drawText(cWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), -10, "rotate(-90, 0, 0)");
+        s += drawLeftOuterDimensions(s, cWidth);
         
         // Left inner dimensions
-        s += drawLine(-10, ((cWidth - sWidth) / 2), -40, ((cWidth - sWidth) / 2), 2);
-        s += drawLine(-10, cWidth - ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
-        s += drawLine(-40, ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
-        s += drawText(sWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), 20, "rotate(-90, 0, 0)");
+        s += drawLeftInnerDimensions(s, cWidth, sWidth);
         
         return s;
     }
-    
+
     public String drawPointyTopView(Pointy pointy) {
         double sWidth = pointy.getShedWidth();
         double sLength = pointy.getShedLength();
@@ -190,22 +225,13 @@ public class SVGUtils {
         s += drawText((sLength / 2), cLength + ((sLength / 2) + ((sLength / 8)) - (initialSpærtræIncrement / 4)), -10, "");
         
         // Bottom dimensions
-        s += drawLine(0, cWidth + 30, 0, cWidth + 20, 2);
-        s += drawLine(tLength, cWidth + 30, tLength, cWidth + 20, 2);
-        s += drawLine(0, cWidth + 30, tLength, cWidth + 30, 2);
-        s += drawText(tLength, (tLength / 2), cWidth + 20, "");
+        s = drawBottomDimensions(s, cWidth, tLength);
         
         // Left outer dimensions
-        s += drawLine(-10, 0, -70, 0, 2);
-        s += drawLine(-10, cWidth, -70, cWidth, 2);
-        s += drawLine(-70, 0, -70, cWidth, 2);
-        s += drawText(cWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), -10, "rotate(-90, 0, 0)");
+        s = drawLeftOuterDimensions(s, cWidth);
         
         // Left inner dimensions
-        s += drawLine(-10, ((cWidth - sWidth) / 2), -40, ((cWidth - sWidth) / 2), 2);
-        s += drawLine(-10, cWidth - ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
-        s += drawLine(-40, ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
-        s += drawText(sWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), 20, "rotate(-90, 0, 0)");
+        s = drawLeftInnerDimensions(s, cWidth, sWidth);
         
         return s;
     }
