@@ -12,6 +12,7 @@ import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
+import business.exceptions.StorageLayerException;
 import business.facades.EmployeeFacade;
 import javax.servlet.http.HttpSession;
 
@@ -79,6 +80,8 @@ public class UserServlet extends HttpServlet {
             System.out.println(ex.getMessage());
             request.setAttribute("Error", "EmailAlreadyInUseException");
             request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+            
         }
         return;
     }
@@ -137,6 +140,8 @@ public class UserServlet extends HttpServlet {
             System.out.println(e.getMessage());
             request.setAttribute("Error", "errorMessageUserNotFound");
             request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
+        } catch (StorageLayerException ex) {
+            
         }
         return;
     }
@@ -172,6 +177,8 @@ public class UserServlet extends HttpServlet {
             System.out.println(ex.getMessage());
             request.setAttribute("Error", "EmailAlreadyInUseException");
             request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+            
         }
         return;
     }

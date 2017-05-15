@@ -79,11 +79,13 @@ public class DataMapper {
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7));
+                } else {
+                    throw new InvalidUsernameOrPasswordException();
                 }
             }
             return customer;
         } catch (SQLException ex) {
-            throw new InvalidUsernameOrPasswordException();
+            throw new StorageLayerException();
         }
     }
 
@@ -153,7 +155,7 @@ public class DataMapper {
         }
     }
 
-    public void setCustomerId(Customer customer) throws StorageLayerException, InvalidUsernameOrPasswordException {
+    public void setCustomerId(Customer customer) throws StorageLayerException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
             int id = 0;
@@ -167,9 +169,7 @@ public class DataMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } catch (NullPointerException e) {
-            throw new InvalidUsernameOrPasswordException();
-        }
+        }         
     }
 
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {

@@ -45,7 +45,7 @@
                     <strong>form</strong>
                 </h2>
                 <hr>
-                    <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
+                    <form class="form-horizontal" name ="CustomerLoginForm" action="UserServlet" method="POST">
                         <input type="hidden" name="formName" value="CustomerLoginForm"/>
                         <div class="row">
                             <% String[] values = {"email", "password"}; %>
