@@ -34,13 +34,13 @@
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
                 <div class="box">
-                    <%  if ("Error".equals(request.getAttribute("errorMessageEmailExists"))) { %>
+                    <%  if ("errorMessageEmailExists".equals(request.getAttribute("Error"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> E-mail already exists. 
                             </div>
                     <%  } 
-                        if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
+                        if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
@@ -49,11 +49,11 @@
                     <hr>
                     <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
                     <hr>
-                    <form class="form-horizontal" name ="EmployeeRegistrationForm" action="UserServlet" method="POST">
+                    <form class="form-horizontal" name ="EmployeeRegistrationForm" action="userServlet" method="POST">
                         <input type="hidden" name="formName" value="EmployeeRegistrationForm" />
                             <div class="form-group">
                                 <div class="col-xs-offset-2 col-xs-8">
-                                    <%  if ("Error".equals(request.getAttribute("InsecurePasswordException"))) { %>
+                                    <%  if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
                                         <input class="form-control" type="text" id="Username" name="username" placeholder="Username" value=<%=request.getAttribute("username")%> />
                                     <% } else { %>
                                         <input class="form-control" type="text" id="Username" name="username" placeholder="Username" />
