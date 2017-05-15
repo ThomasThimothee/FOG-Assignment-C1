@@ -23,6 +23,14 @@
 </head> 
 <body>    
     <% Order order = (Order) request.getAttribute("currentOrder");%> 
+        <div class="brand">FOG</div>
+    <!-- Navigation -->
+    <%  String[] navBarItems = {"Home, loggedInHome.jsp", 
+                                "Account, customerInfo.jsp",
+                                "My Orders, customerOverview.jsp",
+                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                "Logout, index.jsp"};
+    %>
     <div class="container">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
              <%  if ("Error".equals(request.getAttribute("InvalideAmount"))) { %>
@@ -48,7 +56,7 @@
                     </thead>
                 </table>
                 <form class="form-horizontal" name ="customerPayment" action="orderServlet" method="POST">
-                    <input type="hidden" name="action" value="customerPayment" />
+                    <input type="hidden" name="formName" value="customerPayment" />
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-8">
                             <input class="form-control" type="text" id="Amount" name="amount" placeholder="Amount to pay" /> 

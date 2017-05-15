@@ -72,9 +72,9 @@
                     <div class="row">
                     <form class="form-horizontal" name="fog-assignment" action="orderServlet" method="POST">
                         <% if (customer != null) {%>
-                            <input type="hidden" name="action" value="order"/>
+                            <input type="hidden" name="formName" value="order"/>
                         <% } else { %>
-                            <input type="hidden" name="action" value="notLoggedIn"/>
+                            <input type="hidden" name="formName" value="notLoggedIn"/>
                         <% } %>
                         <input type="hidden" name="carportType" value="Pointy"/>
                         <div class="form-group">    

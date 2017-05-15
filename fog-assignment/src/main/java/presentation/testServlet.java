@@ -104,7 +104,7 @@ public class testServlet extends HttpServlet {
             OrderFacade.setDiscountRate(discountRate, idOrder);
    //         OrderFacade.updateFinalPrice(idOrder);
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-        } catch (InvalidOrderIdException | NumberFormatException | StorageLayerException e) {
+        } catch (InvalidOrderIdException | NumberFormatException e) {
             request.setAttribute("Error", "IncorrectDiscountOrOrderId");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
         }

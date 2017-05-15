@@ -33,7 +33,7 @@
     %>
     <div class="brand">FOG</div>
     <!--        <   !-- Navigation -->
-    <%  String[] navBarItems = {"Orders, emlpoyeeOverview.jsp",
+    <%  String[] navBarItems = {"Orders, employeeOverview.jsp",
                                 "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
                                 "Logout, index.jsp"};
     %>

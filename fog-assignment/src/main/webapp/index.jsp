@@ -31,7 +31,7 @@
             <div class="box">
                 <div class="row">
                     <form  name ="Action" action="IndexServlet" method="POST">
-                        <input type="hidden" name="action" value="customer" />
+                        <input type="hidden" name="formName" value="customer" />
                         <div class="btn-group">
                             <button type="submit" class="btn btn-default btn-lg" style="margin-bottom: 20px">Customer</button>
                         </div>
@@ -44,11 +44,11 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <form  name ="Action" action="IndexServlet" method="POST">
-                                <input type="hidden" name="action" value="loginEmployee" />
+                                <input type="hidden" name="formName" value="loginEmployee" />
                                 <li><button type="submit" class="btn btn-default btn-lg dropdown-item">Log in</button></li>
                             </form>
                             <form name ="Action" action="IndexServlet" method="POST">
-                                <input type="hidden" name="action" value="regEmployee" />
+                                <input type="hidden" name="formName" value="regEmployee" />
                                 <li><button type="submit" class="btn btn-default btn-lg dropdown-item">Register</button></li>
                             </form>
                         </ul>
