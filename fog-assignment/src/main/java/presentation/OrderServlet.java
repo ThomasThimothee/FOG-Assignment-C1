@@ -86,37 +86,6 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
-    private void customerChoosePayOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int orderId = 0;
-        double finalPrice = 0;
-        double amount = 0;
-        Order order = null;
-        try {
-            orderId = Integer.parseInt(request.getParameter("orderId"));
-            finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
-            amount = Double.parseDouble(request.getParameter("amount"));
-            order = OrderFacade.retrieveOrder(orderId);
-        } catch (InvalidOrderIdException | NumberFormatException ex) {
-            request.setAttribute("Error", "IncorrectOrderId");
-            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-        } catch (StorageLayerException e) {
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
-        }
-        if (finalPrice == amount) {
-            try {
-                OrderFacade.updateSatus(orderId);
-                request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-            } catch (StorageLayerException e) {
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
-        } else {
-            request.setAttribute("currentOrder", order);
-            request.setAttribute("InvalideAmount", "Error");
-            request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
-        }
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -53,10 +53,10 @@
     <div class="brand">FOG</div>
     <!--        <   !-- Navigation -->
     <%  String[] navBarItems = {"Home, loggedInHome.jsp",
-            "Account, customerInfo.jsp",
-            "My Orders, customerOverview.jsp",
-            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-            "Logout, index.jsp"};
+                                "Account, customerInfo.jsp",
+                                "My Orders, customerOverview.jsp",
+                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                "Logout, index.jsp"};
     %>
     <%=render.createNavBar(navBarItems)%>
     <%

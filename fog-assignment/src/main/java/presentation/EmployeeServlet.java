@@ -7,6 +7,7 @@ package presentation;
 
 import business.Customer;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
@@ -33,14 +34,10 @@ public class EmployeeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        DataMapper dm = new DataMapper();
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("currentCustomer");
         String formName = request.getParameter("formName");
         switch (formName) {
             case "ViewPartlist":
@@ -55,15 +52,20 @@ public class EmployeeServlet extends HttpServlet {
         }
     }   
 
-    private void employeeAddDiscount(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
+    private void employeeAddDiscount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
             double discountRate = Double.parseDouble(request.getParameter("discountRate"));
             if (discountRate > 100) {
-                throw new InvalidOrderIdException();
+                request.setAttribute("Error", "IncorrectDiscountOrOrderId");
+                request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+                return;
             }
-            OrderFacade.setDiscountRate(discountRate, idOrder);
-   //         OrderFacade.updateFinalPrice(idOrder);
+            try {
+                OrderFacade.setDiscountRate(discountRate, idOrder);
+            } catch (StorageLayerException e) {
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
         } catch (InvalidOrderIdException | NumberFormatException e) {
             request.setAttribute("Error", "IncorrectDiscountOrOrderId");
@@ -83,7 +85,7 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    private void employeeViewPartlist(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
+    private void employeeViewPartlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
             OrderFacade.retrievePartlist(idOrder);

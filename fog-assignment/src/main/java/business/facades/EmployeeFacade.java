@@ -25,8 +25,8 @@ public class EmployeeFacade {
     }
 
     public static int getRandomEmployeeId() throws StorageLayerException {
-        ArrayList<Employee> employeesList = new ArrayList<>();
-        int randomIndex = 0;
+        ArrayList<Employee> employeesList;
+        int randomIndex;
         DataMapper dm = new DataMapper();
         employeesList = dm.retrieveAllEmployees();
         Random r = new Random();

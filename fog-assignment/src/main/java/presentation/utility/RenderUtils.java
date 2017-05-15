@@ -121,7 +121,6 @@ public class RenderUtils {
     }
     
     public String createFormRows(Customer customer) {
-        System.out.println(customer.getEmail());
         String  s = "";
                         String[] fieldNames = {"email", "password", "firstName", "lastName", "address", "phone"};
                         String[] fieldValues = {customer.getEmail(), customer.getPassword(), customer.getFirstName(), customer.getLastName(), customer.getAddress(), customer.getPhone()};

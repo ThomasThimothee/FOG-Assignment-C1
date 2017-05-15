@@ -123,7 +123,7 @@ public class SVGUtils {
         int spærtræQuantity = flat.getPartList().getPartList().get(9).getQuantity() - 1;
         double initialSpærtræIncrement = flat.getTotalLength() / spærtræQuantity;
         double spærtræIncrement = initialSpærtræIncrement;
-        drawSpær(flat, spærtræQuantity, initialSpærtræIncrement);
+        s += drawSpær(flat, spærtræQuantity, initialSpærtræIncrement);
         
         // 'Remme'
         s += drawRemme(s, sWidth, cWidth, tLength, cLength, initialSpærtræIncrement);

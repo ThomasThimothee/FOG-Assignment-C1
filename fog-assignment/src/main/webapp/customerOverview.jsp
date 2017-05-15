@@ -36,7 +36,7 @@
     </script>
 </head>
 <body>
-    <% Customer customer = (Customer) session.getAttribute("currentCustomer"); %>
+    <% Customer customer = (Customer) request.getSession().getAttribute("currentCustomer"); %>
     <%  ArrayList<Order> list = OrderFacade.retrieveCustomerOrders(customer.getId_customer());
         RenderUtils render = new RenderUtils(); %>
     <div class="brand">FOG</div>
@@ -77,7 +77,7 @@
                         <input type="hidden" name="formName" value="PayOrder" />
                         <div class="col-xs-12">
                             <div class="form-group"> 
-                                <div class="col-xs-5">
+                                <div class="col-xs-10">
                                     <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                 </div>
                                 <div class="col-xs-2">

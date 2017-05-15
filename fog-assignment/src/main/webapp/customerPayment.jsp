@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                 </table>
-                <form class="form-horizontal" name ="customerPayment" action="orderServlet" method="POST">
+                <form class="form-horizontal" name ="customerPayment" action="OrderServlet" method="POST">
                     <input type="hidden" name="formName" value="customerPayment" />
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-8">

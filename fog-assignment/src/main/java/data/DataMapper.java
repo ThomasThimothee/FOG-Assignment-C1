@@ -132,7 +132,7 @@ public class DataMapper {
         }
     }
 
-    public Employee employeeLogin(String username, String password) throws StorageLayerException {
+    public Employee employeeLogin(String username, String password) throws InvalidUsernameOrPasswordException, StorageLayerException {
         String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
             Employee employee = null;
@@ -149,8 +149,11 @@ public class DataMapper {
                     employee.setEmployeeId(rs.getInt(1));
                 }
             }
+            if (employee == null) {
+                throw new InvalidUsernameOrPasswordException();
+            }
             return employee;
-        } catch (SQLException | NullPointerException ex) {
+        } catch (SQLException ex) {
             throw new StorageLayerException();
         }
     }
@@ -292,7 +295,7 @@ public class DataMapper {
         }
     }
 
-    public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException {
+    public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
             con.setAutoCommit(false);
@@ -303,9 +306,10 @@ public class DataMapper {
                 con.commit();
             } else {
                 con.rollback();
+                throw new InvalidOrderIdException();
             }
         } catch (SQLException ex) {
-            throw new InvalidOrderIdException();
+            throw new StorageLayerException();
         }
     }
 

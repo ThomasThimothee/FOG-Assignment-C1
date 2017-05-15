@@ -71,7 +71,7 @@ public class OrderFacade {
         return price;
     }
 
-    public static void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException {
+    public static void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
         DataMapper dm = new DataMapper();
         dm.setDiscountRate(rate, orderId);
     }

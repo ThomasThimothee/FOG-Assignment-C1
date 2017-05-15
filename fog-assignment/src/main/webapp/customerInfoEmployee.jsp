@@ -32,8 +32,8 @@
     <div class="brand">FOG</div>
     <!--        <   !-- Navigation -->
     <%  String[] navBarItems = {"Orders, employeeOverview.jsp",
-                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                "Logout, index.jsp"};
+            "Build, Pointy Carport, pointyOrderEmployee.jsp, Flat Carport, flatOrderEmployee.jsp",
+            "Logout, index.jsp"};
     %>
     <%=render.createNavBar(navBarItems)%>
     <div class="container">
@@ -42,13 +42,7 @@
                 <hr>
                 <h2 class="intro-text text-center">Customer <strong>Information</strong></h2>
                 <hr>
-                <%  if ("Error".equals(request.getAttribute("errorMessageEmailExists"))) { %>
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Warning!</strong> E-mail already exists. 
-                        </div>
-                <%  } 
-                    if ("Error".equals(request.getAttribute("IncorrectEmailFormattingException"))) { %>
+                <%  if ("Error".equals(request.getAttribute("IncorrectEmailFormattingException"))) { %>
                         <div class="alert alert-danger alert-dismissable">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Warning!</strong> Please enter a valid e-mail address. 
@@ -66,7 +60,7 @@
                                 <strong>Error!</strong> The entered e-mail is already in use. 
                             </div>
                 <%  } %>
-                <form class="form-horizontal" name ="CustomerInformation" action="userServlet" method="POST">
+                <form class="form-horizontal" name ="CustomerInformation" action="UserServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerInformation" />
                         <%=render.createFormRows(customer)%>
                 </form>   
