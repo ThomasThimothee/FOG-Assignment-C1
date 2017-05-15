@@ -1,4 +1,6 @@
 <%@page import="presentation.utility.RenderUtils"%>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,18 +50,18 @@
                     <div class="row">
                         <% String[] values = {"email", "password"}; %>
                         <%=render.createFormRows(values)%>
-                        <div class="row">
-                            <div class="col-xs-offset-4 col-xs-4">
-                                <input type="hidden" name="action" value="login">
-                                <label><br></label>
-                                <button type="submit" class="form-control btn btn-success">Sign in</button>
+                            <div class="row">
+                                <div class="col-xs-offset-4 col-xs-4">
+                                    <input type="hidden" name="action" value="login">
+                                    <label><br></label>
+                                    <button type="submit" class="form-control btn btn-success">Sign in</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 <script src="js/jquery.js"></script>
@@ -75,3 +77,4 @@
         });
     });
 </script>
+</html>

@@ -1,4 +1,6 @@
 <%@page import="presentation.utility.RenderUtils"%>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,21 +81,21 @@
                         </div>               
                 </form>                                 
             </div>
-            </div>
         </div>
     </div>
+</div>
 </body>
 <script src="js/jquery.js"></script>
 <script>
-    $(function () {
-        $('#Email').on('keypress', function (e) {
-            if (e.which == 32)
-                return false;
-        });
-        $('#Password').on('keypress', function (e) {
-            if (e.which == 32)
-                return false;
-        });
+$(function () {
+    $('#Email').on('keypress', function (e) {
+        if (e.which == 32)
+            return false;
     });
-    </script>
+    $('#Password').on('keypress', function (e) {
+        if (e.which == 32)
+            return false;
+    });
+});
+</script>
 </html>

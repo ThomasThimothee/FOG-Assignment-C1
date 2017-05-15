@@ -1,4 +1,6 @@
 <%@page import="presentation.utility.RenderUtils"%>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
+<<<<<<< HEAD
 <div class="brand">FOG</div>
 <% RenderUtils render = new RenderUtils(); %>
 <%  String[] navBarItems = {"Home, index.jsp", 
@@ -48,19 +51,19 @@
                 <div class="row">
                     <% String[] values = {"username", "password"}; %>
                     <%=render.createFormRows(values)%>
-                    <div class="row">
-                        <div class="col-xs-offset-4 col-xs-4">
-                            <input type="hidden" name="action" value="login">
-                            <label><br></label>
-                            <button type="submit" class="form-control btn btn-success">Sign in</button>
+                        <div class="row">
+                            <div class="col-xs-offset-4 col-xs-4">
+                                <input type="hidden" name="action" value="login">
+                                <label><br></label>
+                                <button type="submit" class="form-control btn btn-success">Sign in</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+            </div>
         </div>
     </div>
-</div>
 </body>
 <script src="js/jquery.js"></script>
 <script>
@@ -75,3 +78,4 @@
         });
     });
 </script>
+</html>

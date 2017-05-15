@@ -1,5 +1,7 @@
 <%@page import="business.Order"%>
 <%@page import="presentation.utility.RenderUtils"%>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>    
-        <% Order order = (Order) request.getAttribute("currentOrder");%> 
+    <% Order order = (Order) request.getAttribute("currentOrder");%> 
     <div class="container">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
              <%  if ("Error".equals(request.getAttribute("InvalideAmount"))) { %>
@@ -65,4 +67,4 @@
     </div>
 </body>
 <script src="js/jquery.js"></script>
-
+</html>

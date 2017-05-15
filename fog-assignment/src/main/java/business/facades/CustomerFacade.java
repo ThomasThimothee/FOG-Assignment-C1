@@ -8,7 +8,6 @@ import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
 import data.DataMapper;
-import java.util.ArrayList;
 
 /**
  *
@@ -58,7 +57,5 @@ public class CustomerFacade {
         DataMapper dm = new DataMapper();
         customer = dm.retrieveCustomerDetails(idCustomer);
         return customer;
-
     }
-
 }
