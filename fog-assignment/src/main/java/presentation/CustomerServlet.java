@@ -43,7 +43,7 @@ public class CustomerServlet extends HttpServlet {
         String formName = request.getParameter("formName");
         switch (formName) {
             case "customerPayment":
-                customerRetrieveOrder(request, response);
+                customerChoosePayOrder(request, response);
                 break;
             case "PayOrder":
                 customerPayOrder(request, customer, response);
@@ -54,7 +54,7 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    private void customerRetrieveOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void customerChoosePayOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = 0;
         double finalPrice = 0;
         double amount = 0;
