@@ -54,7 +54,7 @@ public class testServlet extends HttpServlet {
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
                 } catch (WrongCustomerIDException e) {
                     System.out.println(e.getMessage());
-                    request.setAttribute("WrongCustomerID", "Error");
+                    request.setAttribute("Error", "WrongCustomerID");
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
@@ -68,7 +68,7 @@ public class testServlet extends HttpServlet {
                     
                 } catch (WrongCustomerIDException ex) {
                     System.out.println(ex.getMessage()); 
-                    request.setAttribute("WrongCustomerIDException", "Error");
+                    request.setAttribute("Error", "WrongCustomerIDException");
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                     request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
                 } catch (NullPointerException e) {
