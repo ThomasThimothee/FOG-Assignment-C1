@@ -62,17 +62,15 @@ public class testServlet extends HttpServlet {
                 break;
             case "ViewCustomerDetails":
                 try {
-                   int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+                    int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
                     CustomerFacade.retrieveCustomerDetails(idCustomer);
                     request.setAttribute("idCustomer", idCustomer);
                     request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
-                } catch (WrongCustomerIDException ex) {
-                    System.out.println(ex.getMessage()); 
+                } catch (WrongCustomerIDException e) {
                     request.setAttribute("Error", "WrongCustomerIDException");
                     request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
-                } catch (NullPointerException e) {
+                } catch (StorageLayerException e) {
                     System.out.println(e.getMessage());
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
             case "AddDiscount":
@@ -98,7 +96,7 @@ public class testServlet extends HttpServlet {
                         request.setAttribute("Error", "IncorrectOrderId");
                         request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                     }
-                } catch (InvalidOrderIdException | NullPointerException e) {
+                } catch (InvalidOrderIdException e) {
                     request.setAttribute("Error", "IncorrectOrderId");
                     request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                 }
@@ -114,7 +112,7 @@ public class testServlet extends HttpServlet {
                         request.setAttribute("Error", "IncorrectOrderId");
                         request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                     }
-                } catch (InvalidOrderIdException | NullPointerException e) {
+                } catch (InvalidOrderIdException e) {
                     request.setAttribute("Error", "IncorrectOrderId");
                     request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
                 }

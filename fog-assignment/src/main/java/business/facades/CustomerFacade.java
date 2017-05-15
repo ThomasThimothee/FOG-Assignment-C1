@@ -30,7 +30,7 @@ public class CustomerFacade {
             DataMapper dm = new DataMapper();
             dm.customerSignup(email, password, firstName, lastName, address, phone);
         } catch (StorageLayerException e) {
-            
+
         }
     }
 
@@ -44,28 +44,21 @@ public class CustomerFacade {
         }
     }
 
-    
     public static void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws IncorrectEmailFormattingException, InvalidUsernameOrPasswordException, InsecurePasswordException, EmailAlreadyInUseException {
         try {
             DataMapper dm = new DataMapper();
             dm.updateCustomerInformation(updatedCustomer, oldCustomer);
         } catch (StorageLayerException e) {
-            
+
         }
     }
 
-    
-    public static Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException{
-        Customer customer = null;
-        try {
-            DataMapper dm = new DataMapper();
-            customer = dm.retrieveCustomerDetails(idCustomer);
-        } catch (StorageLayerException e) {
-              throw new WrongCustomerIDException(); 
-        }
-       return customer;
-        
+    public static Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
+        Customer customer;
+        DataMapper dm = new DataMapper();
+        customer = dm.retrieveCustomerDetails(idCustomer);
+        return customer;
+
     }
 
 }
-

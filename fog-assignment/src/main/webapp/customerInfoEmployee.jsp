@@ -25,7 +25,7 @@
 <body>
 <%  RenderUtils render = new RenderUtils(); 
     int idCustomer = (int) request.getAttribute("idCustomer");
-    Customer customer = CustomerFacade.retrieveCustomerDetails(idCustomer);  
+    Customer customer = CustomerFacade.retrieveCustomerDetails(idCustomer);
 %>
 <div class="brand">FOG</div>
 <!--        <   !-- Navigation -->
