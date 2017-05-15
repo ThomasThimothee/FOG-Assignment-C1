@@ -82,34 +82,39 @@ public class OrderServlet extends HttpServlet {
                 } 
                 break;
             case "customerPayment":
-                int orderId = Integer.parseInt(request.getParameter("orderId"));
-                double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
-                double amount = Double.parseDouble(request.getParameter("amount"));
-                Order order = null;
-                customerRetrieveOrder(order, orderId, request, response, finalPrice, amount);
+                customerChoosePayOrder(request, response);
                 break;
+
             case "notLoggedIn":
                 response.sendRedirect("loginCustomer.jsp");
                 break;
         }
     }
 
-    private void customerRetrieveOrder(Order order, int orderId, HttpServletRequest request, HttpServletResponse response, double finalPrice, double amount) throws ServletException, IOException {
+    private void customerChoosePayOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int orderId = 0;
+        double finalPrice = 0;
+        double amount = 0;
+        Order order = null;
         try {
+            orderId = Integer.parseInt(request.getParameter("orderId"));
+            finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
+            amount = Double.parseDouble(request.getParameter("amount"));
             order = OrderFacade.retrieveOrder(orderId);
-        } catch (InvalidOrderIdException ex) {
+        } catch (InvalidOrderIdException | NumberFormatException ex) {
             request.setAttribute("Error", "IncorrectOrderId");
             request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
         } catch (StorageLayerException e) {
             request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
         }
         if (finalPrice == amount) {
             try {
                 OrderFacade.updateSatus(orderId);
+                request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
             } catch (StorageLayerException e) {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
         } else {
             request.setAttribute("currentOrder", order);
             request.setAttribute("InvalideAmount", "Error");

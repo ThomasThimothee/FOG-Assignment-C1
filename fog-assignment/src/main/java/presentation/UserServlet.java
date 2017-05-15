@@ -81,7 +81,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("Error", "EmailAlreadyInUseException");
             request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
         } catch (StorageLayerException e) {
-            
+             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
     }
 
@@ -97,6 +97,8 @@ public class UserServlet extends HttpServlet {
         } catch (InvalidUsernameOrPasswordException e) {
             request.setAttribute("Error", "errorMessageUserNotFound");
             request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
+        } catch (StorageLayerException ex) {
+             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
     }
 
@@ -122,6 +124,8 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("address", request.getParameter("address"));
             request.setAttribute("phone", request.getParameter("phone"));
             request.getRequestDispatcher("regEmployee.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
     }
 
@@ -174,7 +178,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("Error", "EmailAlreadyInUseException");
             request.getRequestDispatcher("regCustomer.jsp").forward(request, response);
         } catch (StorageLayerException e) {
-            
+             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
     }
 

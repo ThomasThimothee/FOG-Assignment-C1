@@ -73,7 +73,7 @@
                     </table>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
-                    <form name="PayOrder" action="testServlet" method="POST">
+                    <form name="PayOrder" action="CustomerServlet" method="POST">
                         <input type="hidden" name="formName" value="PayOrder" />
                         <div class="col-xs-12">
                             <div class="form-group"> 
@@ -88,7 +88,7 @@
                     </form>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
-                    <form name="ViewPartlist" action="testServlet" method="POST">
+                    <form name="ViewPartlist" action="CustomerServlet" method="POST">
                         <input type="hidden" name="formName" value="ViewDrawing" />
                         <div class="col-xs-12">
                             <div class="form-group"> 
