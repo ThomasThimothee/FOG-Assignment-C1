@@ -141,12 +141,9 @@ public class OrderFacade {
         return price;
     }
 
-    public static void updateSatus(int orderId) {
-        try {
+    public static void updateSatus(int orderId) throws StorageLayerException {
             DataMapper dm = new DataMapper();
             dm.updateStatus(orderId);
-        } catch (StorageLayerException ex) {
-        }
     }
 
     public static Carport retrieveCarport(int idOrder) {

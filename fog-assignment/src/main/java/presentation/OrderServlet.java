@@ -84,38 +84,13 @@ public class OrderServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Incorrect messurements");
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 }
-                break;
-            case "customerPayment":
-                int orderId = Integer.parseInt(request.getParameter("orderId"));
-                double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
-                double amount = Double.parseDouble(request.getParameter("amount"));
-                Order order = null;
-                customerRetrieveOrder(order, orderId, request, response, finalPrice, amount);
-                break;
+                break;           
             case "notLoggedIn":
                 response.sendRedirect("loginCustomer.jsp");
                 break;
-
         }
     }
 
-    private void customerRetrieveOrder(Order order, int orderId, HttpServletRequest request, HttpServletResponse response, double finalPrice, double amount) throws ServletException, IOException {
-        try {
-            order = OrderFacade.retrieveOrder(orderId);
-        } catch (InvalidOrderIdException ex) {
-            request.setAttribute("Error", "IncorrectOrderId");
-            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-        }
-        if (finalPrice == amount) {
-            OrderFacade.updateSatus(orderId);
-            request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
-        } else {
-            request.setAttribute("currentOrder", order);
-            request.setAttribute("InvalideAmount", "Error");
-            request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
-        }
-        return;
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

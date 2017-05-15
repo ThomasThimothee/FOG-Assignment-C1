@@ -79,7 +79,7 @@
                     </table>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
-                    <form name="AddDiscount" action="testServlet" method="POST">
+                    <form name="AddDiscount" action="EmployeeOverview" method="POST">
                         <input type="hidden" name="formName" value="AddDiscount" />
                         <div class="col-xs-12">
                             <div class="form-group"> 
@@ -97,7 +97,7 @@
                     </form>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
-                    <form name="ViewPartlist" action="testServlet" method="POST">
+                    <form name="ViewPartlist" action="EmployeeOverview" method="POST">
                         <input type="hidden" name="formName" value="ViewPartlist" />
                         <div class="col-xs-12">
                             <div class="form-group"> 
@@ -114,7 +114,7 @@
                     </form>
                 </div>
                 <div class="row">
-                    <form name="ViewCustomerDetails" action="testServlet" method="POST">
+                    <form name="ViewCustomerDetails" action="EmployeeOverview" method="POST">
                         <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
                         <div class="col-xs-12">
                             <div class="form-group"> 
