@@ -29,8 +29,8 @@ public class IndexServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         session.removeAttribute("currentCustomer");
-        String action = request.getParameter("action");
-        switch(action){
+        String formName = request.getParameter("formName");
+        switch(formName){
             case "customer":
                 request.getRequestDispatcher("notLoggedInHome.jsp").forward(request, response);   
                 break;

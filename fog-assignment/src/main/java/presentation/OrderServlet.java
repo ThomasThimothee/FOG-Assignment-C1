@@ -31,9 +31,9 @@ public class OrderServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("currentCustomer");// try to retrieve current user
-        String action = request.getParameter("action");
+        String formName = request.getParameter("formName");
         String carportType = request.getParameter("carportType");
-        switch (action) {
+        switch (formName) {
             case "order":
                 try {
                     int carportWidth = Integer.parseInt(request.getParameter("carport width"));
@@ -90,7 +90,7 @@ public class OrderServlet extends HttpServlet {
                 double finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
                 double amount = Double.parseDouble(request.getParameter("amount"));
                 Order order = null;
-        customerRetrieveOrder(order, orderId, request, response, finalPrice, amount);
+                customerRetrieveOrder(order, orderId, request, response, finalPrice, amount);
                 break;
             case "notLoggedIn":
                 response.sendRedirect("loginCustomer.jsp");
