@@ -70,7 +70,7 @@
                        </div>
                    </div>
                 <div class="row">
-                    <form class="form-horizontal" name="fog-assignment" action="orderServlet" method="POST">
+                    <form class="form-horizontal" name="fog-assignment" action="OrderServlet" method="POST">
                         <% if (customer != null) {%>
                             <input type="hidden" name="formName" value="order"/>
                         <% } else { %>
@@ -139,4 +139,5 @@
         </div>
     </div>
 </body>
+<script src="js/jquery.js"></script>
 </html>

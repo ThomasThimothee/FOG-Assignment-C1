@@ -22,41 +22,41 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>
-<div class="brand">FOG</div>
-<% RenderUtils render = new RenderUtils(); %>
-<%  String[] navBarItems = {"Home, notLoggedInHome.jsp", 
-                            "Log in, loginCustomer.jsp",
-                            "Sign up, regCustomer.jsp",
-                            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
-%>
-<%=render.createNavBar(navBarItems)%>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
-            <div class="box">
-                <% if ("errorMessageUserNotFound".equals(request.getAttribute("Error"))) { %>
-                <div class="alert alert-danger">
-                    <strong>Whoops</strong> You've entered wrong email &/or password!
-                </div>
-                <%}%>
-            
-            <hr>
-            <h2 class="intro-text text-center">Login
-                <strong>form</strong>
-            </h2>
-            <hr>
-                <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
-                    <input type="hidden" name="formName" value="CustomerLoginForm"/>
-                    <div class="row">
-                        <% String[] values = {"email", "password"}; %>
-                        <%=render.createFormRows(values)%>
-                            <div class="row">
-                                <div class="col-xs-offset-4 col-xs-4">
-                                    <input type="hidden" name="action" value="login">
-                                    <label><br></label>
-                                    <button type="submit" class="form-control btn btn-success">Sign in</button>
+    <div class="brand">FOG</div>
+    <% RenderUtils render = new RenderUtils(); %>
+    <%  String[] navBarItems = {"Home, notLoggedInHome.jsp", 
+                                "Log in, loginCustomer.jsp",
+                                "Sign up, regCustomer.jsp",
+                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+    %>
+    <%=render.createNavBar(navBarItems)%>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+                <div class="box">
+                    <% if ("errorMessageUserNotFound".equals(request.getAttribute("Error"))) { %>
+                    <div class="alert alert-danger">
+                        <strong>Whoops</strong> You've entered wrong email &/or password!
+                    </div>
+                    <%}%>
+
+                <hr>
+                <h2 class="intro-text text-center">Login
+                    <strong>form</strong>
+                </h2>
+                <hr>
+                    <form class="form-horizontal" name ="CustomerLoginForm" action="userServlet" method="POST">
+                        <input type="hidden" name="formName" value="CustomerLoginForm"/>
+                        <div class="row">
+                            <% String[] values = {"email", "password"}; %>
+                            <%=render.createFormRows(values)%>
+                                <div class="row">
+                                    <div class="col-xs-offset-4 col-xs-4">
+                                        <input type="hidden" name="action" value="login">
+                                        <label><br></label>
+                                        <button type="submit" class="form-control btn btn-success">Sign in</button>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </form>
                 </div>

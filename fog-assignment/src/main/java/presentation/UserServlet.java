@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Lovro
  */
-public class userServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

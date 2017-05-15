@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Lovro
  */
-public class orderServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

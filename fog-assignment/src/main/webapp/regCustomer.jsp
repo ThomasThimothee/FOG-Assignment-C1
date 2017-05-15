@@ -23,67 +23,67 @@
 </head> 
 <body>
     <div class="brand">FOG</div>
-<% RenderUtils render = new RenderUtils(); %>
-<%  String[] navBarItems = {"Home, notLoggedInHome.jsp", 
-                            "Log in, loginCustomer.jsp",
-                            "Sign up, regCustomer.jsp",
-                            "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
-%>
-<%=render.createNavBar(navBarItems)%>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
-            <div class="box">
-                    <%  if ("errorMessageEmailExists".equals(request.getAttribute("Error"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> E-mail already exists. 
+    <% RenderUtils render = new RenderUtils(); %>
+    <%  String[] navBarItems = {"Home, notLoggedInHome.jsp", 
+                                "Log in, loginCustomer.jsp",
+                                "Sign up, regCustomer.jsp",
+                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp"};
+    %>
+    <%=render.createNavBar(navBarItems)%>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
+                <div class="box">
+                        <%  if ("errorMessageEmailExists".equals(request.getAttribute("Error"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> E-mail already exists. 
+                                </div>
+                        <%  } 
+                            if ("IncorrectEmailFormattingException".equals(request.getAttribute("Error"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> Please enter a valid e-mail address. 
+                                </div>
+                        <%  } 
+                            if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
+                                </div>
+                        <%  }  
+                            if ("EmailAlreadyInUseException".equals(request.getAttribute("Error"))) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Error!</strong> The entered e-mail is already in use. 
+                                </div>
+                        <%  } %>
+                        <hr>
+                        <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
+                        <hr>
+                    <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
+                        <input type="hidden" name="formName" value="CustomerRegistrationForm" />
+                            <div class="form-group">
+                                <div class="col-xs-offset-2 col-xs-8">
+                                    <%  if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
+                                        <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%> />
+                                    <% } else { %>
+                                        <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
+                                    <% } %>
+                                </div>
                             </div>
-                    <%  } 
-                        if ("IncorrectEmailFormattingException".equals(request.getAttribute("Error"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> Please enter a valid e-mail address. 
-                            </div>
-                    <%  } 
-                        if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> Your password needs to be a least 7 characters long. 
-                            </div>
-                    <%  }  
-                        if ("EmailAlreadyInUseException".equals(request.getAttribute("Error"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Error!</strong> The entered e-mail is already in use. 
-                            </div>
-                    <%  } %>
-                    <hr>
-                    <h1 class="intro-text text-center">Please fill out the following fields to create your account.</h1>
-                    <hr>
-                <form class="form-horizontal" name ="CustomerRegistrationForm" action="userServlet" method="POST">
-                    <input type="hidden" name="formName" value="CustomerRegistrationForm" />
-                        <div class="form-group">
-                            <div class="col-xs-offset-2 col-xs-8">
-                                <%  if ("InsecurePasswordException".equals(request.getAttribute("Error"))) { %>
-                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" value=<%=request.getAttribute("email")%> />
-                                <% } else { %>
-                                    <input class="form-control" type="text" id="Email" name="email" placeholder="E-mail" />
-                                <% } %>
-                            </div>
-                        </div>
-                        <% String[] values = {"password", "firstName", "lastName", "address", "phone"}; %>
-                        <%=render.createFormRows(values)%>
-                        <div class="row">
-                            <div class="col-xs-offset-4 col-xs-4">
-                                <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
-                            </div>
-                        </div>               
-                </form>                                 
+                            <% String[] values = {"password", "firstName", "lastName", "address", "phone"}; %>
+                            <%=render.createFormRows(values)%>
+                            <div class="row">
+                                <div class="col-xs-offset-4 col-xs-4">
+                                    <input class="form-control btn btn-success" type="submit" value="Register" name="register" />
+                                </div>
+                            </div>               
+                    </form>                                 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 <script src="js/jquery.js"></script>
 <script>
