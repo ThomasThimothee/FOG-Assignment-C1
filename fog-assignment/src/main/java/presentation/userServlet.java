@@ -21,27 +21,26 @@ import javax.servlet.http.HttpSession;
  */
 public class userServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String formName = request.getParameter("formName");
         switch (formName) {
             case "CustomerRegistrationForm":
-        customerRegister(request, response);
+                customerRegister(request, response);
                 break;
             case "CustomerLoginForm":
-        customerLogin(request, session, response); 
+                customerLogin(request, session, response);
                 break;
             case "EmployeeRegistrationForm":
-        employeeRegister(request, response); 
+                employeeRegister(request, response);
                 break;
             case "EmployeeLoginForm":
-        employeeLogin(request, response); 
+                employeeLogin(request, response);
                 break;
             case "CustomerInformation":
-        customerGetInfo(request, session, response);
+                customerGetInfo(request, session, response);
                 break;
         }
     }
