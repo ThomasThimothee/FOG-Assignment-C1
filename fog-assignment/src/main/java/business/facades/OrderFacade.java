@@ -5,6 +5,7 @@ import business.Order;
 import business.Orderline;
 import business.Partlist;
 import business.exceptions.StorageLayerException;
+import business.exceptions.WrongCustomerIDException;
 import business.parts.Part;
 import data.DataMapper;
 import java.sql.SQLException;
@@ -172,14 +173,14 @@ public class OrderFacade {
         }
         return order;
     }
-    public static ArrayList<Orderline> retrievePartlist(int idOrder) {
+    public static ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
         ArrayList<Orderline> list = new ArrayList<>();
        try{
            DataMapper dm = new DataMapper();
           list = dm.retrievePartlist(idOrder);
            
        }catch(StorageLayerException e) {
-           
+           throw new WrongCustomerIDException();
        }
        return list;
     }

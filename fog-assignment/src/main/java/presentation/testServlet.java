@@ -6,6 +6,7 @@
 package presentation;
 
 import business.Order;
+import business.exceptions.WrongCustomerIDException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import data.DataMapper;
@@ -48,20 +49,23 @@ public class testServlet extends HttpServlet {
                     OrderFacade.retrievePartlist(idOrder);
                     request.setAttribute("idOrder", idOrder);
                     request.getRequestDispatcher("partList.jsp").forward(request, response);
-                } catch (NullPointerException e) {
+                } catch (WrongCustomerIDException e) {
                     System.out.println(e.getMessage());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.setAttribute("WrongCustomerID", "Error");
+                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 }
                 break;
             case "ViewCustomerDetails":
                 try {
-                    int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+                   int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
                     CustomerFacade.retrieveCustomerDetails(idCustomer);
                     request.setAttribute("idCustomer", idCustomer);
                     request.getRequestDispatcher("customerDetails.jsp").forward(request, response);
-                } catch (NullPointerException e) {
-                    System.out.println(e.getMessage());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    
+                } catch (WrongCustomerIDException ex) {
+                    System.out.println(ex.getMessage()); 
+                    request.setAttribute("WrongCustomerIDException", "Error");
+                    request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 }
                 break;
             case "AddDiscount":

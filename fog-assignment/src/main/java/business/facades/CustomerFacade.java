@@ -6,8 +6,8 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
+import business.exceptions.WrongCustomerIDException;
 import data.DataMapper;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -55,13 +55,13 @@ public class CustomerFacade {
     }
 
 
-    public static ArrayList<Customer> retrieveCustomerDetails(int idCustomer){
+    public static ArrayList<Customer> retrieveCustomerDetails(int idCustomer)throws WrongCustomerIDException {
           ArrayList<Customer> list = new ArrayList<>();
        try{
            DataMapper dm = new DataMapper();
           list = dm.retrieveCustomerDetails(idCustomer);
-       }catch (StorageLayerException e)
-       {
+       }catch (StorageLayerException e) {
+           throw new WrongCustomerIDException();
     }
         return list;
     }
