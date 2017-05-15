@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author thomasthimothee
@@ -50,6 +51,16 @@ public class OrderFacade {
                 createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
             }
         } catch (NullPointerException e) {
+        }
+    }
+
+    public static void createOrderLines2(Partlist partlist, int orderId) {
+        try {
+            DataMapper dm = new DataMapper();
+            dm.createOrderlines2(partlist, orderId);
+        } catch (NullPointerException e) {
+        } catch (StorageLayerException ex) {
+            Logger.getLogger(OrderFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -202,7 +213,7 @@ public class OrderFacade {
     public static Order retrieveOrder(int idOrder) throws InvalidOrderIdException {
         Order order = new Order();
         DataMapper dm = new DataMapper();
-        order = dm.retrieveOrder(idOrder);    
+        order = dm.retrieveOrder(idOrder);
         return order;
     }
 

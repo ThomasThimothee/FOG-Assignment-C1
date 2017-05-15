@@ -14,6 +14,8 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
+import static business.facades.OrderFacade.createOrderline;
+import static business.facades.OrderFacade.getPartPrice;
 import business.parts.Part;
 import business.parts.Part.PartType;
 import java.sql.Connection;
@@ -22,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -640,8 +643,38 @@ public class DataMapper {
                 }
             }
             return order;
-        }catch (NullPointerException | SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new InvalidOrderIdException();
         }
     }
+
+    public void createOrderlines2(Partlist partlist, int orderId) throws StorageLayerException {
+        String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
+        try (Connection con = new Connector().getConnection(); PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
+            con.setAutoCommit(false);
+            Iterator partIterator = partlist.getPartList().iterator();            
+            while (partIterator.hasNext()) {
+                Part part = (Part) partIterator.next();
+                double standardPrice = retrievePartPrice(part.getName());
+                double finalPrice = part.partPrice(standardPrice);
+                createOrderline(orderId, part.getName(), part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
+                createOrderline.setInt(1, orderId);
+                createOrderline.setString(2, part.getName());
+                createOrderline.setDouble(3, part.getLength());
+                createOrderline.setInt(4, part.getQuantity());
+                createOrderline.setString(5, part.getDescription());
+                createOrderline.setDouble(6, finalPrice);
+            }
+            int rowAffected = createOrderline.executeUpdate();
+            if (rowAffected == 1) {
+                con.commit();
+            } else {
+                con.rollback();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
 }

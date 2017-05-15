@@ -21,10 +21,13 @@ public class Main {
 
 
     public static void main(String[] args) throws StorageLayerException {
-        OrderFacade.setDiscountRate(50, 41);
-        OrderFacade.updateFinalPrice(41);
-        
-           
+        Partlist partlist = new Partlist();
+        Part part1 = new Part(PartType.WOOD, 23,  352, "25x200 mm. trykimp. Braet", "understernbraedder til siderne");
+        Part part2 = new Part(PartType.WOOD, 24, 353, "38x73 mm. Laegte", "til Z pa bagside af dor");
+        partlist.getPartList().add(part1);
+        partlist.getPartList().add(part2);
+          
+        OrderFacade.createOrderLines2(partlist, 47);
          }
 
 
