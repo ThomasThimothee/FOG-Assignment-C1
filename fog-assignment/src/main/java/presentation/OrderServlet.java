@@ -80,10 +80,6 @@ public class OrderServlet extends HttpServlet {
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 } 
                 break;
-            case "customerPayment":
-                customerChoosePayOrder(request, response);
-                break;
-
             case "notLoggedIn":
                 response.sendRedirect("loginCustomer.jsp");
                 break;
