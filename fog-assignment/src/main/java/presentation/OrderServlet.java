@@ -72,7 +72,6 @@ public class OrderServlet extends HttpServlet {
                         partList = pointy.createPartList();
                         request.setAttribute("selectedCarport", pointy);
                     }
-                    // Make these into a transaction 
                     OrderFacade.createOrderLines(partList, orderId);
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
