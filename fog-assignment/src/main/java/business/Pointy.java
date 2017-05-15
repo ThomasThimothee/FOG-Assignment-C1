@@ -10,14 +10,16 @@ import business.parts.Wood;
  * @author mathiasjepsen
  */
 public class Pointy extends Carport {
+    
+    private double angle;
 
     Wood woodA, woodB, woodC, woodD, woodE, woodF, woodG, woodH, woodI, woodJ, woodK, woodL, woodM, woodN, woodO, woodP;
     Tile tileA, tileB, tileC, tileD, tileE;
     Screw screwA, screwB, screwC, screwD, screwE, screwF, screwG, screwH, screwI, screwJ, screwK, screwL, screwM, screwN;
-    private double angle;
+
     int qWoodA, qWoodB, qWoodC, qWoodD, qWoodE, qWoodF, qWoodG, qWoodH, qWoodI, qWoodJ, qWoodK, qWoodL, qWoodM, qWoodN, qWoodO, qWoodP,
-            qTileA, qTileB, qTileC, qTileD, qTileE,
-            qScrewA, qScrewB, qScrewC, qScrewD, qScrewE, qScrewF, qScrewG, qScrewH, qScrewI, qScrewJ, qScrewK, qScrewL, qScrewM, qScrewN;
+        qTileA, qTileB, qTileC, qTileD, qTileE,
+        qScrewA, qScrewB, qScrewC, qScrewD, qScrewE, qScrewF, qScrewG, qScrewH, qScrewI, qScrewJ, qScrewK, qScrewL, qScrewM, qScrewN;
 
     double lengthWoodA, lengthWoodB, lengthWoodC, lengthWoodD, lengthWoodE, lengthWoodF, lengthWoodG, lengthWoodH, lengthWoodI, lengthWoodJ, lengthWoodK, lengthWoodL, lengthWoodM, lengthWoodN, lengthWoodO, lengthWoodP;
 

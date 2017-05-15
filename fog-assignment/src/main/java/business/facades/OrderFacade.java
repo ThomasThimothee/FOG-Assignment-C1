@@ -4,6 +4,7 @@ import business.Carport;
 import business.Order;
 import business.Orderline;
 import business.Partlist;
+import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
 import business.parts.Part;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author thomasthimothee
@@ -112,13 +112,13 @@ public class OrderFacade {
     }
 
     public static double getDiscountRate(int orderId) {
-        double price = 0;
+        double discountRate = 0;
         try {
             DataMapper dm = new DataMapper();
-            price = dm.retrieveDiscountRate(orderId);
+            discountRate = dm.retrieveDiscountRate(orderId);
         } catch (StorageLayerException e) {
         }
-        return price;
+        return discountRate;
     }
 
     public static void updateFinalPrice(int orderId) {
@@ -128,8 +128,11 @@ public class OrderFacade {
         try {
             DataMapper dm = new DataMapper();
             standardPrice = getStandardOrderPrice(orderId);
-            discountRate = getDiscountRate(orderId)/100;
+            discountRate = getDiscountRate(orderId) / 100;
             finalPrice = standardPrice * (1 - discountRate);
+            finalPrice = finalPrice * 100;
+            finalPrice = Math.round(finalPrice);
+            finalPrice = finalPrice / 100;
             dm.setFinalPrice(finalPrice, orderId);
         } catch (StorageLayerException ex) {
         }
@@ -145,7 +148,6 @@ public class OrderFacade {
         return price;
     }
 
-
     public static void updateSatus(int orderId) {
         try {
             DataMapper dm = new DataMapper();
@@ -155,21 +157,22 @@ public class OrderFacade {
     }
 
     public static Carport retrieveCarport(int idOrder) {
-       Carport carport = null;
-       try{
-           DataMapper dm = new DataMapper();
-           carport = dm.retrieveCarport(idOrder);
-       }catch (StorageLayerException e) {
-       }
-       return carport;
+        Carport carport = null;
+        try {
+            DataMapper dm = new DataMapper();
+            carport = dm.retrieveCarport(idOrder);
+        } catch (StorageLayerException e) {
+        }
+        return carport;
     }
-    public static ArrayList<Order> retrieveAllOrder(){
+
+    public static ArrayList<Order> retrieveAllOrder() {
         ArrayList<Order> order = new ArrayList<>();
-        try{
+        try {
             DataMapper dm = new DataMapper();
             order = dm.retrieveAllOrders();
-        } catch(StorageLayerException e) {
-            
+        } catch (StorageLayerException e) {
+
         }
         return order;
     }
@@ -185,14 +188,21 @@ public class OrderFacade {
        return list;
     }
     public static ArrayList<Order> retrieveCustomerOrders(int id_customer) {
-                ArrayList<Order> list = new ArrayList<>();
-        try{
+        ArrayList<Order> list = new ArrayList<>();
+        try {
             DataMapper dm = new DataMapper();
             list = dm.retrieveCustomerOrders(id_customer);
-        }catch(StorageLayerException e) {
-            
+        } catch (StorageLayerException e) {
+
         }
         return list;
     }
- 
+
+    public static Order retrieveOrder(int idOrder) throws InvalidOrderIdException {
+        Order order = new Order();
+        DataMapper dm = new DataMapper();
+        order = dm.retrieveOrder(idOrder);    
+        return order;
+    }
+
 }

@@ -4,6 +4,7 @@
     Author     : Lovro
 --%>
 
+<%@page import="presentation.utility.RenderUtils"%>
 <%@page import="business.Orderline"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="business.facades.OrderFacade"%>
@@ -24,6 +25,7 @@
 
         <!-- Custom CSS -->
         <link href="css/business-casual.css" rel="stylesheet">
+        <link href="stylesheet.css" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -31,67 +33,75 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <% int idOrder = (int) request.getAttribute("idOrder");
-       
-        ArrayList<Orderline> list = OrderFacade.retrievePartlist(idOrder);
+        <%  int idOrder = (int) request.getAttribute("idOrder");
+            ArrayList<Orderline> list = OrderFacade.retrievePartlist(idOrder);
+            RenderUtils render = new RenderUtils();
         %>
-         <div class="container">
+        <div class="brand">FOG</div>
+        <!--        <   !-- Navigation -->
+        <%  String[] navBarItems = {"Orders, emlpoyeeOverview.jsp",
+                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                    "Logout, index.jsp"};
+        %>
+        <%=render.createNavBar(navBarItems)%>
+        <div class="container">
             <div class="row">
                 <div class="box">
                     <div class="col-lg-12">  
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Part Name</th>
-                    <th>Length</th>
-                    <th>Quantity</th>
-                    <th>Explanation</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                          <%
+                        <table border="1" width="100%"style="overflow: auto" >
+                            <thead>
+                                <tr>
+                                    <th>Part Name</th>
+                                    <th>Length</th>
+                                    <th>Quantity</th>
+                                    <th>Explanation</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <%
                                             for (Orderline thisorderline : list) {
                                                 out.print("<div>" + thisorderline.getPartName() + "</div>");
                                             }
                                         %>
-                    </td>
-                    <td>
-                          <%
+                                    </td>
+                                    <td>
+                                        <%
                                             for (Orderline thisorderline : list) {
                                                 out.print("<div>" + thisorderline.getLength() + "</div>");
                                             }
                                         %>
-                    </td>
-                    <td>
-                          <%
+                                    </td>
+                                    <td>
+                                        <%
                                             for (Orderline thisorderline : list) {
                                                 out.print("<div>" + thisorderline.getQuantity() + "</div>");
                                             }
                                         %>
-                    </td>
-                    <td>
-                          <%
+                                    </td>
+                                    <td>
+                                        <%
                                             for (Orderline thisorderline : list) {
                                                 out.print("<div>" + thisorderline.getExplanation() + "</div>");
                                             }
                                         %>
-                    </td>
-                    <td>
-                          <%
+                                    </td>
+                                    <td>
+                                        <%
                                             for (Orderline thisorderline : list) {
                                                 out.print("<div>" + thisorderline.getPrice() + "</div>");
                                             }
                                         %>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
-         </div>
+        </div>
     </body>
 </html>

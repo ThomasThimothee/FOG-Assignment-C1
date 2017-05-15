@@ -1,9 +1,5 @@
-<%-- 
-    Document   : employeeOverview
-    Created on : May 9, 2017, 2:21:19 PM
-    Author     : Lovro
---%>
 
+<%@page import="business.Customer"%>
 <%@page import="presentation.utility.RenderUtils"%>
 <%@page import="business.Order"%>
 <%@page import="java.util.ArrayList"%>
@@ -42,36 +38,27 @@
         </script>
     </head>
     <body>
-        <%  ArrayList<Order> list = OrderFacade.retrieveAllOrder();
+        <% Customer customer = (Customer) session.getAttribute("currentCustomer"); %>
+        <%  ArrayList<Order> list = OrderFacade.retrieveCustomerOrders(customer.getId_customer());
             RenderUtils render = new RenderUtils(); %>
         <div class="brand">FOG</div>
         <!--        <   !-- Navigation -->
-        <%  String[] navBarItems = {"Orders, employeeOverview.jsp",
-                                    "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
-                                    "Logout, index.jsp"};
+        <%  String[] navBarItems = {"Home, loggedInHome.jsp",
+                "Account, customerInfo.jsp",
+                "My Orders, customerOverview.jsp",
+                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                "Logout, index.jsp"};
         %>
         <%=render.createNavBar(navBarItems)%>
         <div class="container">
             <div class="row">
                 <div class="box">
-                   <%  if ("Error".equals(request.getAttribute("WrongCustomerIDException"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> Wrong Customer ID, please try again. 
-                            </div>
-                     <% } 
-
-   if ("Error".equals(request.getAttribute("WrongCustomerID"))) { %>
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> Wrong Customer ID, please try again. 
-                            </div>
-                     <% } %>
-                    
-
-                    <div class="col-xs-offset-1 col-xs-10" style="height:768px; overflow: auto">   
-                        <table class="table table-striped table-bordered" id="myTable">
                     <div class="col-xs-12" style="height:768px; overflow: auto">   
+                        <% if ("IncorrectOrderId".equals(request.getAttribute("Error"))) { %>
+                        <div class="alert alert-danger">
+                            <strong>Whoops</strong> You've entered wrong order ID!
+                        </div>
+                        <%}%>
                         <table class="table" id="myTable">
                             <thead>
                                 <tr>
@@ -91,18 +78,15 @@
                         </table>
                     </div>
                     <div class="row" style="margin-bottom: 20px">
-                        <form name="AddDiscount" action="testServlet" method="POST">
-                            <input type="hidden" name="formName" value="AddDiscount" />
+                        <form name="PayOrder" action="testServlet" method="POST">
+                            <input type="hidden" name="formName" value="PayOrder" />
                             <div class="col-xs-12">
                                 <div class="form-group"> 
                                     <div class="col-xs-5">
-                                        <input type="text" name="discountRate" class="form-control" placeholder="Discount rate in %"> 
+                                        <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                     </div>
-                                        <div class="col-xs-5">
-                                            <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
-                                        </div>
                                     <div class="col-xs-2">
-                                        <button type="submit" name="discount" class="btn btn-success">Add discount</button>
+                                        <button type="submit" name="Pay Order" class="btn btn-success">Pay Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -110,36 +94,21 @@
                     </div>
                     <div class="row" style="margin-bottom: 20px">
                         <form name="ViewPartlist" action="testServlet" method="POST">
-                            <input type="hidden" name="formName" value="ViewPartlist" />
+                            <input type="hidden" name="formName" value="ViewDrawing" />
                             <div class="col-xs-12">
                                 <div class="form-group"> 
                                     <div class="col-xs-10">
                                         <input type="text" name="idOrder" class="form-control" placeholder="Order ID">
                                     </div>
- 
+
                                     <div class="col-xs-2"> 
-                                        <button type="submit" name="partlist" class="btn btn-success ">View partlist</button>
+                                        <button type="submit" name="viewDrawing" class="btn btn-success ">View drawing</button>
                                     </div>  
                                 </div>
 
                             </div>
                         </form>
                     </div>
-                    <div class="row">
-                        <form name="ViewCustomerDetails" action="testServlet" method="POST">
-                            <input type="hidden" name="formName" value="ViewCustomerDetails" />                             
-                            <div class="col-xs-12">
-                                <div class="form-group"> 
-                                    <div class="col-xs-10">
-                                        <input type="text" name="idCustomer" class="form-control" placeholder="Customer ID">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <button type="submit" name="customer details" class="btn btn-success">View customer details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div> 
                 </div>
             </div>
         </div>          
