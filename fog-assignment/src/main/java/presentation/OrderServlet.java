@@ -11,8 +11,6 @@ import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class OrderServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
@@ -46,7 +43,7 @@ public class OrderServlet extends HttpServlet {
                         angle = Double.parseDouble(request.getParameter("angle"));
                     }
                     if (carportWidth - 30 < shedWidth || carportLength - 30 < shedLength) {
-                        request.setAttribute("errorMessageIncorrectDimensions", "Error");
+                        request.setAttribute("Error", "errorMessageIncorrectDimensions");
                         switch (carportType) {
                             case "Flat":
                                 request.getRequestDispatcher("flatOrder.jsp").forward(request, response);
@@ -80,10 +77,9 @@ public class OrderServlet extends HttpServlet {
                     OrderFacade.setStandardOrderPrice(orderId);
                     OrderFacade.updateFinalPrice(orderId);
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-                } catch (NullPointerException | InvalidOrderIdException | StorageLayerException ex) {
-                    request.setAttribute("errorMessage", "Incorrect messurements");
-                    request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-                }
+                } catch (InvalidOrderIdException | StorageLayerException e) {
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                } 
                 break;
             case "customerPayment":
                 int orderId = Integer.parseInt(request.getParameter("orderId"));
@@ -95,7 +91,6 @@ public class OrderServlet extends HttpServlet {
             case "notLoggedIn":
                 response.sendRedirect("loginCustomer.jsp");
                 break;
-
         }
     }
 
@@ -105,16 +100,21 @@ public class OrderServlet extends HttpServlet {
         } catch (InvalidOrderIdException ex) {
             request.setAttribute("Error", "IncorrectOrderId");
             request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
         if (finalPrice == amount) {
-            OrderFacade.updateSatus(orderId);
+            try {
+                OrderFacade.updateSatus(orderId);
+            } catch (StorageLayerException e) {
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
         } else {
             request.setAttribute("currentOrder", order);
             request.setAttribute("InvalideAmount", "Error");
             request.getRequestDispatcher("customerPayment.jsp").forward(request, response);
         }
-        return;
     }
 
     @Override

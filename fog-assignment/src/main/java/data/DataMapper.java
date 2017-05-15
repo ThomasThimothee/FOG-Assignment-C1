@@ -253,7 +253,7 @@ public class DataMapper {
         }
     }
 
-    public double calculateStandardOrderPrice(int orderId) throws StorageLayerException {
+    public double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
             double standardOrderPrice = 0;
@@ -263,13 +263,16 @@ public class DataMapper {
                     standardOrderPrice = rs.getDouble(1);
                 }
             }
+            if (standardOrderPrice == 0) {
+                throw new InvalidOrderIdException();
+            }
             return standardOrderPrice;
         } catch (SQLException ex) {
             throw new StorageLayerException();
         }
     }
 
-    public double retrieveDiscountRate(int orderId) throws StorageLayerException {
+    public double retrieveDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
             double discountRate = 0;
@@ -278,6 +281,10 @@ public class DataMapper {
                 if (rs.next()) {
                     discountRate = rs.getDouble(1);
                 }
+            }
+            
+            if (discountRate == 0) {
+                throw new InvalidOrderIdException();
             }
             return discountRate;
         } catch (SQLException ex) {
@@ -352,7 +359,7 @@ public class DataMapper {
         }
     }
 
-    public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException {
+    public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
             double standardPrice = 0;
@@ -367,7 +374,7 @@ public class DataMapper {
                 return standardPrice;
             }
         } catch (SQLException ex) {
-            throw new InvalidOrderIdException();
+            throw new StorageLayerException();
         }
     }
 
@@ -617,7 +624,7 @@ public class DataMapper {
         }
     }
 
-    public Order retrieveOrder(int idOrder) throws InvalidOrderIdException {
+    public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idOrder = ?;";
         try (Connection con = new Connector().getConnection(); PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
             Order order = null;
@@ -652,7 +659,7 @@ public class DataMapper {
             }
             return order;
         } catch (SQLException ex) {
-            throw new InvalidOrderIdException();
+            throw new StorageLayerException();
         }
     }
 }

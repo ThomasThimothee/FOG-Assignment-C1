@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-xs-offset-1 col-xs-10">
                 <div class="box"> 
-                    <%  if ("Error".equals(request.getAttribute("errorMessageIncorrectDimensions"))) { %>
+                    <%  if ("errorMessageIncorrectDimensions".equals(request.getAttribute("Error"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
