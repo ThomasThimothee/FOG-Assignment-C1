@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import business.Carport;
@@ -132,7 +127,6 @@ public class OrderMapper {
                 con.commit();
             } else {
                 con.rollback();
-                throw new InvalidOrderIdException();
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
@@ -233,9 +227,6 @@ public class OrderMapper {
                 if (rs.next()) {
                     discountRate = rs.getDouble(1);
                 }
-            }
-            if (discountRate == 0) {
-                throw new InvalidOrderIdException();
             }
             return discountRate;
         } catch (SQLException ex) {
@@ -344,7 +335,7 @@ public class OrderMapper {
         String getOrderString = "SELECT * FROM fog.Order;";
         ArrayList<Order> list = new ArrayList<>();
         try (final Connection con = new Connector().getConnection();final PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
-            Order order = null;
+            Order order;
             try (final ResultSet rs = getOrders.executeQuery()) {
                 while (rs.next()) {
                     order = new Order();
@@ -377,7 +368,7 @@ public class OrderMapper {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
         ArrayList<Order> list = new ArrayList<>();
         try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
-            Order order = null;
+            Order order;
             getCustomerOrders.setInt(1, idCustomer);
             try (final ResultSet rs = getCustomerOrders.executeQuery()) {
                 while (rs.next()) {

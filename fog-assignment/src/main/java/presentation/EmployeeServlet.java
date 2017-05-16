@@ -49,7 +49,7 @@ public class EmployeeServlet extends HttpServlet {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
             double discountRate = Double.parseDouble(request.getParameter("discountRate"));
-            if (discountRate > 100) {
+            if (discountRate > 100 || discountRate < 0) {
                 request.setAttribute("Error", "IncorrectDiscountOrOrderId");
                 request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
                 return;
