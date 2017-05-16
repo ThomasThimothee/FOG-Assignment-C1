@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +30,7 @@ public class OrderMapper {
     }
 
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {
-        String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+        String createOrderString = "INSERT INTO `Order` (`idCustomer`, `idSalesRep`, `date`, `carportType`, `roofType`, `carportWidth`, `carportLength`, `shedWidth`, `shedLength`, `angle`, `status`, `standardPrice`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         try (final PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
             con.setAutoCommit(false);
             createOrder.setInt(1, customerId);
@@ -51,7 +53,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public void setStandardPrice(double standardPrice, int orderId) throws StorageLayerException {
@@ -157,7 +159,7 @@ public class OrderMapper {
     }
 
     public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
-        String getCustomerOrdersString = "SELECT * FROM fog.Order where idOrder = ?;";
+        String getCustomerOrdersString = "SELECT * FROM `Order` where idOrder = ?;";
         try (final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
             Order order = null;
             getCustomerOrders.setInt(1, idOrder);
@@ -190,7 +192,7 @@ public class OrderMapper {
             return order;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public double retrieveFinalPrice(int orderId) throws StorageLayerException {
@@ -241,7 +243,7 @@ public class OrderMapper {
     }
 
     public int retrieveOrderId(int customerId, Timestamp date) throws StorageLayerException {
-        String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
+        String getOrderIdString = "SELECT idOrder FROM `Order` WHERE idCustomer = ? AND date = ? ;";
         try (final PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
             int id = 0;
             getOrderId.setInt(1, customerId);
@@ -253,8 +255,9 @@ public class OrderMapper {
                 return id;
             }
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws StorageLayerException {
