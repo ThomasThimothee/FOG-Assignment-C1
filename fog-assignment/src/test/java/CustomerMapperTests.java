@@ -1,14 +1,19 @@
+import business.Customer;
+import business.exceptions.EmailAlreadyInUseException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
+import business.exceptions.InvalidUsernameOrPasswordException;
+import business.exceptions.StorageLayerException;
 import data.CustomerMapper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -35,9 +40,9 @@ public class CustomerMapperTests {
             Class.forName(DRIVER);
             fogTest = DriverManager.getConnection(url, ID, PW);
             try (Statement stmt = fogTest.createStatement()) {
-                stmt.execute( "DROP TABLE IF EXISTS Customer");
-                stmt.execute( "CREATE TABLE Customer LIKE testCustomer");
-                stmt.execute( "INSERT INTO Customer SELECT * FROM testCustomer");
+                stmt.execute("DROP TABLE IF EXISTS Customer");
+                stmt.execute("CREATE TABLE Customer LIKE CustomerCopy");
+                stmt.execute("INSERT INTO Customer SELECT * FROM CustomerCopy");
             }
             cm = new CustomerMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
@@ -45,16 +50,41 @@ public class CustomerMapperTests {
         }
     }
     
-    @After
-    public void tearDown() {
+    @Rule public ExpectedException thrown = ExpectedException.none();
+     
+    @Test
+    public void customerRegistrationIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+        thrown.expect(IncorrectEmailFormattingException.class);
+        String email = "test@test.comewds";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-     @Test
-     public void hello() {
-        System.out.println( "SetUpOK" );
-        assertNotNull("Setup failed", fogTest);
-     }
+    
+//    @Test
+//    public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+//        thrown.expect(InsecurePasswordException.class);
+//        String email = "test@test.com";
+//        String password = "123456";
+//        String firstName = "Tester";
+//        String lastName = "Testerton";
+//        String address = "Testerstreet 139";
+//        String phone = "90490302";
+//        cm.customerSignup(email, password, firstName, lastName, address, phone);
+//    }
+//    
+//    @Test
+//    public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+//        thrown.expect(EmailAlreadyInUseException.class);
+//        String email = "lovro@mail.com";
+//        String password = "1234567";
+//        String firstName = "Tester";
+//        String lastName = "Testerton";
+//        String address = "Testerstreet 139";
+//        String phone = "90490302";
+//        cm.customerSignup(email, password, firstName, lastName, address, phone);
+//    }
 }

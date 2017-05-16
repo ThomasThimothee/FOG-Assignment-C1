@@ -1,8 +1,15 @@
 package business;
 
+import business.exceptions.EmailAlreadyInUseException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import business.facades.OrderFacade;
+import data.Connector;
+import data.CustomerMapper;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +33,6 @@ public class Main {
 //        }
 //        
 //           
-         }
-
+    }
 
 }
