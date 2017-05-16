@@ -28,7 +28,7 @@
 </head>
 <body>
     <%  int idOrder = (int) request.getAttribute("idOrder");
-        ArrayList<Orderline> list = OrderFacade.retrievePartlist(idOrder);
+        ArrayList<Orderline> list = OrderFacade.getFacade().retrievePartlist(idOrder);
         RenderUtils render = new RenderUtils();
     %>
     <div class="brand">FOG</div>

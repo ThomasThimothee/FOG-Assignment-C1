@@ -55,7 +55,7 @@ public class EmployeeServlet extends HttpServlet {
                 return;
             }
             try {
-                OrderFacade.setDiscountRate(discountRate, idOrder);
+                OrderFacade.getFacade().setDiscountRate(discountRate, idOrder);
             } catch (StorageLayerException e) {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
@@ -69,7 +69,7 @@ public class EmployeeServlet extends HttpServlet {
     private void employeeViewCustomerDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
-            CustomerFacade.retrieveCustomerDetails(idCustomer);
+            CustomerFacade.getFacade().retrieveCustomerDetails(idCustomer);
             request.setAttribute("idCustomer", idCustomer);
             request.getRequestDispatcher("customerInfoEmployee.jsp").forward(request, response);
         } catch (WrongCustomerIDException | NumberFormatException e) {
@@ -81,7 +81,7 @@ public class EmployeeServlet extends HttpServlet {
     private void employeeViewPartlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-            OrderFacade.retrievePartlist(idOrder);
+            OrderFacade.getFacade().retrievePartlist(idOrder);
             request.setAttribute("idOrder", idOrder);
             request.getRequestDispatcher("partList.jsp").forward(request, response);
         } catch (WrongCustomerIDException | NumberFormatException e) {

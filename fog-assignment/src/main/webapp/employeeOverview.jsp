@@ -36,7 +36,7 @@
     </script>
 </head>
 <body>
-    <%  ArrayList<Order> list = OrderFacade.retrieveAllOrder();
+    <%  ArrayList<Order> list = OrderFacade.getFacade().retrieveAllOrder();
         RenderUtils render = new RenderUtils(); %>
     <div class="brand">FOG</div>
     <!--        <   !-- Navigation -->

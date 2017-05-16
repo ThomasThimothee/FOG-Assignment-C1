@@ -1,9 +1,6 @@
 package data;
 
 import business.Customer;
-import business.Flat;
-import business.Order;
-import business.Pointy;
 import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
@@ -14,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -22,10 +18,16 @@ import org.apache.commons.validator.routines.EmailValidator;
  * @author mathiasjepsen
  */
 public class CustomerMapper {
+    
+    Connection con;
+
+    public CustomerMapper(Connection con) {
+        this.con = con;
+    }
 
     public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement updateCustomer = con.prepareStatement(str)) {
+        try (final PreparedStatement updateCustomer = con.prepareStatement(str)) {
             con.setAutoCommit(false);
             if (!emailExists(email)) {
                 updateCustomer.setString(1, email);
@@ -57,7 +59,7 @@ public class CustomerMapper {
 
     public Customer customerLogin(String email, String password) throws StorageLayerException, InvalidUsernameOrPasswordException {
         String getCustomerString = "SELECT * FROM Customer WHERE email = ? AND password = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
+        try (final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
             Customer customer = null;
             getCustomer.setString(1, email);
             getCustomer.setString(2, password);
@@ -76,7 +78,7 @@ public class CustomerMapper {
 
     public boolean emailExists(String email) throws StorageLayerException {
         String str = "SELECT email FROM Customer;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement st = con.prepareStatement(str)) {
+        try (final PreparedStatement st = con.prepareStatement(str)) {
             boolean emailExists = false;
             try (final ResultSet rs = st.executeQuery()) {
                 String emailCounter;
@@ -95,7 +97,7 @@ public class CustomerMapper {
 
     public void setCustomerId(Customer customer) throws StorageLayerException {
         String getCustomerIdString = "SELECT idCustomer FROM Customer WHERE email = ? AND password = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
+        try (final PreparedStatement getCustomerId = con.prepareStatement(getCustomerIdString)) {
             int id = 0;
             getCustomerId.setString(1, customer.getEmail());
             getCustomerId.setString(2, customer.getPassword());
@@ -112,7 +114,7 @@ public class CustomerMapper {
 
     public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
         String str = "UPDATE Customer SET email = ?, password = ?, firstName = ?, lastName = ?, address = ?, phone = ? WHERE idCustomer = ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
+        try (final PreparedStatement updateCustomerInformation = con.prepareStatement(str)) {
             con.setAutoCommit(false);
             if (emailExists(updatedCustomer.getEmail()) && updatedCustomer.getEmail().equals(oldCustomer.getEmail())) {
                 updateCustomerInformation.setString(1, oldCustomer.getEmail());
@@ -147,7 +149,7 @@ public class CustomerMapper {
     public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
         Customer customer = null;
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
+        try (final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
             getCustomer.setInt(1, idCustomer);
             try (final ResultSet rs = getCustomer.executeQuery()) {
                 if (rs.next()) {

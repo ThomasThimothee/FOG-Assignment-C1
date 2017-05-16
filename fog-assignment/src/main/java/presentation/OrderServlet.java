@@ -58,9 +58,9 @@ public class OrderServlet extends HttpServlet {
                     }
                     java.util.Date dateJava = new java.util.Date();
                     java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
-                    int employeeId = EmployeeFacade.getRandomEmployeeId();
+                    int employeeId = EmployeeFacade.getFacade().getRandomEmployeeId();
                     OrderFacade.createOrder(customer.getId_customer(), employeeId, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
-                    int orderId = OrderFacade.getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
+                    int orderId = OrderFacade.getFacade().getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;
                     if (carportType.equals("Flat")) {
@@ -72,9 +72,9 @@ public class OrderServlet extends HttpServlet {
                         partList = pointy.createPartList();
                         request.setAttribute("selectedCarport", pointy);
                     }
-                    OrderFacade.createOrderLines(partList, orderId);
-                    OrderFacade.setStandardOrderPrice(orderId);
-                    OrderFacade.updateFinalPrice(orderId);
+                    OrderFacade.getFacade().createOrderLines(partList, orderId);
+                    OrderFacade.getFacade().setStandardOrderPrice(orderId);
+                    OrderFacade.getFacade().updateFinalPrice(orderId);
                     request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
                 } catch (InvalidOrderIdException | StorageLayerException e) {
                     request.getRequestDispatcher("error.jsp").forward(request, response);

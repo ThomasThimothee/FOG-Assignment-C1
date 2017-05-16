@@ -20,10 +20,16 @@ import java.util.ArrayList;
  * @author mathiasjepsen
  */
 public class EmployeeMapper {
+    
+    Connection con;
+
+    public EmployeeMapper(Connection con) {
+        this.con = con;
+    }
 
     public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws InsecurePasswordException, StorageLayerException {
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement updateEmployee = con.prepareStatement(str)) {
+        try (final PreparedStatement updateEmployee = con.prepareStatement(str)) {
             con.setAutoCommit(false);
             updateEmployee.setString(1, username);
             updateEmployee.setString(2, password);
@@ -47,7 +53,7 @@ public class EmployeeMapper {
 
     public Employee employeeLogin(String username, String password) throws InvalidUsernameOrPasswordException, StorageLayerException {
         String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
+        try (final PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
             Employee employee = null;
             getBorrower.setString(1, username);
             getBorrower.setString(2, password);
@@ -69,7 +75,7 @@ public class EmployeeMapper {
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
         String getEmployeesString = "SELECT * FROM SalesRep;";
         ArrayList<Employee> list = new ArrayList<>();
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
+        try (final PreparedStatement getEmployees = con.prepareStatement(getEmployeesString)) {
             Employee employee = null;
             try (final ResultSet rs = getEmployees.executeQuery()) {
                 while (rs.next()) {

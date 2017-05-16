@@ -20,10 +20,16 @@ import java.util.ArrayList;
  * @author mathiasjepsen
  */
 public class OrderMapper {
+    
+    Connection con;
+
+    public OrderMapper(Connection con) {
+        this.con = con;
+    }
 
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {
         String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
+        try (final PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
             con.setAutoCommit(false);
             createOrder.setInt(1, customerId);
             createOrder.setInt(2, salesRepId);
@@ -50,7 +56,7 @@ public class OrderMapper {
 
     public void setStandardPrice(double standardPrice, int orderId) throws StorageLayerException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
+        try (final PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
             con.setAutoCommit(false);
             setStandardPrice.setDouble(1, standardPrice);
             setStandardPrice.setInt(2, orderId);
@@ -67,7 +73,7 @@ public class OrderMapper {
 
     public Carport retrieveCarport(int idOrder) throws StorageLayerException {
         String getOrderlineString = "SELECT (carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, roofHeight) FROM fog.Order where idOrder = ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getOrderline = con.prepareStatement(getOrderlineString)) {
+        try (final PreparedStatement getOrderline = con.prepareStatement(getOrderlineString)) {
             Carport carport = null;
             try (final ResultSet rs = getOrderline.executeQuery()) {
                 if (rs.next()) {
@@ -86,7 +92,7 @@ public class OrderMapper {
 
     public void updateStatus(int orderId) throws StorageLayerException {
         String updateStatusString = "UPDATE fog.Order SET status = TRUE WHERE idOrder = ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
+        try (final PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
             con.setAutoCommit(false);
             updateStatus.setInt(1, orderId);
             int rowAffected = updateStatus.executeUpdate();
@@ -102,7 +108,7 @@ public class OrderMapper {
 
     public double retrievePartPrice(String partName) throws StorageLayerException {
         String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
+        try (final PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
             double price = 0;
             getPrice.setString(1, partName);
             try (final ResultSet rs = getPrice.executeQuery()) {
@@ -118,7 +124,7 @@ public class OrderMapper {
 
     public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
+        try (final PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
             con.setAutoCommit(false);
             setDiscountRate.setDouble(1, rate);
             setDiscountRate.setInt(2, orderId);
@@ -135,7 +141,7 @@ public class OrderMapper {
 
     public void setFinalPrice(double finalPrice, int orderId) throws StorageLayerException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
+        try (final PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
             con.setAutoCommit(false);
             setFinalPrice.setDouble(1, finalPrice);
             setFinalPrice.setInt(2, orderId);
@@ -152,7 +158,7 @@ public class OrderMapper {
 
     public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idOrder = ?;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
+        try (final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
             Order order = null;
             getCustomerOrders.setInt(1, idOrder);
             try (final ResultSet rs = getCustomerOrders.executeQuery()) {
@@ -189,7 +195,7 @@ public class OrderMapper {
 
     public double retrieveFinalPrice(int orderId) throws StorageLayerException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
+        try (final PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
             double finalPrice = 0;
             getFinalPrice.setInt(1, orderId);
             try (final ResultSet rs = getFinalPrice.executeQuery()) {
@@ -205,7 +211,7 @@ public class OrderMapper {
 
     public ArrayList<Integer> retrieveCarportId() throws StorageLayerException {
         String getCarportIdString = "SELECT * FROM Orderline where carportId = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCarportId = con.prepareStatement(getCarportIdString)) {
+        try (final PreparedStatement getCarportId = con.prepareStatement(getCarportIdString)) {
             ArrayList<Integer> list = new ArrayList<>();
             try (final ResultSet rs = getCarportId.executeQuery()) {
                 while (rs.next()) {
@@ -220,7 +226,7 @@ public class OrderMapper {
 
     public double retrieveDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
+        try (final PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
             double discountRate = 0;
             getDiscountRate.setInt(1, orderId);
             try (final ResultSet rs = getDiscountRate.executeQuery()) {
@@ -236,7 +242,7 @@ public class OrderMapper {
 
     public int retrieveOrderId(int customerId, Timestamp date) throws StorageLayerException {
         String getOrderIdString = "SELECT idOrder FROM fog.Order WHERE idCustomer = ? AND date = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
+        try (final PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
             int id = 0;
             getOrderId.setInt(1, customerId);
             getOrderId.setTimestamp(2, date);
@@ -253,7 +259,7 @@ public class OrderMapper {
 
     public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws StorageLayerException {
         String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
+        try (final PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
             con.setAutoCommit(false);
             createOrderline.setInt(1, idOrder);
             createOrderline.setString(2, partName);
@@ -276,7 +282,7 @@ public class OrderMapper {
         String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
         ArrayList<Orderline> list = new ArrayList<>();
         Orderline orderline = null;
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getPartlist = con.prepareStatement(getPartlistString)) {
+        try (final PreparedStatement getPartlist = con.prepareStatement(getPartlistString)) {
             getPartlist.setInt(1, idOrder);
             try (final ResultSet rs = getPartlist.executeQuery()) {
                 while (rs.next()) {
@@ -295,7 +301,7 @@ public class OrderMapper {
 
     public double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
+        try (final PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
             double standardOrderPrice = 0;
             getStandardOrderPrice.setInt(1, orderId);
             try (final ResultSet rs = getStandardOrderPrice.executeQuery()) {
@@ -314,7 +320,7 @@ public class OrderMapper {
 
     public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
+        try (final PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
             double standardPrice = 0;
             getStandardPrice.setInt(1, orderId);
             try (final ResultSet rs = getStandardPrice.executeQuery()) {
@@ -334,7 +340,7 @@ public class OrderMapper {
     public ArrayList<Order> retrieveAllOrders() throws StorageLayerException {
         String getOrderString = "SELECT * FROM fog.Order;";
         ArrayList<Order> list = new ArrayList<>();
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
+        try (final PreparedStatement getOrders = con.prepareStatement(getOrderString)) {
             Order order;
             try (final ResultSet rs = getOrders.executeQuery()) {
                 while (rs.next()) {
@@ -367,7 +373,7 @@ public class OrderMapper {
      public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
         ArrayList<Order> list = new ArrayList<>();
-        try (final Connection con = new Connector().getConnection();final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
+        try (final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
             Order order;
             getCustomerOrders.setInt(1, idCustomer);
             try (final ResultSet rs = getCustomerOrders.executeQuery()) {

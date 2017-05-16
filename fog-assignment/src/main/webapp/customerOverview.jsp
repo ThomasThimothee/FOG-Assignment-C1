@@ -37,7 +37,7 @@
 </head>
 <body>
     <% Customer customer = (Customer) request.getSession().getAttribute("currentCustomer"); %>
-    <%  ArrayList<Order> list = OrderFacade.retrieveCustomerOrders(customer.getId_customer());
+    <%  ArrayList<Order> list = OrderFacade.getFacade().retrieveCustomerOrders(customer.getId_customer());
         RenderUtils render = new RenderUtils(); %>
     <div class="brand">FOG</div>
     <!--        <   !-- Navigation -->

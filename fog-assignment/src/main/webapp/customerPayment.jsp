@@ -22,7 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head> 
 <body>    
-    <% Order order = (Order) request.getAttribute("currentOrder");%> 
+    <%  RenderUtils render = new RenderUtils();
+        Order order = (Order) request.getAttribute("currentOrder");%> 
         <div class="brand">FOG</div>
     <!-- Navigation -->
     <%  String[] navBarItems = {"Home, loggedInHome.jsp", 
@@ -31,6 +32,7 @@
                                 "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
                                 "Logout, index.jsp"};
     %>
+    <%=render.createNavBar(navBarItems)%>
     <div class="container">
         <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10">
             <div class="box">
@@ -55,7 +57,7 @@
                         </tr>
                     </thead>
                 </table>
-                <form class="form-horizontal" name ="customerPayment" action="OrderServlet" method="POST">
+                <form class="form-horizontal" name ="customerPayment" action="CustomerServlet" method="POST">
                     <input type="hidden" name="formName" value="customerPayment" />
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-8">

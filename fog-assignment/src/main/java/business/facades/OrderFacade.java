@@ -8,7 +8,9 @@ import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
 import business.parts.Part;
+import data.Connector;
 import data.OrderMapper;
+import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -17,20 +19,35 @@ import java.util.ArrayList;
  * @author thomasthimothee
  */
 public class OrderFacade {
+    
+    public static  OrderFacade facade;
+    
+    public static  OrderFacade getFacade() {
+        if (facade == null) {
+            facade = new OrderFacade();
+        }
+        return facade;
+    }
+    
+    public static  void setFacade(OrderFacade newFacade) {
+        facade = newFacade;
+    }
 
     public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) throws StorageLayerException {
-        OrderMapper om = new OrderMapper();
+        Connection con = Connector.getConnection();
+        OrderMapper om = new OrderMapper(con);
         om.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
     }
 
-    public static int getOrderId(int customerId, Timestamp date) throws StorageLayerException {
+    public int getOrderId(int customerId, Timestamp date) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         int id;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         id = om.retrieveOrderId(customerId, date);
         return id;
     }
 
-    public static void createOrderLines(Partlist partlist, int orderId) throws StorageLayerException {
+    public void createOrderLines(Partlist partlist, int orderId) throws StorageLayerException {
         for (Part part : partlist.getPartList()) {
             double standardPrice = getPartPrice(part.getName());
             double finalPrice = part.partPrice(standardPrice);
@@ -38,56 +55,64 @@ public class OrderFacade {
         }
     }
 
-    public static double getPartPrice(String partName) throws StorageLayerException {
+    public double getPartPrice(String partName) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         double price;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         price = om.retrievePartPrice(partName);
         return price;
     }
 
-    public static void createOrderline(String partName, int idOrder, double length, int quantity, String explanation, double price) throws StorageLayerException {
-        OrderMapper om = new OrderMapper();
+    public void createOrderline(String partName, int idOrder, double length, int quantity, String explanation, double price) throws StorageLayerException {
+        Connection con = Connector.getConnection();
+        OrderMapper om = new OrderMapper(con);
         om.createOrderline(idOrder, partName, length, quantity, explanation, price);
     }
 
-    public static double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+    public double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         double price;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         price = om.calculateStandardOrderPrice(orderId);
         return price;
     }
 
-    public static void setStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+    public void setStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         double totalPrice;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         totalPrice = calculateStandardOrderPrice(orderId);
         om.setStandardPrice(totalPrice, orderId);
     }
 
-    public static double getStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+    public double getStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         double price;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         price = om.retrieveStandardOrderPrice(orderId);
         return price;
     }
 
-    public static void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
-        OrderMapper om = new OrderMapper();
+    public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
+        OrderMapper om = new OrderMapper(con);
         om.setDiscountRate(rate, orderId);
     }
 
-    public static double getDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
+    public double getDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         double discountRate;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         discountRate = om.retrieveDiscountRate(orderId);
         return discountRate;
     }
 
-    public static void updateFinalPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+    public void updateFinalPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         double standardPrice;
         double discountRate;
         double finalPrice;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         standardPrice = getStandardOrderPrice(orderId);
         discountRate = getDiscountRate(orderId) / 100;
         finalPrice = standardPrice * (1 - discountRate);
@@ -97,47 +122,54 @@ public class OrderFacade {
         om.setFinalPrice(finalPrice, orderId);
     }
 
-    public static double getFinalPrice(int orderId) throws StorageLayerException {
+    public double getFinalPrice(int orderId) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         double price;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         price = om.retrieveFinalPrice(orderId);
         return price;
     }
 
-    public static void updateSatus(int orderId) throws StorageLayerException {
-        OrderMapper om = new OrderMapper();
+    public void updateSatus(int orderId) throws StorageLayerException {
+        Connection con = Connector.getConnection();
+        OrderMapper om = new OrderMapper(con);
         om.updateStatus(orderId);
     }
 
-    public static Carport retrieveCarport(int idOrder) throws StorageLayerException {
+    public Carport retrieveCarport(int idOrder) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         Carport carport;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         carport = om.retrieveCarport(idOrder);
         return carport;
     }
 
-    public static ArrayList<Order> retrieveAllOrder() throws StorageLayerException {
+    public ArrayList<Order> retrieveAllOrder() throws StorageLayerException {
+        Connection con = Connector.getConnection();
         ArrayList<Order> order;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         order = om.retrieveAllOrders();
         return order;
     }
-    public static ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
+        Connection con = Connector.getConnection();
         ArrayList<Orderline> list;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         list = om.retrievePartlist(idOrder);  
         return list;
     }
-    public static ArrayList<Order> retrieveCustomerOrders(int id_customer) throws StorageLayerException {
+    public ArrayList<Order> retrieveCustomerOrders(int id_customer) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         ArrayList<Order> list;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         list = om.retrieveCustomerOrders(id_customer);
         return list;
     }
 
-    public static Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
+    public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
+        Connection con = Connector.getConnection();
         Order order;
-        OrderMapper om = new OrderMapper();
+        OrderMapper om = new OrderMapper(con);
         order = om.retrieveOrder(idOrder);    
         return order;
     }

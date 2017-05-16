@@ -50,6 +50,7 @@
                     <div class="col-lg-12">
                         <hr>
                         <h1 class="intro-text text-center">Woops, seems like something went wrong. We're sorry about that</h1>
+                        <hr>
                         <img src="img\group.jpg" alt="Error Picture" style="width:100%">
                     </div>
                 </div>

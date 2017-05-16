@@ -18,8 +18,8 @@ public class CustomerMapperTests {
     
     Connection fogTest;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String ID = "fogtest";
-    private static final String PW = "fogtest1234";
+    private static final String ID = "fog";
+    private static final String PW = "fog1234";
     private static final String DBNAME = "fogtest";
     private static final String HOST = "188.166.91.15";
     CustomerMapper cm;
@@ -39,7 +39,7 @@ public class CustomerMapperTests {
                 stmt.execute( "CREATE TABLE Customer LIKE testCustomer");
                 stmt.execute( "INSERT INTO Customer SELECT * FROM testCustomer");
             }
-            cm = new CustomerMapper();
+            cm = new CustomerMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println( "Could not open connection to database: " + e.getMessage());
         }
@@ -55,6 +55,6 @@ public class CustomerMapperTests {
      @Test
      public void hello() {
         System.out.println( "SetUpOK" );
-        assertNotNull("Setup failed", con);
+        assertNotNull("Setup failed", fogTest);
      }
 }

@@ -60,7 +60,7 @@ public class CustomerServlet extends HttpServlet {
             orderId = Integer.parseInt(request.getParameter("orderId"));
             finalPrice = Double.parseDouble(request.getParameter("finalPrice"));
             amount = Double.parseDouble(request.getParameter("amount"));
-            order = OrderFacade.retrieveOrder(orderId);
+            order = OrderFacade.getFacade().retrieveOrder(orderId);
         } catch (InvalidOrderIdException | NumberFormatException ex) {
             request.setAttribute("Error", "IncorrectOrderId");
             request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
@@ -69,7 +69,7 @@ public class CustomerServlet extends HttpServlet {
         }
         if (finalPrice == amount) {
             try {
-                OrderFacade.updateSatus(orderId);
+                OrderFacade.getFacade().updateSatus(orderId);
                 request.getRequestDispatcher("customerOverview.jsp").forward(request, response);
             } catch (StorageLayerException e) {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -84,7 +84,7 @@ public class CustomerServlet extends HttpServlet {
     private void customerViewDrawing(HttpServletRequest request, Customer customer, HttpServletResponse response) throws IOException, ServletException {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-            Order order = OrderFacade.retrieveOrder(idOrder);
+            Order order = OrderFacade.getFacade().retrieveOrder(idOrder);
             if (customer.getId_customer() == order.getCustomerId()) {
                 request.setAttribute("currentOrder", order);
                 request.getRequestDispatcher("customerDrawing.jsp").forward(request, response);
@@ -102,7 +102,7 @@ public class CustomerServlet extends HttpServlet {
     private void customerPayOrder(HttpServletRequest request, Customer customer, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idOrder = Integer.parseInt(request.getParameter("idOrder"));
-            Order order = OrderFacade.retrieveOrder(idOrder);
+            Order order = OrderFacade.getFacade().retrieveOrder(idOrder);
             if (customer.getId_customer() == order.getCustomerId()) {
                 request.setAttribute("currentOrder", order);
                 request.getRequestDispatcher("customerPayment.jsp").forward(request, response);

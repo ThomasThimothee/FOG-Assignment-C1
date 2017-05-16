@@ -1,3 +1,4 @@
+<%@page import="presentation.utility.RenderUtils"%>
 <%@page import="business.Pointy"%>
 <%@page import="business.Carport"%>
 <%@page import="presentation.utility.SVGUtils"%>
@@ -30,13 +31,24 @@
 </head>
 <body>
     <%  Carport carport = (Carport) request.getAttribute("selectedCarport");
-        SVGUtils svg = new SVGUtils();%>
+        SVGUtils svg = new SVGUtils();
+        RenderUtils render = new RenderUtils(); %>
+    <div class="brand">FOG</div>
+    <!-- Navigation -->
+    <%  String[] navBarItems = {"Home, loggedInHome.jsp", 
+                                "Account, customerInfo.jsp",
+                                "My Orders, customerOverview.jsp",
+                                "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
+                                "Logout, index.jsp"};
+    %>
+    <%=render.createNavBar(navBarItems)%>
     <div class="container">
         <div class="row">
             <div class="col-xs-offset-1 col-xs-10">
                 <div class="box">
                     <hr>
                     <h1 class="intro-text text-center">Order</h1>     
+                    <hr>
                     <p>Carport Width: <%=carport.getCarportWidth()%></p>
                     <p>Carport Length: <%=carport.getCarportLength()%></p>
                     <p>Shed Width: <%=carport.getShedWidth()%></p>

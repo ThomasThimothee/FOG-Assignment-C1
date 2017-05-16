@@ -56,7 +56,7 @@ public class UserServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             Customer updatedCustomer = new Customer(email, password, firstName, lastName, address, phone);
             Customer oldCustomer = (Customer) session.getAttribute("currentCustomer");
-            CustomerFacade.updateCustomerInformation(updatedCustomer, oldCustomer);
+            CustomerFacade.getFacade().updateCustomerInformation(updatedCustomer, oldCustomer);
             session.setAttribute("currentCustomer", updatedCustomer);
             request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
         } catch (InvalidUsernameOrPasswordException e) {
@@ -89,7 +89,7 @@ public class UserServlet extends HttpServlet {
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            Employee employee = EmployeeFacade.getEmployee(username, password);
+            Employee employee = EmployeeFacade.getFacade().getEmployee(username, password);
             request.getSession().setAttribute("username", username);
             request.getSession().setAttribute("password", password);
             request.getSession().setAttribute("currentEmployee", employee);
@@ -110,7 +110,7 @@ public class UserServlet extends HttpServlet {
             String lastName = request.getParameter("lastName");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            EmployeeFacade.createEmployee(username, password, firstName, lastName, phone, email);
+            EmployeeFacade.getFacade().createEmployee(username, password, firstName, lastName, phone, email);
             request.getRequestDispatcher("loginEmployee.jsp").forward(request, response);
         } catch (InvalidUsernameOrPasswordException e) {
             request.setAttribute("errorMessageUsernameExists", "Error");
@@ -133,8 +133,8 @@ public class UserServlet extends HttpServlet {
         try {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            Customer customer = CustomerFacade.getCustomer(email, password);
-            CustomerFacade.setCustomerId(customer);
+            Customer customer = CustomerFacade.getFacade().getCustomer(email, password);
+            CustomerFacade.getFacade().setCustomerId(customer);
             session.setAttribute("currentCustomer", customer);
             request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
         } catch (InvalidUsernameOrPasswordException e) {
@@ -154,7 +154,7 @@ public class UserServlet extends HttpServlet {
             String lastName = request.getParameter("lastName");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
-            CustomerFacade.createCustomer(email, password, firstName, lastName, address, phone);
+            CustomerFacade.getFacade().createCustomer(email, password, firstName, lastName, address, phone);
             request.getRequestDispatcher("loginCustomer.jsp").forward(request, response);
         } catch (InsecurePasswordException ex) {
             System.out.println(ex.getMessage());
