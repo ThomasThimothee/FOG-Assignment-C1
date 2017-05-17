@@ -24,13 +24,13 @@ import static org.junit.Assert.*;
  */
 public class OrderMapperTests {
 
-    Connection fogTest;
+    private Connection fogTest;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String ID = "fog";
     private static final String PW = "fog1234";
     private static final String DBNAME = "fogtest";
     private static final String HOST = "188.166.91.15";
-    OrderMapper om;
+    private OrderMapper om;
 
     public OrderMapperTests() {
 
@@ -49,6 +49,7 @@ public class OrderMapperTests {
                 stmt.execute("CREATE TABLE `Part` LIKE `PartCopy`;");
                 stmt.execute("INSERT INTO `Part` SELECT * FROM `PartCopy`;");
             }
+            om = new OrderMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Could not open connection to database: " + e.getMessage());
         }
@@ -66,7 +67,6 @@ public class OrderMapperTests {
 
     @Test
     public void orderMapperCreateOrder() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException, InvalidOrderIdException {
-        om = new OrderMapper(fogTest);
         int customerId = 10;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();
@@ -88,7 +88,6 @@ public class OrderMapperTests {
     
     @Test(expected = InvalidOrderIdException.class)
     public void orderMapperInvalidOrderId() throws StorageLayerException, InvalidOrderIdException  {
-        om = new OrderMapper(fogTest);
         int customerId = 11;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();
