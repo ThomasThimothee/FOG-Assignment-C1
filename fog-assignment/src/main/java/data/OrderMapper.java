@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- This is one of our mapper classes. We execute SQL queries and bassed off of that we either get the data or we input the data into the database
+ This is one of our mapper classes. We execute SQL queries and bassed on that we either get the data or we input the data into the database
  * Order Facade creates objects out of this class
  * 
  */

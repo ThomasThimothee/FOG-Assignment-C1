@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * OrderSevlet takes care of our ordering jsp pages. It gathers the user input about carport dimensions from either pointyOrder.jsp or flatOrder.jsp pages and redirects it to orderConfirmation.jsp where it is displayed. 
- * It also creates creates orderlines in database based off of the carport dimensions/time that the order has been accomplished
+ * OrderSevlet takes care of our ordering jsp pages. It gathers the user inputs about carport dimensions from either pointyOrder.jsp or flatOrder.jsp pages and redirects it to orderConfirmation.jsp where it is displayed. 
+ * It also creates orderlines in database based on the carport dimensions/time that the order has been accomplished
  */
 public class OrderServlet extends HttpServlet {
 
