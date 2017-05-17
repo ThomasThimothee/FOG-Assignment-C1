@@ -6,6 +6,8 @@ import business.exceptions.WrongCustomerIDException;
 import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,6 @@ public class EmployeeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
         String formName = request.getParameter("formName");
         switch (formName) {
             case "ViewPartlist":
@@ -75,6 +76,8 @@ public class EmployeeServlet extends HttpServlet {
         } catch (WrongCustomerIDException | NumberFormatException e) {
             request.setAttribute("Error", "WrongCustomerIDException");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+        } catch (StorageLayerException ex) {
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
@@ -87,6 +90,8 @@ public class EmployeeServlet extends HttpServlet {
         } catch (WrongCustomerIDException | NumberFormatException e) {
             request.setAttribute("Error", "WrongCustomerIDException");
             request.getRequestDispatcher("employeeOverview.jsp").forward(request, response);
+        } catch (StorageLayerException ex) {
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
