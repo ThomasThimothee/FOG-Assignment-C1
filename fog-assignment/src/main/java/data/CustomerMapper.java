@@ -32,6 +32,7 @@ public class CustomerMapper {
             if (!emailExists(email)) {
                 updateCustomer.setString(1, email);
             } else {
+                con.close();
                 throw new EmailAlreadyInUseException();
             }
             updateCustomer.setString(2, password);
@@ -41,9 +42,11 @@ public class CustomerMapper {
             updateCustomer.setString(6, phone);
             boolean valid = EmailValidator.getInstance().isValid(email);
             if (!valid) {
+                con.close();
                 throw new IncorrectEmailFormattingException();
             }
             if (password.length() < 7) {
+                con.close();
                 throw new InsecurePasswordException();
             }
             int rowAffected = updateCustomer.executeUpdate();

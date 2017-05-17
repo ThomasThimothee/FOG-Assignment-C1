@@ -1,3 +1,4 @@
+
 import business.Customer;
 import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
@@ -20,7 +21,7 @@ import org.junit.rules.ExpectedException;
  * @author mathiasjepsen
  */
 public class CustomerMapperTests {
-    
+
     Connection fogTest;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String ID = "fog";
@@ -28,11 +29,22 @@ public class CustomerMapperTests {
     private static final String DBNAME = "fogtest";
     private static final String HOST = "188.166.91.15";
     CustomerMapper cm;
-    
+
     public CustomerMapperTests() {
-        
+
     }
-    
+
+    private Connection newConnection() {
+        try {
+            String url = String.format("jdbc:mysql://%s:3306/%s", HOST, DBNAME);
+            Class.forName(DRIVER);
+            fogTest = DriverManager.getConnection(url, ID, PW);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Could not open connection to database: " + e.getMessage());
+        }
+        return fogTest;
+    }
+
     @Before
     public void setUp() {
         try {
@@ -44,17 +56,16 @@ public class CustomerMapperTests {
                 stmt.execute("CREATE TABLE Customer LIKE CustomerCopy");
                 stmt.execute("INSERT INTO Customer SELECT * FROM CustomerCopy");
             }
-            cm = new CustomerMapper(fogTest);
+//            cm = new CustomerMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println( "Could not open connection to database: " + e.getMessage());
+            System.out.println("Could not open connection to database: " + e.getMessage());
         }
     }
     
-    @Rule public ExpectedException thrown = ExpectedException.none();
-     
-    @Test
+
+    @Test(expected = IncorrectEmailFormattingException.class)
     public void customerRegistrationIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-        thrown.expect(IncorrectEmailFormattingException.class);
+        cm = new CustomerMapper(newConnection());
         String email = "test@test.comewds";
         String password = "1234567";
         String firstName = "Tester";
@@ -63,28 +74,28 @@ public class CustomerMapperTests {
         String phone = "90490302";
         cm.customerSignup(email, password, firstName, lastName, address, phone);
     }
-    
-//    @Test
-//    public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-//        thrown.expect(InsecurePasswordException.class);
-//        String email = "test@test.com";
-//        String password = "123456";
-//        String firstName = "Tester";
-//        String lastName = "Testerton";
-//        String address = "Testerstreet 139";
-//        String phone = "90490302";
-//        cm.customerSignup(email, password, firstName, lastName, address, phone);
-//    }
-//    
-//    @Test
-//    public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-//        thrown.expect(EmailAlreadyInUseException.class);
-//        String email = "lovro@mail.com";
-//        String password = "1234567";
-//        String firstName = "Tester";
-//        String lastName = "Testerton";
-//        String address = "Testerstreet 139";
-//        String phone = "90490302";
-//        cm.customerSignup(email, password, firstName, lastName, address, phone);
-//    }
+
+    @Test(expected = InsecurePasswordException.class)
+    public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+        cm = new CustomerMapper(newConnection());
+        String email = "test@test.com";
+        String password = "123456";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
+    }
+
+    @Test(expected = EmailAlreadyInUseException.class)
+    public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+        cm = new CustomerMapper(newConnection());
+        String email = "lovro@mail.com";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
+    }
 }
