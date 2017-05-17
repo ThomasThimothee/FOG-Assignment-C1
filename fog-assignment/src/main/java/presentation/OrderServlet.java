@@ -58,7 +58,7 @@ public class OrderServlet extends HttpServlet {
                     java.util.Date dateJava = new java.util.Date();
                     java.sql.Timestamp dateSql = new Timestamp(dateJava.getTime());
                     int employeeId = EmployeeFacade.getFacade().getRandomEmployeeId();
-                    OrderFacade.createOrder(customer.getId_customer(), employeeId, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
+                    OrderFacade.getFacade().createOrder(customer.getId_customer(), employeeId, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
                     int orderId = OrderFacade.getFacade().getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
                     Partlist partList;

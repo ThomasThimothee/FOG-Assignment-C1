@@ -4,6 +4,8 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
+import business.facades.OrderFacade;
+import business.parts.Part;
 import data.OrderMapper;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +15,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +71,7 @@ public class OrderMapperTests {
     }
 
     @Test
-    public void orderMapperCreateOrder() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException, InvalidOrderIdException {
+    public void createOrder() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException, InvalidOrderIdException {
         int customerId = 10;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();
@@ -87,7 +92,7 @@ public class OrderMapperTests {
     }
     
     @Test(expected = InvalidOrderIdException.class)
-    public void orderMapperInvalidOrderId() throws StorageLayerException, InvalidOrderIdException  {
+    public void retrieveOrderInvalidOrderId() throws StorageLayerException, InvalidOrderIdException  {
         int customerId = 11;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();

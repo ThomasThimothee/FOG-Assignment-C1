@@ -65,7 +65,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = IncorrectEmailFormattingException.class)
-    public void customerRegistrationIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "test@test.comewds";
         String password = "1234567";
         String firstName = "Tester";
@@ -76,7 +76,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = InsecurePasswordException.class)
-    public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "test@test.com";
         String password = "123456";
         String firstName = "Tester";
@@ -87,7 +87,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = EmailAlreadyInUseException.class)
-    public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "lovro@mail.com";
         String password = "1234567";
         String firstName = "Tester";
@@ -101,7 +101,6 @@ public class CustomerMapperTests {
         cm = new CustomerMapper(fogTest);
         int idCustomer = 500;
         cm.retrieveCustomerDetails(idCustomer);
-        
     }
     
     @Test
