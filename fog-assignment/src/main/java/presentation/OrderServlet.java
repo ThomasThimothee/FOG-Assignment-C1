@@ -2,7 +2,6 @@ package presentation;
 
 import business.Customer;
 import business.Flat;
-import business.Order;
 import business.Partlist;
 import business.Pointy;
 import business.exceptions.InvalidOrderIdException;

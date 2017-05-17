@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- This is one of our mapper classes. We execute SQL queries and bassed on that we either get the data or we input the data into the database
+ This is one of our mapper classes. We execute SQL queries and based on that we either get the data or we input the data into the database
  * Order Facade creates objects out of this class
  * 
  */
@@ -28,7 +28,7 @@ public class OrderMapper {
         this.con = con;
     }
 /**
- * this mapper method creates order with specified attributes which are given out by the user input
+ * This mapper method creates an order with specified attributes which are given out by the user input
  * @param customerId id of the customer
  * @param salesRepId id of the employee
  * @param date date of the order creation
