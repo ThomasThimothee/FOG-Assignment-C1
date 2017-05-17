@@ -2,6 +2,7 @@ import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.StorageLayerException;
+import business.exceptions.WrongCustomerIDException;
 import data.CustomerMapper;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -92,5 +93,12 @@ public class CustomerMapperTests {
         String address = "Testerstreet 139";
         String phone = "90490302";
         cm.customerSignup(email, password, firstName, lastName, address, phone);
+    }
+    @Test (expected = WrongCustomerIDException.class)
+    public void retrieveNonExistingCustomerDetails() throws WrongCustomerIDException, StorageLayerException {
+        cm = new CustomerMapper(fogTest);
+        int idCustomer = 500;
+        cm.retrieveCustomerDetails(idCustomer);
+        
     }
 }
