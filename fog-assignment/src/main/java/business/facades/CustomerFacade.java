@@ -54,7 +54,7 @@ public class CustomerFacade {
         cm.updateCustomerInformation(updatedCustomer, oldCustomer);
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
         Customer customer;
         Connection con = Connector.getConnection();
         CustomerMapper cm = new CustomerMapper(con);

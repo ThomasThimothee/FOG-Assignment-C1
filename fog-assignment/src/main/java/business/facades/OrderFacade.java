@@ -17,20 +17,19 @@ import java.util.ArrayList;
 /**
  *
  * @author thomasthimothee
- * Singleton pattern - saves computing power and uses same instance everywhere.
  */
 public class OrderFacade {
     
-    private static OrderFacade facade;
+    public static  OrderFacade facade;
     
-    public static OrderFacade getFacade() {
+    public static  OrderFacade getFacade() {
         if (facade == null) {
             facade = new OrderFacade();
         }
         return facade;
     }
     
-    public static void setFacade(OrderFacade newFacade) {
+    public static  void setFacade(OrderFacade newFacade) {
         facade = newFacade;
     }
 
@@ -152,7 +151,7 @@ public class OrderFacade {
         order = om.retrieveAllOrders();
         return order;
     }
-    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
         Connection con = Connector.getConnection();
         ArrayList<Orderline> list;
         OrderMapper om = new OrderMapper(con);

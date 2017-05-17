@@ -4,6 +4,7 @@ import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
+import business.facades.OrderFacade;
 import data.OrderMapper;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 
 /**
  *
@@ -34,6 +36,17 @@ public class OrderMapperTests {
 
     public OrderMapperTests() {
 
+    }
+
+    private Connection newConnection() {
+        try {
+            String url = String.format("jdbc:mysql://%s:3306/%s", HOST, DBNAME);
+            Class.forName(DRIVER);
+            fogTest = DriverManager.getConnection(url, ID, PW);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Could not open connection to database: " + e.getMessage());
+        }
+        return fogTest;
     }
 
     @Before
@@ -66,7 +79,7 @@ public class OrderMapperTests {
 
     @Test
     public void orderMapperCreateOrder() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException, InvalidOrderIdException {
-        om = new OrderMapper(fogTest);
+        om = new OrderMapper(newConnection());
         int customerId = 10;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();
@@ -88,7 +101,7 @@ public class OrderMapperTests {
     
     @Test(expected = InvalidOrderIdException.class)
     public void orderMapperInvalidOrderId() throws StorageLayerException, InvalidOrderIdException  {
-        om = new OrderMapper(fogTest);
+        om = new OrderMapper(newConnection());
         int customerId = 11;
         int salesRepId = 7;
         Date dateJava = new java.util.Date();

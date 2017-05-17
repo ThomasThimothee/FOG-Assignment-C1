@@ -56,7 +56,13 @@ public class CustomerMapper {
             }
         } catch (SQLException e) {
             throw new StorageLayerException();
-        } 
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public Customer customerLogin(String email, String password) throws StorageLayerException, InvalidUsernameOrPasswordException {
@@ -75,7 +81,7 @@ public class CustomerMapper {
             return customer;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public boolean emailExists(String email) throws StorageLayerException {
@@ -94,7 +100,7 @@ public class CustomerMapper {
             return emailExists;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public void setCustomerId(Customer customer) throws StorageLayerException {
@@ -111,7 +117,7 @@ public class CustomerMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
@@ -145,11 +151,10 @@ public class CustomerMapper {
                 con.rollback();
             }
         } catch (SQLException e) {
-            throw new StorageLayerException();
-        } 
+        }
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
         Customer customer = null;
         try (final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
@@ -165,6 +170,6 @@ public class CustomerMapper {
             }
         } catch (SQLException ex) {
             throw new WrongCustomerIDException();
-        } 
+        }
     } 
 }

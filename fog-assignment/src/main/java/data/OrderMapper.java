@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -87,7 +89,7 @@ public class OrderMapper {
             }
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public void updateStatus(int orderId) throws StorageLayerException {
@@ -103,7 +105,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public double retrievePartPrice(String partName) throws StorageLayerException {
@@ -119,7 +121,7 @@ public class OrderMapper {
             return price;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
@@ -136,7 +138,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public void setFinalPrice(double finalPrice, int orderId) throws StorageLayerException {
@@ -153,7 +155,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
@@ -206,7 +208,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public ArrayList<Integer> retrieveCarportId() throws StorageLayerException {
@@ -221,7 +223,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public double retrieveDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
@@ -237,7 +239,7 @@ public class OrderMapper {
             return discountRate;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public int retrieveOrderId(int customerId, Timestamp date) throws StorageLayerException {
@@ -276,10 +278,10 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
-    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
         String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
         ArrayList<Orderline> list = new ArrayList<>();
         Orderline orderline = null;
@@ -297,7 +299,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new WrongCustomerIDException();
-        } 
+        }
     }
 
     public double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
@@ -316,7 +318,7 @@ public class OrderMapper {
             return standardOrderPrice;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
@@ -335,7 +337,7 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public ArrayList<Order> retrieveAllOrders() throws StorageLayerException {
@@ -368,7 +370,7 @@ public class OrderMapper {
             return list;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
     
      public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
@@ -402,7 +404,7 @@ public class OrderMapper {
             return list;
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
     
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package data;
 
 import business.Employee;
@@ -43,7 +48,7 @@ public class EmployeeMapper {
             }
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public Employee employeeLogin(String username, String password) throws InvalidUsernameOrPasswordException, StorageLayerException {
@@ -64,7 +69,7 @@ public class EmployeeMapper {
             return employee;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
 
     public ArrayList<Employee> retrieveAllEmployees() throws StorageLayerException {
@@ -84,7 +89,7 @@ public class EmployeeMapper {
             return list;
         } catch (SQLException | NullPointerException ex) {
             throw new StorageLayerException();
-        } 
+        }
     }
     
 }
