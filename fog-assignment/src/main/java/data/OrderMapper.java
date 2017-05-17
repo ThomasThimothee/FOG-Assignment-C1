@@ -16,8 +16,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- *
- * @author mathiasjepsen
+ This is one of our mapper classes. We execute SQL queries and bassed off of that we either get the data or we input the data into the database
+ * Order Facade creates objects out of this class
+ * 
  */
 public class OrderMapper {
     
@@ -26,7 +27,22 @@ public class OrderMapper {
     public OrderMapper(Connection con) {
         this.con = con;
     }
-
+/**
+ * this mapper method creates order with specified attributes which are given out by the user input
+ * @param customerId id of the customer
+ * @param salesRepId id of the employee
+ * @param date date of the order creation
+ * @param carportType type of the carport(pointy or flat)
+ * @param roofType type of the roof
+ * @param carportWidth width of the carport
+ * @param carportLength length of the carport 
+ * @param shedWidth width of the shed
+ * @param shedLength length of the shed
+ * @param angle angle of the roof
+ * @param status is the order paid or not
+ * @param price the ammount that is needed to pay
+ * @throws StorageLayerException 
+ */
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {
         String createOrderString = "INSERT INTO fog.Order(idCustomer, idSalesRep, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, standardPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         try (final PreparedStatement createOrder = con.prepareStatement(createOrderString)) {
@@ -70,7 +86,12 @@ public class OrderMapper {
             throw new StorageLayerException();
         }
     }
-
+/**
+ * This method selects all the necessary attributes about the carport from the database and returns it. It returns the specific carport based on order ID.
+ * @param idOrder Order ID
+ * @return carport
+ * @throws StorageLayerException 
+ */
     public Carport retrieveCarport(int idOrder) throws StorageLayerException {
         String getOrderlineString = "SELECT (carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, roofHeight) FROM fog.Order where idOrder = ?;";
         try (final PreparedStatement getOrderline = con.prepareStatement(getOrderlineString)) {
