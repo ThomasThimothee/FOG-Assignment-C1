@@ -17,7 +17,7 @@ import java.sql.Connection;
  */
 public class CustomerFacade {
     
-    public static CustomerFacade facade;
+    private static CustomerFacade facade;
     
     public static CustomerFacade getFacade() {
         if (facade == null) {
@@ -54,7 +54,7 @@ public class CustomerFacade {
         cm.updateCustomerInformation(updatedCustomer, oldCustomer);
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
         Customer customer;
         Connection con = Connector.getConnection();
         CustomerMapper cm = new CustomerMapper(con);

@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class EmployeeFacade {
     
-    public static EmployeeFacade facade;
+    private static EmployeeFacade facade;
     
     public static EmployeeFacade getFacade() {
         if (facade == null) {

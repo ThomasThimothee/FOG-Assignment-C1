@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -32,7 +34,6 @@ public class CustomerMapper {
             if (!emailExists(email)) {
                 updateCustomer.setString(1, email);
             } else {
-                con.close();
                 throw new EmailAlreadyInUseException();
             }
             updateCustomer.setString(2, password);
@@ -42,11 +43,9 @@ public class CustomerMapper {
             updateCustomer.setString(6, phone);
             boolean valid = EmailValidator.getInstance().isValid(email);
             if (!valid) {
-                con.close();
                 throw new IncorrectEmailFormattingException();
             }
             if (password.length() < 7) {
-                con.close();
                 throw new InsecurePasswordException();
             }
             int rowAffected = updateCustomer.executeUpdate();
@@ -57,7 +56,7 @@ public class CustomerMapper {
             }
         } catch (SQLException e) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public Customer customerLogin(String email, String password) throws StorageLayerException, InvalidUsernameOrPasswordException {
@@ -76,7 +75,7 @@ public class CustomerMapper {
             return customer;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public boolean emailExists(String email) throws StorageLayerException {
@@ -95,7 +94,7 @@ public class CustomerMapper {
             return emailExists;
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public void setCustomerId(Customer customer) throws StorageLayerException {
@@ -112,7 +111,7 @@ public class CustomerMapper {
             }
         } catch (SQLException ex) {
             throw new StorageLayerException();
-        }
+        } 
     }
 
     public void updateCustomerInformation(Customer updatedCustomer, Customer oldCustomer) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, InvalidUsernameOrPasswordException, EmailAlreadyInUseException {
@@ -146,10 +145,11 @@ public class CustomerMapper {
                 con.rollback();
             }
         } catch (SQLException e) {
-        }
+            throw new StorageLayerException();
+        } 
     }
 
-    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException {
+    public Customer retrieveCustomerDetails(int idCustomer) throws WrongCustomerIDException, StorageLayerException {
         String getCustomerString = "SELECT * FROM Customer where idCustomer = ?;";
         Customer customer = null;
         try (final PreparedStatement getCustomer = con.prepareStatement(getCustomerString)) {
@@ -165,6 +165,6 @@ public class CustomerMapper {
             }
         } catch (SQLException ex) {
             throw new WrongCustomerIDException();
-        }
+        } 
     } 
 }

@@ -1,20 +1,17 @@
-
-import business.Customer;
 import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
-import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import data.CustomerMapper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -34,38 +31,36 @@ public class CustomerMapperTests {
 
     }
 
-    private Connection newConnection() {
-        try {
-            String url = String.format("jdbc:mysql://%s:3306/%s", HOST, DBNAME);
-            Class.forName(DRIVER);
-            fogTest = DriverManager.getConnection(url, ID, PW);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Could not open connection to database: " + e.getMessage());
-        }
-        return fogTest;
-    }
-
     @Before
     public void setUp() {
         try {
             String url = String.format("jdbc:mysql://%s:3306/%s", HOST, DBNAME);
             Class.forName(DRIVER);
             fogTest = DriverManager.getConnection(url, ID, PW);
+            System.out.println("TESTING SETUP");
             try (Statement stmt = fogTest.createStatement()) {
                 stmt.execute("DROP TABLE IF EXISTS Customer");
                 stmt.execute("CREATE TABLE Customer LIKE CustomerCopy");
                 stmt.execute("INSERT INTO Customer SELECT * FROM CustomerCopy");
             }
-//            cm = new CustomerMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Could not open connection to database: " + e.getMessage());
         }
     }
     
+    @After
+    public void tearDown() {
+        try {
+            fogTest.close();
+        } catch (SQLException ex) {
+            System.out.println("Failed to close fogTest - " + ex.getMessage());
+            Logger.getLogger(OrderMapperTests.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Test(expected = IncorrectEmailFormattingException.class)
     public void customerRegistrationIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-        cm = new CustomerMapper(newConnection());
+        cm = new CustomerMapper(fogTest);
         String email = "test@test.comewds";
         String password = "1234567";
         String firstName = "Tester";
@@ -77,7 +72,7 @@ public class CustomerMapperTests {
 
     @Test(expected = InsecurePasswordException.class)
     public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-        cm = new CustomerMapper(newConnection());
+        cm = new CustomerMapper(fogTest);
         String email = "test@test.com";
         String password = "123456";
         String firstName = "Tester";
@@ -89,7 +84,7 @@ public class CustomerMapperTests {
 
     @Test(expected = EmailAlreadyInUseException.class)
     public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
-        cm = new CustomerMapper(newConnection());
+        cm = new CustomerMapper(fogTest);
         String email = "lovro@mail.com";
         String password = "1234567";
         String firstName = "Tester";

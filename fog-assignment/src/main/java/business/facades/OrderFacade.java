@@ -17,19 +17,23 @@ import java.util.ArrayList;
 /**
  * Order Facade transitions datamapper methods to Facade methods so Servlets do not have direct contact with the database. Following the 3 layer architecture design rules. 
  * OrderServlet makes objects out of this class
+=======
+ *
+ * @author thomasthimothee
+ * Singleton pattern - saves computing power and uses same instance everywhere.
  */
 public class OrderFacade {
     
-    public static  OrderFacade facade;
+    private static OrderFacade facade;
     
-    public static  OrderFacade getFacade() {
+    public static OrderFacade getFacade() {
         if (facade == null) {
             facade = new OrderFacade();
         }
         return facade;
     }
     
-    public static  void setFacade(OrderFacade newFacade) {
+    public static void setFacade(OrderFacade newFacade) {
         facade = newFacade;
     }
 /**
@@ -166,7 +170,7 @@ public class OrderFacade {
         order = om.retrieveAllOrders();
         return order;
     }
-    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException {
+    public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
         Connection con = Connector.getConnection();
         ArrayList<Orderline> list;
         OrderMapper om = new OrderMapper(con);
