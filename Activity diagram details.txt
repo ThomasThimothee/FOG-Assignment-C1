@@ -1,25 +1,25 @@
 @startuml
 |Customer|
 start
-:Select custom carport page;
+:Sign-up;
+:Login;
 :Select custom carport types;
 :Insert dimensions;
-:pre order;
+:click order;
 |IT System|
 while (check correct pre-order?) is (not correct)
     |Customer|
-    :modify pre-order;
+    :modifies pre-order;
 endwhile (correct)
 |IT System|
 fork
     :Assign sales rep;
 fork again
-    :Send confirmation sms/email;
+    :Generate illustration;
 end fork
 |SalesRep|
 :Review pre-order;
 :Contact Customer;
-:validate pre-order;
 |Customer|
 :file authorization;
 |Kommune|
@@ -29,9 +29,9 @@ if (validate building?) then (no)
     detach
 else (yes)
     |Customer|
-    :Finalize order;
+    :Pay order;
     |IT System|
-    :notify salesRep;
+    :Update order status;
     |SalesRep|
     :call Customer and finalize details;
 endif
