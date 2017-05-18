@@ -4,7 +4,7 @@ package business;
  *
  * @author thomasthimothee
  */
-public class Carport {
+public abstract class Carport {
     
     protected String type;
     protected String roofType;
@@ -29,6 +29,8 @@ public class Carport {
         this.roofHeight = roofHeight;
         this.partList = new Partlist();
     }
+    
+    abstract Partlist createPartList();
     
     /**
      * @return the type
