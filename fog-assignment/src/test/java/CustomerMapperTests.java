@@ -1,3 +1,4 @@
+import business.Customer;
 import business.exceptions.EmailAlreadyInUseException;
 import business.exceptions.IncorrectEmailFormattingException;
 import business.exceptions.InsecurePasswordException;
@@ -10,9 +11,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.Is.is;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -60,7 +65,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = IncorrectEmailFormattingException.class)
-    public void customerRegistrationIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupIncorrectEmailFormatting() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "test@test.comewds";
         String password = "1234567";
         String firstName = "Tester";
@@ -71,7 +76,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = InsecurePasswordException.class)
-    public void customerRegistrationInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupInsecurePassword() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "test@test.com";
         String password = "123456";
         String firstName = "Tester";
@@ -82,7 +87,7 @@ public class CustomerMapperTests {
     }
 
     @Test(expected = EmailAlreadyInUseException.class)
-    public void customerRegistrationEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
+    public void customerSignupEmailAlreadyInUse() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String email = "lovro@mail.com";
         String password = "1234567";
         String firstName = "Tester";
@@ -96,6 +101,50 @@ public class CustomerMapperTests {
         cm = new CustomerMapper(fogTest);
         int idCustomer = 500;
         cm.retrieveCustomerDetails(idCustomer);
-        
+    }
+    
+    @Test
+    public void emailExistsTrue() throws EmailAlreadyInUseException, InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException {
+        String email = "test@test.com";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
+        assertTrue(cm.emailExists(email));
+        assertFalse(cm.emailExists("test@test2.com"));
+    }
+    
+    @Test
+    public void setCustomerId() throws StorageLayerException, InsecurePasswordException, EmailAlreadyInUseException, IncorrectEmailFormattingException {
+        String email = "test@test.com";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        Customer customer = new Customer(email, password, firstName, lastName, address, phone);
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
+        assertThat(customer.getId_customer(), is(equalTo(0)));
+        cm.setCustomerId(customer);
+        assertThat(customer.getId_customer(), is(not(equalTo(0))));
+    }
+    
+    @Test
+    public void retrieveCustomerDetails() throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException, WrongCustomerIDException {
+        String email = "test@test.com";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String address = "Testerstreet 139";
+        String phone = "90490302";
+        cm.customerSignup(email, password, firstName, lastName, address, phone);
+        Customer customer = new Customer(email, password, firstName, lastName, address, phone);
+        cm.setCustomerId(customer);
+        Customer customerDetails = cm.retrieveCustomerDetails(customer.getId_customer());
+        assertThat(customerDetails.getAddress(), is(equalTo(address)));
+        assertThat(customerDetails.getLastName(), is(equalTo(lastName)));
+        assertThat(customerDetails.getPhone(), is(equalTo(phone)));
     }
 }

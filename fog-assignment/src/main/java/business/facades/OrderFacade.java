@@ -15,44 +15,46 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- * Order Facade transitions datamapper methods to Facade methods so Servlets do not have direct contact with the database. Following the 3 layer architecture design rules. 
- * OrderServlet makes objects out of this class
-=======
+ * Order Facade transitions datamapper methods to Facade methods so Servlets do
+ * not have direct contact with the database. Following the 3 layer architecture
+ * design rules. OrderServlet makes objects out of this class =======
  *
- * @author thomasthimothee
- * Singleton pattern - saves computing power and uses same instance everywhere.
+ * @author thomasthimothee Singleton pattern - saves computing power and uses
+ * same instance everywhere.
  */
 public class OrderFacade {
-    
+
     private static OrderFacade facade;
-    
+
     public static OrderFacade getFacade() {
         if (facade == null) {
             facade = new OrderFacade();
         }
         return facade;
     }
-    
+
     public static void setFacade(OrderFacade newFacade) {
         facade = newFacade;
     }
-/**
- *  * This is an ''instance'' of createOrder method from OrderMapper
-* @param customerId id of the customer
- * @param salesRepId id of the employee
- * @param date date of the order creation
- * @param carportType type of the carport(pointy or flat)
- * @param roofType type of the roof
- * @param carportWidth width of the carport
- * @param carportLength length of the carport 
- * @param shedWidth width of the shed
- * @param shedLength length of the shed
- * @param angle angle of the roof
- * @param status is the order paid or not
- * @param price the ammount that is needed to pay
- * @throws StorageLayerException 
- */
-    public static void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) throws StorageLayerException {
+
+    /**
+     *  * This is an ''instance'' of createOrder method from OrderMapper
+     *
+     * @param customerId id of the customer
+     * @param salesRepId id of the employee
+     * @param date date of the order creation
+     * @param carportType type of the carport(pointy or flat)
+     * @param roofType type of the roof
+     * @param carportWidth width of the carport
+     * @param carportLength length of the carport
+     * @param shedWidth width of the shed
+     * @param shedLength length of the shed
+     * @param angle angle of the roof
+     * @param status is the order paid or not
+     * @param price the ammount that is needed to pay
+     * @throws StorageLayerException
+     */
+    public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, Boolean status, double price) throws StorageLayerException {
         Connection con = Connector.getConnection();
         OrderMapper om = new OrderMapper(con);
         om.createOrder(customerId, salesRepId, date, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, status, price);
@@ -170,13 +172,15 @@ public class OrderFacade {
         order = om.retrieveAllOrders();
         return order;
     }
+
     public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
         Connection con = Connector.getConnection();
         ArrayList<Orderline> list;
         OrderMapper om = new OrderMapper(con);
-        list = om.retrievePartlist(idOrder);  
+        list = om.retrievePartlist(idOrder);
         return list;
     }
+
     public ArrayList<Order> retrieveCustomerOrders(int id_customer) throws StorageLayerException {
         Connection con = Connector.getConnection();
         ArrayList<Order> list;
@@ -189,7 +193,7 @@ public class OrderFacade {
         Connection con = Connector.getConnection();
         Order order;
         OrderMapper om = new OrderMapper(con);
-        order = om.retrieveOrder(idOrder);    
+        order = om.retrieveOrder(idOrder);
         return order;
     }
 

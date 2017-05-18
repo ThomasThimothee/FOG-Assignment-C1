@@ -1,4 +1,6 @@
+
 import business.Employee;
+import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
 import data.EmployeeMapper;
@@ -13,6 +15,7 @@ import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -20,13 +23,13 @@ import org.junit.Test;
  */
 public class EmployeeMapperTests {
 
-    Connection fogTest;
+    private Connection fogTest;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String ID = "fog";
     private static final String PW = "fog1234";
     private static final String DBNAME = "fogtest";
     private static final String HOST = "188.166.91.15";
-    EmployeeMapper em;
+    private EmployeeMapper em;
 
     public EmployeeMapperTests() {
     }
@@ -40,13 +43,14 @@ public class EmployeeMapperTests {
             try (Statement stmt = fogTest.createStatement()) {
                 stmt.execute("DROP TABLE IF EXISTS `SalesRep`;");
                 stmt.execute("CREATE TABLE `SalesRep` LIKE `SalesRepCopy`;");
-               stmt.execute("INSERT INTO SalesRep SELECT * FROM SalesRepCopy");
+                stmt.execute("INSERT INTO SalesRep SELECT * FROM SalesRepCopy");
             }
+            em = new EmployeeMapper(fogTest);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Could not open connection to database: " + e.getMessage());
         }
     }
-    
+
     @After
     public void tearDown() {
         try {
@@ -57,22 +61,31 @@ public class EmployeeMapperTests {
         }
     }
     
-    @Test (expected = InvalidUsernameOrPasswordException.class)
-    public void employeeLoginIncorretUsername() throws InvalidUsernameOrPasswordException, StorageLayerException {
-            em = new EmployeeMapper(fogTest);
+    @Test
+    public void employeeLoginSuccess() throws InsecurePasswordException, StorageLayerException, InvalidUsernameOrPasswordException {
+        String username = "overlord";
+        String password = "1234567";
+        String firstName = "Tester";
+        String lastName = "Testerton";
+        String email = "lovro@mail.com";
+        String phone = "90490302";
+        em.employeeSignup(username, password, firstName, lastName, phone, email);
+        Employee employee = em.employeeLogin(username, password);
+        assertEquals(username, employee.getUsername());
+        assertEquals(email, employee.getEmail());
+    }
+
+    @Test(expected = InvalidUsernameOrPasswordException.class)
+    public void employeeLoginIncorrectUsername() throws InvalidUsernameOrPasswordException, StorageLayerException {
         String username = "lovro";
         String password = "1234";
         em.employeeLogin(username, password);
-}
- @Test
- public void retrieveRandomEmployee() throws StorageLayerException {
-      em = new EmployeeMapper(fogTest);
-      ArrayList<Employee> list;
-      int randomIndex;
+    }
+
+    @Test
+    public void retrieveEmployee() throws StorageLayerException {
+        ArrayList<Employee> list;
         list = em.retrieveAllEmployees();
-        Random r = new Random();
-        randomIndex = r.nextInt(list.size());
-        list.get(randomIndex).getEmployeeId();
-      
- }
+        assertNotEquals(new ArrayList<>(0), list);
+    }
 }

@@ -128,7 +128,7 @@ public class OrderMapper {
     }
 
     public double retrievePartPrice(String partName) throws StorageLayerException {
-        String getPriceString = "SELECT standardPrice FROM fog.Part WHERE name = ? ;";
+        String getPriceString = "SELECT standardPrice FROM Part WHERE name = ? ;";
         try (final PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
             double price = 0;
             getPrice.setString(1, partName);
@@ -246,7 +246,7 @@ public class OrderMapper {
     }
 
     public double retrieveDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
-        String getDiscountRateString = "SELECT discount from fog.Order WHERE idOrder = ? ;";
+        String getDiscountRateString = "SELECT discount FROM fog.Order WHERE idOrder = ? ;";
         try (final PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
             double discountRate = 0;
             getDiscountRate.setInt(1, orderId);
@@ -280,7 +280,7 @@ public class OrderMapper {
     }
 
     public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws StorageLayerException {
-        String createOrderlineString = "INSERT INTO fog.Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
+        String createOrderlineString = "INSERT INTO Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
         try (final PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
             con.setAutoCommit(false);
             createOrderline.setInt(1, idOrder);
