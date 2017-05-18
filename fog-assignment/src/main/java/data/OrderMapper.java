@@ -24,6 +24,10 @@ public class OrderMapper {
     
     Connection con;
 
+    /**
+     *
+     * @param con
+     */
     public OrderMapper(Connection con) {
         this.con = con;
     }
@@ -40,7 +44,7 @@ public class OrderMapper {
  * @param shedLength length of the shed
  * @param angle angle of the roof
  * @param status is the order paid or not
- * @param price the ammount that is needed to pay
+ * @param price the amount that is needed to pay
  * @throws StorageLayerException 
  */
     public void createOrder(int customerId, int salesRepId, Timestamp date, String carportType, String roofType, int carportWidth, int carportLength, int shedWidth, int shedLength, Double angle, boolean status, double price) throws StorageLayerException {
@@ -70,6 +74,12 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param standardPrice
+     * @param orderId
+     * @throws StorageLayerException
+     */
     public void setStandardPrice(double standardPrice, int orderId) throws StorageLayerException {
         String setStandardPriceString = "UPDATE fog.Order SET standardPrice = ? WHERE idOrder= ?;";
         try (final PreparedStatement setStandardPrice = con.prepareStatement(setStandardPriceString)) {
@@ -87,7 +97,7 @@ public class OrderMapper {
         }
     }
 /**
- * This method selects all the necessary attributes about the carport from the database and returns it. It returns the specific carport based on order ID.
+ * This method selects all the necessary attributes about the carport from the database and returns an instance of the Carport class with the given attributes based on the order ID.
  * @param idOrder Order ID
  * @return carport
  * @throws StorageLayerException 
@@ -111,6 +121,11 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param orderId
+     * @throws StorageLayerException
+     */
     public void updateStatus(int orderId) throws StorageLayerException {
         String updateStatusString = "UPDATE fog.Order SET status = TRUE WHERE idOrder = ?;";
         try (final PreparedStatement updateStatus = con.prepareStatement(updateStatusString)) {
@@ -127,6 +142,12 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param partName
+     * @return double
+     * @throws StorageLayerException
+     */
     public double retrievePartPrice(String partName) throws StorageLayerException {
         String getPriceString = "SELECT standardPrice FROM Part WHERE name = ? ;";
         try (final PreparedStatement getPrice = con.prepareStatement(getPriceString)) {
@@ -143,6 +164,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param rate
+     * @param orderId
+     * @throws InvalidOrderIdException
+     * @throws StorageLayerException
+     */
     public void setDiscountRate(double rate, int orderId) throws InvalidOrderIdException, StorageLayerException {
         String setDiscountRateString = "UPDATE fog.Order SET discount = ? WHERE idOrder= ?;";
         try (final PreparedStatement setDiscountRate = con.prepareStatement(setDiscountRateString)) {
@@ -160,6 +188,12 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param finalPrice
+     * @param orderId
+     * @throws StorageLayerException
+     */
     public void setFinalPrice(double finalPrice, int orderId) throws StorageLayerException {
         String setFinalPriceString = "UPDATE fog.Order SET finalPrice = ? WHERE idOrder= ?;";
         try (final PreparedStatement setFinalPrice = con.prepareStatement(setFinalPriceString)) {
@@ -177,6 +211,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param idOrder
+     * @return Order
+     * @throws InvalidOrderIdException
+     * @throws StorageLayerException
+     */
     public Order retrieveOrder(int idOrder) throws InvalidOrderIdException, StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM `Order` where idOrder = ?;";
         try (final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
@@ -214,6 +255,12 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param orderId
+     * @return double
+     * @throws StorageLayerException
+     */
     public double retrieveFinalPrice(int orderId) throws StorageLayerException {
         String getFinalPriceString = "SELECT finalPrice from fog.Order WHERE idOrder = ? ;";
         try (final PreparedStatement getFinalPrice = con.prepareStatement(getFinalPriceString)) {
@@ -230,6 +277,11 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @return ArrayList<Integer>
+     * @throws StorageLayerException
+     */
     public ArrayList<Integer> retrieveCarportId() throws StorageLayerException {
         String getCarportIdString = "SELECT * FROM Orderline where carportId = ? ;";
         try (final PreparedStatement getCarportId = con.prepareStatement(getCarportIdString)) {
@@ -245,6 +297,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param orderId
+     * @return double
+     * @throws InvalidOrderIdException
+     * @throws StorageLayerException
+     */
     public double retrieveDiscountRate(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getDiscountRateString = "SELECT discount FROM fog.Order WHERE idOrder = ? ;";
         try (final PreparedStatement getDiscountRate = con.prepareStatement(getDiscountRateString)) {
@@ -261,6 +320,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param customerId
+     * @param date
+     * @return int
+     * @throws StorageLayerException
+     */
     public int retrieveOrderId(int customerId, Timestamp date) throws StorageLayerException {
         String getOrderIdString = "SELECT idOrder FROM `Order` WHERE idCustomer = ? AND date = ? ;";
         try (final PreparedStatement getOrderId = con.prepareStatement(getOrderIdString)) {
@@ -279,6 +345,16 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param idOrder
+     * @param partName
+     * @param length
+     * @param quantity
+     * @param explanation
+     * @param price
+     * @throws StorageLayerException
+     */
     public void createOrderline(int idOrder, String partName, double length, int quantity, String explanation, double price) throws StorageLayerException {
         String createOrderlineString = "INSERT INTO Orderline(idOrder, partName, length, quantity, explanation, price) VALUES (?,?,?,?,?,?);";
         try (final PreparedStatement createOrderline = con.prepareStatement(createOrderlineString)) {
@@ -300,6 +376,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param idOrder
+     * @return ArrayList<Orderline>
+     * @throws WrongCustomerIDException
+     * @throws StorageLayerException
+     */
     public ArrayList<Orderline> retrievePartlist(int idOrder) throws WrongCustomerIDException, StorageLayerException {
         String getPartlistString = "SELECT * FROM Orderline where idOrder = ? ;";
         ArrayList<Orderline> list = new ArrayList<>();
@@ -321,6 +404,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param orderId
+     * @return double
+     * @throws InvalidOrderIdException
+     * @throws StorageLayerException
+     */
     public double calculateStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardOrderPriceString = "SELECT SUM(price) from fog.Orderline WHERE idOrder = ? ;";
         try (final PreparedStatement getStandardOrderPrice = con.prepareStatement(getStandardOrderPriceString)) {
@@ -340,6 +430,13 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @param orderId
+     * @return double
+     * @throws InvalidOrderIdException
+     * @throws StorageLayerException
+     */
     public double retrieveStandardOrderPrice(int orderId) throws InvalidOrderIdException, StorageLayerException {
         String getStandardPriceString = "SELECT standardPrice from fog.Order WHERE idOrder = ? ;";
         try (final PreparedStatement getStandardPrice = con.prepareStatement(getStandardPriceString)) {
@@ -359,6 +456,11 @@ public class OrderMapper {
         } 
     }
 
+    /**
+     *
+     * @return ArrayList<Order>
+     * @throws StorageLayerException
+     */
     public ArrayList<Order> retrieveAllOrders() throws StorageLayerException {
         String getOrderString = "SELECT * FROM fog.Order;";
         ArrayList<Order> list = new ArrayList<>();
@@ -392,7 +494,13 @@ public class OrderMapper {
         } 
     }
     
-     public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
+    /**
+     *
+     * @param idCustomer
+     * @return ArrayList<Order>
+     * @throws StorageLayerException
+     */
+    public ArrayList<Order> retrieveCustomerOrders(int idCustomer) throws StorageLayerException {
         String getCustomerOrdersString = "SELECT * FROM fog.Order where idCustomer = ?;";
         ArrayList<Order> list = new ArrayList<>();
         try (final PreparedStatement getCustomerOrders = con.prepareStatement(getCustomerOrdersString)) {
