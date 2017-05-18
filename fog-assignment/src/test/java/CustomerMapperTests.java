@@ -96,6 +96,7 @@ public class CustomerMapperTests {
         String phone = "90490302";
         cm.customerSignup(email, password, firstName, lastName, address, phone);
     }
+    
     @Test (expected = WrongCustomerIDException.class)
     public void retrieveNonExistingCustomerDetails() throws WrongCustomerIDException, StorageLayerException {
         cm = new CustomerMapper(fogTest);

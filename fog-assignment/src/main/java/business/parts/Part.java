@@ -19,14 +19,6 @@ public class Part {
     protected int price;
     private int carportId;
 
-    public int getCarportId() {
-        return carportId;
-    }
-
-    public void setCarportId(int carportId) {
-        this.carportId = carportId;
-    }
-
     public Part(PartType partType, int quantity, double length, String name, String description) {
         this.partType = partType;
         this.quantity = quantity;
@@ -35,6 +27,14 @@ public class Part {
         this.description = description;
     }
 
+    public int getCarportId() {
+        return carportId;
+    }
+
+    public void setCarportId(int carportId) {
+        this.carportId = carportId;
+    }
+    
     public int getQuantity() {
         return quantity;
     }
