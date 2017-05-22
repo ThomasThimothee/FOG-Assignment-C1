@@ -58,9 +58,9 @@
                                 <strong>Error!</strong> The entered e-mail is already in use. 
                             </div>
                 <%  } %>
-                <form class="form-horizontal" name ="CustomerInformation" action="UserServlet" method="POST">
+                <form class="form-horizontal" name ="CustomerInformation" action="CustomerServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerInformation" />
-                        <%=render.createFormRows(customer)%>
+                        <%=render.createCustomerFormRows(customer)%>
                         <div class="row">
                             <div class="col-xs-offset-4 col-xs-4">
                                 <input class="form-control btn btn-success" type="submit" value="Update" name="update" />

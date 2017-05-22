@@ -57,8 +57,8 @@
                         </tr>
                     </thead>
                 </table>
-                <form class="form-horizontal" name ="customerPayment" action="CustomerServlet" method="POST">
-                    <input type="hidden" name="formName" value="customerPayment" />
+                <form class="form-horizontal" name ="CustomerPayment" action="CustomerServlet" method="POST">
+                    <input type="hidden" name="formName" value="CustomerPayment" />
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-8">
                             <input class="form-control" type="text" id="Amount" name="amount" placeholder="Amount to pay" /> 

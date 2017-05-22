@@ -2,8 +2,13 @@ package presentation;
 
 import business.Customer;
 import business.Order;
+import business.exceptions.EmailAlreadyInUseException;
+import business.exceptions.IncorrectEmailFormattingException;
+import business.exceptions.InsecurePasswordException;
 import business.exceptions.InvalidOrderIdException;
+import business.exceptions.InvalidUsernameOrPasswordException;
 import business.exceptions.StorageLayerException;
+import business.facades.CustomerFacade;
 import business.facades.OrderFacade;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,7 +39,7 @@ public class CustomerServlet extends HttpServlet {
         Customer customer = (Customer) session.getAttribute("currentCustomer");
         String formName = request.getParameter("formName");
         switch (formName) {
-            case "customerPayment":
+            case "CustomerPayment":
                 customerChoosePayOrder(request, response);
                 break;
             case "PayOrder":
@@ -43,6 +48,48 @@ public class CustomerServlet extends HttpServlet {
             case "ViewDrawing":
                 customerViewDrawing(request, customer, response);
                 break;
+            case "CustomerInformation":
+                customerGetInfo(request, session, response);
+                break;
+        }
+    }
+    
+      private void customerGetInfo(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String address = request.getParameter("address");
+            String phone = request.getParameter("phone");
+            Customer updatedCustomer = new Customer(email, password, firstName, lastName, address, phone);
+            Customer oldCustomer = (Customer) session.getAttribute("currentCustomer");
+            CustomerFacade.getFacade().updateCustomerInformation(updatedCustomer, oldCustomer);
+            session.setAttribute("currentCustomer", updatedCustomer);
+            request.getRequestDispatcher("loggedInHome.jsp").forward(request, response);
+        } catch (InvalidUsernameOrPasswordException e) {
+            System.out.println(e.getMessage());
+            request.setAttribute("Error", "errorMessageEmailExists");
+            request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+        } catch (InsecurePasswordException ex) {
+            System.out.println(ex.getMessage());
+            request.setAttribute("Error", "InsecurePasswordException");
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("firstName", request.getParameter("firstName"));
+            request.setAttribute("lastName", request.getParameter("lastName"));
+            request.setAttribute("address", request.getParameter("address"));
+            request.setAttribute("phone", request.getParameter("phone"));
+            request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+        } catch (IncorrectEmailFormattingException e) {
+            System.out.println(e.getMessage());
+            request.setAttribute("Error", "IncorrectEmailFormattingException");
+            request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+        } catch (EmailAlreadyInUseException ex) {
+            System.out.println(ex.getMessage());
+            request.setAttribute("Error", "EmailAlreadyInUseException");
+            request.getRequestDispatcher("customerInfo.jsp").forward(request, response);
+        } catch (StorageLayerException e) {
+             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
