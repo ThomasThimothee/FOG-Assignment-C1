@@ -24,18 +24,18 @@ public class EmployeeMapper {
 
     public void employeeSignup(String username, String password, String firstName, String lastName, String phone, String email) throws InsecurePasswordException, StorageLayerException {
         String str = "INSERT INTO SalesRep(userName, password, firstName, lastName, phone, email) VALUES (?,?,?,?,?,?);";
-        try (final PreparedStatement updateEmployee = con.prepareStatement(str)) {
+        try (final PreparedStatement employeeSignup = con.prepareStatement(str)) {
             con.setAutoCommit(false);
-            updateEmployee.setString(1, username);
-            updateEmployee.setString(2, password);
-            updateEmployee.setString(3, firstName);
-            updateEmployee.setString(4, lastName);
-            updateEmployee.setString(5, phone);
-            updateEmployee.setString(6, email);
+            employeeSignup.setString(1, username);
+            employeeSignup.setString(2, password);
+            employeeSignup.setString(3, firstName);
+            employeeSignup.setString(4, lastName);
+            employeeSignup.setString(5, phone);
+            employeeSignup.setString(6, email);
             if (password.length() < 7) {
                 throw new InsecurePasswordException();
             }
-            int rowAffected = updateEmployee.executeUpdate();
+            int rowAffected = employeeSignup.executeUpdate();
             if (rowAffected == 1) {
                 con.commit();
             } else {
@@ -47,12 +47,12 @@ public class EmployeeMapper {
     }
 
     public Employee employeeLogin(String username, String password) throws InvalidUsernameOrPasswordException, StorageLayerException {
-        String getBorrowerString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
-        try (final PreparedStatement getBorrower = con.prepareStatement(getBorrowerString)) {
+        String employeeLoginString = "SELECT * FROM SalesRep WHERE username = ? AND password = ? ;";
+        try (final PreparedStatement employeeLogin = con.prepareStatement(employeeLoginString)) {
             Employee employee = null;
-            getBorrower.setString(1, username);
-            getBorrower.setString(2, password);
-            try (final ResultSet rs = getBorrower.executeQuery()) {
+            employeeLogin.setString(1, username);
+            employeeLogin.setString(2, password);
+            try (final ResultSet rs = employeeLogin.executeQuery()) {
                 if (rs.next()) {
                     employee = new Employee(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
                     employee.setEmployeeId(rs.getInt(1));

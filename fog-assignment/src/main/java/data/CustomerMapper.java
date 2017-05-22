@@ -29,18 +29,18 @@ public class CustomerMapper {
 
     public void customerSignup(String email, String password, String firstName, String lastName, String address, String phone) throws InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException, EmailAlreadyInUseException {
         String str = "INSERT INTO Customer(email, password, firstName, lastName, address, phone) VALUES (?,?,?,?,?,?);";
-        try (final PreparedStatement updateCustomer = con.prepareStatement(str)) {
+        try (final PreparedStatement customerSignup = con.prepareStatement(str)) {
             con.setAutoCommit(false);
             if (!emailExists(email)) {
-                updateCustomer.setString(1, email);
+                customerSignup.setString(1, email);
             } else {
                 throw new EmailAlreadyInUseException();
             }
-            updateCustomer.setString(2, password);
-            updateCustomer.setString(3, firstName);
-            updateCustomer.setString(4, lastName);
-            updateCustomer.setString(5, address);
-            updateCustomer.setString(6, phone);
+            customerSignup.setString(2, password);
+            customerSignup.setString(3, firstName);
+            customerSignup.setString(4, lastName);
+            customerSignup.setString(5, address);
+            customerSignup.setString(6, phone);
             boolean valid = EmailValidator.getInstance().isValid(email);
             if (!valid) {
                 throw new IncorrectEmailFormattingException();
@@ -48,7 +48,7 @@ public class CustomerMapper {
             if (password.length() < 7) {
                 throw new InsecurePasswordException();
             }
-            int rowAffected = updateCustomer.executeUpdate();
+            int rowAffected = customerSignup.executeUpdate();
             if (rowAffected == 1) {
                 con.commit();
             } else {
