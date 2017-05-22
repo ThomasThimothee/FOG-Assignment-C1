@@ -59,7 +59,7 @@
                     <%  } 
                         if (carport.getType().equals("Flat")) { 
                             Flat flat = (Flat) carport; %>
-                            <svg viewBox="0, 0, <%=carport.getTotalLength() + 100%>, <%=carport.getCarportWidth() + 100%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">
+                            <svg viewBox="0, 0, <%=carport.getTotalLength() + svg.getxOffset()%>, <%=carport.getCarportWidth() + svg.getyOffset()%>" style="width: 100%" preserveAspectRatio="xMinYMin meet">
                                 <%=svg.drawFlatTopView(flat)%>
                             </svg>
                     <%  } else { 

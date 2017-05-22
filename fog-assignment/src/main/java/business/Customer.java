@@ -21,9 +21,7 @@ public class Customer {
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
-    }
-    
- 
+    } 
     
      public int getId_customer() {
         return id_customer;

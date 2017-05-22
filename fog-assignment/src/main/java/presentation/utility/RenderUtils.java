@@ -120,22 +120,28 @@ public class RenderUtils {
         return s;
     }
     
-    public String createFormRows(Customer customer) {
+    public String createCustomerFormRows(Customer customer) {
         String  s = "";
-                        String[] fieldNames = {"email", "password", "firstName", "lastName", "address", "phone"};
-                        String[] fieldValues = {customer.getEmail(), customer.getPassword(), customer.getFirstName(), customer.getLastName(), customer.getAddress(), customer.getPhone()};
+                        String[] fieldNames = {"email", "password", "firstName", 
+                                               "lastName", "address", "phone"};
+                        String[] fieldValues = {customer.getEmail(), customer.getPassword(), 
+                                                customer.getFirstName(), customer.getLastName(), 
+                                                customer.getAddress(), customer.getPhone()};
                         for (int i = 0; i < fieldNames.length; i++) {
                 s +=        "<div class=\"form-group\">";
                 s +=            "<div class=\"col-xs-offset-2 col-xs-8\">";
                 s +=                "<h5>";
-                s +=                fieldNames[i].substring(0, 1) + fieldNames[i].substring(1);
+                s +=                    fieldNames[i].substring(0, 1) + fieldNames[i].substring(1);
                 s +=                "</h5>";
-                s +=                "<input class=\"form-control\" type=\"text\" id=\"" + fieldNames[i].substring(0, 1).toUpperCase() + fieldNames[i].substring(1) + "\" name=\"" + fieldNames[i] + "\" value=\"" + fieldValues[i] + "\" />";
+                s +=                "<input class=\"form-control\" type=\"text\" id=\"" + 
+                                    fieldNames[i].substring(0, 1).toUpperCase() + fieldNames[i].substring(1) + 
+                                    "\" name=\"" + fieldNames[i] + "\" value=\"" + fieldValues[i] + "\" />";
                 s +=            "</div>";
                 s +=        "</div>";
                         }
         return s;
     }
+    
     
     public String createEmployeeOverviewTable(List<Order> orders) {
         String  s = "";

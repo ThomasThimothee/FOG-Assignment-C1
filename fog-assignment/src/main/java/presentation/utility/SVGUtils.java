@@ -13,15 +13,15 @@ public class SVGUtils {
     private final double yOffset = 50;
 
     private String drawLine(double x1, double y1, double x2, double y2, int stroke) {
-        return " <line x1=\"" + (x1 + xOffset) + "\" y1=\"" + (y1 + yOffset) + "\" x2=\"" + (x2 + xOffset) + "\" y2=\"" + (y2 + yOffset) + "\" style=\"fill:white;stroke:rgb(0,0,0);stroke-width:" + stroke / 2 + "\"/>";
+        return " <line x1=\"" + (x1 + getxOffset()) + "\" y1=\"" + (y1 + getyOffset()) + "\" x2=\"" + (x2 + getxOffset()) + "\" y2=\"" + (y2 + getyOffset()) + "\" style=\"fill:white;stroke:rgb(0,0,0);stroke-width:" + stroke / 2 + "\"/>";
     }
     
     private String drawRect(double x, double y, double width, double height, int stroke) {
-        return " <rect x=\"" + (x + xOffset) + "\" y=\"" + (y + yOffset) + "\" width=\"" + width / 2 + "\" height=\"" + height / 2 + "\" style=\"fill:black;stroke:black;stroke-width:" + stroke / 2 + "\"/>";
+        return " <rect x=\"" + (x + getxOffset()) + "\" y=\"" + (y + getyOffset()) + "\" width=\"" + width / 2 + "\" height=\"" + height / 2 + "\" style=\"fill:black;stroke:black;stroke-width:" + stroke / 2 + "\"/>";
     }
     
     private String drawText(double dimensions, double x, double y, String transform) {
-        return " <text x=\"" + (x + xOffset) + "\" y=\"" + (y + yOffset) + "\" fill=\"black\" transform=\"" + transform + "\">" + String.format("%.2f", (double) dimensions / 100) + "</text>";
+        return " <text x=\"" + (x + getxOffset()) + "\" y=\"" + (y + getyOffset()) + "\" fill=\"black\" transform=\"" + transform + "\">" + String.format("%.2f", (double) dimensions / 100) + "</text>";
     }
     
     private String drawCarportSides(double x, double y, double width, double height, int stroke) {
@@ -89,7 +89,7 @@ public class SVGUtils {
         s += drawLine(-10, 0, -70, 0, 2);
         s += drawLine(-10, cWidth, -70, cWidth, 2);
         s += drawLine(-70, 0, -70, cWidth, 2);
-        s += drawText(cWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), -10, "rotate(-90, 0, 0)");
+        s += drawText(cWidth, (-(xOffset * 2) + (getxOffset() - getyOffset())) - (cWidth / 2), -10, "rotate(-90, 0, 0)");
         return s;
     }
      
@@ -107,7 +107,7 @@ public class SVGUtils {
         s += drawLine(-10, ((cWidth - sWidth) / 2), -40, ((cWidth - sWidth) / 2), 2);
         s += drawLine(-10, cWidth - ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
         s += drawLine(-40, ((cWidth - sWidth) / 2), -40, cWidth - ((cWidth - sWidth) / 2), 2);
-        s += drawText(sWidth, (-(xOffset * 2) + (xOffset - yOffset)) - (cWidth / 2), 20, "rotate(-90, 0, 0)");
+        s += drawText(sWidth, (-(xOffset * 2) + (getxOffset() - getyOffset())) - (cWidth / 2), 20, "rotate(-90, 0, 0)");
         return s;
     }
     
@@ -117,7 +117,7 @@ public class SVGUtils {
         double tLength = flat.getTotalLength();
         double cLength = flat.getCarportLength();
         // Carport sides
-        String s = drawCarportSides(xOffset, yOffset, tLength, cWidth, 4);
+        String s = drawCarportSides(getxOffset(), getyOffset(), tLength, cWidth, 4);
         
         // 'Spær' 
         int spærtræQuantity = flat.getPartList().getPartList().get(9).getQuantity() - 1;
@@ -154,7 +154,7 @@ public class SVGUtils {
         double cLength = pointy.getCarportLength();
         
         // Carport sides
-        String s = drawCarportSides(xOffset, yOffset, tLength, cWidth, 4);
+        String s = drawCarportSides(getxOffset(), getyOffset(), tLength, cWidth, 4);
         
         // 'Spær'
         int spærtræQuantity = 5;
@@ -234,6 +234,14 @@ public class SVGUtils {
         s = drawLeftInnerDimensions(s, cWidth, sWidth);
         
         return s;
+    }
+
+    public double getxOffset() {
+        return xOffset;
+    }
+
+    public double getyOffset() {
+        return yOffset;
     }
     
 }

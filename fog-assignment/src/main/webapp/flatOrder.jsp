@@ -44,20 +44,22 @@
                                         "Build, Pointy Carport, pointyOrder.jsp, Flat Carport, flatOrder.jsp",
                                         "Logout, index.jsp"};
         if (customer != null) {
-        %> <%=render.createNavBar(navBarItemsLoggedIn)%> <%     
+        %><%=render.createNavBar(navBarItemsLoggedIn)%><%     
         } else {
-        %> <%=render.createNavBar(navBarItemsNotLoggedIn)%> 
+        %><%=render.createNavBar(navBarItemsNotLoggedIn)%> 
     <%  } %>
     <div class="container">
         <div class="row">
             <div class="col-xs-offset-1 col-xs-10">
                 <div class="box"> 
-                    <%  if ("errorMessageIncorrectDimensions".equals(request.getAttribute("Error"))) { %>
+                    <%  if ("Error".equals(request.getAttribute("IncorrectDimensions"))) { %>
                             <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Warning!</strong> The shed width and length cannot be more than 30 cm of the carport length and height 
+                                <strong>Warning!</strong> The shed's dimensions need to be at least 30 cm. 
+                                                          less in both width and length compared to the 
+                                                          carport's dimensions. 
                             </div>
-                    <% } 
+                    <%  } 
                         if (customer == null) { %>
                             <div class="alert alert-warning alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
