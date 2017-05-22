@@ -16,6 +16,8 @@ fork
     :Assign sales rep;
 fork again
     :Generate illustration;
+fork again
+    :Create list of parts;
 end fork
 |SalesRep|
 :Review pre-order;
