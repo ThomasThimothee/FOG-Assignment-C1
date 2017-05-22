@@ -15,7 +15,7 @@ public class Connector {
         try {
             String url = String.format("jdbc:mysql://%s:3306/%s", HOST, DBNAME);
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(url, USER, USERPW);  // The connection will be released upon program 
+            return DriverManager.getConnection(url, USER, USERPW);  
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("\n*** Remember to insert your  ID and PW in the DBConnector class! ***\n");
             System.out.println("error in DBConnector.getConnection()");
