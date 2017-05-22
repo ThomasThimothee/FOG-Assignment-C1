@@ -13,15 +13,7 @@ public class Customer {
     private String lastName;
     private String address;
     private String phone;
-
-    public Customer(String email, String password, String firstName, String lastName, String address, String phone) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phone = phone;
-    }
+    private String test;
     
      public int getId_customer() {
         return id_customer;
@@ -87,6 +79,20 @@ public class Customer {
                 + ", Last Name: " + this.getLastName()
                 + ", Address: " + this.getAddress()
                 + ", Phone Number: " + this.getPhone();
+    }
+
+    /**
+     * @return the test
+     */
+    public String getTest() {
+        return test;
+    }
+
+    /**
+     * @param test the test to set
+     */
+    public void setTest(String test) {
+        this.test = test;
     }
 }
 
