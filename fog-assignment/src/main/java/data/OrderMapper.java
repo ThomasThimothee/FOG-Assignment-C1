@@ -279,26 +279,6 @@ public class OrderMapper {
 
     /**
      *
-     * @return ArrayList<Integer>
-     * @throws StorageLayerException
-     */
-    public ArrayList<Integer> retrieveCarportId() throws StorageLayerException {
-        String getCarportIdString = "SELECT * FROM Orderline where carportId = ? ;";
-        try (final PreparedStatement getCarportId = con.prepareStatement(getCarportIdString)) {
-            ArrayList<Integer> list = new ArrayList<>();
-            try (final ResultSet rs = getCarportId.executeQuery()) {
-                while (rs.next()) {
-                    list.add(rs.getInt(3));
-                }
-                return list;
-            }
-        } catch (SQLException ex) {
-            throw new StorageLayerException();
-        } 
-    }
-
-    /**
-     *
      * @param orderId
      * @return double
      * @throws InvalidOrderIdException
