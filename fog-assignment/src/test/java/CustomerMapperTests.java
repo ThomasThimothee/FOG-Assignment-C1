@@ -36,6 +36,7 @@ public class CustomerMapperTests {
     public CustomerMapperTests() {
 
     }
+    
 
     @Before
     public void setUp() {
@@ -106,6 +107,7 @@ public class CustomerMapperTests {
     
     @Test
     public void emailExistsTrue() throws EmailAlreadyInUseException, InsecurePasswordException, IncorrectEmailFormattingException, StorageLayerException {
+        assertFalse(cm.emailExists("test@test.com"));
         String email = "test@test.com";
         String password = "1234567";
         String firstName = "Tester";
@@ -113,8 +115,7 @@ public class CustomerMapperTests {
         String address = "Testerstreet 139";
         String phone = "90490302";
         cm.customerSignup(email, password, firstName, lastName, address, phone);
-        assertTrue(cm.emailExists(email));
-        assertFalse(cm.emailExists("test@test2.com"));
+        assertTrue(cm.emailExists(email));        
     }
     
     @Test

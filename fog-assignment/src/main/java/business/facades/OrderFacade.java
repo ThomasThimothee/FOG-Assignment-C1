@@ -69,23 +69,22 @@ public class OrderFacade {
     }
 
     public void createOrderLines(Partlist partlist, int orderId) throws StorageLayerException {
+        Connection con = Connector.getConnection();
         for (Part part : partlist.getPartList()) {
-            double standardPrice = getPartPrice(part.getName());
+            double standardPrice = getPartPrice(con, part.getName());
             double finalPrice = part.partPrice(standardPrice);
-            createOrderline(part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
+            createOrderline(con, part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
         }
     }
 
-    public double getPartPrice(String partName) throws StorageLayerException {
-        Connection con = Connector.getConnection();
+    public double getPartPrice(Connection con, String partName) throws StorageLayerException {
         double price;
         OrderMapper om = new OrderMapper(con);
         price = om.retrievePartPrice(partName);
         return price;
     }
 
-    public void createOrderline(String partName, int idOrder, double length, int quantity, String explanation, double price) throws StorageLayerException {
-        Connection con = Connector.getConnection();
+    public void createOrderline(Connection con, String partName, int idOrder, double length, int quantity, String explanation, double price) throws StorageLayerException {
         OrderMapper om = new OrderMapper(con);
         om.createOrderline(idOrder, partName, length, quantity, explanation, price);
     }
