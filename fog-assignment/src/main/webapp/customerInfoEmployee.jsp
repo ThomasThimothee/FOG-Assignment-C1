@@ -62,7 +62,7 @@
                 <%  } %>
                 <form class="form-horizontal" name ="CustomerInformation" action="UserServlet" method="POST">
                     <input type="hidden" name="formName" value="CustomerInformation" />
-                        <%=render.createFormRows(customer)%>
+                        <%=render.createCustomerFormRows(customer)%>
                 </form>   
             </div>
         </div>
