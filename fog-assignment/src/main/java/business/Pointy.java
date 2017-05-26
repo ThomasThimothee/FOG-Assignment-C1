@@ -4,6 +4,7 @@ import business.parts.Part;
 import business.parts.Screw;
 import business.parts.Tile;
 import business.parts.Wood;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,14 +29,15 @@ public class Pointy extends Carport {
         this.angle = angle;
     }
 
-    public Partlist createPartList() {
+    @Override
+    public ArrayList<Part> createPartList() {
 
         // Træ & Tagplader       
         // A
         qWoodA = 2;
         lengthWoodA = 480;
         woodA = new Wood(Part.PartType.WOOD, qWoodA, lengthWoodA, "25x150 mm. trykimp. Braet", "vindskeder pa rejsning");
-        super.partList.getPartList().add(woodA);
+        super.partList.add(woodA);
 
         // B
         if (carportLength == 240) {
@@ -61,7 +63,7 @@ public class Pointy extends Carport {
             lengthWoodB = 480;
         }
         woodB = new Wood(Part.PartType.WOOD, qWoodB, lengthWoodB, "25x150 mm. trykimp. Braet", "Sternbraedder til siderne carport del");
-        super.partList.getPartList().add(woodB);
+        super.partList.add(woodB);
 
         // C
         if (shedLength <= 240 && shedLength >= 150) {
@@ -87,19 +89,19 @@ public class Pointy extends Carport {
             lengthWoodC = 480;
         }
         woodC = new Wood(Part.PartType.WOOD, qWoodC, lengthWoodC, "25x150 mm. trykimp. Braet", "Sternbraedder til siderne skur del");
-        super.partList.getPartList().add(woodC);
+        super.partList.add(woodC);
 
         // D
         qWoodD = 1;
         lengthWoodD = 1;
         woodD = new Wood(Part.PartType.WOOD, qWoodD, lengthWoodD, "faedigskaret", "byg-selv spaer (skal samles) 8 stk");
-        super.partList.getPartList().add(woodD);
+        super.partList.add(woodD);
 
         // E
         qWoodE = 9;
         lengthWoodE = 300;
         woodE = new Wood(Part.PartType.WOOD, qWoodE, lengthWoodE, "97x97 mm. trykimp. Stolpe", "Stolper nedgraves 90 cm");
-        super.partList.getPartList().add(woodE);
+        super.partList.add(woodE);
 
         // F
         if (carportLength == 240) {
@@ -119,7 +121,7 @@ public class Pointy extends Carport {
             lengthWoodF = 480;
         }
         woodF = new Wood(Part.PartType.WOOD, qWoodF, lengthWoodF, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper Carport del");
-        super.partList.getPartList().add(woodF);
+        super.partList.add(woodF);
 
         // G
         if (shedLength <= 240 && shedLength >= 150) {
@@ -139,7 +141,7 @@ public class Pointy extends Carport {
             lengthWoodG = 480;
         }
         woodG = new Wood(Part.PartType.WOOD, qWoodG, lengthWoodG, "45x195 mm. ubh. Spaertrae", "remme i sider, sadles ned i stolper (skur del, deles)");
-        super.partList.getPartList().add(woodG);
+        super.partList.add(woodG);
 
         // H
         if (shedLength <= 240 && shedLength >= 150) {
@@ -162,7 +164,7 @@ public class Pointy extends Carport {
             lengthWoodH = 360;
         }
         woodH = new Wood(Part.PartType.WOOD, qWoodH, lengthWoodH, "45x95 mm. ubh. Reglar", "losholter i siderne af skur");
-        super.partList.getPartList().add(woodH);
+        super.partList.add(woodH);
 
         // I
         if (shedWidth <= 240 && shedWidth >= 210) {
@@ -185,25 +187,25 @@ public class Pointy extends Carport {
             lengthWoodI = 360;
         }
         woodI = new Wood(Part.PartType.WOOD, qWoodI, lengthWoodI, "45x95 mm. ubh. Reglar", "losholter i gavle af skur");
-        super.partList.getPartList().add(woodI);
+        super.partList.add(woodI);
 
         // J
         qWoodJ = 2;
         lengthWoodJ = woodA.getLength();
         woodJ = new Wood(Part.PartType.WOOD, qWoodJ, lengthWoodJ, "19x100 mm. trykimp. Braet", "Vand bræt pa vindskeder");
-        super.partList.getPartList().add(woodJ);
+        super.partList.add(woodJ);
 
         // K
         qWoodK = (int) ((carportWidth * 2 * 10 - 100) / 73 / 3);
         lengthWoodK = 240;
         woodK = new Wood(Part.PartType.WOOD, qWoodK, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklaedning af gavle 1 pa 2");
-        super.partList.getPartList().add(woodK);
+        super.partList.add(woodK);
 
         // L
         qWoodL = (int) (((shedLength * 2 + shedWidth * 2) * 10 - 100) / 73);
         lengthWoodK = 210;
         woodL = new Wood(Part.PartType.WOOD, qWoodL, lengthWoodK, "19x100 mm. trykimp. Braet", "til beklaedning af skur 1 pa 2");
-        super.partList.getPartList().add(woodL);
+        super.partList.add(woodL);
 
         // M
         if (totalLength <= 270 && totalLength >= 150) {
@@ -226,19 +228,19 @@ public class Pointy extends Carport {
             lengthWoodM = 540;
         }
         woodM = new Wood(Part.PartType.WOOD, qWoodM, lengthWoodM, "25x50 mm. trykimp. Braet", "til montering oven pa tagfodslaegte");
-        super.partList.getPartList().add(woodM);
+        super.partList.add(woodM);
 
         // N
         qWoodN = 1;
         lengthWoodN = 540;
         woodN = new Wood(Part.PartType.WOOD, qWoodN, lengthWoodN, "38x73 mm. Taglaegte T1", "til z pa bagside af dor");
-        super.partList.getPartList().add(woodN);
+        super.partList.add(woodN);
 
         // O
         qWoodO = 21;
         lengthWoodO = 540;
         woodO = new Wood(Part.PartType.WOOD, qWoodO, lengthWoodO, "38x73 mm. Taglaegte T1", "til montering pa spaer, 7 raekker laegter pa hver skiftevis 1 hel & 1 halv laegte");
-        super.partList.getPartList().add(woodO);
+        super.partList.add(woodO);
 
         // P
         if (totalLength <= 420 && totalLength >= 150) {
@@ -261,94 +263,94 @@ public class Pointy extends Carport {
             lengthWoodP = 540;
         }
         woodP = new Wood(Part.PartType.WOOD, qWoodP, lengthWoodP, "38x73 mm. Taglaegte T1", "toplaegte");
-        super.partList.getPartList().add(woodP);
+        super.partList.add(woodP);
 
         // Tagpakken
         // A
         qTileA = 300;
         tileA = new Tile(Part.PartType.TILE, qTileA, "stk.", 0, "B&C Dobbelt -s sort", "monteres pa taglaegter 6 raekker af 24 sten pa hver side af taget");
-        super.partList.getPartList().add(tileA);
+        super.partList.add(tileA);
 
         // B
         qTileB = 21;
         tileB = new Tile(Part.PartType.TILE, qTileB, "stk.", 0, "B&C Rygsten sort", "monteres pa toplaegte med medfolgende beslag. Se tagsten vejledning");
-        super.partList.getPartList().add(tileB);
+        super.partList.add(tileB);
 
         // C
         qTileC = 8;
         tileC = new Tile(Part.PartType.TILE, qTileC, "stk.", 0, "B&C Toplaegte holder", "monteres pa toppen af spaeret (til toplaegte)");
-        super.partList.getPartList().add(tileC);
+        super.partList.add(tileC);
 
         // D
         qTileD = 21;
         tileD = new Tile(Part.PartType.TILE, qTileD, "stk.", 0, "B&C Rygstensbeslag", "til montering af rygsten");
-        super.partList.getPartList().add(tileD);
+        super.partList.add(tileD);
 
         // E
         qTileE = 2;
         tileE = new Tile(Part.PartType.TILE, qTileE, "pakke", 0, "B&C Tagstensbindere & nakkekroge", "til montering af tagsten, alle ydersten + hver anden fastgores");
-        super.partList.getPartList().add(tileE);
+        super.partList.add(tileE);
 
         // Beslag & Skruer        
         // A
         qScrewA = 8;
         screwA = new Screw(Part.PartType.SCREW, qScrewA, "stk.", 190, "universal hojre", "til montering af spaer pa rem");
-        super.partList.getPartList().add(screwA);
+        super.partList.add(screwA);
 
         // B
         qScrewB = 8;
         screwB = new Screw(Part.PartType.SCREW, qScrewB, "stk.", 190, "universal venstre", "til montering af spaer pa rem");
-        super.partList.getPartList().add(screwB);
+        super.partList.add(screwB);
 
         // C
         qScrewC = 1;
         screwC = new Screw(Part.PartType.SCREW, qScrewC, "sæt", 0, "50x75 mm. Stalddorsgreb", "til las på dor i skur");
-        super.partList.getPartList().add(screwC);
+        super.partList.add(screwC);
 
         // D
         qScrewD = 2;
         screwD = new Screw(Part.PartType.SCREW, qScrewD, "stk.", 390, "t-haengsel", "til dor i skur");
-        super.partList.getPartList().add(screwD);
+        super.partList.add(screwD);
 
         // E
         qScrewE = 20;
         screwE = new Screw(Part.PartType.SCREW, qScrewE, "stk.", 35, "vinkelbeslag", "til montering af losholter i skur");
-        super.partList.getPartList().add(screwE);
+        super.partList.add(screwE);
 
         // F
         qScrewF = 1;
         screwF = new Screw(Part.PartType.SCREW, qScrewF, "pakke", 0, "4,5x60 mm. skruer 200 stk.", "til montering af stern, vindskeder, vindkryds & vandbraet");
-        super.partList.getPartList().add(screwF);
+        super.partList.add(screwF);
 
         // G
         qScrewG = 1;
         screwG = new Screw(Part.PartType.SCREW, qScrewG, "pakke", 0, "5x40 mm. beslagskruer 250 stk.", "til montering af universalbeslag & toplaegte");
-        super.partList.getPartList().add(screwG);
+        super.partList.add(screwG);
 
         // H
         qScrewH = 2;
         screwH = new Screw(Part.PartType.SCREW, qScrewH, "pakke", 0, "5x100 mm. skruer 100 stk.", "til taglaegter");
-        super.partList.getPartList().add(screwH);
+        super.partList.add(screwH);
 
         // I
         qScrewI = 20;
         screwI = new Screw(Part.PartType.SCREW, qScrewI, "stk.", 0, "10x120 mm. Braeddebolt", "til montering af rem pa stolper");
-        super.partList.getPartList().add(screwI);
+        super.partList.add(screwI);
 
         // J  
         qScrewJ = 20;
         screwJ = new Screw(Part.PartType.SCREW, qScrewJ, "stk.", 11, "40x40 mm. firkantskiver", "til montering af rem pa stolper");
-        super.partList.getPartList().add(screwJ);
+        super.partList.add(screwJ);
 
         // K
         qScrewK = 3;
         screwK = new Screw(Part.PartType.SCREW, qScrewK, "pakke", 0, "4,5x70 mm. skruer 200 stk.", "til montering af yderste braet ved beklaedning");
-        super.partList.getPartList().add(screwK);
+        super.partList.add(screwK);
 
         // L
         qScrewL = 2;
         screwL = new Screw(Part.PartType.SCREW, qScrewL, "pakke", 0, "4,5x50 mm. skruer 350 stk.", "til montering af inderste braet ved beklaedning");
-        super.partList.getPartList().add(screwL);
+        super.partList.add(screwL);
 
         return super.partList;
     }

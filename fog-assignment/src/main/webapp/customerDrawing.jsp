@@ -1,4 +1,3 @@
-
 <%@page import="business.Flat"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="business.Pointy"%>

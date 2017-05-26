@@ -2,14 +2,15 @@ package presentation;
 
 import business.Customer;
 import business.Flat;
-import business.Partlist;
 import business.Pointy;
 import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.facades.EmployeeFacade;
 import business.facades.OrderFacade;
+import business.parts.Part;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +62,7 @@ public class OrderServlet extends HttpServlet {
                     OrderFacade.getFacade().createOrder(customer.getId_customer(), employeeId, dateSql, carportType, roofType, carportWidth, carportLength, shedWidth, shedLength, angle, false, 0.00); //hard code the idSalesRep and price
                     int orderId = OrderFacade.getFacade().getOrderId(customer.getId_customer(), dateSql); // hard code the sales person ID
 
-                    Partlist partList;
+                    ArrayList<Part> partList;
                     if (carportType.equals("Flat")) {
                         Flat flat = new Flat("Flat", "Plastmo Ecolite Blue", carportLength, carportWidth, shedLength, shedWidth, 0);
                         partList = flat.createPartList();

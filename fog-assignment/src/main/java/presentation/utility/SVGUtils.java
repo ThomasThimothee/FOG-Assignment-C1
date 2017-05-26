@@ -120,7 +120,7 @@ public class SVGUtils {
         String s = drawCarportSides(getxOffset(), getyOffset(), tLength, cWidth, 4);
         
         // 'Spær' 
-        int spærtræQuantity = flat.getPartList().getPartList().get(9).getQuantity() - 1;
+        int spærtræQuantity = flat.getPartList().get(9).getQuantity() - 1;
         double initialSpærtræIncrement = flat.getTotalLength() / spærtræQuantity;
         double spærtræIncrement = initialSpærtræIncrement;
         s += drawSpær(flat, spærtræQuantity, initialSpærtræIncrement);

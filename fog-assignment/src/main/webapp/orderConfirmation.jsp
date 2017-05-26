@@ -3,7 +3,6 @@
 <%@page import="business.Carport"%>
 <%@page import="presentation.utility.SVGUtils"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="business.Partlist"%>
 <%@page import="business.Flat"%>
 <%@page import="business.parts.Part"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

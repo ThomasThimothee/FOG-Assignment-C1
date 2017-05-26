@@ -1,10 +1,13 @@
 package business;
 
+import business.parts.Part;
+import java.util.ArrayList;
+
 /**
  *
  * @author thomasthimothee
  */
-public abstract class Carport {
+public abstract class Carport implements IPartlist {
     
     protected String type;
     protected String roofType;
@@ -15,7 +18,7 @@ public abstract class Carport {
     protected double shedWidth;
     protected double carportHeight;
     protected double roofHeight;
-    protected Partlist partList;
+    protected ArrayList<Part> partList;
 
     public Carport(String type, String roofType, double carportLength, double carportWidth, double shedLength, double shedWidth, double roofHeight) {
         this.type = type;
@@ -27,11 +30,9 @@ public abstract class Carport {
         this.shedWidth = shedWidth;
         this.carportHeight = 210;
         this.roofHeight = roofHeight;
-        this.partList = new Partlist();
+        this.partList = new ArrayList();
     }
-    
-    abstract Partlist createPartList();
-    
+        
     /**
      * @return the type
      */
@@ -152,11 +153,11 @@ public abstract class Carport {
         this.totalLength = totalLength;
     }
 
-    public Partlist getPartList() {
+    public ArrayList<Part> getPartList() {
         return partList;
     }
 
-    public void setPartList(Partlist partList) {
+    public void setPartList(ArrayList<Part> partList) {
         this.partList = partList;
     } 
     

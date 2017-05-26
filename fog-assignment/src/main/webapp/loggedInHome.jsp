@@ -43,7 +43,7 @@
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                         </ol>
 
-                        <!-- Wrapper for slides -->
+                        <!-- Wrapper for slides --> 
                         <div class="carousel-inner">
                             <div class="item active">
                                 <a href="flatOrder.jsp"><img class="img-responsive img-full" src="img/flatCarport.jpg" alt=""></a>

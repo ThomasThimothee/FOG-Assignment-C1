@@ -1,4 +1,4 @@
-  <%@page import="business.Customer"%>
+<%@page import="business.Customer"%>
 <%@page import="presentation.utility.RenderUtils"%>
 <%@page import="business.facades.FlatFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

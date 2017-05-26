@@ -3,7 +3,6 @@ package business.facades;
 import business.Carport;
 import business.Order;
 import business.Orderline;
-import business.Partlist;
 import business.exceptions.InvalidOrderIdException;
 import business.exceptions.StorageLayerException;
 import business.exceptions.WrongCustomerIDException;
@@ -68,9 +67,9 @@ public class OrderFacade {
         return id;
     }
 
-    public void createOrderLines(Partlist partlist, int orderId) throws StorageLayerException {
+    public void createOrderLines(ArrayList<Part> partlist, int orderId) throws StorageLayerException {
         Connection con = Connector.getConnection();
-        for (Part part : partlist.getPartList()) {
+        for (Part part : partlist) {
             double standardPrice = getPartPrice(con, part.getName());
             double finalPrice = part.partPrice(standardPrice);
             createOrderline(con, part.getName(), orderId, part.getLength(), part.getQuantity(), part.getDescription(), finalPrice);
