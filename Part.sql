@@ -1,9 +1,6 @@
-/*
--- Query: SELECT * FROM fog.Part
-LIMIT 0, 1000
 
--- Date: 2017-05-26 10:40
-*/
+
+
 INSERT INTO `Part` (`type`,`name`,`standardPrice`) VALUES ('SCREW','10x120 mm. Braeddebolt',20);
 INSERT INTO `Part` (`type`,`name`,`standardPrice`) VALUES ('WOOD','19x100 mm. trykimp. Braet',5);
 INSERT INTO `Part` (`type`,`name`,`standardPrice`) VALUES ('SCREW','1x20 mm. hulband 10 mtr.',100);
