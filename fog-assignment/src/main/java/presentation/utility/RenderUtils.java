@@ -112,7 +112,12 @@ public class RenderUtils {
         s +=                    result;            
         s +=                    "\" />";
                             } else {
-        s +=                    "<input class=\"form-control\" type=\"text\" id=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" name=\"" + str.toLowerCase() + "\" placeholder=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" />";
+        s +=                    "<input class=\"form-control\" type=\"";
+                                if (str.equals("password")) {
+        s +=                    "password\" id=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" name=\"" + str.toLowerCase() + "\" placeholder=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" />";
+                                } else {
+        s +=                    "text\" id=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" name=\"" + str.toLowerCase() + "\" placeholder=\"" + str.substring(0, 1).toUpperCase() + str.substring(1) + "\" />";
+                                }
                             } 
         s +=            "</div>";
         s +=        "</div>";
@@ -133,7 +138,13 @@ public class RenderUtils {
                 s +=                "<h5>";
                 s +=                    fieldNames[i].substring(0, 1) + fieldNames[i].substring(1);
                 s +=                "</h5>";
-                s +=                "<input class=\"form-control\" type=\"text\" id=\"" + 
+                s +=                "<input class=\"form-control\" type=\"";
+                                    if (fieldNames[i].equals("password")) {
+                s +=                    "password";
+                                    } else {
+                s +=                    "text";
+                                    }
+                s +=                "\" id=\"" + 
                                     fieldNames[i].substring(0, 1).toUpperCase() + fieldNames[i].substring(1) + 
                                     "\" name=\"" + fieldNames[i] + "\" value=\"" + fieldValues[i] + "\" />";
                 s +=            "</div>";
